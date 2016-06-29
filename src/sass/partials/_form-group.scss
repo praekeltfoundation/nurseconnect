@@ -1,0 +1,11 @@
+.FormGroup {
+
+    &--padded {
+        padding-right: $global-padding;
+        padding-left: $global-padding;
+    }
+
+    &--bordered {
+        border-top: 1px solid $color-white;
+    }
+}

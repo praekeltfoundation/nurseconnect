@@ -23,6 +23,17 @@ input {
   cursor: pointer;
 }
 
+.Logo--login {
+  display: inline-block;
+  width: 280px;
+  height: 79px;
+  margin-bottom: 24px;
+  -webkit-background-size: 100% 100%;
+     -moz-background-size: 100%;
+       -o-background-size: 100%;
+          background-size: 100%;
+}
+
 .Breadcrumb {
   display: block;
   padding-top: .75rem;
@@ -94,6 +105,15 @@ input {
 .PillButton--orange:hover,
 .PillButton--orange:active {
   background-color: #ff3822;
+}
+
+.FormGroup--padded {
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.FormGroup--bordered {
+  border-top: 1px solid #fff;
 }
 
 .FormField {
@@ -269,4 +289,10 @@ input {
 .ListItem-desc {
   color: #7e93a0;
   font-size: .75rem;
+}
+
+.Login {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  text-align: center;
 }
