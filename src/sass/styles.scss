@@ -1,10 +1,13 @@
 // Modules and Variables
 @import "partials/base";
 
+
 // Partials
 @import "partials/root";
 @import "partials/typography";
+
 // add new component partials here
+@import "partials/article";
 @import "partials/logo";
 @import "partials/breadcrumb";
 @import "partials/buttons";
@@ -20,3 +23,4 @@
 @import "pages/auth";
 
 // Third-party magic goes here
+
