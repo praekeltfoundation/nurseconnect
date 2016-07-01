@@ -751,6 +751,44 @@ input {
   text-transform: uppercase;
 }
 
+.ArticleSearch {
+  padding-top: 12px;
+  padding-right: 24px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  background-color: #c0d6dd;
+}
+
+.ArticleSearch-button {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  margin-top: 1rem;
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  padding-top: 16px;
+  padding-top: 1rem;
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
+  -webkit-border-radius: 2rem;
+     -moz-border-radius: 2rem;
+          border-radius: 2rem;
+  background-color: #c0d6dd;
+}
+
+.ArticleSearch input[type=text]:focus {
+  width: 100%;
+}
+
+.ArticleSearch-link {
+  display: inline-block;
+  width: 28px;
+  width: 1.75rem;
+  height: 28px;
+  height: 1.75rem;
+  float: right;
+}
+
 .Quote {
   color: #ff6655;
 }

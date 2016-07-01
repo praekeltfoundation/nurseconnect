@@ -92,7 +92,8 @@ gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
         colors: {
             orangeBittersweet: '#ff6655',
             bluePelorous: '#2d9ec5',
-            blueRegal: '#213d55'
+            blueRegal: '#213d55',
+  	    white: '#ffffff'
         }
     };
 
