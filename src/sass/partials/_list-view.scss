@@ -189,4 +189,39 @@
         right: 1rem;
     }
 
+    &-onOffSwitchRight {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin: auto 0;
+        padding: 0;
+        right: 2.5rem;  
+    }
+
+    &-number {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10rem;
+        height: 3rem;
+        margin: auto 0;
+        padding: 0;
+        right: 1rem;
+    }
+
+    &-password {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10rem;
+        height: 3rem;
+        margin: auto 0;
+        padding: 0;
+        right: 1rem;
+    }
+
+
 }
+

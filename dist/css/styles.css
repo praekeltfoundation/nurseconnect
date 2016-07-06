@@ -701,6 +701,48 @@ input {
   right: 1rem;
 }
 
+.ListItem-onOffSwitchRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  width: 1.75rem;
+  height: 28px;
+  height: 1.75rem;
+  margin: auto 0;
+  padding: 0;
+  right: 40px;
+  right: 2.5rem;
+}
+
+.ListItem-number {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  width: 10rem;
+  height: 48px;
+  height: 3rem;
+  margin: auto 0;
+  padding: 0;
+  right: 16px;
+  right: 1rem;
+}
+
+.ListItem-password {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  width: 10rem;
+  height: 48px;
+  height: 3rem;
+  margin: auto 0;
+  padding: 0;
+  right: 16px;
+  right: 1rem;
+}
+
 .Article-fullWidthImage {
   position: relative;
   height: 0;
@@ -840,6 +882,94 @@ input {
 .Footer-paragraph:last-child {
   margin-top: 8px;
   margin-top: .5rem;
+}
+
+.OnOffSwitch {
+  position: relative;
+  width: 60px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.OnOffSwitch-checkbox {
+  display: none;
+}
+
+.OnOffSwitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  -webkit-border-radius: 20px;
+     -moz-border-radius: 20px;
+          border-radius: 20px;
+}
+
+.OnOffSwitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.OnOffSwitch-inner:before,
+.OnOffSwitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 25px;
+  padding: 0;
+  line-height: 25px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.OnOffSwitch-inner:before {
+  content: "";
+  padding-left: 0px;
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.OnOffSwitch-inner:after {
+  content: "";
+  padding-right: 0px;
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+  text-align: right;
+}
+
+.OnOffSwitch-switch {
+  display: block;
+  width: 31px;
+  margin: -0.5px;
+  background: #2D9EC5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 30px;
+  border: 2px solid #2D9EC5;
+  -webkit-border-radius: 20px;
+     -moz-border-radius: 20px;
+          border-radius: 20px;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+}
+
+.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-inner {
+  margin-left: 0;
+}
+
+.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-switch {
+  right: 0px;
 }
 
 .Auth {
