@@ -25,25 +25,27 @@
             <h2 class="ListTitle-name">Topic of the day</h2>
         </div>
         <ul class="ListView">
-            <li class="ListItem ListItem--withImageLarge ListItem--highlight">
-                <h3 class="ListItem-title">Title</h3>
-                <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-                    <div class="ListItem-statsItem">
-                            <span class="ListItem-statsIcon Icons icon-users-blueRegal"></span>
-                            <span class="u-screenReaderText">People</span>
-                            <span class="ListItem-statsNumber">100</span>
-                    </div>
-                    <div class="ListItem-statsItem">
-                            <span class="ListItem-statsIcon Icons icon-comments-blueRegal"></span>
-                            <span class="u-screenReaderText">Comments</span>
-                            <span class="ListItem-statsNumber">24</span>
-                    </div>
-                    <div class="ListItem-statsItem">
-                            <span class="ListItem-statsIcon Icons icon-star-blueRegal"></span>
-                            <span class="u-screenReaderText">Stars</span>
-                            <span class="ListItem-statsNumber">34</span>
-                    </div>
-                <span class="ListItem-image ListItem-image--large Icons icon-clinic-blueRegal"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--withImageLarge ListItem--highlight">
+                    <h3 class="ListItem-title">Title</h3>
+                    <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+                        <div class="ListItem-statsItem">
+                                <span class="ListItem-statsIcon Icons icon-users-blueRegal"></span>
+                                <span class="u-screenReaderText">People</span>
+                                <span class="ListItem-statsNumber">100</span>
+                        </div>
+                        <div class="ListItem-statsItem">
+                                <span class="ListItem-statsIcon Icons icon-comments-blueRegal"></span>
+                                <span class="u-screenReaderText">Comments</span>
+                                <span class="ListItem-statsNumber">24</span>
+                        </div>
+                        <div class="ListItem-statsItem">
+                                <span class="ListItem-statsIcon Icons icon-star-blueRegal"></span>
+                                <span class="u-screenReaderText">Stars</span>
+                                <span class="ListItem-statsNumber">34</span>
+                        </div>
+                    <span class="ListItem-image ListItem-image--large Icons icon-clinic-blueRegal"></span>
+                </a>
             </li>
         </ul>
         <div class="ListTitle">
@@ -53,37 +55,76 @@
             <h2 class="ListTitle-grouping">Today</h2>
         </div>
         <ul class="ListView">
-            <li class="ListItem ListItem--withImage">
-                <h3 class="ListItem-title">Title</h3>
-                <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-                <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--withImage">
+                    <h3 class="ListItem-title">Title</h3>
+                    <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+                    <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+                </a>
             </li>
-            <li class="ListItem ListItem--withImage">
-                <h3 class="ListItem-title">Medical advice</h3>
-                <p class="ListItem-desc ListItem-desc--icon"><span class="ListItem-descIcon Icons icon-location-blueRegal"></span>44 Stanely, Milpark, Johannesburg</p>
-                <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--withImage">
+                    <h3 class="ListItem-title">Medical advice</h3>
+                    <p class="ListItem-desc ListItem-desc--icon"><span class="ListItem-descIcon Icons icon-location-blueRegal"></span>44 Stanely, Milpark, Johannesburg</p>
+                    <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+                </a>
             </li>
-            <li class="ListItem ListItem--withImage">
-                <h3 class="ListItem-title">Title with some <span class="ListItem-title--bold">bold text</span></h3>
-                <h4 class="ListItem-subtitle">Title</h4>
-                <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--withImage">
+                    <h3 class="ListItem-title">Title with some <span class="ListItem-title--bold">bold text</span></h3>
+                    <h4 class="ListItem-subtitle">Title</h4>
+                    <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                    <span class="ListItem-image Icons icon-clinic-blueRegal"></span>
+                </a>
             </li>
-            <li class="ListItem ListItem--withImage">
-                <h3 class="ListItem-title">Title</h3>
-                <h4 class="ListItem-subtitle">Title</h4>
-                <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <img class="ListItem-image" src="http://placehold.it/100x100"/>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--withImage">
+                    <h3 class="ListItem-title">Title</h3>
+                    <h4 class="ListItem-subtitle">Title</h4>
+                    <p class="ListItem-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <img class="ListItem-image" src="http://placehold.it/100x100"/>
+                </a>
             </li>
-            <li class="ListItem ListItem--rightIcon ">
-                <h3 class="ListItem-title">Category 1</h3>
-                <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--rightIcon ">
+                    <h3 class="ListItem-title">Category 1</h3>
+                    <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+                </a>
             </li>
-            <li class="ListItem ListItem--leftIcon ListItem--rightIcon">
-                <span class="ListItem-iconLeft Icons icon-star-blueRegal"></span>
-                <h4 class="ListItem-timeStamp">2:12PM</h4>
-                <p class="ListItem-desc ListItem-desc--oneLine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--leftIcon ListItem--rightIcon">
+                    <span class="ListItem-iconLeft Icons icon-star-blueRegal"></span>
+                    <h4 class="ListItem-timeStamp">2:12PM</h4>
+                    <p class="ListItem-desc ListItem-desc--oneLine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+                </a>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--rightIcon">
+                    <h3 class="ListItem-title">Cell number</h3>
+                    <p class="ListItem-userDetailsText">*******</p>
+                    <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+                </a>
+            </li>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--rightIcon">
+                    <h3 class="ListItem-title">Password</h3>
+                    <p class="ListItem-userDetailsText">082 123 4567</p>
+                    <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
+                </a>
+            </li>
+            <li class="ListItemWrapper">
+                <a class="ListItem ListItem--rightOnOffSwitch">
+                    <h3 class="ListItem-title">Notifications</h3>
+                    <span class="ListItem-onOffSwitchRight">
+                        <div class="OnOffSwitch">
+                            <input type="checkbox" name="onoffswitch" class="OnOffSwitch-checkbox" id="myonoffswitch" checked>
+                            <label class="OnOffSwitch-label" for="myonoffswitch">
+                                <span class="OnOffSwitch-inner"></span>
+                                <span class="OnOffSwitch-switch"></span>
+                            </label>
+                        </div>
+                    </span>
+                </a>
             </li>
             </li>
         </ul>

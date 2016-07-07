@@ -15,8 +15,9 @@
         display: block;
         width: 100%;
         border-bottom: 1px solid $color-white;
-        background: url("http://i62.tinypic.com/2e3ybe1.jpg") no-repeat 98.5% center;
-        background: url("http://i62.tinypic.com/2e3ybe1.jpg") no-repeat right .5rem center;
+        background: no-repeat 98.5% center;
+        background: no-repeat right .5rem center;
+        background-size: 1rem 1rem;
         color: $color-blue-pelorous;
         overflow: hidden;
     }

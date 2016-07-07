@@ -25,6 +25,17 @@
         padding-right: .1rem;
         padding-left: .2rem;
     }
+    &-back {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+        position: relative;
+        padding: 1rem;
+        border-top: 1px solid $color-white;
+        background-color: $color-blue-tranquil;;
+        color: $color-blue-pelorous;
+    }
 
     &-item--active {
         color: $color-blue-pelorous;

@@ -6,6 +6,16 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    &--menu {
+        background-color: $color-white;
+    }
+}
+.ListViewProfile {
+    background-color: $color-blue-spindle;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .ListTitle {
@@ -31,12 +41,25 @@
         font-weight: 400;
     }
 
+    &--menu {
+        padding-bottom: 0;
+        background-color: $color-white;
+    }
+
     &--highlight {
         background-color: $color-blue-spindle;
     }
 }
 
+.ListItemWrapper {
+    & + & {
+        border-top: 1px solid $color-white;
+    }
 
+    &--menu + &--menu {
+        border-top: 1px solid $color-blue-tranquil;
+    }
+}
 
 .ListItem {
     // @TODO: Refactor this to use the @at-root directive as soon
@@ -45,10 +68,7 @@
 
     display: block;
     position: relative;
-    padding-top: 1rem;
-    padding-right: .5rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
+    padding: 1rem;
 
     & + & {
         border-top: 1px solid $color-white;
@@ -188,5 +208,27 @@
     &-iconRight {
         right: 1rem;
     }
+
+    &-onOffSwitchRight {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin: auto 0;
+        padding: 0;
+        right: 2.5rem;
+    }
+
+    &-userDetailsText {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10rem;
+        padding: 0;
+        right: 1rem;
+        color: $color-grey-light-slate;
+    }
+
 
 }

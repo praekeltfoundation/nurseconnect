@@ -31,7 +31,8 @@ input {
 
 .Logo--auth {
   display: inline-block;
-  width: 280px;
+  width: 60%;
+  max-width: 280px;
   height: 79px;
   margin-bottom: 24px;
   -webkit-background-size: 100% 100%;
@@ -72,6 +73,19 @@ input {
   padding-left: .2rem;
 }
 
+.Breadcrumb-back {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  position: relative;
+  padding: 16px;
+  padding: 1rem;
+  border-top: 1px solid #ffffff;
+  background-color: #dae8eb;
+  color: #2d9ec5;
+}
+
 .Breadcrumb-item--active {
   color: #2d9ec5;
 }
@@ -97,14 +111,16 @@ input {
   margin-top: 1rem;
   margin-bottom: 16px;
   margin-bottom: 1rem;
-  padding-top: 16px;
-  padding-top: 1rem;
-  padding-bottom: 16px;
-  padding-bottom: 1rem;
+  padding-top: 12px;
+  padding-top: .75rem;
+  padding-bottom: 12px;
+  padding-bottom: .75rem;
   -webkit-border-radius: 2rem;
      -moz-border-radius: 2rem;
           border-radius: 2rem;
   color: #ffffff;
+  font-size: 12px;
+  font-size: .75rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -455,9 +471,13 @@ input {
   display: block;
   width: 100%;
   border-bottom: 1px solid #ffffff;
-  background: url("http://i62.tinypic.com/2e3ybe1.jpg") no-repeat 98.5% center;
-  background: url("http://i62.tinypic.com/2e3ybe1.jpg") no-repeat right 8px center;
-  background: url("http://i62.tinypic.com/2e3ybe1.jpg") no-repeat right 0.5rem center;
+  background: no-repeat 98.5% center;
+  background: no-repeat right 8px center;
+  background: no-repeat right .5rem center;
+  -webkit-background-size: 1rem 1rem;
+     -moz-background-size: 1rem 1rem;
+       -o-background-size: 1rem 1rem;
+          background-size: 1rem 1rem;
   color: #2d9ec5;
   overflow: hidden;
 }
@@ -476,6 +496,17 @@ input {
 }
 
 .ListView {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ListView--menu {
+  background-color: #ffffff;
+}
+
+.ListViewProfile {
+  background-color: #c0d6dd;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -511,21 +542,28 @@ input {
   font-weight: 400;
 }
 
+.ListTitle--menu {
+  padding-bottom: 0;
+  background-color: #ffffff;
+}
+
 .ListTitle--highlight {
   background-color: #c0d6dd;
+}
+
+.ListItemWrapper + .ListItemWrapper {
+  border-top: 1px solid #ffffff;
+}
+
+.ListItemWrapper--menu + .ListItemWrapper--menu {
+  border-top: 1px solid #dae8eb;
 }
 
 .ListItem {
   display: block;
   position: relative;
-  padding-top: 16px;
-  padding-top: 1rem;
-  padding-right: 8px;
-  padding-right: .5rem;
-  padding-bottom: 16px;
-  padding-bottom: 1rem;
-  padding-left: 16px;
-  padding-left: 1rem;
+  padding: 16px;
+  padding: 1rem;
 }
 
 .ListItem + .ListItem {
@@ -701,6 +739,32 @@ input {
   right: 1rem;
 }
 
+.ListItem-onOffSwitchRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  width: 1.75rem;
+  height: 28px;
+  height: 1.75rem;
+  margin: auto 0;
+  padding: 0;
+  right: 40px;
+  right: 2.5rem;
+}
+
+.ListItem-userDetailsText {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  width: 10rem;
+  padding: 0;
+  right: 16px;
+  right: 1rem;
+  color: #7e93a0;
+}
+
 .Article-fullWidthImage {
   position: relative;
   height: 0;
@@ -820,7 +884,8 @@ input {
   font-size: .8rem;
   padding-left: 24px;
   padding-right: 24px;
-  border-top: 1px solid #7e93a0;
+  border-top: 1px solid #dae8eb;
+  background-color: #ffffff;
 }
 
 .Footer-link {
@@ -840,6 +905,94 @@ input {
 .Footer-paragraph:last-child {
   margin-top: 8px;
   margin-top: .5rem;
+}
+
+.OnOffSwitch {
+  position: relative;
+  width: 60px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.OnOffSwitch-checkbox {
+  display: none;
+}
+
+.OnOffSwitch-label {
+  display: block;
+  border: 2px solid #ffffff;
+  -webkit-border-radius: 20px;
+     -moz-border-radius: 20px;
+          border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.OnOffSwitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.OnOffSwitch-inner:before,
+.OnOffSwitch-inner:after {
+  display: block;
+  width: 50%;
+  height: 25px;
+  padding: 0;
+  float: left;
+  line-height: 25px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.OnOffSwitch-inner:before {
+  padding-left: 0;
+  background-color: #ffffff;
+  color: #ffffff;
+  content: "";
+}
+
+.OnOffSwitch-inner:after {
+  padding-right: 0;
+  background-color: #ffffff;
+  color: #ffffff;
+  text-align: right;
+  content: "";
+}
+
+.OnOffSwitch-switch {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 30px;
+  bottom: 0;
+  width: 31px;
+  margin: -0.5px;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+  border: 2px solid #2d9ec5;
+  -webkit-border-radius: 20px;
+     -moz-border-radius: 20px;
+          border-radius: 20px;
+  background: #2d9ec5;
+}
+
+.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-inner {
+  margin-left: 0;
+}
+
+.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-switch {
+  right: 0;
 }
 
 .Auth {
