@@ -34,6 +34,7 @@ urlpatterns += patterns(
         r"^profiles/",
         include("molo.profiles.urls", namespace="molo.profiles")
     ),
+    url(r'^comments/', include('molo.commenting.urls')),
 
     url(r"^styleguide/", include("styleguide.urls", namespace="styleguide")),
     url(r"", include("molo.core.urls")),
