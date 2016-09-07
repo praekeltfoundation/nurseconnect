@@ -72,6 +72,8 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
 
     'molo.profiles',
+    'django_comments',
+    'molo.commenting',
     'mptt',
     'djcelery',
 
@@ -82,6 +84,10 @@ INSTALLED_APPS = [
     # styleguide
     'styleguide',
 ]
+
+COMMENTS_APP = 'molo.commenting'
+COMMENTS_FLAG_THRESHHOLD = 3
+COMMENTS_HIDE_REMOVED = False
 
 SITE_ID = 1
 
