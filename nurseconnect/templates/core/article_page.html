@@ -37,7 +37,9 @@
                         {{ block }}
                     {% endif %}
                 {% endfor %}
-                {% include "comments/comment_block.html" %}
+                {% if self.is_current_topic_of_the_day %}
+                    {% include "comments/comment_block.html" %}
+                {% endif %}
             </article>
         </div>
     </div>
