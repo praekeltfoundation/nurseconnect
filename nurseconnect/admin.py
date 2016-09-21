@@ -1,7 +1,6 @@
 from wagtailmodeladmin.options import ModelAdminGroup
 from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
 
-
 from molo.core.models import ArticlePage
 from molo.yourwords.admin import (
     YourWordsCompetitionAdmin, YourWordsCompetitionEntryAdmin)
