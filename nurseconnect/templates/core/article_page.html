@@ -63,9 +63,11 @@
                 {% endfor %}
             </div>
         </article>
-        <section class="Comments">
-            <h1 class="Comments-label">{% trans "" %}Comments</h1>
-            {% include "comments/comment_block.html" %}
-        </section>
+        {% if self.is_current_topic_of_the_day %}
++           <section class="Comments">
+                <h1 class="Comments-label">{% trans "Comments" %}</h1>
+                {% include "comments/comment_block.html" %}
+            </section>
++       {% endif %}
     </section>
 {% endblock %}
