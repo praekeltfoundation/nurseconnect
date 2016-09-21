@@ -1,6 +1,7 @@
-from nurseconnect.admin import YourWordsModelAdminGroup
+from nurseconnect.admin import ArticlePageModelAdmin, YourWordsModelAdminGroup
 
 from wagtailmodeladmin.options import wagtailmodeladmin_register
 
 
+wagtailmodeladmin_register(ArticlePageModelAdmin)
 wagtailmodeladmin_register(YourWordsModelAdminGroup)
