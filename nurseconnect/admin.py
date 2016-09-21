@@ -1,4 +1,3 @@
-
 from wagtailmodeladmin.options import ModelAdminGroup
 from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
 
