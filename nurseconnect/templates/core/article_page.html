@@ -1,46 +1,80 @@
 {% extends "base.html" %}
 
-{% load static core_tags %}
+{% load static core_tags i18n %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load comments mptt_tags molo_commenting_tags %}
+{% load nurseconnect_tags %}
 
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="Article">
-        {% if self.image %}
-            <div class="Article-fullWidthImage">
-                <div class="Article-image">{% image self.image width-380 %}</div>
-            </div>
-        {% endif %}
-        <div class="Article-body">
-            <h1 class="Article-title">{{ self.title }}</h1>
-            <p>{{ self.subtitle }}</p>
-            <article>
+    <section class="Paper">
+        <article class="Paper-body">
+            <header class="Paper-header">
+                {% if self.image %}
+                    <div class="Paper-graphic">{% image self.image max-500x150 %}</div>
+                {% endif %}
+                <time class="Paper-dateline"
+                      datetime="{{ self.articlepage.first_published_at.year }}-{{ self.articlepage.first_published_at.month }}-{{ self.articlepage.first_published_at.day }}"
+                      pubdate
+                      title="{% convert_month self.articlepage.first_published_at.month %} {{ self.articlepage.first_published_at.day }}, {{ self.articlepage.first_published_at.year }}">
+                    {% convert_month self.articlepage.first_published_at.month %}
+                    {{ self.articlepage.first_published_at.day }}
+                    {{ self.articlepage.first_published_at.year }}
+                </time>
+                <h1 class="Paper-headline">{{ self.title }}</h1>
+                <span class="Paper-byline">by <a href="#" class="Paper-bylineAuthor" rel="author">
+                    {{ self.articlepage.owner.first_name }}
+                    {{ self.articlepage.owner.last_name }}
+                </a></span>
+                <p class="Paper-lead">{{ self.subtitle }}</p>
+                {% get_comment_count for self as comment_count %}
+                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+            </header>
+            <div class="Paper-copy">
                 {% for block in self.body %}
                     {% if block.block_type == "heading" %}
-                        <h1>{{ block.value }}</h1>
+                        <h2>{{ block.value }}</h2>
                     {% elif block.block_type == "image" %}
-                        {% image block.value width-240 %}
+                        {% if block.value %}
+                            <figure>
+                                {% image block.value max-500x150 %}
+                                <figcaption>{{ block.value.title }}</figcaption>
+                            </figure>
+                        {% endif %}
                     {% elif block.block_type == "numbered_list" %}
-                        <ol>
-                            {% for item in block.value %}
-                                <li>{{ item|handle_markdown }}</li>
-                            {% endfor %}
-                        </ol>
+                        {% if block.value %}
+                            <ul>
+                                {% for item in block.value %}
+                                    <li>{{ item|handle_markdown }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     {% elif block.block_type == "list" %}
-                        <ul>
-                            {% for item in block.value %}
-                                <li>{{ item|handle_markdown }}</li>
-                            {% endfor %}
-                        </ul>
+                        {% if block.value %}
+                            <ul>
+                                {% for item in block.value %}
+                                    <li>{{ item|handle_markdown }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     {% else %}
                         {{ block }}
                     {% endif %}
                 {% endfor %}
+<<<<<<< HEAD
                 {% if self.is_current_topic_of_the_day %}
                     {% include "comments/comment_block.html" %}
                 {% endif %}
             </article>
         </div>
     </div>
+=======
+            </div>
+        </article>
+        <section class="Comments">
+            <h1 class="Comments-label">{% trans "" %}Comments</h1>
+            {% include "comments/comment_block.html" %}
+        </section>
+    </section>
+>>>>>>> f94f9dc47f71d18f09734cb40ea55daea0933200
 {% endblock %}

@@ -1,0 +1,71 @@
+.NavBar {
+    $block: unquote("#{&}");
+
+    display: flex;
+    color: $color-blue-pelorous;
+
+    &-navGroup {
+        @include no-list;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-navItem {
+        display: inline-block;
+        position: relative;
+        margin: 0 scale(beta);
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &--active {
+            color: $color-orange-bittersweet;
+        }
+    }
+
+    &-navLink {
+        color: inherit;
+        font-weight: 700;
+        text-decoration: none;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: $color-orange-bittersweet;
+        }
+    }
+
+
+
+    &--siteHead {
+        @include breakpoint($bp-smart) {
+            position: relative;
+
+            #{$block}-navItem {
+                &--active {
+                    &:after {
+                        display: block;
+                        position: absolute;
+                        top: rem(42);
+                        right: 0;
+                        left: 0;
+                        width: scale(gamma);
+                        height: scale(gamma);
+                        margin: 0 auto;
+                        transform: rotate(45deg);
+                        background-color: $color-blue-pelorous;
+                        content: "";
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{% load i18n molo_commenting_tags nurseconnect_tags %}
+
+
+<dl class="Comments-item">
+    <dt class="Comments-byline">
+        <a href="#" rel="author" class="Comments-author">{% if not node.first_name %}Anonymous{% else %}{{ node.first_name }}{% endif %}</a>
+        <time class="Comments-dateline"
+              datetime="{{ comment_list.0.values.0.submit_date.year }}-{{ comment_list.0.values.0.submit_date.month }}-{{ comment_list.0.values.0.submit_date.day }}"
+              pubdate
+              title="{% convert_month comment_list.0.values.0.submit_date.month %} {{ comment_list.0.values.0.submit_date.day }}, {{ comment_list.0.values.0.submit_date.year }}">
+            {% convert_month comment_list.0.values.0.submit_date.month %}
+            {{ comment_list.0.values.0.submit_date.day }}
+            {{ comment_list.0.values.0.submit_date.year }} - {{ comment_list.0.values.0.submit_date.hour }}:{{ comment_list.0.values.0.submit_date.minute }}
+        </time>
+    </dt>
+    {% if node.is_removed %}
+        <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>
+    {% else %}
+        <dd class="Comments-words">
+        {{ node.comment }}
+        <ul class="Comments-actionBar">
+            <li class="Comments-action">
+                {% if node.parent == None %}
+                    <a href="{% url 'molo-comments-report' node.pk %}?next={% url 'report_response' node.pk %}"
+                       class="Comments-actionLink">{% trans "Report" %}</a>
+                    {% if request.user|is_in_group:'Expert' and not node.user|is_in_group:'Expert' %}
+                        <a href="{% url 'molo-comments-reply' node.pk %}"
+                           class="Comments-actionLink">{% trans "Reply" %}</a>
+                    {% endif %}
+                {% endif %}
+            </li>
+        </ul>
+    {% endif %}
+    </dd>
+</dl>

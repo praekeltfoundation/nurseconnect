@@ -1,0 +1,112 @@
+.Comments {
+    $block: unquote("#{&}");
+
+    background-color: $color-blue-spindle;
+
+    &-label {
+        margin: 0 0 scale(alpha);
+        padding: scale(alpha) scale(alpha) 0;
+        color: $color-orange-bittersweet;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    &-body {
+
+    }
+
+    &-item {
+        //padding: scale(gamma);
+        margin: 0;
+        padding: 0 scale(alpha);
+
+        & + & {
+            margin-top: scale(alpha);
+            padding-top: scale(alpha);
+            border-top: 1px solid $color-blue-pelorous;
+        }
+    }
+
+    &-byline {
+        display: block;
+    }
+
+    &-author {
+        display: block;
+        color: $color-blue-regal;
+        font-size: scale(beta);
+        text-decoration: none;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    &-dateline {
+        display: block;
+        color: $color-grey-light-slate;
+        font-size: scale(alpha);
+        font-weight: 600;
+        vertical-align: middle;;
+    }
+
+    &-words {
+        margin: 0 0 scale(beta);
+    }
+
+    &-actionBar {
+        @include no-list;
+    }
+
+    &-action {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &-actionLink {
+        color: $color-blue-pelorous;
+        font-weight: 600;
+        text-decoration: none;
+
+        & + & {
+            margin-left: scale(beta);
+        }
+    }
+
+    &-actions { // Secondary actions for the comments list
+        margin: scale(gamma);
+    }
+
+    &-submission {
+        margin: 0;
+        margin-top: scale(alpha);
+        padding: scale(alpha);
+        border-top: 1px solid $color-blue-pelorous;
+        overflow: hidden;
+    }
+
+    &-fieldLabel {
+        display: block;
+        margin-bottom: scale(alpha);
+        color: $color-blue-regal;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-field {
+        display: block;
+        width: 90%;
+        height: 60px;
+        margin: 0;
+        padding: scale(beta) 5%;
+        border: 1px solid $color-blue-tranquil;
+        background-color: $color-white;
+        color: $color-blue-regal;
+
+        &::placeholder {
+            color: $color-grey-light-slate;
+        }
+    }
+
+    &-submitButton {
+        margin-top: scale(alpha);
+    }
+}

@@ -1,0 +1,42 @@
+.Breadcrumb {
+    $block: unquote("#{&}");
+
+    font-size: 12px;
+
+    &-group {
+        @include no-list;
+        width: 100%;
+    }
+
+    &-item {
+        display: inline-block;
+        vertical-align: middle;
+        zoom: 1;
+    }
+
+    &-link {
+        color: inherit;
+        text-decoration: none;
+
+        &:active,
+        &:focus,
+        &:hover {
+            color: $color-blue-regal;
+        }
+
+        &--current {
+            color: $color-blue-regal;
+        }
+    }
+
+    &-chevron {
+        display: inline-block;
+        margin: 0 4px;
+        vertical-align: middle;
+
+        img {
+            display: block;
+            width: 8px;
+        }
+    }
+}

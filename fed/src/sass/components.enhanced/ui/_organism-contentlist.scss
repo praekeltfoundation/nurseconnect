@@ -1,0 +1,36 @@
+.ContentList {
+    $block: unquote("#{&}");
+
+    @include clearfix;
+    background-color: $color-white;
+
+    & + & {
+        border-top: 1px solid $color-blue-regal;
+        border-top: 1px solid rgba($color-blue-regal, .1);
+    }
+
+    &--bgSecondary {
+        background-color: $color-blue-spindle;
+    }
+
+    &--bgTertiary {
+        background-color: $color-blue-tranquil;
+    }
+
+    &-header {
+        margin: scale(beta) scale(gamma);
+        background-color: inherit;
+    }
+
+    &-categoryLabel {
+        margin: 0;
+        color: $color-orange-bittersweet;
+        font-size: scale(beta);
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-actions {
+        margin: scale(gamma);
+    }
+}

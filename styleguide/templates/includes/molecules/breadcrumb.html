@@ -1,0 +1,23 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<nav class="Breadcrumb" role="navigation">
+    <ul class="Breadcrumb-group" role="menu">
+        <li class="Breadcrumb-item" role="presentation">
+            <a href="" class="Breadcrumb-link" role="menuitem">Lorem</a>
+            <span class="Breadcrumb-chevron">
+                <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+            </span>
+        </li>
+        <li class="Breadcrumb-item" role="presentation">
+            <a href="" class="Breadcrumb-link" role="menuitem">Lorem</a>
+            <span class="Breadcrumb-chevron">
+                <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+            </span>
+        </li>
+        <li class="Breadcrumb-item" role="presentation">
+            <span class="Breadcrumb-link Breadcrumb-link--current" role="menuitem">Lorem</span>
+        </li>
+    </ul>
+</nav>

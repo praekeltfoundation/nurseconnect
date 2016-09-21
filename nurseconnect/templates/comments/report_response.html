@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments mptt_tags molo_commenting_tags i18n %}
+
+{% block content %}
+    <section class="Paper">
+        <article class="Paper-body">
+            <header class="Paper-header">
+                <h1 class="Paper-headline">{% trans "Thanks!" %}</h1>
+                <p class="Paper-lead">{% trans "This comment has been reported." %}</p>
+                <p>{% trans "It will be reviewed by the team and may be removed if it breaks our Platform rules" %}</p>
+                <div class="Splash-actions">
+                    <ul class="ButtonGroup">
+                        <li class="ButtonGroup-item">
+                            <a href="{% pageurl article %}" class="Button">{% trans "Back to article" %}</a>
+                        </li>
+
+                    </ul>
+            </header>
+        </article>
+    </section>
+{% endblock %}

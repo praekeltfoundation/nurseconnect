@@ -1,32 +1,30 @@
-{% load i18n %}
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
 
-<header class="Navbar">
-    <a class="Navbar-logo" href="/">
-        <span class="Navbar-logoIcon Icons icon-logo" aria-hidden="true"></span>
-        <span class="u-screenReaderText">{% trans "Nurse Connect Logo" %}</span>
-    </a>
-    {% if user.is_authenticated %}
-        <nav class="Navbar-navigation">
-            <ul class="Navbar-linkList">
-                <li class="Navbar-item">
-                    <a class="Navbar-link" href="{% url "search" %}">
-                        <span class="Icons icon-search-orangeBittersweet"></span>
-                        <span class="u-screenReaderText">{% trans "Search" %}</span>
-                    </a>
-                </li>
-                <li class="Navbar-item">
-                    <a class="Navbar-link" href="{% url "view_my_profile" %}">
-                        <span class="Icons icon-profile-orangeBittersweet"></span>
-                        <span class="u-screenReaderText">{% trans "Profile" %}</span>
-                    </a>
-                </li>
-                <li class="Navbar-item">
-                    <a class="Navbar-link" href="#menu">
-                        <span class="Icons icon-burger-orangeBittersweet"></span>
-                        <span class="u-screenReaderText">{% trans "Menu" %}</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    {% endif %}
-</header>
+{% if user.is_authenticated %}
+    <header class="SiteHead">
+        <div class="SiteHead-brand">
+            <a href="{% url "home" %}" class="Logo Logo--siteHead">
+                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </a>
+        </div>
+        <div class="SiteHead-actions" role="navigation">
+            <nav class="NavBar NavBar--siteHead" role="menubar">
+                <ul class="NavBar-navGroup" role="menu">
+                    <li class="NavBar-navItem{% if active == "menu" %} NavBar-navItem--active{% endif %}"
+                        role="presentation">
+                        <a href="{% url "menu" %}" class="NavBar-navLink" role="menuitem">{% trans "Menu" %}</a>
+                    </li>
+                    <li class="NavBar-navItem{% if active == "profile" %} NavBar-navItem--active{% endif %}" role="presentation">
+                        <a href="{% url "view_my_profile" %}" class="NavBar-navLink"
+                           role="menuitem">{% trans "Profile" %}</a>
+                    </li>
+                    <li class="NavBar-navItem{% if active == "search" %} NavBar-navItem--active{% endif %}" role="presentation">
+                        <a href="{% url "search" %}" class="NavBar-navLink" role="menuitem">{% trans "Search" %}</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+{% endif %}

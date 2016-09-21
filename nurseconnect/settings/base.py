@@ -245,11 +245,18 @@ LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),
 ]
 
+# Region for phone number validation
+PHONENUMBER_DEFAULT_REGION = 'ZA'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_ROOT = join(PROJECT_ROOT, "static")
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    join(PROJECT_ROOT, "fed/dist"),
+]
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -305,3 +312,6 @@ EMAIL_HOST = environ.get("EMAIL_HOST", "localhost")
 EMAIL_PORT = environ.get("EMAIL_PORT", 25)
 EMAIL_HOST_USER = environ.get("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
+
+# LOGIN URL used for restrcited views
+LOGIN_URL = "auth_login"

@@ -2,37 +2,40 @@
 {% get_settings %}
 
 {% block content %}
-    <div class="profiles">
-        <form method="POST" action="{% url "view_my_profile" %}" class="profiles__form">
+    <form method="POST" action="{% url "view_my_profile" %}" class="Form Form--padded">
+        <fieldset class="Form-fieldGroup">
+            <legend class="Form-groupHeading">Settings</legend>
             <input type="hidden" name="action" value="edit_profile_settings">
             {% csrf_token %}
-            <ul class="ListViewProfile">
-                <li class="ListItemWrapper">
-                    <div class="ListItem ListItem--rightIcon ">
-                        {{ settings_form.first_name.label_tag }}
-                        {{ settings_form.first_name }}
-                        {{ settings_form.first_name.errors }}
-                        <p class="profile__last-name">{{ user.first_name | default:"Anonymous" }}</p>
-                    </div>
-                </li>
-                <li class="ListItemWrapper">
-                    <div class="ListItem ListItem--rightIcon ">
-                        {{ settings_form.last_name.label_tag }}
-                        {{ settings_form.last_name }}
-                        {{ settings_form.last_name.errors }}
-                        <p class="profile__last-name">{{ user.last_name | default:"Anonymous" }}</p>
-                    </div>
-                </li>
-                <li class="ListItemWrapper">
-                    <div class="ListItem ListItem--rightIcon ">
-                        {{ settings_form.username.label_tag }}
-                        {{ settings_form.username }}
-                        {{ settings_form.username.errors }}
-                        <p class="profile__last-name">{{ user.username | default:"Anonymous" }}</p>
-                    </div>
-                </li>
-            </ul>
-            <input type="submit" class="PillButton PillButton--orange" value="{% trans "Update Profile" %}">
-        </form>
-    </div>
+            {% if settings_form.errors %}
+                <p class="error errorlist">
+                    {% for key, errors in settings_form.errors.iteritems %}
+                        {% for error in errors %}
+                            {% trans error %}<br/>
+                        {% endfor %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+            <div class="Form-field">
+                <label for="fname" class="Form-fieldLabel">{{ settings_form.first_name.label }}</label>
+                {{ settings_form.first_name }}
+                {{ settings_form.first_name.errors }}
+            </div>
+            <div class="Form-field">
+                <label for="lname" class="Form-fieldLabel">{{ settings_form.last_name.label }}</label>
+                {{ settings_form.last_name }}
+                {{ settings_form.last_name.errors }}
+            </div>
+            <div class="Form-field">
+                <label for="contactnumber" class="Form-fieldLabel">{{ settings_form.username.label }}</label>
+                {{ settings_form.username }}
+                {{ settings_form.username.errors }}
+            </div>
+        </fieldset>
+        {% if edit == "edit-settings" %}
+            <div class="Form-actions">
+                <input type="submit" class="Button" value="{% trans "Update Profile" %}">
+            </div>
+        {% endif %}
+    </form>
 {% endblock %}

@@ -1,0 +1,11 @@
+.SiteHead {
+    $block: unquote("#{&}");
+
+    background-color: $color-white;
+    text-align: center;
+
+    &-actions,
+    &-brand {
+        padding: scale(alpha);
+    }
+}

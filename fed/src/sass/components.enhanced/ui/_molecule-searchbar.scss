@@ -1,0 +1,44 @@
+.SearchBar {
+    $block: unquote("#{&}");
+
+    @include clearfix;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: center;
+
+    &--isolated {
+        padding: scale(gamma);
+        background-color: $color-blue-spindle;
+    }
+
+    &-input,
+    &-submit {
+        display: block;
+        padding: scale(beta);
+        float: left;
+    }
+
+    &-input {
+        flex-grow: 1;
+        width: 70%;
+        width: calc(100% - 4rem);
+        border-top-left-radius: scale(gamma);
+        border-bottom-left-radius: scale(gamma);
+        background-color: $color-white;
+    }
+
+    &-submit {
+        width: 4rem;
+        border-top-right-radius: scale(gamma);
+        border-bottom-right-radius: scale(gamma);
+        background-color: $color-blue-pelorous;
+        background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzMDAgMzAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMDAgMzAwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGQ9Ik0zMDAsMjg2LjNjMC0zLjgtMS40LTctNC4xLTkuN0wyMzIsMjEyLjdjMTkuNC0yMy4zLDI5LTUwLjcsMjktODIuMmMwLTM2LjEtMTIuOC02Ni45LTM4LjQtOTIuNWMtMjUuMy0yNS4zLTU2LTM4LTkyLjEtMzgKCUM5NC40LDAsNjMuNiwxMi42LDM4LDM3LjlDMTIuNyw2My41LDAsOTQuNCwwLDEzMC41czEyLjcsNjYuOCwzOCw5Mi4xYzI1LjYsMjUuNiw1Ni40LDM4LjQsOTIuNSwzOC40YzMxLjUsMCw1OC45LTkuNyw4Mi4yLTI5CglsNjMuOSw2My45YzIuNywyLjcsNiw0LjEsOS43LDQuMWMzLjgsMCw2LjktMS40LDkuNS00LjFDMjk4LjYsMjkzLjIsMzAwLDI5MC4xLDMwMCwyODYuMyBNMjAzLjQsNTcuMgoJYzIwLjMsMjAuMywzMC40LDQ0LjcsMzAuNCw3My4yYzAsMjguNC0xMCw1Mi43LTMwLDcyLjdsLTAuNiwwLjZjLTIwLDIwLTQ0LjIsMzAtNzIuNywzMGMtMjguNiwwLTUzLTEwLjEtNzMuMi0zMC40CgljLTIwLTIwLTMwLTQ0LjMtMzAtNzIuOXMxMC01MywzMC03My4yYzIwLjMtMjAsNDQuNy0zMCw3My4yLTMwQzE1OS4xLDI3LjIsMTgzLjQsMzcuMiwyMDMuNCw1Ny4yIiBmaWxsPSIjZmZmZmZmIi8+Cjwvc3ZnPgo=");
+        background-position: 45% 50%;
+        background-size: 1.5rem;
+        color: $color-white;
+        text-indent: -999em;
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,133 @@
+.Paper {
+    $block: unquote("#{&}");
+
+    &-header {
+        padding: scale(gamma);
+        background-color: $color-blue-spindle;
+        border-bottom: $color-blue-tranquil;
+    }
+
+    &-graphic {
+        width: 100%;
+        height: auto;
+        margin-bottom: scale(beta);
+    }
+
+    &-headline {
+        margin: scale(alpha) 0;
+        color: $color-blue-pelorous;
+        font-weight: 400;
+        line-height: 1.25;
+    }
+
+    &-dateline {
+        color: $color-orange-bittersweet;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-byline {
+        font-weight: 300;
+    }
+
+    &-lead {
+        margin: scale(alpha) 0 0;
+        font-size: scale(gamma);
+        font-weight: 300;
+    }
+
+    &-copy {
+        padding: scale(gamma);
+        background-color: $color-white;
+        font-weight: 300;
+
+        p {
+            margin: scale(beta) 0;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        b,
+        strong {
+            font-weight: 600;
+        }
+
+        a {
+            color: $color-orange-bittersweet;
+            font-weight: 600;
+        }
+
+        blockquote {
+            max-width: 90%;
+            margin: scale(beta) (-(scale(gamma))) scale(beta) auto;
+            padding: scale(gamma);
+            color: $color-grey-nero;
+            font-family: serif;
+            font-size: scale(gamma);
+            font-style: italic;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: scale(delta) 0 scale(beta);
+            color: $color-grey-nero;
+            font-weight: 400;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: scale(eta);
+        }
+
+        h2 {
+            font-size: scale(delta);
+        }
+
+        h3 {
+            font-size: scale(gamma);
+        }
+
+        h4 {
+            font-size: scale(beta);
+        }
+
+        h5 {
+            font-size: scale(alpha);
+        }
+
+        ul,
+        ol {
+            margin: scale(beta) 0;
+            padding: 0 0 0 1em;
+        }
+
+        figure {
+            width: 100%;
+            margin: scale(beta) auto;
+            padding: 0 scale(gamma);
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        figcaption {
+            padding: 0 scale(gamma);
+            font-family: serif;
+            font-size: scale(beta);
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+}

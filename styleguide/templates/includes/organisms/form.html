@@ -1,0 +1,244 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<form action="" class="Form">
+    {% for val in "x" %}
+    <fieldset class="Form-fieldGroup">
+        <legend class="Form-groupHeading">Lorem</legend>
+        <div class="Form-field Form-field--required">
+            <label for="text" class="Form-fieldLabel">Text field</label>
+            <input type="text" id="text" class="Form-input" placeholder="Test test test">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="text" class="Form-fieldLabel">Text field disabled</label>
+            <input type="text" id="text" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="text" class="Form-fieldLabel">Text field readonly</label>
+            <input type="text" id="text" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required Form-field--error">
+            <label for="text" class="Form-fieldLabel">Text field validation error</label>
+            <input type="text" id="text" class="Form-input">
+            <label for="text" class="Form-message">This is a validation error</label>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="number" class="Form-fieldLabel">Number field</label>
+            <input type="number" id="number" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="number" class="Form-fieldLabel">Number field</label>
+            <input type="number" id="number" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="number" class="Form-fieldLabel">Number field</label>
+            <input type="number" id="number" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="tel" class="Form-fieldLabel">Tel field</label>
+            <input type="tel" id="tel" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="tel" class="Form-fieldLabel">Tel field</label>
+            <input type="tel" id="tel" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="tel" class="Form-fieldLabel">Tel field</label>
+            <input type="tel" id="tel" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="email" class="Form-fieldLabel">Email field</label>
+            <input type="email" id="email" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="email" class="Form-fieldLabel">Email field</label>
+            <input type="email" id="email" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="email" class="Form-fieldLabel">Email field</label>
+            <input type="email" id="email" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="password" class="Form-fieldLabel">Password field</label>
+            <input type="password" id="password" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="password" class="Form-fieldLabel">Password field</label>
+            <input type="password" id="password" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="password" class="Form-fieldLabel">Password field</label>
+            <input type="password" id="password" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="search" class="Form-fieldLabel">search field</label>
+            <input type="search" id="search" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="search" class="Form-fieldLabel">search field</label>
+            <input type="search" id="search" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="search" class="Form-fieldLabel">search field</label>
+            <input type="search" id="search" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="url" class="Form-fieldLabel">url field</label>
+            <input type="url" id="url" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="url" class="Form-fieldLabel">url field</label>
+            <input type="url" id="url" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="url" class="Form-fieldLabel">url field</label>
+            <input type="url" id="url" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="range" class="Form-fieldLabel">range field</label>
+            <input type="range" id="range" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="range" class="Form-fieldLabel">range field</label>
+            <input type="range" id="range" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="range" class="Form-fieldLabel">range field</label>
+            <input type="range" id="range" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="date" class="Form-fieldLabel">date field</label>
+            <input type="date" id="date" class="Form-input">
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="date" class="Form-fieldLabel">date field</label>
+            <input type="date" id="date" class="Form-input" disabled>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="date" class="Form-fieldLabel">date field</label>
+            <input type="date" id="date" class="Form-input" readonly>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="radios" class="Form-fieldLabel">radios field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="radio" name="radios" id="radio{{ forloop.counter }}" class="Form-choiceInput">
+                    <label for="radio{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--radio">Radio {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="radios" class="Form-fieldLabel">radios field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="radio" name="radios" id="radio{{ forloop.counter }}" class="Form-choiceInput" disabled>
+                    <label for="radio{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--radio">Radio {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="radios" class="Form-fieldLabel">radios field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="radio" name="radios" id="radio{{ forloop.counter }}" class="Form-choiceInput" readonly>
+                    <label for="radio{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--radio">Radio {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="checkboxes" class="Form-fieldLabel">checkboxes field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="checkbox" name="checkboxes" id="checkbox{{ forloop.counter }}" class="Form-choiceInput">
+                    <label for="checkbox{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--checkbox">Checkbox {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="checkboxes" class="Form-fieldLabel">checkboxes field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="checkbox" name="checkboxes" id="checkbox{{ forloop.counter }}" class="Form-choiceInput" disabled>
+                    <label for="checkbox{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--checkbox">Checkbox {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="checkboxes" class="Form-fieldLabel">checkboxes field</label>
+            <ul class="Form-choiceGroup">
+                {% for val in "xxxxxx" %}
+                <li class="Form-choiceGroupItem">
+                    <input type="checkbox" name="checkboxes" id="checkbox{{ forloop.counter }}" class="Form-choiceInput" readonly>
+                    <label for="checkbox{{ forloop.counter }}" class="Form-choiceLabel Form-choiceLabel--checkbox">Checkbox {{ forloop.counter }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="textarea" class="Form-fieldLabel">textarea field</label>
+            <textarea name="textarea" id="textarea" class="Form-textArea"></textarea>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="textarea" class="Form-fieldLabel">textarea field</label>
+            <textarea name="textarea" id="textarea" class="Form-textArea" disabled></textarea>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="textarea" class="Form-fieldLabel">textarea field</label>
+            <textarea name="textarea" id="textarea" class="Form-textArea" readonly></textarea>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="select" class="Form-fieldLabel">select field</label>
+            <select name="select" id="select" class="Form-selectBox">
+                <option value="1">Lorem ipsum dolor.</option>
+                <option value="2">Illo qui, odit.</option>
+                <option value="3">Dolorum, ad placeat!</option>
+                <optgroup>
+                    <option value="4">Lorem ipsum dolor.</option>
+                    <option value="5">Illo qui, odit.</option>
+                    <option value="6">Dolorum, ad placeat!</option>
+                </optgroup>
+            </select>
+            <i class="Form-selectBoxIndicator" aria-hidden="true"></i>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="select" class="Form-fieldLabel">select field</label>
+            <select name="select" id="select" class="Form-selectBox" disabled>
+                <option value="1">Lorem ipsum dolor.</option>
+                <option value="2">Illo qui, odit.</option>
+                <option value="3">Dolorum, ad placeat!</option>
+                <optgroup>
+                    <option value="4">Lorem ipsum dolor.</option>
+                    <option value="5">Illo qui, odit.</option>
+                    <option value="6">Dolorum, ad placeat!</option>
+                </optgroup>
+            </select>
+            <i class="Form-selectBoxIndicator" aria-hidden="true"></i>
+        </div>
+        <div class="Form-field Form-field--required">
+            <label for="select" class="Form-fieldLabel">select field</label>
+            <select name="select" id="select" class="Form-selectBox" readonly>
+                <option value="1">Lorem ipsum dolor.</option>
+                <option value="2">Illo qui, odit.</option>
+                <option value="3">Dolorum, ad placeat!</option>
+                <optgroup>
+                    <option value="4">Lorem ipsum dolor.</option>
+                    <option value="5">Illo qui, odit.</option>
+                    <option value="6">Dolorum, ad placeat!</option>
+                </optgroup>
+            </select>
+            <i class="Form-selectBoxIndicator" aria-hidden="true"></i>
+        </div>
+    </fieldset>
+    {% endfor %}
+</form>

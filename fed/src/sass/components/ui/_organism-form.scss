@@ -1,0 +1,122 @@
+.Form {
+    $block: unquote("#{&}");
+
+    &--padded {
+        padding: scale(alpha);
+    }
+
+    &-fieldGroup {
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+
+        & + & {
+            margin-top: scale(gamma);
+        }
+    }
+
+    &-groupHeading {
+        display: block;
+        width: 100%;
+        margin-bottom: scale(alpha);
+        float: left;
+        color: $color-blue-pelorous;
+        font-size: scale(beta);
+        font-weight: 400;
+    }
+
+    &-field {
+        display: block;
+
+        & + & {
+            margin-top: scale(beta);
+        }
+
+        &--required {
+            #{$block}-fieldLabel {
+                &:after {
+                    display: inline-block;
+                    margin-left: 3px;
+                    color: $color-orange-bittersweet;
+                    font-size: 1.25em;
+                    font-weight: 600;
+                    content: "*";
+                }
+            }
+        }
+
+        &--error {
+            #{$block}-fieldLabel,
+            #{$block}-input,
+            #{$block}-message {
+                color: $color-secondary-error;
+            }
+
+            #{$block}-input,
+            #{$block}-textArea,
+            #{$block}-selectBox {
+                border: 1px solid $color-secondary-error;
+                background-color: tint($color-secondary-error, 80%);
+            }
+        }
+    }
+
+    &-fieldLabel {
+        display: block;
+        margin-bottom: 3px;
+        color: $color-blue-regal;
+        font-size: scale(alpha);
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-input,
+    &-textArea {
+        display: block;
+        width: 90%;
+        padding: scale(alpha) 5%;
+        border: 0;
+        background-color: $color-white;
+        color: $color-blue-regal;
+
+        &[disabled],
+        &[readonly] {
+            background-color: shade($color-blue-spindle, 5%);
+            cursor: not-allowed;
+        }
+    }
+
+    &-textArea {
+        height: 80px;
+    }
+
+    &-choiceGroup {
+        @include no-list;
+
+        &Item {
+            & + & {
+                margin-top: scale(alpha);
+            }
+        }
+    }
+
+    &-choiceLabel {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &-choiceInput {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &-message {
+        display: block;
+        margin-top: scale(alpha);
+    }
+
+    &-actions {
+        margin: scale(alpha);
+    }
+}

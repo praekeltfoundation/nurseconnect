@@ -1,0 +1,12 @@
+{% extends "base-styleguide.html" %}
+
+{% block content %}
+<h1>Index</h1>
+
+<a href="{% url 'styleguide:atoms' %}">Atoms</a>
+<a href="{% url 'styleguide:molecules' %}">Molecules</a>
+<a href="{% url 'styleguide:organisms' %}">Organisms</a>
+<a href="{% url 'styleguide:templates' %}">Templates</a>
+<a href="{% url 'styleguide:pages' %}">Pages</a>
+
+{% endblock %}

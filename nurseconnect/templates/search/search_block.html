@@ -1,14 +1,7 @@
 {% load i18n %}
 
-<div class="ArticleSearch" id="search">
-    <form action="{% url "search_query" %}">
-        <div class="ArticleSearch-fieldgroup">
-            <input class="ArticleSearch-field" type="text" name="search" value="{{ search_query }}"
-                   placeholder="{% trans "Looking for something?" %}">
-            <button type="submit" class="ArticleSearch-button" value="{% trans "SEARCH" %}">
-                <span class="Icons icon-search-white"></span>
-                <span class="u-screenReaderText">Search</span>
-            </button>
-        </div>
-    </form>
-</div>
+<form action="{% url "search_query" %}" class="SearchBar SearchBar--isolated">
+    <input class="SearchBar-input" type="text" name="q" id="search-query" value="{{ search_query }}"
+           placeholder="{% trans "Search..." %}">
+    <button type="submit" class="SearchBar-submit" value="{% trans "SEARCH" %}"></button>
+</form>

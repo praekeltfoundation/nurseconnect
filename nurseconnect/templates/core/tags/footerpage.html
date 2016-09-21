@@ -1,9 +1,25 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
 
 {% if footers %}
-    <p class="Footer-paragraph">
-        {% for page in footers %}
-            <a href="{% pageurl page %}" class="Footer-link">{{ page.title }}</a> &nbsp;
-        {% endfor %}
-    </p>
+    <footer class="SiteFooter" role="contentinfo">
+        <div class="SiteFooter-actions">
+            <nav class="NavBar NavBar--siteFooter" role="menubar">
+                <ul class="NavBar-navGroup" role="menu">
+                    {% for page in footers %}
+                        <li class="NavBar-navItem" role="presentation">
+                            <a href="{% pageurl page %}" class="NavBar-navLink" role="menuitem">{{ page.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        <div class="SiteFooter-brand">
+            <a href="http://www.health.gov.za/" class="Logo Logo--siteFooter">
+                <img src="{% static 'images/health-department-logo.png' %}" alt="Health Department Logo"
+                     class="Logo-graphic">
+            </a>
+        </div>
+    </footer>
 {% endif %}

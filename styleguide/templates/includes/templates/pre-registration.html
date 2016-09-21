@@ -1,0 +1,26 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<main class="ContentBody" role="main">
+    <form action="" class="Splash Splash--bgNurse">
+        <div class="Splash-header">
+            <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+        </div>
+        <div class="Splash-body">
+            <h1 class="Splash-headline">Join our community. <br/>We're here to support you.</h1>
+            <p class="Splash-strapline">NurseConnect will send valuable weekly SMS messages about maternal and newborn health, family planning, MomConnect tips, service feedback, and motivational encouragement.</p>
+        </div>
+        <div class="Splash-actions">
+            <ul class="ButtonGroup">
+                <li class="ButtonGroup-item">
+                    <a href="#" class="Button">Sign up now</a>
+                </li>
+                <li class="ButtonGroup-item">
+                    <a href="#" class="Button Button--inverted">Login</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+</main>
+{% include "includes/organisms/site-footer.html" %}

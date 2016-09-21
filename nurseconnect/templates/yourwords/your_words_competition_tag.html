@@ -1,45 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 
 {% block content %}
-
     {% if competitions %}
-        {% for competition in competitions %}
-
-            {% if forloop.first %}
-                <div class="ListTitle ListTitle--yourwords" id="yourwords">
-                    <h1 class="ListTitle-name">{% trans "Your words" %}</h1>
+        <section class="ContentList ContentList--bgSecondary">
+            <header class="ContentList-header">
+                <h1 class="ContentList-categoryLabel">{% trans "Your words" %}</h1>
+            </header>
+            {% for competition in competitions %}
+                <div class="ContentList-body">
+                    <article class="Article">
+                        <a href="{% url "molo.yourwords:competition_entry" competition.slug %}" class="Article-hitBox">
+                            <h2 class="Article-headline">{{ competition.title }}</h2>
+                            <p class="Article-strapline">{{ competition.description }}</p>
+                            <div class="Article-actions">
+                                <span class="Button">{% trans "Tell Us Your Story" %}</span>
+                            </div>
+                        </a>
+                    </article>
                 </div>
-                <div class="block {{ competition.get_effective_extra_style_hints }}">
-                    <div class="title">
-                        <div class="icon">
-                            {% if competition.thank_you_page.get_parent_page.get_effective_image %}
-                                {% image competition.thank_you_page.get_parent_page.get_effective_image width-98 as tmp_photo %}
-                                <img src="{{ tmp_photo.url }}"
-                                     alt="{{ competition.get_parent_page.get_effective_image.title }}"/>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-
-            <div class="block {{ competition.get_effective_extra_style_hints }}">
-                <h3 class="ListItem-title">{{ competition.title }}</h3>
-                <p>{{ competition.description }}</p>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url "molo.yourwords:competition_entry" competition.slug %}"
-                       class="PillButton PillButton--orange">{% trans "Tell Us Your Story" %}</a>
-                {% else %}
-                    <a href="{% url "molo.profiles:auth_login" %}?next={% url "molo.yourwords:competition_entry" competition.slug %}"
-                       class="button">{% trans "Log in to Enter" %}</a>
-                {% endif %}
-                <br>
-            </div>
-            {% if not forloop.last %}
-                <hr>{% endif %}
-
-        {% endfor %}
-
-
+            {% endfor %}
+        </section>
     {% endif %}
-
 {% endblock %}

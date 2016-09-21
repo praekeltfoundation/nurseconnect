@@ -1,6 +1,5 @@
 import random
 
-from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -24,16 +23,20 @@ from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
 
+REDIRECT_FIELD_NAME = 'next'
+INT_PREFIX = "+27"
+
 
 class SearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SearchView, self).get_context_data(**kwargs)
         context["searched"] = False
+        context["active"] = "search"
         return context
 
 
-def search(request, results_per_page=10):
-    search_query = request.GET.get("search", None)
+def search(request, results_per_page=7):
+    search_query = request.GET.get("q", None)
     page = request.GET.get("p", 1)
     locale = get_locale_code(get_language_from_request(request))
     if search_query:
@@ -52,6 +55,7 @@ def search(request, results_per_page=10):
         search_results = paginator.page(paginator.num_pages)
 
     return render(request, "search/search.html", {
+        "active": "search",
         "searched": True,
         "search_query": search_query,
         "search_results": search_results,
@@ -100,65 +104,94 @@ class RegistrationView(FormView):
         return kwargs
 
 
+# def two_form_view(request):
+#     context = {}
+#     if request.method == "POST":
+#         question_form = QuestionForm(request.POST)
+#         answer_form = AnswerForm(request.POST)
+#         success = False
+#         if 'q_button' in request.POST and question_form.is_valid()
+#             question_form.save()
+#             success = Treu
+#         if 'a_button' in request.POST and answer_form.is_valid()
+#             answer_form.save()
+#             success = True
+#         if success:
+#             return HttpResponse(reverse('success'))
+#     else:
+#         question_form = QuestionForm(request.POST)
+#         answer_form = AnswerForm(request.POST)
+#
+#     context['answer_form'] = answer_form
+#     context['question_form'] = question_form
+#     return render(request, 'forms.html', context)
+#
+# def success(request):
+#     return render(request, 'success.html', {})
+
+
 class MyProfileView(View):
     template_name = "profiles/viewprofile.html"
-    settings_form = forms.EditProfileForm(prefix="settings_form")
-    profile_password_change_form = forms.ProfilePasswordChangeForm(
-        prefix="profile_password_change_form"
-    )
 
     def get(self, request, *args, **kwargs):
-        settings_form = self.settings_form
-        profile_password_change_form = self.profile_password_change_form
+        settings_form = forms.EditProfileForm(
+            prefix="settings_form", user=request.user
+        )
+        # settings_form.set_initial()
+        profile_password_change_form = forms.ProfilePasswordChangeForm(
+            prefix="profile_password_change_form"
+        )
+        edit = ""
+        if kwargs.get("edit") == "edit-settings":
+            settings_form.change_field_enabled_state(state=False)
+            edit = "edit-settings"
+        elif kwargs.get("edit") == "edit-password":
+            profile_password_change_form.change_field_enabled_state(
+                state=False)
+            edit = "edit-password"
+
         context = {
+            "edit": edit,
+            "active": "profile",  # TODO: questionable - remove later
             "settings_form": settings_form,
             "profile_password_change_form": profile_password_change_form,
         }
         return render(request, self.template_name, context)
 
-    def get_initial(self):
-        initial = super(MyProfileView, self).get_initial()
-        initial.update({"first_name": self.request.user.first_name})
-        initial.update({"last_name": self.request.user.last_name})
-        initial.update({"username": self.request.user.username})
-        return initial
-
-    def post(self, request):
-        action = self.request.POST["action"]
-
-        if action == "edit_profile_settings":
-            settings_form = forms.EditProfileForm(
-                request.POST,
-                prefix="settings_form"
-            )
+    def post(self, request, *args, **kwargs):
+        edit = kwargs.get("edit")
+        settings_form = forms.EditProfileForm(
+            request.POST,
+            prefix="settings_form",
+            user=request.user
+        )
+        profile_password_change_form = forms.ProfilePasswordChangeForm(
+            request.POST,
+            prefix="profile_password_change_form"
+        )
+        if edit == "edit-settings":
+            settings_form.full_clean()
             if settings_form.is_valid():
-                cleaned_data = settings_form.clean()
-                self.request.user.first_name = cleaned_data["first_name"]
-                self.request.user.last_name = cleaned_data["last_name"]
-                self.request.user.username = cleaned_data["username"]
+                self.request.user.first_name = \
+                    settings_form.cleaned_data["first_name"]
+                self.request.user.last_name = \
+                    settings_form.cleaned_data["last_name"]
+                if settings_form.cleaned_data["username"]:
+                    self.request.user.username = \
+                        settings_form.cleaned_data["username"]
                 self.request.user.save()
+                # import pdb; pdb.set_trace()
 
-                return render(
-                    request,
-                    self.template_name,
-                    context={
-                        "settings_form": settings_form,
-                        "profile_password_change_form":
-                            self.profile_password_change_form,
-                        "success_message":
-                            "You've successfully updated your profile!"
-                    }
-                )
+                return HttpResponseRedirect(reverse("view_my_profile"))
 
-        elif action == "edit_profile_password":
-            profile_password_change_form = forms.ProfilePasswordChangeForm(
-                request.POST,
-                prefix="profile_password_change_form"
-            )
+        elif edit == "edit-password":
+            profile_password_change_form.full_clean()
             if profile_password_change_form.is_valid():
                 user = self.request.user
                 if user.check_password(
-                    profile_password_change_form.cleaned_data["old_password"]
+                    profile_password_change_form.cleaned_data[
+                        "old_password"
+                    ]
                 ):
                     user.set_password(
                         profile_password_change_form.cleaned_data[
@@ -166,27 +199,21 @@ class MyProfileView(View):
                         ]
                     )
                     user.save()
-                    return render(
-                        request,
-                        self.template_name,
-                        context={
-                            "settings_form": self.settings_form,
-                            "profile_password_change_form":
-                                profile_password_change_form,
-                            "success_message":
-                                "Successfully updated your password!"
-                        }
+                    return HttpResponseRedirect(reverse("view_my_profile"))
+                else:
+                    profile_password_change_form.add_error(
+                        "old_password",
+                        _("The old password is incorrect.")
                     )
-                messages.error(
-                    self.request,
-                    _("The old password is incorrect.")
-                )
 
-        context = {
-            "settings_form": self.settings_form,
-            "profile_password_change_form": self.profile_password_change_form,
-        }
-        return HttpResponseRedirect(reverse("view_my_profile"), context)
+        return render(
+            self.request,
+            self.template_name,
+            context={
+                "settings_form": settings_form,
+                "profile_password_change_form": profile_password_change_form
+            }
+        )
 
 
 class ForgotPasswordView(FormView):
@@ -234,14 +261,14 @@ class ForgotPasswordView(FormView):
         # when some question indexes don't exist
         answer_checks = []
         for i in range(profile_settings.num_security_questions):
-                user_answer = form.cleaned_data["question_%s" % (i,)]
-                saved_answer = user.profile.securityanswer_set.get(
-                    user=user.profile,
-                    question=self.security_questions[i]
-                )
-                answer_checks.append(
-                    saved_answer.check_answer(user_answer)
-                )
+            user_answer = form.cleaned_data["question_%s" % (i,)]
+            saved_answer = user.profile.securityanswer_set.get(
+                user=user.profile,
+                question=self.security_questions[i]
+            )
+            answer_checks.append(
+                saved_answer.check_answer(user_answer)
+            )
 
         # redirect to reset password page if username and security
         # questions were matched
@@ -324,3 +351,12 @@ class ResetPasswordView(FormView):
         return super(ResetPasswordView, self).render_to_response(
             context, **response_kwargs
         )
+
+
+class MenuView(TemplateView):
+    template_name = "core/menu.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuView, self).get_context_data(**kwargs)
+        context["active"] = "menu"
+        return context

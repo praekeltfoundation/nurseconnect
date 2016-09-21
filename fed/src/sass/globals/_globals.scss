@@ -1,0 +1,80 @@
+// ==========================================
+// >> ROOT STYLES
+// ==========================================
+// ** :root Base Styles.
+// ==========================================
+//    :root refers to the first parent element
+//    in the DOM tree. (as in, the html tag).
+
+// ==========================================
+// ** CSS Browser Normalization
+// ==========================================
+// @import "../../node_modules/sanitize.css/sanitize.css";
+// ==========================================
+
+:root,
+html {
+    background-color: $color-white;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: $base-line-height;
+
+    // Async font loading.
+    @if $enhanced == true {
+        &.wf-active {
+            font-family: $font-sans-serif;
+        }
+    }
+
+    // Font scaling for REM units.
+    @if $enhanced == true {
+        @include breakpoint($bp-smart) {
+            font-size: 14px;
+        }
+
+        @include breakpoint($bp-phablet) {
+            font-size: 16px;
+        }
+    }
+}
+
+body {
+    background-color: $color-blue-tranquil;
+    color: $color-blue-regal;
+
+    @if $enhanced == true {
+        max-width: em(768);
+        margin: 0 auto;
+    }
+}
+
+@if $enhanced == true {
+    *,
+    :after,
+    :before {
+        box-sizing: border-box;
+    }
+} @else {
+    *,
+    :after,
+    :before {
+        box-sizing: content-box;
+    }
+}
+
+// img {
+//     display: block;
+//     max-width: 100%;
+// }
+//
+// .clear {
+//     clear: both;
+// }
+//
+// button,
+// a,
+// input {
+//     text-decoration: none;
+//     cursor: pointer;
+// }

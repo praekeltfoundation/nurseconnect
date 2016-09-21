@@ -1,23 +1,36 @@
-{% load wagtailcore_tags i18n %}
+{% load static wagtailcore_tags i18n %}
 
 {% if ancestors %}
-    <ul class="Breadcrumb">
-        <li class="Breadcrumb-item">
-            <a class="Breadcrumb-link" href="/">{% trans "Home" %}
-                <span class="Breadcrumb-nextIcon">></span>
-            </a>
-        </li>
-        {% for ancestor in ancestors %}
-            {% if forloop.last %}
-                <li class="Breadcrumb-item Breadcrumb-item--active">
-                    <a class="Breadcrumb-link" href="#">{{ ancestor }}</a>
-                </li>
-            {% else %}
-                <li class="Breadcrumb-item">
-                    <!-- Extra greaterthan symbol is intentional -->
-                    <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}<span class="Breadcrumb-nextIcon">></span></a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+    <div class="HeroTout">
+        <h1 class="HeroTout-headline">
+            {% for ancestor in ancestors %}
+                {% if forloop.last %}
+                    {{ ancestor }}
+                {% endif %}
+            {% endfor %}
+        </h1>
+        <div class="HeroTout-actions">
+            <nav class="Breadcrumb" role="navigation">
+                <ul class="Breadcrumb-group" role="menu">
+                    <li class="Breadcrumb-item" role="presentation">
+                        <a class="Breadcrumb-link" role="menuitem" href="{% url "home" %}">{% trans "Home" %}</a>
+                        <span class="Breadcrumb-chevron">&#10095;</span>
+                    </li>
+                    {% for ancestor in ancestors %}
+                        {% if forloop.last %}
+                            <li class="Breadcrumb-item" role="presentation">
+                                <span class="Breadcrumb-link Breadcrumb-link--current"
+                                      role="menuitem">{{ ancestor }}</span>
+                            </li>
+                        {% else %}
+                            <li class="Breadcrumb-item" role="presentation">
+                                <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}</a>
+                                <span class="Breadcrumb-chevron">&#10095;</span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
 {% endif %}

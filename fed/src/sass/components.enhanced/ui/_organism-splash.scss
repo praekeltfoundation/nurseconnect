@@ -1,0 +1,42 @@
+.Splash {
+    $block: unquote("#{&}");
+
+    margin-top: scale(delta);
+    padding: scale(delta);
+    padding-top: 0;
+
+    &--bgNurse {
+        background-image: url("../images/nc-bg.png");
+        background-position: 100% 100%;
+        background-size: contain;
+    }
+
+    &-body {
+        margin: scale(eta) 0;
+    }
+
+    &-header {
+        margin-bottom: scale(eta);
+    }
+
+    &-headline {
+        margin: scale(beta) 0;
+        font-size: scale(eta);
+        font-weight: 400;
+        letter-spacing: kerning(-75);
+        line-height: 1;
+    }
+
+    &-strapline {
+        margin: 0;
+        font-size: 1.375rem;
+        font-weight: 300;
+        letter-spacing: kerning(-50);
+        line-height: 1.2;
+    }
+
+    &-actions {
+        margin-top: scale(delta);
+        margin-bottom: scale(eta);
+    }
+}

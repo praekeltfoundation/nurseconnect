@@ -8,72 +8,88 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8" />
-  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="description" content="" />
-  <meta name="keywords" content="" />
-  <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
-  <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-  {% image self.social_media_image width-300 as tmp_photo %}
-  <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-  <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-  <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-  {% image self.social_media_image width-300 as tmp_photo %}
-  <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-  <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
+        <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        {% image self.social_media_image width-300 as tmp_photo %}
+        <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+        <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+        <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+        {% image self.social_media_image width-300 as tmp_photo %}
+        <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+        <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+        <noscript>
+            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
+        </noscript>
 
-  <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
-
-  <script>
-      /*! grunt-grunticon Stylesheet Loader - v2.1.6 | https://github.com/filamentgroup/grunticon | (c) 2015 Scott Jehl, Filament Group, Inc. | MIT license. */
-
-    !function(){function e(e,n,t){"use strict";var o=window.document.createElement("link"),a=n||window.document.getElementsByTagName("script")[0],i=window.document.styleSheets;return o.rel="stylesheet",o.href=e,o.media="only x",a.parentNode.insertBefore(o,a),o.onloadcssdefined=function(e){for(var n,t=0;t<i.length;t++)i[t].href&&i[t].href===o.href&&(n=!0);n?e():setTimeout(function(){o.onloadcssdefined(e)})},o.onloadcssdefined(function(){o.media=t||"all"}),o}function n(e,n){e.onload=function(){e.onload=null,n&&n.call(e)},"isApplicationInstalled"in navigator&&"onloadcssdefined"in e&&e.onloadcssdefined(n)}!function(t){var o=function(a,i){"use strict";if(a&&3===a.length){var r=t.navigator,d=t.document,s=t.Image,c=!(!d.createElementNS||!d.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect||!d.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||t.opera&&r.userAgent.indexOf("Chrome")===-1||r.userAgent.indexOf("Series40")!==-1),l=new s;l.onerror=function(){o.method="png",o.href=a[2],e(a[2])},l.onload=function(){var t=1===l.width&&1===l.height,r=a[t&&c?0:t?1:2];t&&c?o.method="svg":t?o.method="datapng":o.method="png",o.href=r,n(e(r),i)},l.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==",d.documentElement.className+=" grunticon"}};o.loadCSS=e,o.onloadCSS=n,t.grunticon=o}(this)}();
-
-    grunticon(["{% static 'dist/icons/icons.data.svg.css' %}", "{% static 'dist/icons/icons.data.png.css' %}", "{% static 'dist/icons/icons.fallback.css' %}"], grunticon.svgLoadedCallback);
-  </script>
-  <noscript><link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet"></noscript>
-
-  {% block extra_css %}
-  {% endblock %}
+        {% block extra_css %}
+        {% endblock %}
 
         <script type="text/javascript">
-          WebFontConfig = {
-            google: { families: [ 'Exo+2:400,700:latin' ] }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-          })();
+            var CutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
+            var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
 
-          /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */
-        function loadJS( src, cb ){
-          "use strict";
-          var ref = window.document.getElementsByTagName( "script" )[ 0 ];
-          var script = window.document.createElement( "script" );
-          script.src = src;
-          script.async = true;
-          ref.parentNode.insertBefore( script, ref );
-          if (cb && typeof(cb) === "function") {
-            script.onload = cb;
-          }
-          return script;
-        }
+            if (!CutsTheMustard || !ScreenLargeEnough) {
+                // Load Basic Styles. This blocks page loading to prevent FOUC.
+                document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+            } else {
+                // Load Enhanced Styles. This blocks page loading to prevent FOUC.
+                document.write('<link rel="stylesheet" href="{% static 'css/styles.enhanced.css' %}">');
 
-        // cut the mustard
-        if('querySelector' in document && 'localStorage' in window && 'addEventListener' in window) {
-          loadJS( "{% static 'js/main.js' %}" );
-        }
+                // Replace no-js class with js class
+                var RootElem = document.getElementsByTagName('html')[0];
+                RootElem.className = RootElem.className.replace('no-js','js');
+
+                /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */
+                function loadJS( src, cb ){
+                    "use strict";
+                    var ref = window.document.getElementsByTagName( "script" )[ 0 ];
+                    var script = window.document.createElement( "script" );
+                    script.src = src;
+                    script.async = true;
+                    ref.parentNode.insertBefore( script, ref );
+                    if (cb && typeof(cb) === "function") {
+                        script.onload = cb;
+                    }
+                    return script;
+                }
+
+                // Load JS as Enhancement
+                loadJS( "{% static 'js/main.js' %}" );
+
+                // Load Custom Fonts Async
+                WebFontConfig = {
+                    google: { families: [ 'Open Sans:300,400,600' ] }
+                };
+                (function() {
+                    var wf = document.createElement('script');
+                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                    wf.type = 'text/javascript';
+                    wf.async = 'true';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(wf, s);
+                })();
+            }
         </script>
+
+        <!--[if lt IE 9]>
+            <script>
+                /**
+                * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+                */
+                !function(a,b){function c(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function d(){var a=t.elements;return"string"==typeof a?a.split(" "):a}function e(a,b){var c=t.elements;"string"!=typeof c&&(c=c.join(" ")),"string"!=typeof a&&(a=a.join(" ")),t.elements=c+" "+a,j(b)}function f(a){var b=s[a[q]];return b||(b={},r++,a[q]=r,s[r]=b),b}function g(a,c,d){if(c||(c=b),l)return c.createElement(a);d||(d=f(c));var e;return e=d.cache[a]?d.cache[a].cloneNode():p.test(a)?(d.cache[a]=d.createElem(a)).cloneNode():d.createElem(a),!e.canHaveChildren||o.test(a)||e.tagUrn?e:d.frag.appendChild(e)}function h(a,c){if(a||(a=b),l)return a.createDocumentFragment();c=c||f(a);for(var e=c.frag.cloneNode(),g=0,h=d(),i=h.length;i>g;g++)e.createElement(h[g]);return e}function i(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return t.shivMethods?g(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+d().join().replace(/[\w\-:]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(t,b.frag)}function j(a){a||(a=b);var d=f(a);return!t.shivCSS||k||d.hasCSS||(d.hasCSS=!!c(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),l||i(a,d),a}var k,l,m="3.7.3",n=a.html5||{},o=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,p=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,q="_html5shiv",r=0,s={};!function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",k="hidden"in a,l=1==a.childNodes.length||function(){b.createElement("a");var a=b.createDocumentFragment();return"undefined"==typeof a.cloneNode||"undefined"==typeof a.createDocumentFragment||"undefined"==typeof a.createElement}()}catch(c){k=!0,l=!0}}();var t={elements:n.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:m,shivCSS:n.shivCSS!==!1,supportsUnknownElements:l,shivMethods:n.shivMethods!==!1,type:"default",shivDocument:j,createElement:g,createDocumentFragment:h,addElements:e};a.html5=t,j(b),"object"==typeof module&&module.exports&&(module.exports=t)}("undefined"!=typeof window?window:this,document);
+            </script>
+        <![endif]-->
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
@@ -92,7 +108,7 @@
 
         {% wagtailuserbar %}
 
-        <main role="main">
+        <main class="ContentBody" role="main">
             {% include "core/header.html" %}
 
             {% breadcrumbs %}
@@ -105,7 +121,6 @@
             {% block footer %}
                 <footer class="Footer" role="contentinfo">
                     {% footer_page %}
-                    <p class="Footer-paragraph">&copy; 2016 {% trans "Copyright National Department of Health" %}</p>
                 </footer>
             {% endblock %}
         </main>

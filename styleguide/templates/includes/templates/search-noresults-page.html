@@ -1,0 +1,15 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+{% include "includes/organisms/site-head.html" %}
+<main class="ContentBody" role="main">
+    {% include "includes/organisms/hero-tout.html" %}
+    {% include "includes/molecules/search.html" %}
+
+    <div class="Message Message--inpage">
+        <p class="Message-caption">No results found for <strong>keword</strong></p>
+        <p class="Message-caption"><strong>Did you mean <a href="">keyword</a></strong>?</p>
+    </div>
+</main>
+{% include "includes/organisms/site-footer.html" %}

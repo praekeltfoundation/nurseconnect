@@ -4,34 +4,53 @@
 
 
 {% block content %}
-    <div class="Article-body">
-        <h1 class="Article-title">{% trans "Welcome back. Please enter your login details." %}</h1>
-    </div>
-    <form method="POST" action=".">{% csrf_token %}
-        <div class="FormGroup FormGroup--padded">
-            {% if form.errors %}
-                <p class="error errorlist">{% trans "Your mobile number and password does not match. Please try again." %}</p>
-            {% endif %}
-            <div class="FormField FormField--center FormField--bordered">
-                {{ form.username.label_tag }}
-                {{ form.username }}
-                {{ form.username.errors }}
-            </div>
-            <div class="FormField FormField--center FormField--bordered">
-                {{ form.password.label_tag }}
-                {{ form.password }}
-                {{ form.password.errors }}
-            </div>
-            <div class="FormGroup FormGroup--padded">
-                <button type="submit" class="PillButton PillButton--blue">{% trans "log in" %}</button>
-                <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.site.root_page.url }}{% endif %}"/>
-            </div>
-            <div class="FormGroup FormGroup--padded FormGroup--bordered">
-                <a class="PillButton PillButton--orange"
-                   href="{% url "user_register" %}">{% trans "sign up" %}</a>
-            </div>
-            <a href="{% url "forgot_password" %}"
-               class="Link">{% trans "Forgotten your password?" %}</a>
+    <section action="" class="Splash">
+        <div class="Splash-header">
+            <a href="{% url "home" %}" class="Logo Logo--siteHead">
+                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </a>
         </div>
-    </form>
+        <div class="Splash-body">
+            <h1 class="Splash-headline">{% trans "Welcome back. Please enter your login details." %}</h1>
+        </div>
+        <div class="Splash-body">
+            <form method="POST" action="{% url "auth_login" %}" class="Form">
+                {% csrf_token %}
+                <fieldset class="Form-fieldGroup">
+                    {% if form.errors %}
+                        <p class="error errorlist">{% trans "Your mobile number and password does not match. Please try again." %}</p>
+                    {% endif %}
+                    <div class="Form-field Form-field--required">
+                        <label for="mobilenum" class="Form-fieldLabel">Mobile Number</label>
+                        <input name="username" type="tel" id="mobilenum" class="Form-input"
+                               placeholder="eg. 0821234567">
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <label for="mobilenum" class="Form-fieldLabel">Password</label>
+                        <input name="password" type="password" id="pword" class="Form-input"
+                               placeholder="Enter password">
+                        {{ form.password.errors }}
+                    </div>
+                </fieldset>
+                <div class="Splash-actions">
+                    <ul class="ButtonGroup">
+                        <li class="ButtonGroup-item">
+                            <input type="submit" class="Button" value="{% trans 'Sign in' %}">
+                            <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.site.root_page.url }}{% endif %}"/>
+                        </li>
+                        <li class="ButtonGroup-item">
+                            <div class="Message Message--subtle Message--centered">
+                                <p class="Message-caption">
+                                    {% trans "Don't have an account? Sign up" %} <a
+                                        href="{% url "user_register" %}">{% trans "here" %}</a>
+                                </p>
+                                <a href="{% url "forgot_password" %}" class="Link">{% trans "Forgot password?" %}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </section>
 {% endblock %}

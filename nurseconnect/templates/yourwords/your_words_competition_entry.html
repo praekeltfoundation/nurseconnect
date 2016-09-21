@@ -1,79 +1,101 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
+{% load nurseconnect_tags %}
 
 {% block content %}
-    <div class="standalone-page your-words {{ competition.get_effective_extra_style_hints }}">
-        <div class="section-title">
-            <h2>{% trans "Share your story" %}</h2>
-        </div>
-
-        <h3>{{ competition.title }}</h3>
-        <p>{{ competition.description }}</p>
-
-         <div class="Article-image">{% image competition.image width-380 %}</div>
-        <div class="content">
-            {% for block in competition.content %}
-                {% if block.block_type == "heading" %}
-                    <h5>{{ block.value }}</h5>
-                {% else %}
-                    {% if block.block_type == "image" %}
-                        {% image block.value width-240 %}
-                    {% else %}
-                        {% if block.block_type == "numbered_list" %}
-                            <ol>
-                                {% for item in block.value %}
-                                    <li>{{ item }}</li>
-                                {% endfor %}
-                            </ol>
-                        {% else %}
-                            {% if block.block_type == "list" %}
-                                <ul>
-                                    {% for item in block.value %}
-                                        <li>{{ item }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                {{ block }}
-                            {% endif %}
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-        </div>
-        <form method="post">
-            {% csrf_token %}
-
-            {% if form.story_name.errors %}
-                <p class="alert-error">* {{ form.story_name.errors|join:" "}}</p>
-            {% endif %}
-
-            <label>{% trans "Title of your story" %}</label><br/>
-            <p>{{ form.story_name }}</p>
-
-            {% if form.story_text.errors %}
-                <p class="alert-error">* {{ form.story_text.errors|join:" "}}</p>
-            {% endif %}
-            <label>{% trans "Tell us your story here" %}</label>
-            <p>{{ form.story_text }}</p>
-
-            <div class="options">
-                <div>
-                    {% if form.terms_or_conditions_approved.errors %}
-                        <p class="alert-error">* {{ form.terms_or_conditions_approved.errors|join:" "}}</p>
-                    {% endif %}
-                    {{ form.terms_or_conditions_approved }}
-                    <label>{% trans "I accept the Terms and Conditions" %}</label>
-                </div>
-
-                <div>
-                    {{ form.hide_real_name }}
-                    <label>{% trans "Share my story anonymously" %}</label>
-                </div>
-            </div>
-
-            <input type="submit" value="{% trans "Submit Your Story" %}"/>
-
-        </form>
+    <div class="HeroTout">
+        <h1 class="HeroTout-headline">
+            {% trans "Share your " %} </br> {% trans "story" %}
+        </h1>
     </div>
+    <section class="Paper">
+        <article class="Paper-body">
+            <header class="Paper-header">
+                <h1 class="Paper-headline">{{ competition.title }}</h1>
+                <p class="Paper-lead">{{ competition.description }}</p>
+                {% if competition.image %}
+                    <div class="Paper-graphic">{% image competition.image max-500x150 %}</div>
+                {% endif %}
+            </header>
+            <div class="Paper-copy">
+                {% for block in competition.content %}
+                    {% if block.block_type == "heading" %}
+                        <h2>{{ block.value }}</h2>
+                    {% elif block.block_type == "image" %}
+                        <figure>
+                            {% image block.value width-240 %}
+                        </figure>
+                    {% elif block.block_type == "numbered_list" %}
+                        <ul>
+                            {% for item in block.value %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% elif block.block_type == "list" %}
+                        <ul>
+                            {% for item in block.value %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ block }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </article>
+    </section>
+    <div class="Splash-body">
+        <form method="POST" class="Form">
+            {% csrf_token %}
+            <fieldset class="Form-fieldGroup">
+
+                {% if form.story_name.errors %}
+                    <p class="alert-error">* {{ form.story_name.errors|join:" "}}</p>
+                {% endif %}
+                <div class="Form-field Form-field--required">
+                    <label class="Form-fieldLabel">{% trans "Title of your story" %}</label><br/>
+                    <input name="story_name" id="story_name" class="Form-input" placeholder="Title">
+                </div>
+
+                {% if form.story_text.errors %}
+                    <p class="alert-error">* {{ form.story_text.errors|join:" "}}</p>
+                {% endif %}
+                <div class="Form-field Form-field--required">
+                    <label class="Form-fieldLabel">{% trans "Tell us your story here" %}</label>
+                    <textarea name="story_text" id="story_text" class="Comments-field"></textarea>
+                </div>
+
+                {% if form.terms_or_conditions_approved.errors %}
+                    <p class="alert-error">* {{ form.terms_or_conditions_approved.errors|join:" "}}</p>
+                {% endif %}
+                <div class="Form-field Form-field--required">
+                    <ul class="Form-choiceGroup">
+                        <li class="Form-choiceGroupItem">
+                            <input type="checkbox" name="terms_or_conditions_approved" id="checkbox1"
+                                   class="Form-choiceInput">
+                            {% footer_link %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="Form-field Form-field--required">
+                    <ul class="Form-choiceGroup">
+                        <li class="Form-choiceGroupItem">
+                            <input type="checkbox" name="hide_real_name" id="checkbox2" class="Form-choiceInput">
+                            <label for="checkbox2" class="Form-choiceLabel Form-choiceLabel--checkbox">
+                                {% trans "Share my story anonymously" %}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <div class="Splash-actions">
+                <ul class="ButtonGroup">
+                    <li class="ButtonGroup-item">
+                        <input type="submit" class="Button" value="{% trans "Submit Your Story" %}"/>
+                    </li>
+                </ul>
+            </div>
+        </form>
     </div>
 {% endblock %}

@@ -1,31 +1,38 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
 
 {% if sections %}
-    <div class="ListTitle ListTitle--menu" id="menu">
-        <h1 class="ListTitle-name">{% trans "Menu" %}</h1>
-    </div>
-    <ul class="ListView ListView--menu">
-        {% for section in sections %}
-            <li class="ListItemWrapper--menu">
-                <div class="articles nav {{ section.get_effective_extra_style_hints }}">
-                    <a href="{% pageurl section %}" class="ListItem ListItem--rightIcon">
-                        <h3 class="ListItem-title">{{ section.title }}</h3>
-                        <p class="ListItem-desc">{{ section.description }}</p>
-                        <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
-                    </a>
-                </div>
-                {% load_descendant_articles_for_section section featured_in_homepage=True as featured_articles %}
-                {% for article in featured_articles %}
-                    <ul class="ListView">
-                        <li class="ListItemWrapper">
-                            <a class="ListItem ListItem--withImage" href="{% pageurl article %}">
-                                <h3 class="ListItem-subtitle">{{ article.title }}</h3>
-                                <p class="ListItem-desc">{{ article.subtitle }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                {% endfor %}
-            </li>
-        {% endfor %}
-    </ul>
+    <section class="ContentList">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">{% trans "Categories" %}</h1>
+        </header>
+        <div class="ContentList-body">
+            <nav class="Menu" role="menubar">
+                <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+                    <li class="Menu-navItem" role="presentation">
+                        {% for section in sections %}
+                            {% if not section.show_in_menus %}
+                                <li class="ListItemWrapper--menu">
+                                    <a href="{% pageurl section %}" class="Menu-navLink"
+                                       role="menuitem">{{ section.title }}</a>
+                                    {% load_descendant_articles_for_section section count=2 featured_in_homepage=True as featured_articles %}
+                                    <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
+                                        {% for article in featured_articles %}
+                                            <li class="Menu-navItem" role="presentation">
+                                                <a class="Menu-navLink" role="menuitem" href="{% pageurl article %}">
+                                                <span class="Menu-contentTout">
+                                                    <span class="Menu-contentToutHeadline">{{ article.title }}</span>
+                                                    <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
+                                                </span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
 {% endif %}

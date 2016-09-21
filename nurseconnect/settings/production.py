@@ -1,4 +1,6 @@
 from .base import *  # noqa
+from os import environ
+# import raven
 
 
 # Disable debug mode
@@ -17,13 +19,13 @@ COMPRESS_OFFLINE = True
 # to prevent this from blocking web server threads
 # (requires the django-celery package):
 # http://celery.readthedocs.org/en/latest/configuration.html
-
+#
 # import djcelery
 #
 # djcelery.setup_loader()
 #
 # CELERY_SEND_TASK_ERROR_EMAILS = True
-# BROKER_URL = "redis://"
+# BROKER_URL = environ.get("BROKEN_URL")
 
 
 # Use Redis as the cache backend for extra performance
@@ -41,24 +43,12 @@ COMPRESS_OFFLINE = True
 #     }
 # }
 
+RAVEN_CONFIG = {
+    'dsn': environ.get('RAVEN_DSN'),
+}
+
 # Setup for CAS
-ENABLE_SSO = True
-
-MIDDLEWARE_CLASSES += [
-    "molo.core.middleware.MoloCASMiddleware",
-    "molo.core.middleware.Custom403Middleware",
-]
-
-
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "molo.core.backends.MoloCASBackend",
-]
-
-CAS_SERVER_URL = ""
-CAS_ADMIN_PREFIX = "/admin/"
-LOGIN_URL = "/accounts/login/"
-CAS_VERSION = "3"
+ENABLE_SSO = False
 
 try:
     from .local import *  # noqa

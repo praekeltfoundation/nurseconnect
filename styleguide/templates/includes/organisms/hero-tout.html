@@ -1,0 +1,12 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<div class="HeroTout">
+    <h1 class="HeroTout-headline">
+        Lorem ipsum <strong>dolor</strong>
+    </h1>
+    <div class="HeroTout-actions">
+        {% include "includes/molecules/breadcrumb.html" %}
+    </div>
+</div>

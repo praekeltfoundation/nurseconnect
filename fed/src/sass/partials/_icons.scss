@@ -1,9 +1,0 @@
-.Icons {
-    // @TODO: Refactor this to use the @at-root directive as soon
-    // as a fix becomes available.
-    $scoped-block-name: unquote("#{&}");
-
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-}

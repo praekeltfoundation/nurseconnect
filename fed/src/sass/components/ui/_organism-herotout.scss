@@ -1,0 +1,18 @@
+.HeroTout {
+    $block: unquote("#{&}");
+
+    padding: scale(beta);
+    background-color: $color-blue-pelorous;
+    color: $color-white;
+
+    &-headline {
+        margin: 0;
+        font-size: scale(gamma);
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    &-actions {
+        margin-top: scale(beta);
+    }
+}

@@ -1,0 +1,26 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<header class="SiteHead">
+    <div class="SiteHead-brand">
+        <a href="" class="Logo Logo--siteHead">
+            <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+        </a>
+    </div>
+    <div class="SiteHead-actions" role="navigation">
+        <nav class="NavBar NavBar--siteHead" role="menubar">
+            <ul class="NavBar-navGroup" role="menu">
+                <li class="NavBar-navItem NavBar-navItem--active" role="presentation">
+                    <a href="" class="NavBar-navLink" role="menuitem">Menu</a>
+                </li>
+                <li class="NavBar-navItem" role="presentation">
+                    <a href="" class="NavBar-navLink" role="menuitem">Profile</a>
+                </li>
+                <li class="NavBar-navItem" role="presentation">
+                    <a href="" class="NavBar-navLink" role="menuitem">Search</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

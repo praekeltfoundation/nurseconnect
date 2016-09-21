@@ -3,54 +3,78 @@
 {% get_settings %}
 
 {% block content %}
-    <h1 class="heading heading--profiles">{% trans "Welcome. Let's get you signed up." %}</h1>
+    <section action="" class="Splash">
+        <div class="Splash-header">
+            <a href="{% url "home" %}" class="Logo Logo--siteHead">
+                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </a>
+        </div>
+        <div class="Splash-body">
+            <h1 class="Splash-headline">Welcome.<br> Let's get you signed up.</h1>
+        </div>
+        <div class="Splash-body">
+            <form method="POST" action="{% url "user_register" %}" class="Form">
+                {% csrf_token %}
+                <fieldset class="Form-fieldGroup">
+                    <legend class="Form-groupHeading">Personal Information</legend>
+                    <div class="Form-field Form-field--required">
+                        <label for="mobilenum" class="Form-fieldLabel">{{ form.username.label }}</label>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
+                    {{ form.non_field_errors }}
+                    <div class="Form-field Form-field--required">
+                        <label for="pword" class="Form-fieldLabel">{{ form.password.label }}</label>
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <label for="pwordconf" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
+                        {{ form.confirm_password }}
+                        {{ form.confirm_password.errors }}
+                    </div>
+                </fieldset>
+                <fieldset class="Form-fieldGroup">
+                    <legend class="Form-groupHeading">Security questions</legend>
+                    {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
+                        {% for field in form %}
+                            {% if field in form.security_questions %}
+                                <div class="Form-field Form-field--required">
+                                    <label for="sq{{ forloop.counter }}"
+                                           class="Form-fieldLabel">{{ field.label }}</label>
+                                    {{ field }}
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="Form-field Form-field--required">
+                        <ul class="Form-choiceGroup">
+                            <li class="Form-choiceGroupItem">
+                                <input type="checkbox" name="terms_and_conditions" id="checkbox1" class="Form-choiceInput">
+                                {% footer_link %}
+                                {{ form.terms_and_conditions.errors }}
+                            </li>
+                        </ul>
+                    </div>
 
-    <h4 class="heading heading--subtitle">
-        {% trans "Personal Information" %}<br/>
-    </h4>
-    <div class="profiles">
-        <form method="POST" action="{% url "user_register" %}" class="profiles__form">
-            {% csrf_token %}
-            <div class="FormGroup FormGroup--padded">
-                <div class="FormField FormField--center FormField--bordered">
-                    {{ form.username.label_tag }}
-                    {{ form.username }}
-                    {{ form.username.errors }}
-                </div>
-                {{ form.non_field_errors }}
-                <div class="FormField FormField--center FormField--bordered">
-                    {{ form.password.label_tag }}
-                    {{ form.password }}
-                    {{ form.password.errors }}
-                </div>
-                <div class="FormField FormField--center FormField--bordered">
-                    {{ form.confirm_password.label_tag }}
-                    {{ form.confirm_password }}
-                    {{ form.confirm_password.errors }}
-                </div>
-
-                {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
-                    {% for field in form %}
-                        {% if field in form.security_questions %}
-                            <div class="FormField FormField--center FormField--bordered">
-                                {{ field.label_tag }}
-                                {{ field }}
-                                {{ field.errors }}
+                </fieldset>
+                <div class="Splash-actions">
+                    <ul class="ButtonGroup">
+                        <li class="ButtonGroup-item">
+                            <input class="Button" type="submit" value="{% trans "Register" %}"/>
+                        </li>
+                        <input type="hidden" name="next" value="{% url "home" %}"/>
+                        <li class="ButtonGroup-item">
+                            <div class="Message Message--subtle Message--centered">
+                                <p class="Message-caption">
+                                    Already have an account? Login <a href="{% url "auth_login" %}">here</a>
+                                </p>
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                {% footer_link %}
-
-                <div class="FormField FormField--center FormField--bordered">
-                    {{ form.terms_and_conditions }}
-                    {{ form.terms_and_conditions.errors }}
+                        </li>
+                    </ul>
                 </div>
-
-                <input class="PillButton PillButton--orange" type="submit" value="{% trans "Register" %}"/>
-                <input type="hidden" name="next" value="{% url "home" %}"/>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </section>
 {% endblock %}

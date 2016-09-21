@@ -2,54 +2,78 @@
 
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
+{% load comments mptt_tags molo_commenting_tags i18n %}
+{% load nurseconnect_tags %}
 
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="ListTitle">
-        <h1 class="ListTitle-name">{{ self.title }}</h1>
-    </div>
     {% load_child_sections_for_section self as sections %}
-    <ul class="ListView">
-        {% for section in sections %}
-            <li class="ListItemWrapper">
-                <a href="{% pageurl section %}" class="ListItem ListItem--rightIcon">
-                    <h3 class="ListItem-title">{{ section.title }}</h3>
-                    <span class="ListItem-iconRight Icons icon-chevron_right-bluePelorous"></span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
 
-    {% load_child_articles_for_section self as articles %}
-    {% for article in articles %}
-        <ul class="ListView">
-            <li class="ListItemWrapper">
-                <a class="ListItem ListItem--withImage" href="{% pageurl article %}">
-                    <h3 class="ListItem-title">{{ article.title }}</h3>
-                    <h4 class="ListItem-subtitle">{{ article.subtitle }}</h4>
-                    <p class="ListItem-desc">{{ article.description }}</p>
-                    {% if article.image %}
-                        <a class="ListItem-image" href="{% pageurl article %}">{% image article.image width-60 %}</a>
-                    {% endif %}
-                </a>
-            </li>
-        </ul>
+    {% for section in sections %}
+        <section class="ContentList ContentList--bgTertiary">
+            <header class="ContentList-header">
+                <h1 class="ContentList-categoryLabel">{{ section.title }}</h1>
+            </header>
+
+            {% load_child_articles_for_section section as articles %}
+            <div class="ContentList-body">
+                {% for article in articles %}
+                    <article class="Article">
+                        <a href="{% pageurl article %}" class="Article-hitBox">
+                            {% if article.image %}
+                                <img class="Article-image Article-image--aside">{% image article.image width-100 %}</img>
+                            {% endif %}
+                            <h2 class="Article-headline">{{ article.title }}</h2>
+                            <p class="Article-strapline">{{ article.subtitle }}</p>
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+            <footer class="ContentList-actions">
+                <a href="{% pageurl section %}" class="Button Button--blue">View more articles about Sub-category</a>
+            </footer>
+        </section>
     {% endfor %}
 
+    {% load_child_articles_for_section self as articles %}
+
+    <div class="ContentList-body">
+        {% for article in articles %}
+            <article class="Article">
+                <a href="{% pageurl article %}" class="Article-hitBox">
+                    {% if article.image %}
+                        <img class="Article-image Article-image--aside">{% image article.image width-100 %}</img>
+                    {% endif %}
+                    <h2 class="Article-headline">{{ article.title }}</h2>
+                    <p class="Article-strapline">{{ article.subtitle }}</p>
+                    {% get_comment_count for article as comment_count %}
+                    <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                </a>
+            </article>
+        {% endfor %}
+    </div>
+
     {% if articles %}
-        {% if articles_paginated.has_previous %}
-            <li class="Breadcrumb-item Breadcrumb-item--active">
-                <a class="Breadcrumb-link" href="?p={{ articles_paginated.previous_page_number }}"></a>
-            </li>
-        {% endif %}
-        <span class="Breadcrumb-item Breadcrumb-item--active">
-            Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
-        </span>
-        {% if articles_paginated.has_next %}
-            <li class="Breadcrumb-item Breadcrumb-item--active">
-                <a class="Breadcrumb-link" href="?p={{ articles_paginated.next_page_number }}">&rarr;</a>
-            </li>
-        {% endif %}
+        <aside class="ContentBody-secondaryNav">
+            <nav class="Pagination" role="navigation">
+                <ul class="Pagination-bar" role="menubar" aria-labelledby="pagination-label">
+                    {% if articles_paginated.has_previous %}
+                        <li class="Pagination-item Pagination-item--prev" role="presentation">
+                            <a class="Pagination-link" role="menuitem"
+                               href="?p={{ articles_paginated.previous_page_number }}">Prev</a>
+                        </li>
+                    {% endif %}
+                    <span class="Pagination-label"
+                          id="pagination-label">Page {{ articles_paginated.number }} of {{ articles_paginated.paginator.num_pages }}
+                    </span>
+                    {% if articles_paginated.has_next %}
+                        <li class="Pagination-item Pagination-item--next" role="presentation">
+                            <a class="Pagination-link" role="menuitem"
+                               href="?p={{ articles_paginated.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </aside>
     {% endif %}
 {% endblock %}

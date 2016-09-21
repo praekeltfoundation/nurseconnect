@@ -2,19 +2,21 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 
 {% block content %}
-    <div class="standalone-page your-words {{ competition.get_effective_extra_style_hints }}">
-        <div class="section-title">
-            <h2>{% trans "Share your story" %}</h2>
-        </div>
-
-        <h3>{% trans 'Thank you!' %}</h3>
-        <p>{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
-
-
-        <img src="{% static 'img/Pencil.png' %}"/>
-
-        <div>
-            <a href="{{ request.site.root_page.url }}" class="button">{% trans "HOME" %}</a>
-        </div>
+    <div class="HeroTout">
+        <h1 class="HeroTout-headline">
+            Share your story
+        </h1>
+    </div>
+    <section class="Paper">
+        <article class="Paper-body">
+            <header class="Paper-header">
+                <h1 class="Paper-headline">{% trans 'Thank you!' %}</h1>
+                <p class="Paper-lead">{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
+                <img src="http://www.placehold.it/100x100"/>
+            </header>
+        </article>
+    </section>
+    <div>
+        <a href="{{ request.site.root_page.url }}" class="Button">{% trans "HOME" %}</a>
     </div>
 {% endblock %}

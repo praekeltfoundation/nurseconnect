@@ -3,36 +3,34 @@
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="articles nav">
-        <h3 class="article-title">{{ self.title }}</h3>
-        <p>{{ self.subtitle }}</p>
-        {% if self.image %}
-            <div class="banner">{% image self.image width-240 %}</div>
-        {% endif %}
-
-        <article>
-            {% for block in self.body %}
-                {% if block.block_type == "heading" %}
-                    <p class="Footer-paragraph">{{ block.value }}</p>
-                {% else %}
-                    {% if block.block_type == "image" %}
-                        {% image block.value width-240 %}
-                    {% else %}
-                        {% if block.block_type == "numbered_list" %}
-                            <ol>
-                                {% for item in block.value %}
-                                    <li>{{ item }}</li>
-                                {% endfor %}
-                            </ol>
-                        {% else %}
-                            {{ block }}
-                        {% endif %}
-                    {% endif %}
+    <section class="Paper">
+        <article class="Paper-body">
+            <header class="Paper-header">
+                <h1 class="Paper-headline">{{ self.title }}</h1>
+                <p class="Paper-lead">{{ self.subtitle }}</>
+                {% if self.image %}
+                    <div class="Paper-graphic">{% image self.image width-240 %}</div>
                 {% endif %}
-            {% endfor %}
+            </header>
+            <div class="Paper-copy">
+                {% for block in self.body %}
+                    {% if block.block_type == "heading" %}
+                        <h2>{{ block.value }}</h2>
+                    {% elif block.block_type == "image" %}
+                        {% image block.value width-240 %}
+                    {% elif block.block_type == "numbered_list" %}
+                        <ul>
+                            {% for item in block.value %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {{ block }}
+                    {% endif %}
+                {% endfor %}
+            </div>
         </article>
-    </div>
+    </section>
 {% endblock %}

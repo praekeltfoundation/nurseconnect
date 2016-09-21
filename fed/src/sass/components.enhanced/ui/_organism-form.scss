@@ -1,0 +1,208 @@
+.Form {
+    $block: unquote("#{&}");
+
+    &--padded {
+        padding: scale(gamma);
+
+        #{$block}-actions {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    &-fieldGroup {
+        @include clearfix;
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: 0;
+
+        & + & {
+            margin-top: scale(eta);
+        }
+    }
+
+    &-groupStateToggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $color-blue-pelorous;
+        font-weight: 600;
+
+        & + #{$block}-groupHeading {
+            padding-right: scale(gamma);
+        }
+    }
+
+    &-groupHeading {
+        display: block;
+        width: 100%;
+        margin-bottom: scale(beta);
+        float: left;
+        color: $color-blue-pelorous;
+        font-size: scale(gamma);
+        font-weight: 400;
+    }
+
+    &-field {
+        display: block;
+
+        & + & {
+            margin-top: scale(beta);
+        }
+
+        &--required {
+            #{$block}-fieldLabel {
+                &:after {
+                    display: inline-block;
+                    margin-left: scale(alpha);
+                    color: $color-orange-bittersweet;
+                    font-size: 1.25em;
+                    font-weight: 600;
+                    content: "*";
+                }
+            }
+        }
+
+        &--error {
+            #{$block}-fieldLabel,
+            #{$block}-input,
+            #{$block}-message {
+                color: $color-secondary-error;
+            }
+
+            #{$block}-input,
+            #{$block}-textArea,
+            #{$block}-selectBox {
+                border: 1px solid $color-secondary-error;
+                background-color: tint($color-secondary-error, 80%);
+            }
+        }
+    }
+
+    &-fieldLabel {
+        display: block;
+        margin-bottom: .5em;
+        color: $color-blue-regal;
+        font-size: scale(alpha);
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-input,
+    &-textArea,
+    &-selectBox {
+        display: block;
+        width: 100%;
+        padding: scale(beta);
+        border-radius: 3px;
+        background-color: $color-white;
+        color: $color-blue-regal;
+        appearance: none;
+
+        &[disabled],
+        &[readonly] {
+            background-color: shade($color-blue-spindle, 5%);
+            cursor: not-allowed;
+        }
+    }
+
+    &-textArea {
+        height: 6rem;
+    }
+
+    &-choiceGroup {
+        @include no-list;
+
+        &Item {
+            position: relative;
+
+            & + & {
+                margin-top: scale(beta);
+            }
+        }
+    }
+
+    &-choiceLabel {
+        display: block;
+        cursor: pointer;
+
+        &:before {
+            display: inline-block;
+            width: 2em;
+            height: 2em;
+            margin-right: 1em;
+            padding: 4px;
+            border: 1px solid $color-blue-regal;
+            background-clip: content-box;
+            background-color: $color-white;
+            content: "";
+            vertical-align: middle;
+        }
+
+
+        &--radio {
+            &:before {
+                border-radius: 50%;
+            }
+        }
+    }
+
+    &-choiceInput {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+
+        &:checked {
+            & + #{$block}-choiceLabel {
+                &:before {
+                    background-color: $color-blue-pelorous;
+                }
+            }
+        }
+
+        &[disabled],
+        &[readonly] {
+            & + #{$block}-choiceLabel {
+                cursor: not-allowed;
+
+                &:before {
+                    background-color: shade($color-blue-spindle, 5%);
+                    border-color: shade($color-blue-spindle, 5%);
+                }
+            }
+        }
+    }
+
+    &-selectBox {
+        display: inline-block;
+        float: left;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &Indicator {
+            display: inline-block;
+            margin-left: -2em;
+            line-height: 3em;
+            vertical-align: middle;
+            pointer-events: none;
+
+            &:after {
+                display: inline-block;
+                content: "\25BC";
+            }
+        }
+    }
+
+    &-message {
+        display: block;
+        margin-top: scale(alpha);
+    }
+
+    &-actions {
+        margin: scale(gamma);
+    }
+}

@@ -3,26 +3,59 @@
 
 {% block content %}
     {% if search_results %}
-        <h1 class="Article-title">Your search results for {{ search_query }}</h1>
+        <div class="HeroTout">
+            <h1 class="HeroTout-headline">Your search results for <strong>{{ search_query }}</strong></h1>
+        </div>
     {% else %}
-        <h1 class="Article-title">What are you looking for?</h1>
+        <div class="HeroTout">
+            <h1 class="HeroTout-headline">What are you looking for?</h1>
+        </div>
     {% endif %}
     {% include "search/search_block.html" %}
     {% if search_results %}
         {% include "search/search_results.html" %}
     {% elif not search_results and searched or search_query == "" %}
-        <div>
+        <div class="Message Message--inpage Message--centered">
             {% if search_query == "" %}
-                <p>{% trans "No results found for " %}<strong>""</strong></p>
+                <p class="Message-caption">{% trans "No results found for " %}<strong>""</strong></p>
             {% else %}
-                <p>{% trans "No results found for " %}<strong>{{ search_query }}.</strong></p>
+                <p class="Message-caption">{% trans "No results found for " %}<strong>{{ search_query }}.</strong></p>
             {% endif %}
         </div>
     {% endif %}
-    <div class="ListTitle ListTitle--search_quick_links" id="search_quick_links">
-        <h1 class="ListTitle-name">{% trans "Quick Links" %}</h1>
-    </div>
-    <div class="ListTitle ListTitle--search_popular_searches" id="search_popular_searches">
-        <h1 class="ListTitle-name">{% trans "Popular Searches" %}</h1>
-    </div>
+    <section class="ContentList ContentList--bgTertiary">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Quick Links</h1>
+        </header>
+        <div class="ContentList-body">
+            <nav class="Menu" role="menubar">
+                <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">Lorem ipsum</a>
+                    </li>
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">Lorem ipsum</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <section class="ContentList ContentList--bgTertiary">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Popular Searches</h1>
+        </header>
+        <div class="ContentList-body">
+            <nav class="Menu" role="menubar">
+                <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">Lorem ipsum</a>
+                    </li>
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">Lorem ipsum</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
 {% endblock %}

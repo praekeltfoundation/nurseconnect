@@ -1,0 +1,68 @@
+.Article {
+    $block: unquote("#{&}");
+
+    @include clearfix;
+    padding: scale(alpha);
+    background-color: inherit;
+
+    &:first-child {
+        // Removes padding between article and orange category label.
+        padding-top: 0;
+    }
+
+    & + & {
+        border-top: 1px solid $color-blue-spindle;
+    }
+
+    &--bgWhite {
+        background-color: $color-white;
+    }
+
+    &--bgBlueTranquil {
+        background-color: $color-blue-tranquil;
+    }
+
+    &-hitBox {
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &-image {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto scale(alpha);
+
+        &--prominent {
+            width: 100%;
+        }
+
+        &--aside {
+            max-width: 50%;
+        }
+    }
+
+    &-headline {
+        margin: 0 0 5px;
+        color: $color-blue-pelorous;
+        font-size: scale(beta);
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    &-strapline {
+        margin: 0;
+        color: $color-blue-regal;
+        font-weight: 300;
+        line-height: 1.25;
+    }
+
+    &-actions {
+        @include no-list;
+        margin-top: scale(alpha);
+
+        &Item {
+            display: inline-block;
+        }
+    }
+}

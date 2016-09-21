@@ -1,0 +1,46 @@
+{% include "includes/organisms/site-head.html" %}
+<main class="ContentBody" role="main">
+    {% include "includes/organisms/hero-tout.html" %}
+    <form action="" class="Form Form--padded">
+        <fieldset class="Form-fieldGroup">
+            <a href="#" class="Form-groupStateToggle">Edit</a>
+            <legend class="Form-groupHeading">Settings</legend>
+            <div class="Form-field">
+                <label for="fname" class="Form-fieldLabel">First Name</label>
+                <input type="text" id="fname" name="fname" class="Form-input" value="Thisuser">
+            </div>
+            <div class="Form-field">
+                <label for="lname" class="Form-fieldLabel">Last Name</label>
+                <input type="text" id="lname" name="lname" class="Form-input" value="Hasaverylongnamße">
+            </div>
+            <div class="Form-field">
+                <label for="contactnumber" class="Form-fieldLabel">Mobile Number</label>
+                <input type="tel" id="contactnumber" name="contactnumber" class="Form-input" value="082 123 4567">
+            </div>
+        </fieldset>
+        <fieldset class="Form-fieldGroup">
+            <a href="#" class="Form-groupStateToggle">Edit</a>
+            <legend class="Form-groupHeading">Password</legend>
+            <div class="Form-field">
+                <label for="pword" class="Form-fieldLabel">Current Password</label>
+                <input type="password" id="pword" name="pword" class="Form-input" value="my-hovercraft-is-full-of-eels" readonly>
+            </div>
+        </fieldset>
+        <fieldset class="Form-fieldGroup">
+            <a href="#" class="Form-groupStateToggle">Edit</a>
+            <legend class="Form-groupHeading">Security Questions</legend>
+            <div class="Form-field">
+                <label for="sq1" class="Form-fieldLabel">Name of primary school</label>
+                <input type="text" id="sq1" name="sq1" class="Form-input" readonly>
+            </div>
+            <div class="Form-field">
+                <label for="sq2" class="Form-fieldLabel">City of birth</label>
+                <input type="text" id="sq2" name="sq2" class="Form-input" readonly>
+            </div>
+        </fieldset>
+        <div class="Form-actions">
+            <input type="submit" class="Button" value="Update Profile">
+        </div>
+    </form>
+</main>
+{% include "includes/organisms/site-footer.html" %}

@@ -1,0 +1,32 @@
+{% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
+
+{% if sections %}
+    <div class="HeroTout">
+        <h1 class="HeroTout-headline">
+            Select a category from the list to view
+        </h1>
+    </div>
+    <nav class="Menu Menu--highContrast" role="menubar">
+        <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+            <li class="Menu-navItem" role="presentation">
+                {% for section in sections %}
+                    {% if section.title == "Home" %}
+                        <a href="{% url "home" %}" class="Menu-navLink" role="menuitem">
+                            {% if section.image %}
+                                <img class="Menu-navIcon">{% image section.image max-50x50 %}</img>
+                            {% endif %}
+                            {{ section.title }}
+                        </a>
+                    {% else %}
+                        <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
+                            {% if section.image %}
+                                <img class="Menu-navIcon">{% image section.image max-50x50 %}</img>
+                            {% endif %}
+                            {{ section.title }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </li>
+        </ul>
+    </nav>
+{% endif %}

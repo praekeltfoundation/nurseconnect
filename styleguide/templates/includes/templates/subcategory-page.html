@@ -1,0 +1,79 @@
+{% include "includes/organisms/site-head.html" %}
+<main class="ContentBody" role="main">
+    {% include "includes/organisms/hero-tout.html" %}
+    <section class="ContentList ContentList--bgTertiary">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Sub-category 1</h1>
+        </header>
+        <div class="ContentList-body">
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+        </div>
+    </section>
+    <aside class="ContentBody-secondaryNav">
+        <nav class="Pagination" role="navigation">
+            <span class="Pagination-label" id="pagination-label">Page # of ##</span>
+            <ul class="Pagination-bar" role="menubar" aria-labelledby="pagination-label">
+                <li class="Pagination-item Pagination-item--prev" role="presentation">
+                    <a href="#" class="Pagination-link" role="menuitem" aria-posinset="#">
+                        Prev
+                    </a>
+                </li>
+                {% for val in "xxxxxxx" %}
+                    {% if forloop.counter == 6 %}
+                        <li class="Pagination-item" role="presentation">
+                            <span class="Pagination-link">
+                                ...
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="Pagination-item" role="presentation">
+                            <a href="#{{ forloop.counter }}" class="Pagination-link {% if forloop.counter == 1 %}Pagination-link--current{% endif%}" role="menuitem" aria-posinset="{{ forloop.counter }}">
+                                {{ forloop.counter }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="Pagination-item Pagination-item--next" role="presentation">
+                    <a href="#" class="Pagination-link" role="menuitem" aria-posinset="#">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+</main>
+{% include "includes/organisms/site-footer.html" %}

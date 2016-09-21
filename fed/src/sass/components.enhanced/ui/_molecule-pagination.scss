@@ -1,0 +1,55 @@
+.Pagination {
+    $block: unquote("#{&}");
+
+    &-label {
+        display: block;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: scale(beta);
+    }
+
+    &-bar {
+        @include no-list;
+        display: flex;
+        justify-content: space-between;
+        align-content: stretch;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    &-item {
+        display: inline-block;
+        width: 1.5rem;
+        text-align: center;
+        vertical-align: middle;
+
+        &--prev,
+        &--next {
+            flex-basis: 5rem;
+            flex-shrink: 2rem;
+
+            #{$block}-link {
+                color: $color-blue-pelorous;
+            }
+        }
+
+        &--prev {
+            text-align: left;
+        }
+
+        &--next {
+            text-align: right;
+        }
+    }
+
+    &-link {
+        text-decoration: none;
+        color: $color-blue-pelorous;
+        color: rgba($color-blue-pelorous, .5);
+
+        &--current {
+            color: $color-orange-bittersweet;
+            border-bottom: 1px solid $color-orange-bittersweet;
+        }
+    }
+}

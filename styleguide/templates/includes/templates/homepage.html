@@ -1,0 +1,115 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+
+{% include "includes/organisms/site-head.html" %}
+<main class="ContentBody" role="main">
+    {% include "includes/organisms/hero-tout.html" %}
+    <section class="ContentList">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Latest Articles</h1>
+        </header>
+        <div class="ContentList-body">
+            <article class="Article Article--featured">
+                <a href="#1" class="Article-hitBox">
+                    <img class="Article-image Article-image--prominent" src="http://www.placehold.it/500x150" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#2" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/150x150" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+            <article class="Article">
+                <a href="#3" class="Article-hitBox">
+                    <img class="Article-image Article-image--aside" src="http://www.placehold.it/150x150" alt="Image Alt Text">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                </a>
+            </article>
+        </div>
+    </section>
+    <section class="ContentList ContentList--bgSecondary">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Your Words</h1>
+        </header>
+        <div class="ContentList-body">
+            <article class="Article">
+                <a href="#1" class="Article-hitBox">
+                    <h2 class="Article-headline">Lorem ipsum dolor</h2>
+                    <p class="Article-strapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nemo.</p>
+                    <div class="Article-actions">
+                        <span class="Button">Call to action text goes here</span>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </section>
+    <section class="ContentList">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">Categories</h1>
+        </header>
+        <div class="ContentList-body">
+            <nav class="Menu" role="menubar">
+                <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">
+                            Lorem ipsum
+                            <img src="{% static 'icons/png/chevron_right-bluePelorous.png' %}" alt="" class="Menu-navIcon Menu-navIcon--after Menu-navIcon--scaledToText">
+                        </a>
+
+                        <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
+                            <li class="Menu-navItem" role="presentation">
+                                <a href="" class="Menu-navLink" role="menuitem">
+                                    <span class="Menu-contentTout">
+                                        <span class="Menu-contentToutHeadline">Lorem ipsum dolor sit amet.</span>
+                                        <span class="Menu-contentToutStrapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, aut.</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="Menu-navItem" role="presentation">
+                                <a href="" class="Menu-navLink" role="menuitem">
+                                    <span class="Menu-contentTout">
+                                        <span class="Menu-contentToutHeadline">Lorem ipsum dolor sit amet.</span>
+                                        <span class="Menu-contentToutStrapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, aut.</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="" class="Menu-navLink" role="menuitem">
+                            Lorem ipsum
+                            <img src="{% static 'icons/png/chevron_right-bluePelorous.png' %}" alt="" class="Menu-navIcon Menu-navIcon--after Menu-navIcon--scaledToText">
+                        </a>
+
+                        <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
+                            <li class="Menu-navItem" role="presentation">
+                                <a href="" class="Menu-navLink" role="menuitem">
+                                    <span class="Menu-contentTout">
+                                        <span class="Menu-contentToutHeadline">Lorem ipsum dolor sit amet.</span>
+                                        <span class="Menu-contentToutStrapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, aut.</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="Menu-navItem" role="presentation">
+                                <a href="" class="Menu-navLink" role="menuitem">
+                                    <span class="Menu-contentTout">
+                                        <span class="Menu-contentToutHeadline">Lorem ipsum dolor sit amet.</span>
+                                        <span class="Menu-contentToutStrapline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, aut.</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>
+{% include "includes/organisms/site-footer.html" %}

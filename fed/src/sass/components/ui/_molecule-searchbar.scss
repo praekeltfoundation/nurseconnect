@@ -1,0 +1,28 @@
+.SearchBar {
+    $block: unquote("#{&}");
+
+    @include clearfix;
+
+    &--isolated {
+        padding: scale(alpha);
+        background-color: $color-blue-spindle;
+    }
+
+    &-input,
+    &-submit {
+        display: block;
+        float: left;
+        border: 0;
+    }
+
+    &-input {
+        padding: scale(alpha) 5%;
+        background-color: $color-white;
+    }
+
+    &-submit {
+        padding: scale(alpha);
+        background-color: $color-blue-pelorous;
+        color: $color-white;
+    }
+}

@@ -1,0 +1,115 @@
+.Comments {
+    $block: unquote("#{&}");
+
+    background-color: $color-blue-spindle;
+
+    &-label {
+        margin: 0 0 scale(alpha);
+        padding: scale(gamma) scale(gamma) 0;
+        color: $color-orange-bittersweet;
+        font-size: scale(beta);
+        text-transform: uppercase;
+    }
+
+    &-body {
+
+    }
+
+    &-item {
+        //padding: scale(gamma);
+        margin: 0;
+        padding: 0 scale(gamma);
+
+        & + & {
+            margin-top: scale(gamma);
+            padding-top: scale(gamma);
+            border-top: 1px solid $color-blue-pelorous;
+        }
+    }
+
+    &-byline {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap-reverse;
+        align-content: stretch;
+        justify-content: space-between;
+    }
+
+    &-author {
+        display: block;
+        color: $color-blue-regal;
+        font-size: scale(gamma);
+        text-decoration: none;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    &-dateline {
+        display: inline-block;
+        color: $color-grey-light-slate;
+        font-weight: 600;
+        vertical-align: middle;;
+    }
+
+    &-words {
+        margin: 0 0 scale(alpha);
+    }
+
+    &-actionBar {
+        @include no-list;
+    }
+
+    &-action {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &-actionLink {
+        color: $color-blue-pelorous;
+        font-weight: 600;
+        text-decoration: none;
+
+        & + & {
+            margin-left: scale(beta);
+        }
+    }
+
+    &-submission {
+        // display: block;
+        // width: 100%;
+        margin: 0;
+        margin-top: scale(gamma);
+        padding: scale(gamma);
+        border-top: 1px solid $color-blue-pelorous;
+        overflow: hidden;
+    }
+
+    &-fieldLabel {
+        display: block;
+        margin-bottom: scale(beta);
+        color: $color-blue-regal;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-field {
+        display: block;
+        width: 90%;
+        height: 6rem;
+        margin: 0;
+        padding: scale(gamma) 5%;
+        border: 1px solid $color-blue-tranquil;
+        border-radius: 3px;
+        background-color: $color-white;
+        color: $color-blue-regal;
+
+        &::placeholder {
+            color: $color-grey-light-slate;
+        }
+    }
+
+    &-submitButton {
+        margin-top: scale(gamma);
+        appearance: none;
+    }
+}

@@ -1,0 +1,21 @@
+.Logo {
+
+    &--auth {
+        display: inline-block;
+        width: 60%;
+        max-width: 280px;
+        height: 79px;
+        margin-bottom: $global-padding;
+        background-size: 100%;
+    }
+}
+
+.Logo {
+    $block: unquote("#{&}");
+
+    display: block;
+
+    &-graphic {
+        max-width: rem(125);
+    }
+}

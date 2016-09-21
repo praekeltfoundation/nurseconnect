@@ -2,7 +2,7 @@
 
 
 {% if terms %}
-    <p class="Footer-paragraph">
-        <a href="{% pageurl terms %}" class="Footer-link">{% trans "Accept the Terms of Use" %}</a> &nbsp;
-    </p>
+    <label for="checkbox1" class="Form-choiceLabel Form-choiceLabel--checkbox">
+        <a href="{% pageurl terms %}">{% trans "I accept the terms of use" %}</a>
+    </label>
 {% endif %}

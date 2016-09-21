@@ -14,6 +14,7 @@ var plumber         = require('gulp-plumber');
 var runSequence     = require('run-sequence');
 var sass            = require('gulp-sass');
 var sassLint        = require('gulp-sass-lint');
+var sassGlob        = require('gulp-sass-glob');
 var watch           = require('gulp-watch');
 var bourbon         = require('bourbon').includePaths;
 
@@ -40,18 +41,19 @@ var sassConfig = {
 gulp.task('styles', ['clean-css', 'lint-sass'], function () {
     return gulp.src(srcPath + '/sass/**/*.s+(a|c)ss')
     .pipe(plumber())
+    .pipe(sassGlob())
     .pipe(sass(sassConfig).on('error', sass.logError))
     .pipe(bless())
-    .pipe(autoprefixer({
+    .pipe(gulpif(production, autoprefixer({
         browsers: [
             'ie >= 8',
             'android >= 2.3',
             'iOS >= 6',
             '> 0%'
         ]
-    }))
+    })))
     .pipe(pixrem())
-    .pipe(gulpif(production, cssNano()))
+    .pipe(cssNano())
     .pipe(plumber.stop())
     .pipe(gulp.dest(distPath + '/css'))
     .pipe(browserSync.stream());
@@ -93,7 +95,7 @@ gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
             orangeBittersweet: '#ff6655',
             bluePelorous: '#2d9ec5',
             blueRegal: '#213d55',
-  	    white: '#ffffff'
+            white: '#ffffff'
         }
     };
 

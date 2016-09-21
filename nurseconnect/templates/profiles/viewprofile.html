@@ -3,25 +3,23 @@
 {% get_settings %}
 
 {% block content %}
-    <div class="profiles">
-        {% if success_message %}
-            <h2 class="ListTitle-name"> {{ success_message }}</h2>
-        {% endif %}
-        <div class="ListTitle ListTitle--highlight">
-            <h2 class="ListTitle-name">Settings</h2>
-            <a href="{% url "view_my_profile" %}"
-               class="call-to-action__nav-item call-to-action__nav-item--editprofile">{% trans "Edit" %}</a>
-        </div>
-        {% include "profiles/editprofile.html" %}
-        <div class="ListTitle ListTitle--highlight">
-            <h2 class="ListTitle-name">Password</h2>
-            <a href="{% url "view_my_profile" %}"
-               class="call-to-action__nav-item call-to-action__nav-item--change-password">{% trans "Edit" %}</a>
-            {% include "profiles/change_password.html" %}
-        </div>
-        <div class="call-to-action call-to-action--profile call-to-action--view-profile">
-            <a href="{% url "molo.profiles:auth_logout" %}"
-               class="PillButton PillButton--orange">{% trans "log out" %}</a>
-        </div>
+    <div class="HeroTout">
+        <h1 class="HeroTout-headline">
+            Edit & Update your profile
+        </h1>
+    </div>
+    {% if success_message %}
+        <h2 class="ListTitle-name"> {{ success_message }}</h2>
+    {% endif %}
+    <a href="{% url "edit_my_profile" "edit-settings" %}" name="edit">{% trans "Edit" %}</a>
+    {% include "profiles/editprofile.html" %}
+
+    <a href="{% url "edit_my_profile" "edit-password" %}"
+       class="call-to-action__nav-item call-to-action__nav-item--change-password" name="edit">{% trans "Edit" %}</a>
+    {% include "profiles/change_password.html" %}
+
+    <div class="Form-actions">
+        <a href="{% url "molo.profiles:auth_logout" %}"
+           class="Button">{% trans "log out" %}</a>
     </div>
 {% endblock %}

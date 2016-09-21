@@ -1,0 +1,80 @@
+.Article {
+    $block: unquote("#{&}");
+
+    @include clearfix;
+    margin: scale(gamma);
+    background-color: inherit;
+
+    &:first-child {
+        // Removes padding between article and orange category label.
+        padding-top: 0;
+    }
+
+    & + & {
+        padding-top: scale(gamma);
+        border-top: 1px solid $color-blue-regal;
+        border-top: 1px solid rgba($color-blue-regal, .1);
+    }
+
+    &--featured {
+        font-size: 1.25rem;
+        background-color: $color-white;
+    }
+
+    &--bgWhite {
+        background-color: $color-white;
+    }
+
+    &--bgBlueTranquil {
+        background-color: $color-blue-tranquil;
+    }
+
+    &-hitBox {
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &-image {
+        display: block;
+        max-width: 100%;
+
+        &--prominent {
+            width: 100%;
+            margin-bottom: scale(alpha);
+        }
+
+        &--aside {
+            max-width: 25%;
+            margin-left: scale(beta);
+            float: right;
+        }
+    }
+
+    &-headline {
+        margin: 0 0 scale(alpha);
+        color: $color-blue-pelorous;
+        font-size: 1.46em;
+        font-weight: 400;
+        letter-spacing: kerning(-75);
+        line-height: 1;
+    }
+
+    &-strapline {
+        margin: 0;
+        color: $color-blue-regal;
+        font-size: 1em;
+        font-weight: 300;
+        letter-spacing: kerning(-50);
+        line-height: 1.2;
+    }
+
+    &-actions {
+        @include no-list;
+        margin-top: scale(beta);
+
+        &Item {
+            display: inline-block;
+        }
+    }
+}

@@ -1,0 +1,70 @@
+{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailsettings_tags wagtailimages_tags %}
+{% get_settings %}
+
+<main class="ContentBody" role="main">
+    <section action="" class="Splash">
+        <div class="Splash-header">
+            <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+        </div>
+        <div class="Splash-body">
+            <h1 class="Splash-headline">Welcome.<br> Let's get you signed up.</h1>
+        </div>
+        <div class="Splash-body">
+            <form action="" class="Form">
+                <fieldset class="Form-fieldGroup">
+                    <legend class="Form-groupHeading">Personal Information</legend>
+                    <div class="Form-field Form-field--required">
+                        <label for="mobilenum" class="Form-fieldLabel">Mobile Number</label>
+                        <input type="tel" id="mobilenum" class="Form-input" placeholder="eg. 0821234567">
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <label for="pword" class="Form-fieldLabel">Password</label>
+                        <input type="password" id="pword" class="Form-input" placeholder="Enter password">
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <label for="pwordconf" class="Form-fieldLabel">Confirm Password</label>
+                        <input type="password" id="pwordconf" class="Form-input" placeholder="Re-enter password">
+                    </div>
+                </fieldset>
+                <fieldset class="Form-fieldGroup">
+                    <legend class="Form-groupHeading">Security questions</legend>
+                    <p class="Form-tip">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium a omnis cum earum, error quia!</p>
+                    <div class="Form-field Form-field--required">
+                        <label for="sq1" class="Form-fieldLabel">Name of primary school</label>
+                        <input type="text" id="sq1" class="Form-input" placeholder="Enter name of your primary school">
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <label for="sq2" class="Form-fieldLabel">City of birth</label>
+                        <input type="text" id="sq2" class="Form-input" placeholder="Enter name of the city you were born in">
+                    </div>
+                    <div class="Form-field Form-field--required">
+                        <ul class="Form-choiceGroup">
+                            <li class="Form-choiceGroupItem">
+                                <input type="checkbox" name="checkboxes" id="checkbox1" class="Form-choiceInput">
+                                <label for="checkbox1" class="Form-choiceLabel Form-choiceLabel--checkbox">
+                                    <a href="">I accept the terms of use.</a>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="Splash-actions">
+            <ul class="ButtonGroup">
+                <li class="ButtonGroup-item">
+                    <a href="#" class="Button">Sign up</a>
+                </li>
+                <li class="ButtonGroup-item">
+                    <div class="Message Message--subtle Message--centered">
+                        <p class="Message-caption">
+                            Already have an account? Login <a href="#">here</a>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+{% include "includes/organisms/site-footer.html" %}
