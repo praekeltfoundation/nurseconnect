@@ -46,8 +46,10 @@
                     {% endif %}
                     <h2 class="Article-headline">{{ article.title }}</h2>
                     <p class="Article-strapline">{{ article.subtitle }}</p>
-                    {% get_comment_count for article as comment_count %}
-                    <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                    {% if article.is_current_topic_of_the_day %}
+                        {% get_comment_count for article as comment_count %}
+                        <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                    {% endif %}
                 </a>
             </article>
         {% endfor %}
