@@ -10,25 +10,16 @@
     <section class="Paper">
         <article class="Paper-body">
             <header class="Paper-header">
+
                 {% if self.image %}
-                    <div class="Paper-graphic">{% image self.image max-500x150 %}</div>
+                    {% image self.image max-500x150 class="Paper-graphic" %}
                 {% endif %}
-                <time class="Paper-dateline"
-                      datetime="{{ self.articlepage.first_published_at.year }}-{{ self.articlepage.first_published_at.month }}-{{ self.articlepage.first_published_at.day }}"
-                      pubdate
-                      title="{% convert_month self.articlepage.first_published_at.month %} {{ self.articlepage.first_published_at.day }}, {{ self.articlepage.first_published_at.year }}">
-                    {% convert_month self.articlepage.first_published_at.month %}
-                    {{ self.articlepage.first_published_at.day }}
-                    {{ self.articlepage.first_published_at.year }}
-                </time>
+
                 <h1 class="Paper-headline">{{ self.title }}</h1>
-                <span class="Paper-byline">by <a href="#" class="Paper-bylineAuthor" rel="author">
-                    {{ self.articlepage.owner.first_name }}
-                    {{ self.articlepage.owner.last_name }}
-                </a></span>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
                 {% get_comment_count for self as comment_count %}
-                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25
+                     class="Logo-graphic"> <strong>{{ comment_count }}</strong>
             </header>
             <div class="Paper-copy">
                 {% for block in self.body %}
@@ -63,9 +54,11 @@
                 {% endfor %}
             </div>
         </article>
-        <section class="Comments">
-            <h1 class="Comments-label">{% trans "" %}Comments</h1>
-            {% include "comments/comment_block.html" %}
-        </section>
+        {% if self.is_current_topic_of_the_day %}
++           <section class="Comments">
+                <h1 class="Comments-label">{% trans "Comments" %}</h1>
+                {% include "comments/comment_block.html" %}
+            </section>
++       {% endif %}
     </section>
 {% endblock %}

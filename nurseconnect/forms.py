@@ -38,7 +38,7 @@ class RegistrationForm(forms.Form):
             }
         ),
         min_length=4,
-        max_length=30, # Arbitrarily chosen
+        max_length=30,  # Arbitrarily chosen
         error_messages={
             "invalid": _(
                 "Your password must contain any alphanumeric "
@@ -196,7 +196,7 @@ class EditProfileForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
-        if username: # TODO: temporary fix - fix ASAP
+        if username:  # TODO: temporary fix - fix ASAP
             self.cleaned_data["username"] = username.raw_input
 
         # if not self.request.user.username == self.cleaned_data["username"]:

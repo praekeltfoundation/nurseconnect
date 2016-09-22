@@ -14,7 +14,9 @@
                 <ul class="Breadcrumb-group" role="menu">
                     <li class="Breadcrumb-item" role="presentation">
                         <a class="Breadcrumb-link" role="menuitem" href="{% url "home" %}">{% trans "Home" %}</a>
-                        <span class="Breadcrumb-chevron">&#10095;</span>
+                        <span class="Breadcrumb-chevron">
+                            <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+                        </span>
                     </li>
                     {% for ancestor in ancestors %}
                         {% if forloop.last %}
@@ -25,7 +27,9 @@
                         {% else %}
                             <li class="Breadcrumb-item" role="presentation">
                                 <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}</a>
-                                <span class="Breadcrumb-chevron">&#10095;</span>
+                                <span class="Breadcrumb-chevron">
+                                    <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+                                </span>
                             </li>
                         {% endif %}
                     {% endfor %}

@@ -4,7 +4,7 @@
 {% if articles %}
     <section class="ContentList">
         <header class="ContentList-header">
-            <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
+            <h1 class="ContentList-categoryLabel">{% trans "Topic of the day" %}</h1>
         </header>
         <div class="ContentList-body">
             {% for article in articles %}
@@ -17,6 +17,13 @@
 
                         <h2 class="Article-headline">{{ article.title }}</h2>
                         <p class="Article-strapline">{{ article.subtitle }}</p>
+
+                        <ul class="Article-actions">
+                            <li class="Article-actionsItem">
+                                {% get_comment_count for article as comment_count %}
+                                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> {{ comment_count }}
+                            </li>
+                        </ul>
                     </a>
                 </article>
             {% endfor %}

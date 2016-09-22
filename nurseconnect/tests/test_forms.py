@@ -78,8 +78,6 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
         )
         self.assertEqual(form.is_valid(), True)
 
-
-
     def test_terms_and_conditions_is_required(self):
         form_data = {
             'username': 'test',

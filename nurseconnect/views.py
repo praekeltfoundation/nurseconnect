@@ -1,6 +1,5 @@
 import random
 
-from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -147,12 +146,13 @@ class MyProfileView(View):
             settings_form.change_field_enabled_state(state=False)
             edit = "edit-settings"
         elif kwargs.get("edit") == "edit-password":
-            profile_password_change_form.change_field_enabled_state(state=False)
+            profile_password_change_form.change_field_enabled_state(
+                state=False)
             edit = "edit-password"
 
         context = {
             "edit": edit,
-            "active": "profile", # TODO: questionable - remove later
+            "active": "profile",  # TODO: questionable - remove later
             "settings_form": settings_form,
             "profile_password_change_form": profile_password_change_form,
         }
@@ -172,12 +172,15 @@ class MyProfileView(View):
         if edit == "edit-settings":
             settings_form.full_clean()
             if settings_form.is_valid():
-                user = self.request.user
-                user.first_name = settings_form.cleaned_data["first_name"]
-                user.last_name = settings_form.cleaned_data["last_name"]
+                self.request.user.first_name = \
+                    settings_form.cleaned_data["first_name"]
+                self.request.user.last_name = \
+                    settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
-                    user.username = settings_form.cleaned_data["username"]
-                user.save()
+                    self.request.user.username = \
+                        settings_form.cleaned_data["username"]
+                self.request.user.save()
+                # import pdb; pdb.set_trace()
 
                 return HttpResponseRedirect(reverse("view_my_profile"))
 
@@ -293,7 +296,7 @@ class ForgotPasswordView(FormView):
         )
         kwargs["questions"] = self.security_questions[
             :profile_settings.num_security_questions
-            ]
+        ]
         return kwargs
 
 
