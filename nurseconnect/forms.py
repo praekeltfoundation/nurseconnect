@@ -190,23 +190,23 @@ class EditProfileForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop("user")
+        self.user = kwargs.pop("user")
         super(EditProfileForm, self).__init__(*args, **kwargs)
-        self.set_initial(user)
+        self.set_initial(self.user)
 
     def clean_username(self):
+        # TODO: this check doesn't take into account the normalization
         username = self.cleaned_data["username"]
         if username:  # TODO: temporary fix - fix ASAP
             self.cleaned_data["username"] = username.raw_input
 
-        # if not self.request.user.username == self.cleaned_data["username"]:
-        #     if User.objects.filter(
-        #         username__iexact=self.cleaned_data["username"]
-        #     ).exists():
-        #         self.add_error(None, "Username already exists.")
+        if not self.user.username == self.cleaned_data["username"]:
+            if User.objects.filter(
+                username__iexact=self.cleaned_data["username"]
+            ).exists():
+                self.add_error(None, "Username already exists.")
 
-        # return self.cleaned_data["username"]
-            pass
+        return self.cleaned_data["username"]
 
     def set_initial(self, user):
         self.fields["first_name"].initial = user.first_name \

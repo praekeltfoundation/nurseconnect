@@ -104,44 +104,17 @@ class RegistrationView(FormView):
         return kwargs
 
 
-# def two_form_view(request):
-#     context = {}
-#     if request.method == "POST":
-#         question_form = QuestionForm(request.POST)
-#         answer_form = AnswerForm(request.POST)
-#         success = False
-#         if 'q_button' in request.POST and question_form.is_valid()
-#             question_form.save()
-#             success = Treu
-#         if 'a_button' in request.POST and answer_form.is_valid()
-#             answer_form.save()
-#             success = True
-#         if success:
-#             return HttpResponse(reverse('success'))
-#     else:
-#         question_form = QuestionForm(request.POST)
-#         answer_form = AnswerForm(request.POST)
-#
-#     context['answer_form'] = answer_form
-#     context['question_form'] = question_form
-#     return render(request, 'forms.html', context)
-#
-# def success(request):
-#     return render(request, 'success.html', {})
-
-
 class MyProfileView(View):
     template_name = "profiles/viewprofile.html"
 
     def get(self, request, *args, **kwargs):
         settings_form = forms.EditProfileForm(
-            prefix="settings_form", user=request.user
+            prefix="settings_form", user=self.request.user
         )
-        # settings_form.set_initial()
+        edit = ""
         profile_password_change_form = forms.ProfilePasswordChangeForm(
             prefix="profile_password_change_form"
         )
-        edit = ""
         if kwargs.get("edit") == "edit-settings":
             settings_form.change_field_enabled_state(state=False)
             edit = "edit-settings"
@@ -152,7 +125,6 @@ class MyProfileView(View):
 
         context = {
             "edit": edit,
-            "active": "profile",  # TODO: questionable - remove later
             "settings_form": settings_form,
             "profile_password_change_form": profile_password_change_form,
         }
@@ -160,17 +132,12 @@ class MyProfileView(View):
 
     def post(self, request, *args, **kwargs):
         edit = kwargs.get("edit")
-        settings_form = forms.EditProfileForm(
-            request.POST,
-            prefix="settings_form",
-            user=request.user
-        )
-        profile_password_change_form = forms.ProfilePasswordChangeForm(
-            request.POST,
-            prefix="profile_password_change_form"
-        )
         if edit == "edit-settings":
-            settings_form.full_clean()
+            settings_form = forms.EditProfileForm(
+                request.POST,
+                prefix="settings_form",
+                user=request.user
+            )
             if settings_form.is_valid():
                 self.request.user.first_name = \
                     settings_form.cleaned_data["first_name"]
@@ -180,40 +147,60 @@ class MyProfileView(View):
                     self.request.user.username = \
                         settings_form.cleaned_data["username"]
                 self.request.user.save()
-                # import pdb; pdb.set_trace()
 
                 return HttpResponseRedirect(reverse("view_my_profile"))
+            else:
+                profile_password_change_form = forms.ProfilePasswordChangeForm(
+                    prefix="profile_password_change_form"
+                )
+                settings_form.change_field_enabled_state(False)
+                return render(
+                    request,
+                    self.template_name,
+                    context={
+                        "settings_form": settings_form,
+                        "profile_password_change_form":
+                            profile_password_change_form
+                    }
+                )
 
         elif edit == "edit-password":
-            profile_password_change_form.full_clean()
+            profile_password_change_form = forms.ProfilePasswordChangeForm(
+                request.POST,
+                prefix="profile_password_change_form"
+            )
             if profile_password_change_form.is_valid():
-                user = self.request.user
-                if user.check_password(
+                if self.request.user.check_password(
                     profile_password_change_form.cleaned_data[
                         "old_password"
                     ]
                 ):
-                    user.set_password(
+                    self.request.user.set_password(
                         profile_password_change_form.cleaned_data[
                             "new_password"
                         ]
                     )
-                    user.save()
+                    self.request.user.save()
                     return HttpResponseRedirect(reverse("view_my_profile"))
                 else:
                     profile_password_change_form.add_error(
                         "old_password",
                         _("The old password is incorrect.")
                     )
-
-        return render(
-            self.request,
-            self.template_name,
-            context={
-                "settings_form": settings_form,
-                "profile_password_change_form": profile_password_change_form
-            }
-        )
+            else:
+                settings_form = forms.EditProfileForm(
+                    prefix="settings_form", user=self.request.user
+                )
+                profile_password_change_form.change_field_enabled_state(False)
+                return render(
+                    request,
+                    self.template_name,
+                    context={
+                        "settings_form": settings_form,
+                        "profile_password_change_form":
+                            profile_password_change_form
+                    }
+                )
 
 
 class ForgotPasswordView(FormView):
