@@ -8,24 +8,27 @@
     </div>
     <nav class="Menu Menu--highContrast" role="menubar">
         <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
-            <li class="Menu-navItem" role="presentation">
-                {% for section in sections %}
-                    {% if section.title == "Home" %}
+            {% for section in sections %}
+                {% if section.title == "Home" %}
+                    <li class="Menu-navItem" role="presentation">
                         <a href="{% url "home" %}" class="Menu-navLink" role="menuitem">
                             {% if section.image %}
-                                <img class="Menu-navIcon">{% image section.image max-50x50 %}</img>
+                                {% image section.image max-50x50 alt="" class="Menu-navIcon" %}
                             {% endif %}
                             {{ section.title }}
                         </a>
-                    {% else %}
+                    </li>
+                {% else %}
+                    <li class="Menu-navItem" role="presentation">
                         <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
                             {% if section.image %}
-                                <img class="Menu-navIcon">{% image section.image max-50x50 %}</img>
+                                {% image section.image max-50x50 alt="" class="Menu-navIcon" %}
                             {% endif %}
                             {{ section.title }}
                         </a>
-                    {% endif %}
-                {% endfor %}
+                    </li>
+                {% endif %}
+            {% endfor %}
             </li>
         </ul>
     </nav>
