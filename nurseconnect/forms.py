@@ -199,6 +199,10 @@ class EditProfileForm(forms.Form):
         if username:  # TODO: temporary fix - fix ASAP
             self.cleaned_data["username"] = username.raw_input
 
+            if username[0] == "0":
+                self.cleaned_data["username"] = \
+                    INT_PREFIX + username[1:len(username)]
+
         # if not self.request.user.username == self.cleaned_data["username"]:
         #     if User.objects.filter(
         #         username__iexact=self.cleaned_data["username"]
