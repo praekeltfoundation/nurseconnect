@@ -12,14 +12,16 @@
             <header class="Paper-header">
 
                 {% if self.image %}
-                    <div class="Paper-graphic">{% image self.image max-500x150 %}</div>
+                    {% image self.image max-500x150 class="Paper-graphic" %}
                 {% endif %}
 
                 <h1 class="Paper-headline">{{ self.title }}</h1>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
-                {% get_comment_count for self as comment_count %}
-                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25
-                     class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                {% if self.is_current_topic_of_the_day %}
+                    {% get_comment_count for self as comment_count %}
+                    <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25
+                         class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                {% endif %}
             </header>
             <div class="Paper-copy">
                 {% for block in self.body %}
@@ -55,10 +57,10 @@
             </div>
         </article>
         {% if self.is_current_topic_of_the_day %}
-+           <section class="Comments">
+            <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
                 {% include "comments/comment_block.html" %}
             </section>
-+       {% endif %}
+        {% endif %}
     </section>
 {% endblock %}
