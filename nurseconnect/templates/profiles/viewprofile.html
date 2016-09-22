@@ -11,11 +11,9 @@
     {% if success_message %}
         <h2 class="ListTitle-name"> {{ success_message }}</h2>
     {% endif %}
-    <a href="{% url "edit_my_profile" "edit-settings" %}" name="edit">{% trans "Edit" %}</a>
     {% include "profiles/editprofile.html" %}
 
     <a href="{% url "edit_my_profile" "edit-password" %}"
-       class="call-to-action__nav-item call-to-action__nav-item--change-password" name="edit">{% trans "Edit" %}</a>
     {% include "profiles/change_password.html" %}
 
     <div class="Form-actions">
