@@ -5,7 +5,7 @@
     <section class="ContentList">
         <div class="ContentList-body">
             {% for article in articles %}
-                <article class="Article {% if forloop.counter == 1 %} Article--featured {% endif %}">
+                <article class="Article Article--featured">
                     <a href="{% pageurl article %}" class="Article-hitBox">
 
                         {% if article.image %}
