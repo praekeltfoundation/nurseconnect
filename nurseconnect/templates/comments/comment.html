@@ -1,17 +1,17 @@
 {% load i18n molo_commenting_tags nurseconnect_tags %}
 
-
 <dl class="Comments-item">
     <dt class="Comments-byline">
-        <a href="#" rel="author" class="Comments-author">{% if not node.first_name %}Anonymous{% else %}{{ node.first_name }}{% endif %}</a>
-        <time class="Comments-dateline"
-              datetime="{{ comment_list.0.values.0.submit_date.year }}-{{ comment_list.0.values.0.submit_date.month }}-{{ comment_list.0.values.0.submit_date.day }}"
-              pubdate
-              title="{% convert_month comment_list.0.values.0.submit_date.month %} {{ comment_list.0.values.0.submit_date.day }}, {{ comment_list.0.values.0.submit_date.year }}">
-            {% convert_month comment_list.0.values.0.submit_date.month %}
-            {{ comment_list.0.values.0.submit_date.day }}
-            {{ comment_list.0.values.0.submit_date.year }} - {{ comment_list.0.values.0.submit_date.hour }}:{{ comment_list.0.values.0.submit_date.minute }}
-        </time>
+        <a href="#" rel="author" class="Comments-author">
+            {% if not node.user.first_name or node.user.last_name == "Anonymous" or node.user_name == "Anonymous" %}
+                Anonymous
+            {% else %}
+                {{ node.user.first_name }}
+            {% endif %}
+            {% if node.user.last_name and node.user.last_name != "Anonymous" and node.user_name != "Anonymous" %}
+                .{{ node.user.last_name.0 }}
+            {% endif %}
+        </a>
     </dt>
     {% if node.is_removed %}
         <p>{% trans "This comment has been removed by the community. Please read our platform rules." %}</p>

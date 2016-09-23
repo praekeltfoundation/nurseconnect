@@ -14,7 +14,7 @@
                 <h1 class="Paper-headline">{{ competition.title }}</h1>
                 <p class="Paper-lead">{{ competition.description }}</p>
                 {% if competition.image %}
-                    <div class="Paper-graphic">{% image competition.image max-500x150 %}</div>
+                    {% image competition.image max-500x150 class="Paper-graphic" %}
                 {% endif %}
             </header>
             <div class="Paper-copy">

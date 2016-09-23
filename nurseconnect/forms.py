@@ -38,7 +38,7 @@ class RegistrationForm(forms.Form):
             }
         ),
         min_length=4,
-        max_length=30,  # Arbitrarily chosen
+        max_length=30,
         error_messages={
             "invalid": _(
                 "Your password must contain any alphanumeric "
@@ -79,15 +79,6 @@ class RegistrationForm(forms.Form):
                 "in order to complete the registration"
             )
         },
-        # widget=forms.RadioSelect(
-        #     attrs={
-        #         "class": "Form-choiceInput",
-        #         "for": "checkbox1",
-        #         "type": "checkbox",
-        #         "name": "checkboxes",
-        #         "id": "checkbox1"
-        #     }
-        # ),
         label=_("Accept the Terms of Use")
     )
 
@@ -125,14 +116,6 @@ class RegistrationForm(forms.Form):
         ]
 
     def clean_username(self):
-        username = self.cleaned_data["username"]
-        if username:
-            username = username.raw_input
-
-        # if username and username[0] == "0":
-        #     self.cleaned_data["username"] = \
-        #         INT_PREFIX + username[1:len(username)]
-
         if User.objects.filter(
             username__iexact=self.cleaned_data["username"]
         ).exists():
@@ -195,16 +178,22 @@ class EditProfileForm(forms.Form):
         self.set_initial(self.user)
 
     def clean_username(self):
-        # TODO: this check doesn't take into account the normalization
         username = self.cleaned_data["username"]
-        if username:  # TODO: temporary fix - fix ASAP
-            self.cleaned_data["username"] = username.raw_input
+        if username:
+            raw_username = username.raw_input
+            if raw_username[0] == "0":
+                self.cleaned_data["username"] = \
+                    INT_PREFIX + raw_username[1:len(username)]
+            else:
+                self.cleaned_data["username"] = raw_username
 
-        if not self.user.username == self.cleaned_data["username"]:
+        if self.user.username != self.cleaned_data["username"]:
             if User.objects.filter(
                 username__iexact=self.cleaned_data["username"]
             ).exists():
-                self.add_error(None, "Username already exists.")
+                self._errors["username"] = self.error_class(
+                    ["Username already exists."]
+                )
 
         return self.cleaned_data["username"]
 

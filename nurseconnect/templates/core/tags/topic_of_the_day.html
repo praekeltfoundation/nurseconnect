@@ -3,16 +3,13 @@
 
 {% if articles %}
     <section class="ContentList">
-        <header class="ContentList-header">
-            <h1 class="ContentList-categoryLabel">{% trans "Topic of the day" %}</h1>
-        </header>
         <div class="ContentList-body">
             {% for article in articles %}
                 <article class="Article {% if forloop.counter == 1 %} Article--featured {% endif %}">
                     <a href="{% pageurl article %}" class="Article-hitBox">
 
                         {% if article.image %}
-                            <img class="Article-image {% if forloop.counter == 1 %} Article-image--prominent {% else %} Article-image--aside {% endif %}">{% image self.image width-300 %}</img>
+                            {% image article.image width-300 class="Article-image Article-image--prominent" %}
                         {% endif %}
 
                         <h2 class="Article-headline">{{ article.title }}</h2>
@@ -21,7 +18,8 @@
                         <ul class="Article-actions">
                             <li class="Article-actionsItem">
                                 {% get_comment_count for article as comment_count %}
-                                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> {{ comment_count }}
+                                <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25
+                                     height=25 class="Logo-graphic"> {{ comment_count }}
                             </li>
                         </ul>
                     </a>
