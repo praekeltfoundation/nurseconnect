@@ -3,9 +3,6 @@
 
 {% if articles %}
     <section class="ContentList">
-        <header class="ContentList-header">
-            <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
-        </header>
         <div class="ContentList-body">
             {% for article in articles %}
                 <article class="Article {% if forloop.counter == 1 %} Article--featured {% endif %}">
