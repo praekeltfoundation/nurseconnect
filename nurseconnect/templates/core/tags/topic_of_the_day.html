@@ -3,16 +3,13 @@
 
 {% if articles %}
     <section class="ContentList">
-        <header class="ContentList-header">
-            <h1 class="ContentList-categoryLabel">{% trans "Topic of the day" %}</h1>
-        </header>
         <div class="ContentList-body">
             {% for article in articles %}
                 <article class="Article Article--featured">
                     <a href="{% pageurl article %}" class="Article-hitBox">
 
                         {% if article.image %}
-                            {% image article.image width-768 class="Article-image Article-image--prominent" %}
+                            {% image article.image width-300 class="Article-image Article-image--prominent" %}
                         {% endif %}
 
                         <h2 class="Article-headline">{{ article.title }}</h2>

@@ -2,7 +2,7 @@
 {% get_settings %}
 
 {% block content %}
-    <form method="POST" action="{% url "view_my_profile" %}" class="Form Form--padded">
+    <form method="POST" action="{% url 'edit_my_profile' 'edit-settings' %}" class="Form Form--padded">
         <fieldset class="Form-fieldGroup">
             <a href="{% url "edit_my_profile" "edit-settings" %}" class="Form-groupStateToggle">{% trans "Edit" %}</a>
             <legend class="Form-groupHeading">Settings</legend>
@@ -10,7 +10,7 @@
             {% csrf_token %}
             {% if settings_form.errors %}
                 <p class="error errorlist">
-                    {% for key, errors in settings_form.errors.iteritems %}
+                    {% for key, errors in settings_form.non_field_errors.iteritems %}
                         {% for error in errors %}
                             {% trans error %}<br/>
                         {% endfor %}
