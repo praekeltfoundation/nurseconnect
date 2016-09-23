@@ -8,7 +8,7 @@
                     <header class="Paper-header">
                         <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
                         {% if bannerpage.banner_link_page %}
-                            <a href="{% pageurl bannerpage.banner_link_page %}">{% image bannerpage.banner max-500x150 class="Article-image Article-image--prominent" height="auto" %}</a>
+                            <a href="{% pageurl bannerpage.banner_link_page %}">{% image bannerpage.banner max-500x150 class="Article-image Article-image--prominent" %}</a>
                         {% else %}
                             {% image bannerpage.banner max-500x150 class="Article-image Article-image--prominent" %}
                         {% endif %}
@@ -18,4 +18,3 @@
         </article>
     </section>
 {% endif %}
-
