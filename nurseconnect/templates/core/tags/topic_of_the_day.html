@@ -1,9 +1,13 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% load comments mptt_tags molo_commenting_tags %}
 
-{% if articles %}
-    <section class="ContentList">
-        <div class="ContentList-body">
+
+<section class="ContentList">
+    <div class="ContentList-body">
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
+        </header>
+        {% if articles %}
             {% for article in articles %}
                 <article class="Article Article--featured">
                     <a href="{% pageurl article %}" class="Article-hitBox">
@@ -25,6 +29,7 @@
                     </a>
                 </article>
             {% endfor %}
-        </div>
-    </section>
-{% endif %}
+        {% endif %}
+    </div>
+</section>
+

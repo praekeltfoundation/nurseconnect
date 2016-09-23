@@ -22,6 +22,9 @@
                                         <li class="Menu-navItem" role="presentation">
                                             <a class="Menu-navLink" role="menuitem" href="{% pageurl article %}">
                                                 <span class="Menu-contentTout">
+                                                    {% if article.image %}
+                                                        {% image article.image width-300 class="Article-image Article-image--aside" height="auto" %}
+                                                    {% endif %}
                                                     <span class="Menu-contentToutHeadline">{{ article.title }}</span>
                                                     <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
                                                 </span>
