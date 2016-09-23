@@ -187,11 +187,13 @@ class EditProfileForm(forms.Form):
             else:
                 self.cleaned_data["username"] = raw_username
 
-        # if not self.request.user.username == self.cleaned_data["username"]:
-        #     if User.objects.filter(
-        #         username__iexact=self.cleaned_data["username"]
-        #     ).exists():
-        #         self.add_error(None, "Username already exists.")
+        if self.user.username != self.cleaned_data["username"]:
+            if User.objects.filter(
+                username__iexact=self.cleaned_data["username"]
+            ).exists():
+                self._errors["username"] = self.error_class(
+                    ["Username already exists."]
+                )
 
         return self.cleaned_data["username"]
 
