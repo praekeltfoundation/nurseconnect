@@ -12,8 +12,10 @@
     {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
     <textarea name="comment" id="comment" class="Comments-field" placeholder="Your comment here"></textarea>
     <input type="submit" class="Button Comments-submitButton" value="Add Comment">
-    <p>{% trans "Want to hide your name on the comment?" %}</p>
-    <input type="submit" name="submit_anonymously" value="Add anonymously">
+    <div class="Message Message--centered Message--inpage">
+        <p class="Message-caption">Want to hide your name on the comment?</p>
+        <input class="" type="submit" name="submit_anonymously" value="Add anonymously">
+    </div>
     {{ form.object_pk }}
 
     {{ form.content_type }}
