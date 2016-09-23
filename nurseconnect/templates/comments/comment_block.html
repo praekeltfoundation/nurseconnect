@@ -7,6 +7,7 @@
         {% get_molo_comments for self as comment_list %}
 
         {% for node in comment_list %}
+{#            # TODO Fix#}
             <time class="Comments-dateline"
                   datetime="{{ node.values.0.submit_date.year }}-{{ node.values.0.submit_date.month }}-{{ node.values.0.submit_date.day }}"
                   pubdate
