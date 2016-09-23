@@ -7,16 +7,16 @@
         {% get_molo_comments for self as comment_list %}
 
         {% for node in comment_list %}
-{#            # TODO Fix#}
-            <time class="Comments-dateline"
-                  datetime="{{ node.values.0.submit_date.year }}-{{ node.values.0.submit_date.month }}-{{ node.values.0.submit_date.day }}"
-                  pubdate
-                  title="{% convert_month node.values.0.submit_date.month %} {{ node.values.0.submit_date.day }}, {{ node.values.0.submit_date.year }}">
-                {% convert_month node.values.0.submit_date.month %}
-                {{ node.values.0.submit_date.day }}
-                {{ node.values.0.submit_date.year }}
-                - {{ node.values.0.submit_date.hour }}:{% if node.values.0.submit_date.minute < 10 %}0{{ node.values.0.submit_date.minute }}{% else %}{{ node.values.0.submit_date.minute }}{% endif %}
-            </time>
+{#             TODO Fix #}
+{#            <time class="Comments-dateline"#}
+{#                  datetime="{{ node.values.0.submit_date.year }}-{{ node.values.0.submit_date.month }}-{{ node.values.0.submit_date.day }}"#}
+{#                  pubdate#}
+{#                  title="{% convert_month node.values.0.submit_date.month %} {{ node.values.0.submit_date.day }}, {{ node.values.0.submit_date.year }}">#}
+{#                {% convert_month node.values.0.submit_date.month %}#}
+{#                {{ node.values.0.submit_date.day }}#}
+{#                {{ node.values.0.submit_date.year }}#}
+{#                - {{ node.values.0.submit_date.hour }}:{% if node.values.0.submit_date.minute < 10 %}0{{ node.values.0.submit_date.minute }}{% else %}{{ node.values.0.submit_date.minute }}{% endif %}#}
+{#            </time>#}
             {% recursetree node %}
                 {% include "comments/comment.html" %}
                 {{ children }}
