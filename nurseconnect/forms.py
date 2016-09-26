@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
 
+from phonenumber_field.validators import validate_international_phonenumber
 from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
@@ -13,7 +14,8 @@ INT_PREFIX = "+27"
 
 
 class RegistrationForm(forms.Form):
-    username = PhoneNumberField(
+    username = forms.CharField(
+        validators=[validate_international_phonenumber, ],
         widget=forms.TextInput(
             attrs={
                 "required": True,
