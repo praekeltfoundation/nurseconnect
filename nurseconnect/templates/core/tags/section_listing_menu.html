@@ -18,6 +18,12 @@
                             {{ section.title }}
                         </a>
                     </li>
+                {% elif section.title == "Log out" %}
+                    <li class="Menu-navItem" role="presentation">
+                        <a href="{% url "molo.profiles:auth_logout" %}" class="Menu-navLink" role="menuitem">
+                            {{ section.title }}
+                        </a>
+                    </li>
                 {% else %}
                     <li class="Menu-navItem" role="presentation">
                         <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
