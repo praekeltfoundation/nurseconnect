@@ -18,7 +18,6 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         # normalised to +27 country code
         response = self.client.post(reverse("user_register"), {
             "username": "wrong username",
-            "password": "1234",
             "confirm_password": "1234"
         })
         self.assertFormError(
@@ -46,6 +45,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             reverse("user_register"),
             {
                 "username": "0820000000",
+                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
@@ -59,6 +59,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             reverse("user_register"),
             {
                 "username": "+2782111111",
+                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
@@ -143,19 +144,16 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             ""
         )
 
-        # After editing first name, it should now be displayed
-        # response = self.client.post(
-        #     reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-        #     {
-        #         "first_name": "Tester",
-        #         "username": "0811231234"
-        #     },
-        #     follow=True
-        # )
-        # self.assertRedirects(response, reverse("view_my_profile"))
-        # self.assertEqual(response.status_code, 200)
-        # self.assertEqual(
-        #     response.context["settings_form"].fields[
-        #         "first_name"].initial,
-        #     "Tester"
-        # )
+        # After editing first name, redirect to view profile page
+        response = self.client.post(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+            {
+                "first_name": "Tester",
+                "username": "0811231234"
+            },
+            follow=True
+        )
+        self.assertRedirects(response, reverse("view_my_profile"))
+        self.assertEqual(response.status_code, 200)
+
+        # TODO: check edit of the other form

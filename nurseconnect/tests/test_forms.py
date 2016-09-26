@@ -18,8 +18,9 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
 
     def test_register_username_correct(self):
         form_data = {
-            'username': "0820000000",
-            'password': "1234",
+            "username": "0820000000",
+            "clinic_code": "000000",
+            "password": "1234",
             "confirm_password": "1234",
             'terms_and_conditions': True,
             "question_0": "answer"
