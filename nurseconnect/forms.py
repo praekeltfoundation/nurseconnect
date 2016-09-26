@@ -30,13 +30,14 @@ class RegistrationForm(forms.Form):
     clinic_code = forms.CharField(
         required=True,
         label=_("Clinic code"),
+        min_length=6,
+        max_length=6,
         widget=forms.TextInput(
             attrs={
                 "placeholder": _("Clinic code"),
                 "class": "Form-input"
             }
         ),
-        max_length=30,
     )
 
     password = forms.RegexField(
@@ -174,9 +175,10 @@ class EditProfileForm(forms.Form):
         max_length=30
     )
 
-    username = PhoneNumberField(
+    username = forms.CharField(
         required=False,
         label=_("Mobile number"),
+        validators=[validate_international_phonenumber, ],
         widget=forms.TextInput(
             attrs={
                 "placeholder": _("Username"),
