@@ -2,12 +2,9 @@ import random
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
-from django.http import QueryDict
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
@@ -201,143 +198,6 @@ class MyProfileView(View):
                             profile_password_change_form
                     }
                 )
-
-
-class ForgotPasswordView(FormView):
-    form_class = forms.ForgotPasswordForm
-    template_name = "profiles/forgot_password.html"
-
-    def form_valid(self, form):
-        error_message = "The username and security question(s) combination " \
-                        + "do not match."
-        profile_settings = models.UserProfilesSettings.for_site(
-            self.request.site
-        )
-
-        if "forgot_password_attempts" not in self.request.session:
-            self.request.session["forgot_password_attempts"] = \
-                profile_settings.password_recovery_retries
-
-        # max retries exceeded
-        # TODO: a "time-limited" lockout was requested when this is the case
-        if self.request.session["forgot_password_attempts"] <= 0:
-            form.add_error(
-                None,
-                _("Too many attempts. Please try again later.")
-            )
-            return self.render_to_response({'form': form})
-
-        username = form.cleaned_data["username"]
-        try:
-            user = User.objects.get_by_natural_key(username)
-        except User.DoesNotExist:
-            # add non_field_error
-            form.add_error(None, _(error_message))
-            self.request.session["forgot_password_attempts"] -= 1
-            return self.render_to_response({'form': form})
-
-        if not user.is_active:
-            # add non_field_error
-            form.add_error(None, _(error_message))
-            self.request.session["forgot_password_attempts"] -= 1
-            return self.render_to_response({'form': form})
-
-        # check security question answers
-        # TODO: fix indexes - num_security_questions should not
-        # exceed object.all(). This will resolve possible AttributeErrors
-        # when some question indexes don't exist
-        answer_checks = []
-        for i in range(profile_settings.num_security_questions):
-            user_answer = form.cleaned_data["question_%s" % (i,)]
-            saved_answer = user.profile.securityanswer_set.get(
-                user=user.profile,
-                question=self.security_questions[i]
-            )
-            answer_checks.append(
-                saved_answer.check_answer(user_answer)
-            )
-
-        # redirect to reset password page if username and security
-        # questions were matched
-        if all(answer_checks):
-            token = default_token_generator.make_token(user)
-            q = QueryDict(mutable=True)
-            q["user"] = username
-            q["token"] = token
-            reset_password_url = "{0}?{1}".format(
-                reverse("reset_password"), q.urlencode()
-            )
-            return HttpResponseRedirect(reset_password_url)
-        else:
-            form.add_error(None, _(error_message))
-            self.request.session["forgot_password_attempts"] -= 1
-            return self.render_to_response({'form': form})
-
-    def get_form_kwargs(self):
-        # add security questions for form field generation
-        kwargs = super(ForgotPasswordView, self).get_form_kwargs()
-        self.security_questions = list(models.SecurityQuestion.objects.all())
-        random.shuffle(self.security_questions)
-        profile_settings = models.UserProfilesSettings.for_site(
-            self.request.site
-        )
-        kwargs["questions"] = self.security_questions[
-            :profile_settings.num_security_questions
-        ]
-        return kwargs
-
-
-class ResetPasswordView(FormView):
-    form_class = forms.ResetPasswordForm
-    template_name = "profiles/reset_password.html"
-
-    def form_valid(self, form):
-        username = form.cleaned_data["username"]
-        token = form.cleaned_data["token"]
-
-        try:
-            user = User.objects.get_by_natural_key(username)
-        except User.DoesNotExist:
-            return HttpResponseForbidden()
-
-        if not user.is_active:
-            return HttpResponseForbidden()
-
-        if not default_token_generator.check_token(user, token):
-            return HttpResponseForbidden()
-
-        password = form.cleaned_data["password"]
-        confirm_password = form.cleaned_data["confirm_password"]
-
-        if password != confirm_password:
-            form.add_error(None,
-                           _("The two passwords that you entered do not"
-                             " match. Please try again."))
-            return self.render_to_response({"form": form})
-
-        user.set_password(password)
-        user.save()
-        self.request.session.flush()
-
-        return HttpResponseRedirect(
-            reverse("reset_password_success")
-        )
-
-    def render_to_response(self, context, **response_kwargs):
-        username = self.request.GET.get("user")
-        token = self.request.GET.get("token")
-
-        if not username or not token:
-            return HttpResponseForbidden()
-
-        context["form"].initial.update({
-            "username": username,
-            "token": token
-        })
-
-        return super(ResetPasswordView, self).render_to_response(
-            context, **response_kwargs
-        )
 
 
 class MenuView(TemplateView):
