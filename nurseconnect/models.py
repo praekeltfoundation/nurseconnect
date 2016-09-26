@@ -9,7 +9,6 @@ class UserProfile(MoloUserProfile):
     handled by molo.profiles. This model serves to implement these.
     """
     clinic_code = models.CharField(
-        min_length=6,
         max_length=6,
         blank=True,
         null=True)

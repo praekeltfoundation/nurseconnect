@@ -25,6 +25,18 @@ class RegistrationForm(forms.Form):
         label=_("Mobile Number")
     )
 
+    clinic_code = forms.CharField(
+        required=True,
+        label=_("Clinic code"),
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Clinic code"),
+                "class": "Form-input"
+            }
+        ),
+        max_length=30,
+    )
+
     password = forms.RegexField(
         regex=r"^\w+$",
         widget=forms.PasswordInput(
