@@ -29,6 +29,10 @@
                     </li>
                 {% endif %}
             {% endfor %}
+            <li class="Menu-navItem" role="presentation">
+                <a href="{% url "molo.profiles:auth_logout" %}" class="Menu-navLink" role="menuitem">
+                    {% trans "Log out" %}
+                </a>
             </li>
         </ul>
     </nav>

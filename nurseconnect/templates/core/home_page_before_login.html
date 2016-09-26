@@ -1,25 +1,19 @@
 {% load static i18n %}
 
-<main class="ContentBody" role="main">
-    <form action="" class="Splash Splash--bgNurse">
-        <div class="Splash-header">
-            <a href="{% url "home" %}" class="Logo Logo--siteHead">
-                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
-            </a>
-        </div>
-        <div class="Splash-body">
-            <h1 class="Splash-headline">Join our community. <br/>We're here to support you.</h1>
-            <p class="Splash-strapline">NurseConnect will send valuable weekly SMS messages about maternal and newborn health, family planning, MomConnect tips, service feedback, and motivational encouragement.</p>
-        </div>
-        <div class="Splash-actions">
-            <ul class="ButtonGroup">
-                <li class="ButtonGroup-item">
-                    <a href="{% url "user_register" %}" class="Button">Sign up now</a>
-                </li>
-                <li class="ButtonGroup-item">
-                    <a href="{% url "auth_login" %}" class="Button Button--inverted">Login</a>
-                </li>
-            </ul>
-        </div>
-    </form>
-</main>
+<form action="" class="Splash Splash--bgNurse">
+    <div class="Splash-body">
+        <h1 class="Splash-headline">Join our community. <br/>We're here to support you.</h1>
+        <p class="Splash-strapline">NurseConnect will send valuable weekly SMS messages about maternal and newborn
+            health, family planning, MomConnect tips, service feedback, and motivational encouragement.</p>
+    </div>
+    <div class="Splash-actions">
+        <ul class="ButtonGroup">
+            <li class="ButtonGroup-item">
+                <a href="{% url "user_register" %}" class="Button">Sign up now</a>
+            </li>
+            <li class="ButtonGroup-item">
+                <a href="{% url "auth_login" %}" class="Button Button--inverted">Login</a>
+            </li>
+        </ul>
+    </div>
+</form>
