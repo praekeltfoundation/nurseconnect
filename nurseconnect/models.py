@@ -12,3 +12,6 @@ class UserProfile(MoloUserProfile):
         max_length=6,
         blank=True,
         null=True)
+
+    class Meta:
+        default_related_name = "for_nurseconnect"
