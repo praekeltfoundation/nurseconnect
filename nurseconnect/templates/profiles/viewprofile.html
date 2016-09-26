@@ -8,8 +8,12 @@
             Edit & Update your profile
         </h1>
     </div>
-    {% if success_message %}
-        <h2 class="ListTitle-name"> {{ success_message }}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="Message Message--inpage Message--centered">
+                <h2 class="Message-item">{{ message }}</h2>
+            </div>
+        {% endfor %}
     {% endif %}
     {% include "profiles/editprofile.html" %}
 
