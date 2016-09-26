@@ -149,7 +149,7 @@ class MyProfileView(View):
                 self.request.user.first_name = \
                     settings_form.cleaned_data["first_name"]
                 if self.request.user.last_name != \
-                    settings_form.cleaned_data["last_name"]:
+                        settings_form.cleaned_data["last_name"]:
                     messages.success(
                         request,
                         "Last name successfully updated!"
