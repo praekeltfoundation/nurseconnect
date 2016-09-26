@@ -23,7 +23,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         })
         self.assertFormError(
             response, "form", "username",
-            [u"Enter a valid phone number."]
+            [u"The phone number entered is not valid."]
         )
 
         # Passwords with non-alphanumeric characters raise errors
