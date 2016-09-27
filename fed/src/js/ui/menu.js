@@ -23,8 +23,6 @@
 
         MenuFragment = FancyNav.children[1];
 
-        console.log(MenuFragment);
-
         MenuFragment.classList.remove('Menu--highContrast');
         MenuFragment.classList.add('Menu--centeredItems');
     }
