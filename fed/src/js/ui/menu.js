@@ -32,14 +32,3 @@
     // Fetch the #site-nav element from /menu/, and inject it into #nav-enhanced. Pretty straight forward stuff.
     injectHtmlFragment('/menu/', '#site-nav', FancyNav, navInit);
 }();
-
-var fancyNav = (function () {
-    // Private
-    // -------
-
-    // Public
-    // -------
-    return {
-
-    }
-})();
