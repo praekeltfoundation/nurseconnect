@@ -9,7 +9,6 @@ from wagtail.wagtailcore.models import Site
 
 from nurseconnect.formfields import PhoneNumberField
 
-ZATEL_REG = r"^((?:\+27|27)|0)[\s-]?(\d{2})[\s-]?(\d{3})[\s-]?(\d{4})[\s]*$"
 INT_PREFIX = "+27"
 
 

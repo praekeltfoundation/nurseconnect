@@ -14,7 +14,8 @@ class UserProfile(MoloUserProfile):
     clinic_code = models.CharField(
         max_length=6,
         blank=True,
-        null=True)
+        null=True
+    )
 
     class Meta:
         default_related_name = "for_nurseconnect"
