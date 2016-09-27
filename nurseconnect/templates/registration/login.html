@@ -6,14 +6,19 @@
 {% block content %}
     <section action="" class="Splash">
         <div class="Splash-body">
-            <h1 class="Splash-headline">{% trans "Welcome back. Please enter your login details." %}</h1>
+            <h1 class="Splash-headline">{% trans "Welcome back! Enter your details below to log in." %}</h1>
         </div>
         <div class="Splash-body">
             <form method="POST" action="{% url "auth_login" %}" class="Form">
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
                     {% if form.errors %}
-                        <p class="error errorlist">{% trans "Your mobile number and password does not match. Please try again." %}</p>
+                        <p class="Form-message Form-message--error Form-message--centered">
+                            {% trans "Your mobile number and password do not match. Please try again." %}
+                        </p>
+                        <p class="Form-message Form-message--centered">
+                            {% trans "If you’ve forgotten your password," %} <a href="{% url "forgot_password" %}" class="Link">{% trans "click here." %}</a>
+                        </p>
                     {% endif %}
                     <div class="Form-field Form-field--required">
                         <label for="mobilenum" class="Form-fieldLabel">Mobile Number</label>
@@ -28,6 +33,7 @@
                         {{ form.password.errors }}
                     </div>
                 </fieldset>
+                <p class="Form-message Form-message--centered"><i class="Form-requiredExample">*</i> {% trans "required field" %}</p>
                 <div class="Splash-actions">
                     <ul class="ButtonGroup">
                         <li class="ButtonGroup-item">
@@ -40,7 +46,7 @@
                                     {% trans "Don't have an account? Sign up" %} <a
                                         href="{% url "user_register" %}">{% trans "here" %}</a>
                                 </p>
-                                <a href="{% url "forgot_password" %}" class="Link">{% trans "Forgot password?" %}</a>
+                                <a href="{% url "forgot_password" %}" class="Link">{% trans "Forgot password? Click here." %}</a>
                             </div>
                         </li>
                     </ul>
