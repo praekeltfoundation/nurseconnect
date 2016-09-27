@@ -13,7 +13,7 @@
             <nav class="NavBar NavBar--siteHead" role="menubar">
                 <ul class="NavBar-navGroup" role="menu">
                     <li class="NavBar-navItem{% if active == "menu" %} NavBar-navItem--active{% endif %}"
-                        role="presentation">
+                        role="presentation" data-enhanced-nav>
                         <a href="{% url "menu" %}" class="NavBar-navLink" role="menuitem">{% trans "Menu" %}</a>
                     </li>
                     <li class="NavBar-navItem{% if active == "profile" %} NavBar-navItem--active{% endif %}"
