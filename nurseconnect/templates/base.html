@@ -111,7 +111,10 @@
         <main class="ContentBody" role="main">
             {% include "core/header.html" %}
 
-            {% breadcrumbs %}
+            {% if user.is_authenticated %}
+                {% breadcrumbs %}
+            {% endif %}
+
             {% block content %}
             {% endblock %}
 
