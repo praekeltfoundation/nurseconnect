@@ -1,5 +1,6 @@
 import random
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -140,15 +141,35 @@ class MyProfileView(View):
                 user=request.user
             )
             if settings_form.is_valid():
-                user = self.request.user
-                user.first_name = \
+                if self.request.user.first_name != \
+                        settings_form.cleaned_data["first_name"]:
+                    messages.success(
+                        request,
+                        "First name successfully updated!"
+                    )
+                self.request.user.first_name = \
                     settings_form.cleaned_data["first_name"]
-                user.last_name = \
+                if self.request.user.last_name != \
+                        settings_form.cleaned_data["last_name"]:
+                    messages.success(
+                        request,
+                        "Last name successfully updated!"
+                    )
+                self.request.user.last_name = \
                     settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
-                    user.username = \
+                    if self.request.user.username != \
+                            settings_form.cleaned_data["username"]:
+                        messages.success(
+                            request,
+                            "Username successfully updated!"
+                            " "
+                            "PLEASE NOTE: You will need to use your new "
+                            "cellphone number to log in going forward."
+                        )
+                    self.request.user.username = \
                         settings_form.cleaned_data["username"]
-                user.save()
+                self.request.user.save()
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 profile_password_change_form = forms.ProfilePasswordChangeForm(
@@ -181,6 +202,11 @@ class MyProfileView(View):
                             "new_password"
                         ]
                     )
+                    messages.success(
+                        request,
+                        "Password successfully changed!"
+                    )
+
                     self.request.user.save()
                     return HttpResponseRedirect(reverse("view_my_profile"))
                 else:

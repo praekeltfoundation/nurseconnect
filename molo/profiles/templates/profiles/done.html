@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h4 class="heading heading--subtitle">
+    {% trans "Thank you for joining!" %}
+</h4>
+<div class="profiles">
+  <p>{% trans "Let us know your birthday to get access to exclusive content." %}</p>
+  <form method="post" action="{% url "molo.profiles:registration_done" %}" class="profiles__form">
+  {% csrf_token %}
+    <fieldset>
+      <label for="id_date_of_birth_year">Select date of birth</label>
+      {{ form.date_of_birth }}
+    </fieldset>
+    <input type="submit" value="{% trans "Save" %}" />
+  </form>
+  <a href="/">{% trans "Skip" %}</a>
+</div>
+{% endblock %}

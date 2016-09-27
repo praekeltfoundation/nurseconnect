@@ -6,7 +6,7 @@
             Select a category from the list to view
         </h1>
     </div>
-    <nav class="Menu Menu--highContrast" role="menubar">
+    <nav class="Menu Menu--highContrast" role="menubar" id="site-nav">
         <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
             {% for section in sections %}
                 {% if section.title == "Home" %}
@@ -29,6 +29,10 @@
                     </li>
                 {% endif %}
             {% endfor %}
+            <li class="Menu-navItem" role="presentation">
+                <a href="{% url "molo.profiles:auth_logout" %}" class="Menu-navLink" role="menuitem">
+                    {% trans "Log out" %}
+                </a>
             </li>
         </ul>
     </nav>

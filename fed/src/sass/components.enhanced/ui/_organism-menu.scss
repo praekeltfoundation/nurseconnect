@@ -92,4 +92,11 @@
             border-color: $color-blue-spindle;
         }
     }
+
+    &--centeredItems {
+        #{$block}-navLink {
+            text-align: center;
+            justify-content: center;
+        }
+    }
 }
