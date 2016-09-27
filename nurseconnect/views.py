@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
@@ -70,13 +71,16 @@ class RegistrationView(FormView):
     def form_valid(self, form):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
+        clinic_code = form.cleaned_data["clinic_code"]
 
         user = User.objects.create_user(
             username=username,
             password=password
         )
         user.save()
-        # TODO: save security questions
+        user.profile.save()
+
+        # Save security question answers
         for index, question in enumerate(
             models.SecurityQuestion.objects.all()
         ):
@@ -86,14 +90,14 @@ class RegistrationView(FormView):
                 question=question,
                 answer=answer
             )
+
+        # Save clinic code
+        user.profile.for_nurseconnect.clinic_code = clinic_code
+        user.profile.for_nurseconnect.save()
+
         authed_user = authenticate(username=username, password=password)
         login(self.request, authed_user)
         return HttpResponseRedirect(reverse("home"))
-
-    def render_to_response(self, context, **response_kwargs):
-        return super(RegistrationView, self).render_to_response(
-            context, **response_kwargs
-        )
 
     def get_form_kwargs(self):
         kwargs = super(RegistrationView, self).get_form_kwargs()
@@ -136,15 +140,15 @@ class MyProfileView(View):
                 user=request.user
             )
             if settings_form.is_valid():
-                self.request.user.first_name = \
+                user = self.request.user
+                user.first_name = \
                     settings_form.cleaned_data["first_name"]
-                self.request.user.last_name = \
+                user.last_name = \
                     settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
-                    self.request.user.username = \
+                    user.username = \
                         settings_form.cleaned_data["username"]
-                self.request.user.save()
-
+                user.save()
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 profile_password_change_form = forms.ProfilePasswordChangeForm(
