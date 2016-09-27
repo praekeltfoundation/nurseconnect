@@ -17,6 +17,8 @@ var sassLint        = require('gulp-sass-lint');
 var sassGlob        = require('gulp-sass-glob');
 var watch           = require('gulp-watch');
 var bourbon         = require('bourbon').includePaths;
+var uglify          = require('gulp-uglify');
+var concat          = require('gulp-concat');
 
 /* =================================== */
 /* *** constants *** */
@@ -34,6 +36,16 @@ var sassConfig = {
     ].concat(bourbon),
     // outputStyle: 'compressed'
 };
+
+/* =================================== */
+/* *** JS *** */
+gulp.task('scripts', function() {
+    return gulp.src(srcPath + '/js/**/*.js')
+        .pipe(concat('main.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(distPath + '/js'));
+});
+
 
 /* =================================== */
 /* *** SASS *** */
@@ -68,6 +80,13 @@ gulp.task('lint-sass', function() {
         .pipe(sassLint())
         .pipe(sassLint.format())
         .pipe(sassLint.failOnError());
+});
+
+/* =================================== */
+/* *** Watch *** */
+gulp.task('watch', function() {
+    gulp.watch(srcPath + '/js/**/*.js', ['scripts']);
+    gulp.watch(srcPath + '/sass/**/*.s+(a|c)ss', ['styles']);
 });
 
 /* =================================== */
