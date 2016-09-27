@@ -5,7 +5,7 @@ from django.test.client import Client
 
 from molo.core.tests.base import MoloTestCaseMixin
 
-from nurseconnect import forms, views
+from nurseconnect import forms
 
 
 class UserProfileTests(MoloTestCaseMixin, TestCase):
@@ -142,7 +142,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         )
 
     def test_edit_personal_details(self):
-        user = User.objects.create_user("+27811231234", password="1234")
+        User.objects.create_user("+27811231234", password="1234")
         self.client.login(username="+27811231234", password="1234")
 
         response = self.client.get(

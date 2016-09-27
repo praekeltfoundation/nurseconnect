@@ -4,8 +4,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.validators import validate_international_phonenumber
 from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
