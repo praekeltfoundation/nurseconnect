@@ -21,7 +21,8 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
         response = self.client.post(reverse("user_register"), {
         })
         self.assertFormError(
-            response, "form", "username", ["This field is required."])
+            response, "form", "username",
+            [u"Please enter a valid South African cellphone number."])
         self.assertFormError(
             response, "form", "password", ["This field is required."])
         self.assertFormError(

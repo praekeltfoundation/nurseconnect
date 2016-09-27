@@ -4,18 +4,18 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
-from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.validators import validate_international_phonenumber
 from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
-ZATEL_REG = r"^((?:\+27|27)|0)[\s-]?(\d{2})[\s-]?(\d{3})[\s-]?(\d{4})[\s]*$"
+from nurseconnect.formfields import PhoneNumberField
+
 INT_PREFIX = "+27"
 
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(
-        validators=[validate_international_phonenumber, ],
+    # PhoneNumberField doesn't check input length.
+    # It only validates country codes for the start of the number
+    username = PhoneNumberField(
         widget=forms.TextInput(
             attrs={
                 "required": True,
@@ -24,7 +24,26 @@ class RegistrationForm(forms.Form):
                 "for": "mobilenum"
             }
         ),
-        label=_("Mobile Number")
+        label=_("Mobile Number"),
+        error_messages={
+            "invalid": "Please enter a valid South African cellphone number."
+        },
+    )
+
+    clinic_code = forms.RegexField(
+        regex=r"^\d{6}$",
+        required=True,
+        label=_("Clinic code"),
+        error_messages={
+            "invalid": "Please enter your 6 digit clinic code"
+        },
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Clinic code"),
+                "class": "Form-input",
+                "for": "cliniccode"
+            }
+        ),
     )
 
     password = forms.RegexField(
@@ -165,6 +184,9 @@ class EditProfileForm(forms.Form):
     username = PhoneNumberField(
         required=False,
         label=_("Mobile number"),
+        error_messages={
+            "invalid": "Please enter a valid South African cellphone number."
+        },
         widget=forms.TextInput(
             attrs={
                 "placeholder": _("Username"),
@@ -192,10 +214,8 @@ class EditProfileForm(forms.Form):
         if self.user.username != self.cleaned_data["username"]:
             if User.objects.filter(
                 username__iexact=self.cleaned_data["username"]
-            ).exists():
-                self._errors["username"] = self.error_class(
-                    ["Username already exists."]
-                )
+            ).exclude(pk=self.user.pk).exists():
+                raise forms.ValidationError(_("Username already exists."))
 
         return self.cleaned_data["username"]
 
