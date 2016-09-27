@@ -202,10 +202,20 @@ class EditProfileForm(forms.Form):
         self.set_initial(self.user)
 
     def clean_username(self):
-        if User.objects.filter(
-            username__iexact=self.cleaned_data["username"]
-        ).exclude(pk=self.user.pk).exists():
-            raise forms.ValidationError(_("Username already exists."))
+        username = self.cleaned_data["username"]
+        if username:
+            raw_username = username.raw_input
+            if raw_username[0] == "0":
+                self.cleaned_data["username"] = \
+                    INT_PREFIX + raw_username[1:len(username)]
+            else:
+                self.cleaned_data["username"] = raw_username
+
+        if self.user.username != self.cleaned_data["username"]:
+            if User.objects.filter(
+                username__iexact=self.cleaned_data["username"]
+            ).exclude(pk=self.user.pk).exists():
+                raise forms.ValidationError(_("Username already exists."))
 
         return self.cleaned_data["username"]
 
