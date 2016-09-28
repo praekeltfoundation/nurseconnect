@@ -1,4 +1,4 @@
-from molo.profiles import views
+from molo.profiles import forms, views
 
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required

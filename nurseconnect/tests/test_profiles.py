@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.test.client import Client
 
 from molo.core.tests.base import MoloTestCaseMixin
@@ -11,25 +11,37 @@ from nurseconnect import forms
 class UserProfileTests(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.client = Client()
+        self.factory = RequestFactory()
         self.mk_main()
 
-    def test_register_user_validation(self):
+    def test_invalid_username_raises_error(self):
         # Username is expected to be a South African number,
         # normalised to +27 country code
         response = self.client.post(reverse("user_register"), {
             "username": "wrong username",
-            "password": "1234",
             "confirm_password": "1234"
         })
         self.assertFormError(
             response, "form", "username",
-            [u"The phone number entered is not valid."]
+            [u"Please enter a valid South African cellphone number."]
         )
 
+        # Invalid because 088 is not a valid SA cellphone code
+        response = self.client.post(reverse("user_register"), {
+            "username": "0881231234",
+            "confirm_password": "1234"
+        })
+        self.assertFormError(
+            response, "form", "username",
+            [u"Please enter a valid South African cellphone number."]
+        )
+
+    def test_register_user_validation(self):
         # Passwords with non-alphanumeric characters raise errors
         response = self.client.post(reverse("user_register"), {
             "username": "0820000000",
             "password": "wrong$$$",
+            "clinic_code": "000xx"
         })
         self.assertFormError(
             response, "form", "username",
@@ -41,11 +53,18 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
              u"combination of 4 or more characters."]
         )
 
+        # Clinic code must be six digits
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )
+
         # Phone number starting with zero gives no errors
         response = self.client.post(
             reverse("user_register"),
             {
                 "username": "0820000000",
+                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
@@ -59,6 +78,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             reverse("user_register"),
             {
                 "username": "+2782111111",
+                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
@@ -122,8 +142,8 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         )
 
     def test_edit_personal_details(self):
-        User.objects.create_user("0811231234", password="1234")
-        self.client.login(username="0811231234", password="1234")
+        User.objects.create_user("+27811231234", password="1234")
+        self.client.login(username="+27811231234", password="1234")
 
         response = self.client.get(
             reverse("edit_my_profile", kwargs={"edit": "edit-settings"})
@@ -143,19 +163,4 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             ""
         )
 
-        # After editing first name, it should now be displayed
-        # response = self.client.post(
-        #     reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-        #     {
-        #         "first_name": "Tester",
-        #         "username": "0811231234"
-        #     },
-        #     follow=True
-        # )
-        # self.assertRedirects(response, reverse("view_my_profile"))
-        # self.assertEqual(response.status_code, 200)
-        # self.assertEqual(
-        #     response.context["settings_form"].fields[
-        #         "first_name"].initial,
-        #     "Tester"
-        # )
+        # TOOD: verify that data has changed after edit

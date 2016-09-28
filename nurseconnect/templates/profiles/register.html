@@ -19,6 +19,11 @@
                     </div>
                     {{ form.non_field_errors }}
                     <div class="Form-field Form-field--required">
+                        <label for="cliniccode" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
+                        {{ form.clinic_code }}
+                        {{ form.clinic_code.errors }}
+                    </div>
+                    <div class="Form-field Form-field--required">
                         <label for="pword" class="Form-fieldLabel">{{ form.password.label }}</label>
                         {{ form.password }}
                         {{ form.password.errors }}

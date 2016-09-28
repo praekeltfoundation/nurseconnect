@@ -7,13 +7,14 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login
 from django.views.generic import TemplateView
-from nurseconnect.forms import NurseconnectAuthenticationForm
 
+from molo.profiles import views as molo_profile_views
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from nurseconnect import views
+from nurseconnect import forms, views
+from nurseconnect.forms import NurseconnectAuthenticationForm
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:
@@ -70,12 +71,16 @@ urlpatterns += patterns(
     ),
     url(
         r"^profiles/forgot-password/$",
-        views.ForgotPasswordView.as_view(),
+        molo_profile_views.ForgotPasswordView.as_view(
+            form_class=forms.ForgotPasswordForm
+        ),
         name="forgot_password"
     ),
     url(
         r"^profiles/reset-password/$",
-        views.ResetPasswordView.as_view(),
+        molo_profile_views.ResetPasswordView.as_view(
+            form_class=forms.ResetPasswordForm
+        ),
         name="reset_password"
     ),
     url(
