@@ -2,15 +2,14 @@ import csv
 
 from django.http import HttpResponse
 
-from wagtailmodeladmin.options import ModelAdminGroup
-from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
-
 from molo.core.models import ArticlePage
 from molo.profiles.admin import FrontendUsersModelAdmin
 from molo.yourwords.admin import (
     YourWordsCompetitionAdmin, YourWordsCompetitionEntryAdmin)
 from molo.yourwords.models import (
     YourWordsCompetition, YourWordsCompetitionEntry)
+from wagtailmodeladmin.options import ModelAdminGroup
+from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
 
 from nurseconnect.admin_views import NurseConnectFrontendUsersAdminView
 
