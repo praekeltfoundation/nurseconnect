@@ -62,10 +62,7 @@ def download_as_csv(NurseConnectEndUsersModelAdmin, request, queryset):
     writer = csv.writer(response)
     field_names = NurseConnectEndUsersModelAdmin.list_display
     writer.writerow(field_names)
-    import pdb;pdb.set_trace()
     for obj in queryset:
-        # if obj.profile.alias:
-        #     obj.profile.alias = obj.profile.alias.encode('utf-8')
         obj.username = obj.username.encode('utf-8')
         obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
         writer.writerow(

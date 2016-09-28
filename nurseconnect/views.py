@@ -18,7 +18,6 @@ from molo.profiles import models
 from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
-from nurseconnect.models import UserProfile
 
 REDIRECT_FIELD_NAME = 'next'
 INT_PREFIX = "+27"
