@@ -14,11 +14,11 @@ def wagtailmodeladmin_register_without_menu(wagtailmodeladmin_class):
     """
     instance = wagtailmodeladmin_class()
 
-    @hooks.register('register_permissions')
+    @hooks.register("register_permissions")
     def register_permissions():
         return instance.get_permissions_for_registration()
 
-    @hooks.register('register_admin_urls')
+    @hooks.register("register_admin_urls")
     def register_admin_urls():
         return instance.get_admin_urls_for_registration()
 
