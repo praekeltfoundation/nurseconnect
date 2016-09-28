@@ -17,8 +17,8 @@ class FrontendUsersResource(resources.ModelResource):
     class Meta:
         model = User
 
-        exclude = ('id', 'password', 'is_superuser', 'groups',
-                   'user_permissions', 'is_staff')
+        exclude = ("id", "password", "is_superuser", "groups",
+                   "user_permissions", "is_staff")
 
         fields = ("username", "clinic_code")
 

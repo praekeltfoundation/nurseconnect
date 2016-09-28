@@ -32,37 +32,37 @@ class MoloYourWordsCompetitionModelAdmin(
 
     model = YourWordsCompetition
 
-    list_display = ('entries', 'start_date', 'end_date', 'status',
-                    'number_of_entries')
-    list_filter = ('title', 'start_date', 'end_date')
-    search_fields = ('title', 'content', 'description')
+    list_display = ("entries", "start_date", "end_date", "status",
+                    "number_of_entries")
+    list_filter = ("title", "start_date", "end_date")
+    search_fields = ("title", "content", "description")
 
 
 class MoloYourWordsCompetitionEntryModelAdmin(
         WagtailModelAdmin, YourWordsCompetitionEntryAdmin):
 
     model = YourWordsCompetitionEntry
-    list_display = ('story_name', 'truncate_text', 'user', 'hide_real_name',
-                    'submission_date', 'is_read', 'is_shortlisted',
-                    'is_winner', '_convert')
+    list_display = ("story_name", "truncate_text", "user", "hide_real_name",
+                    "submission_date", "is_read", "is_shortlisted",
+                    "is_winner", "_convert")
 
 
 class YourWordsModelAdminGroup(ModelAdminGroup):
-    menu_label = 'Your Words'
-    menu_icon = 'edit'
+    menu_label = "Your Words"
+    menu_icon = "edit"
     menu_order = 300
     items = (MoloYourWordsCompetitionModelAdmin,
              MoloYourWordsCompetitionEntryModelAdmin)
 
 
 def download_as_csv(NurseConnectEndUsersModelAdmin, request, queryset):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment;filename=export.csv'
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = "attachment;filename=export.csv"
     writer = csv.writer(response)
     field_names = NurseConnectEndUsersModelAdmin.list_display
     writer.writerow(field_names)
     for obj in queryset:
-        obj.username = obj.username.encode('utf-8')
+        obj.username = obj.username.encode("utf-8")
         obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
         writer.writerow(
             [getattr(obj, field) for field in field_names]
@@ -72,8 +72,8 @@ download_as_csv.short_description = "Download selected as csv"
 
 
 class NurseConnectEndUsersModelAdmin(FrontendUsersModelAdmin):
-    menu_label = 'End Users'
-    menu_icon = 'user'
+    menu_label = "End Users"
+    menu_icon = "user"
     menu_order = 600
     add_to_settings_menu = False
     index_view_class = NurseConnectFrontendUsersAdminView
