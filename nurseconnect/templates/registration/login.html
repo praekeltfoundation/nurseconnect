@@ -21,13 +21,13 @@
                         </p>
                     {% endif %}
                     <div class="Form-field Form-field--required">
-                        <label for="mobilenum" class="Form-fieldLabel">Mobile Number</label>
+                        <label for="mobilenum" class="Form-fieldLabel">{% trans "Mobile Number" %}</label>
                         <input name="username" type="tel" id="mobilenum" class="Form-input"
                                placeholder="eg. 0821234567">
                         {{ form.username.errors }}
                     </div>
                     <div class="Form-field Form-field--required">
-                        <label for="mobilenum" class="Form-fieldLabel">Password</label>
+                        <label for="mobilenum" class="Form-fieldLabel">{% trans "Password" %}</label>
                         <input name="password" type="password" id="pword" class="Form-input"
                                placeholder="Enter password">
                         {{ form.password.errors }}

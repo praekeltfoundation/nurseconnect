@@ -5,13 +5,13 @@
 {% block content %}
     <section action="" class="Splash">
         <div class="Splash-body">
-            <h1 class="Splash-headline">Welcome.<br> Let's get you signed up.</h1>
+            <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
         </div>
         <div class="Splash-body">
             <form method="POST" action="{% url "user_register" %}" class="Form">
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
-                    <legend class="Form-groupHeading">Personal Information</legend>
+                    <legend class="Form-groupHeading">{% trans "Personal Information" %}</legend>
                     <div class="Form-field Form-field--required">
                         <label for="mobilenum" class="Form-fieldLabel">{{ form.username.label }}</label>
                         {{ form.username }}
@@ -34,8 +34,8 @@
                 </fieldset>
                 <p class="Form-message Form-message--centered"><i class="Form-requiredExample">*</i> {% trans "required field" %}</p>
                 <fieldset class="Form-fieldGroup">
-                    <legend class="Form-groupHeading">Security questions</legend>
-                    <p>{% trans 'These will help you log in later if you forget your password.' %}</p>
+                    <legend class="Form-groupHeading">{% trans "Security questions" %}</legend>
+                    <p>{% trans "These will help you log in later if you forget your password." %}</p>
                     {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
                         {% for field in form %}
                             {% if field in form.security_questions %}

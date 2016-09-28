@@ -6,7 +6,7 @@
         <fieldset class="Form-fieldGroup">
             <a href="{% url "edit_my_profile" "edit-settings" %}" class="Form-groupStateToggle">{% trans "Edit" %}</a>
             <legend class="Form-groupHeading">{% trans "Personal Info" %}</legend>
-            <p class="Form-message">To edit your name, surname or cellphone number, click on the Edit button. Then, click on ‘Update Profile’. Next time you log in, use your new cellphone number. </p>
+            <p class="Form-message">{% trans "To edit your name, surname or cellphone number, click on the Edit button. Then, click on ‘Update Profile’. Next time you log in, use your new cellphone number." %}</p>
             <input type="hidden" name="action" value="edit_profile_settings">
             {% csrf_token %}
             {% if settings_form.errors %}
