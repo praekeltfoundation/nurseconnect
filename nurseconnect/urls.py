@@ -9,6 +9,7 @@ from django.contrib.auth.views import login
 from django.views.generic import TemplateView
 
 from molo.profiles import views as molo_profile_views
+from molo.core.views import search
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls

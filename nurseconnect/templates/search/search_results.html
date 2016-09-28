@@ -8,31 +8,31 @@
                     <header class="ContentList-header">
                         <h2 class="ContentList-categoryLabel">{{ ancestor.title }}</h2>
                     </header>
-                    <div class="ContentList-body">
-                        <div class="Article">
-                            <a href="{% pageurl page %}" class="Article-hitBox">
-                                <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100"
-                                     alt="Image Alt Text">
-                                <h2 class="Article-headline">{{ page.title }}</h2>
-                                <p class="Article-strapline">{{ page.subtitle }}</p>
-                            </a>
-                        </div>
-                    </div>
                 {% else %}
                     <header class="ContentList-header">
                         <h2 class="ContentList-categoryLabel">{{ parent_section.title }}</h2>
                     </header>
-                    <div class="ContentList-body">
-                        <div class="Article">
-                            <a href="{% pageurl page %}" class="Article-hitBox">
-                                <img class="Article-image Article-image--aside" src="http://www.placehold.it/100x100"
-                                     alt="Image Alt Text">
-                                <h2 class="Article-headline">{{ page.title }}</h2>
-                                <p class="Article-strapline">{{ page.subtitle }}</p>
-                            </a>
-                        </div>
-                    </div>
                 {% endif %}
+                <div class="ContentList-body">
+                    <div class="Article">
+                        <a href="{% pageurl page %}" class="Article-hitBox">
+                            {% if page.title_highlight %}
+                                <h2 class="Article-headline">{{ page.title_highlight|safe }}</h2>
+                            {% else %}
+                                <h2 class="Article-headline">{{ page.title }}</h2>
+                            {% endif %}
+                            {% if page.subtitle_highlight or page.body_highlight %}
+                                {% if page.subtitle_highlight %}
+                                    <p class="Article-strapline">{{ page.subtitle_highlight|safe }}</p>
+                                {% elif page.body_highlight %}
+                                    <p class="Article-strapline">{{ page.body_highlight|safe }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="Article-strapline">{{ page.subtitle }}</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
             </article>
         {% endwith %}
     {% endfor %}

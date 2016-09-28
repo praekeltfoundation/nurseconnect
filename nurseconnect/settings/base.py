@@ -290,6 +290,13 @@ WAGTAIL_SITE_NAME = "base"
 #     },
 # }
 
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'molo.core.wagtailsearch.backends.elasticsearch',
+        'INDEX': 'base',
+    },
+}
+
 SITE_NAME = environ.get("SITE_NAME", "nurseconnect")
 WAGTAIL_SITE_NAME = SITE_NAME
 

@@ -31,13 +31,61 @@ class SearchView(TemplateView):
         return context
 
 
+# def search(request, results_per_page=7):
+#     search_query = request.GET.get("q", None)
+#     page = request.GET.get("p", 1)
+#     locale = get_locale_code(get_language_from_request(request))
+#     if search_query:
+#         results = ArticlePage.objects.filter(
+#             languages__language__locale=locale).live().search(search_query)
+#         Query.get(search_query).add_hit()
+#     else:
+#         results = ArticlePage.objects.none()
+#
+#     paginator = Paginator(results, results_per_page)
+#     try:
+#         search_results = paginator.page(page)
+#     except PageNotAnInteger:
+#         search_results = paginator.page(1)
+#     except EmptyPage:
+#         search_results = paginator.page(paginator.num_pages)
+#
+#     return render(request, "search/search.html", {
+#         "active": "search",
+#         "searched": True,
+#         "search_query": search_query,
+#         "search_results": search_results,
+#         "results": results,
+#     })
+
+
 def search(request, results_per_page=7):
     search_query = request.GET.get("q", None)
     page = request.GET.get("p", 1)
     locale = get_locale_code(get_language_from_request(request))
+
     if search_query:
         results = ArticlePage.objects.filter(
-            languages__language__locale=locale).live().search(search_query)
+            languages__language__locale=locale
+        ).values_list("pk", flat=True)
+        # Elasticsearch backend doesn"t support filtering
+        # on related fields, at the moment.
+        # So we need to filter ArticlePage entries using DB,
+        # then, we will be able to search
+        results = ArticlePage.objects.filter(pk__in=results)
+        results = results.live().search(search_query)
+
+        # At the moment only ES backends have highlight API.
+        if hasattr(results, "highlight"):
+            results = results.highlight(
+                fields={
+                    "title": {},
+                    "subtitle": {},
+                    "body": {},
+                },
+                require_field_match=False
+            )
+
         Query.get(search_query).add_hit()
     else:
         results = ArticlePage.objects.none()
@@ -139,7 +187,7 @@ class MyProfileView(View):
             )
             if settings_form.is_valid():
                 if self.request.user.first_name != \
-                        settings_form.cleaned_data["first_name"]:
+                    settings_form.cleaned_data["first_name"]:
                     messages.success(
                         request,
                         "First name successfully updated!"
@@ -147,7 +195,7 @@ class MyProfileView(View):
                 self.request.user.first_name = \
                     settings_form.cleaned_data["first_name"]
                 if self.request.user.last_name != \
-                        settings_form.cleaned_data["last_name"]:
+                    settings_form.cleaned_data["last_name"]:
                     messages.success(
                         request,
                         "Last name successfully updated!"
@@ -156,7 +204,7 @@ class MyProfileView(View):
                     settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
                     if self.request.user.username != \
-                            settings_form.cleaned_data["username"]:
+                        settings_form.cleaned_data["username"]:
                         messages.success(
                             request,
                             "Username successfully updated!"
