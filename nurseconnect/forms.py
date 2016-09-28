@@ -53,7 +53,7 @@ class RegistrationForm(forms.Form):
                 "required": True,
                 "render_value": False,
                 "type": "password",
-                "placeholder": _("Enter Password"),
+                "placeholder": _("Enter password"),
                 "class": "Form-input",
                 "for": "pword"
             }
@@ -183,7 +183,7 @@ class EditProfileForm(forms.Form):
 
     username = PhoneNumberField(
         required=False,
-        label=_("Mobile number"),
+        label=_("Cellphone number"),
         error_messages={
             "invalid": "Please enter a valid South African cellphone number."
         },
@@ -325,10 +325,11 @@ class ForgotPasswordForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                "placeholder": _("Mobile number"),
+                "placeholder": _("Cellphone number"),
                 "class": "Form-input"
             }
-        )
+        ),
+        label=_("Cellphone number")
     )
 
     def __init__(self, *args, **kwargs):

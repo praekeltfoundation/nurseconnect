@@ -200,6 +200,14 @@
     &-message {
         display: block;
         margin-top: scale(alpha);
+
+        &--centered {
+            text-align: center;
+        }
+    }
+
+    &-requiredExample {
+        color: $color-orange-bittersweet;
     }
 
     &-actions {
