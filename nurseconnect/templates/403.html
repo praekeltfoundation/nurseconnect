@@ -4,8 +4,22 @@
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-    <h2>{% trans "Access Denied" %}</h2>
-    <p>{% trans "You do not have permssion to access this site." %}</p>
-    <p><a href="{% url 'wagtailadmin_logout' %}?next={% url 'wagtailadmin_login' %}">Retry</a></p>
+    <main class="ContentBody" role="main">
+        <section action="" class="Splash Splash--bgNurse">
+            <div class="Splash-header">
+                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </div>
+            <div class="Splash-body">
+                <h1 class="Splash-headline">{% trans "403: Access Denied" %}</h1>
+                <p class="Splash-strapline">{% trans "You do not have permssion to access this site." %}</p>
+            </div>
+            <div class="Splash-actions">
+                <ul class="ButtonGroup">
+                    <li class="ButtonGroup-item">
+                        <a class="Button" href="{% url 'wagtailadmin_logout' %}?next={% url 'wagtailadmin_login' %}">{% trans "Retry" %}</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
 {% endblock %}
-

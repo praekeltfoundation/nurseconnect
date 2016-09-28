@@ -4,8 +4,22 @@
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Page not found" %}</h1>
-
-    <h2>{% trans "Sorry, this page could not be found." %}</h2>
+    <main class="ContentBody" role="main">
+        <section action="" class="Splash Splash--bgNurse">
+            <div class="Splash-header">
+                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </div>
+            <div class="Splash-body">
+                <h1 class="Splash-headline">{% trans "404: Page not found" %}</h1>
+                <p class="Splash-strapline">{% trans "Sorry, this page could not be found." %}</p>
+            </div>
+            <div class="Splash-actions">
+                <ul class="ButtonGroup">
+                    <li class="ButtonGroup-item">
+                        <a href="{% url "home" %}" class="Button">{% trans "Return to Home Page" %}</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
 {% endblock %}
-
