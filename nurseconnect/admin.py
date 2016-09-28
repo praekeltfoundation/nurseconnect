@@ -1,11 +1,18 @@
+import csv
+
+from django.http import HttpResponse
+
 from wagtailmodeladmin.options import ModelAdminGroup
 from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
 
 from molo.core.models import ArticlePage
+from molo.profiles.admin import FrontendUsersModelAdmin
 from molo.yourwords.admin import (
     YourWordsCompetitionAdmin, YourWordsCompetitionEntryAdmin)
 from molo.yourwords.models import (
     YourWordsCompetition, YourWordsCompetitionEntry)
+
+from nurseconnect.admin_views import NurseConnectFrontendUsersAdminView
 
 
 class ArticlePageModelAdmin(WagtailModelAdmin):
@@ -47,3 +54,39 @@ class YourWordsModelAdminGroup(ModelAdminGroup):
     menu_order = 300
     items = (MoloYourWordsCompetitionModelAdmin,
              MoloYourWordsCompetitionEntryModelAdmin)
+
+
+def download_as_csv(NurseConnectEndUsersModelAdmin, request, queryset):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment;filename=export.csv'
+    writer = csv.writer(response)
+    field_names = NurseConnectEndUsersModelAdmin.list_display
+    writer.writerow(field_names)
+    import pdb;pdb.set_trace()
+    for obj in queryset:
+        # if obj.profile.alias:
+        #     obj.profile.alias = obj.profile.alias.encode('utf-8')
+        obj.username = obj.username.encode('utf-8')
+        obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
+        writer.writerow(
+            [getattr(obj, field) for field in field_names]
+        )
+    return response
+download_as_csv.short_description = "Download selected as csv"
+
+
+class NurseConnectEndUsersModelAdmin(FrontendUsersModelAdmin):
+    menu_label = 'End Users'
+    menu_icon = 'user'
+    menu_order = 600
+    add_to_settings_menu = False
+    index_view_class = NurseConnectFrontendUsersAdminView
+    list_display = ("username", "first_name", "last_name", "_clinic_code")
+
+    actions = [download_as_csv]
+
+    def _clinic_code(self, obj, *args, **kwargs):
+        if hasattr(obj.profile, "for_nurseconnect") and \
+                obj.profile.for_nurseconnect.clinic_code:
+            return obj.profile.for_nurseconnect.clinic_code
+        return ""
