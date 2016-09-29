@@ -24,7 +24,6 @@
         MenuFragment = FancyNav.children[1];
 
         MenuFragment.classList.remove('Menu--highContrast');
-        MenuFragment.classList.add('Menu--centeredItems');
     }
 
     // Fetch the #site-nav element from /menu/, and inject it into #nav-enhanced. Pretty straight forward stuff.
