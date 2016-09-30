@@ -158,7 +158,7 @@ class MyProfileView(View):
             )
             if settings_form.is_valid():
                 if self.request.user.first_name != \
-                    settings_form.cleaned_data["first_name"]:
+                        settings_form.cleaned_data["first_name"]:
                     messages.success(
                         request,
                         "First name successfully updated!"
@@ -166,7 +166,7 @@ class MyProfileView(View):
                 self.request.user.first_name = \
                     settings_form.cleaned_data["first_name"]
                 if self.request.user.last_name != \
-                    settings_form.cleaned_data["last_name"]:
+                        settings_form.cleaned_data["last_name"]:
                     messages.success(
                         request,
                         "Last name successfully updated!"
@@ -175,7 +175,7 @@ class MyProfileView(View):
                     settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
                     if self.request.user.username != \
-                        settings_form.cleaned_data["username"]:
+                            settings_form.cleaned_data["username"]:
                         messages.success(
                             request,
                             "Username successfully updated!"
