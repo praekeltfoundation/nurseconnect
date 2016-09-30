@@ -192,6 +192,7 @@ class MyProfileView(View):
                     request,
                     self.template_name,
                     context={
+                        "edit": "edit-settings",
                         "settings_form": settings_form,
                         "profile_password_change_form":
                             profile_password_change_form
@@ -235,6 +236,7 @@ class MyProfileView(View):
                     request,
                     self.template_name,
                     context={
+                        "edit": "edit-password",
                         "settings_form": settings_form,
                         "profile_password_change_form":
                             profile_password_change_form
