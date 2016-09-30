@@ -157,8 +157,7 @@ class MyProfileView(View):
                 user=request.user
             )
             if settings_form.is_valid():
-                self.request.user.first_name = \
-                    settings_form.cleaned_data["first_name"]
+
                 if self.request.user.last_name != \
                         settings_form.cleaned_data["last_name"] or \
                         self.request.user.first_name != \
@@ -167,8 +166,10 @@ class MyProfileView(View):
                         request,
                         "Profile successfully updated."
                     )
-                self.request.user.last_name = \
-                    settings_form.cleaned_data["last_name"]
+                    self.request.user.first_name = \
+                        settings_form.cleaned_data["first_name"]
+                    self.request.user.last_name = \
+                        settings_form.cleaned_data["last_name"]
                 if settings_form.cleaned_data["username"]:
                     if self.request.user.username != \
                             settings_form.cleaned_data["username"]:
