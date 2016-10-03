@@ -284,8 +284,7 @@ WAGTAIL_SITE_NAME = "base"
 #
 WAGTAILSEARCH_BACKENDS = {
     "default": {
-        "BACKEND": ("wagtail.wagtailsearch.backends."
-                    "elasticsearch.ElasticSearch"),
+        "BACKEND": ("molo.core.wagtailsearch.backends.elasticsearch"),
         "INDEX": "base",
         'URLS': ['http://localhost:9200'],
         'TIMEOUT': 5,
