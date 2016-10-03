@@ -116,12 +116,8 @@ urlpatterns += patterns(
     url(r"^comments/", include("molo.commenting.urls")),
     url(r"^styleguide/", include("styleguide.urls", namespace="styleguide")),
     url(r"", include("molo.core.urls")),
-    url("^", include("django.contrib.auth.urls")),
     url(r"", include(wagtail_urls)),
-    url(r".*", views.handler404)
 )
-handler404 = "nurseconnect.views.handler404"
-handler500 = "nurseconnect.views.handler500"
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
