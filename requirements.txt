@@ -5,6 +5,7 @@ molo.commenting==0.5.4
 psycopg2==2.6.2
 django-modelcluster>=2.0,<3.0
 setuptools==25.1.6
+elasticsearch==1.7.5
 
 # for molo.profiles
 celery
