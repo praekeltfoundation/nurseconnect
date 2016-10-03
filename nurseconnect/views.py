@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
@@ -251,3 +252,17 @@ class MenuView(TemplateView):
         context = super(MenuView, self).get_context_data(**kwargs)
         context["active"] = "menu"
         return context
+
+
+def handler404(request):
+    response = render_to_response("404.html", {"status": "404"},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response("500.html", {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
