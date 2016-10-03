@@ -1,20 +1,25 @@
-{% load i18n %}
+{% extends "base_error_page.html" %}
+{% load static i18n %}
 
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>{% trans "Internal server error" %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-</head>
-<body>
-<h1>{% trans "Internal server error" %}</h1>
+{% block body_class %}template-404{% endblock %}
 
-<h2>{% trans "Sorry, there seems to be an error. Please try again soon." %}</h2>
-</body>
-</html>
-
+{% block content %}
+    <main class="ContentBody" role="main">
+        <section action="" class="Splash Splash--bgNurse">
+            <div class="Splash-header">
+                <img src="{% static "images/logo.png" %}" alt="NurseConnect Logo" class="Logo-graphic">
+            </div>
+            <div class="Splash-body">
+                <h1 class="Splash-headline">{% trans "500: Internal server error" %}</h1>
+                <p class="Splash-strapline">{% trans "Sorry, there seems to be an error. Please try again soon." %}</p>
+            </div>
+            <div class="Splash-actions">
+                <ul class="ButtonGroup">
+                    <li class="ButtonGroup-item">
+                        <a href="{% url "home" %}" class="Button">{% trans "Return to Home Page" %}</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+{% endblock %}

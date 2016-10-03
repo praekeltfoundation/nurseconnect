@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load i18n %}
+{% extends "base_error_page.html" %}
+{% load static i18n %}
 
 {% block body_class %}template-404{% endblock %}
 
@@ -7,7 +7,7 @@
     <main class="ContentBody" role="main">
         <section action="" class="Splash Splash--bgNurse">
             <div class="Splash-header">
-                <img src="{% static 'images/logo.png' %}" alt="NurseConnect Logo" class="Logo-graphic">
+                <img src="{% static "images/logo.png" %}" alt="NurseConnect Logo" class="Logo-graphic">
             </div>
             <div class="Splash-body">
                 <h1 class="Splash-headline">{% trans "404: Page not found" %}</h1>

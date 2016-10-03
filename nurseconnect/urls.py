@@ -116,7 +116,6 @@ urlpatterns += patterns(
     url(r"^comments/", include("molo.commenting.urls")),
     url(r"^styleguide/", include("styleguide.urls", namespace="styleguide")),
     url(r"", include("molo.core.urls")),
-    url("^", include("django.contrib.auth.urls")),
     url(r"", include(wagtail_urls)),
 )
 
