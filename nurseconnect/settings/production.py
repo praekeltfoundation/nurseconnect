@@ -57,7 +57,7 @@ RAVEN_CONFIG = {
 # Setup for CAS
 ENABLE_SSO = False
 
-try:
-    from .local import *  # noqa
-except ImportError:
-    pass
+# try:
+#     from .local import *  # noqa
+# except ImportError:
+#     pass
