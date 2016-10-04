@@ -43,9 +43,10 @@ COMPRESS_OFFLINE = True
 # }
 WAGTAILSEARCH_BACKENDS = {
     "default": {
-        "BACKEND": ("molo.core.wagtailsearch.backends.elasticsearch"),
+        "BACKEND": "molo.core.wagtailsearch.backends.elasticsearch",
         "INDEX": "base",
-        "URLS": environ.get("ES_DSN"),
+        "HOST": environ.get("ES_URL"),
+        "PORT": environ.get("ES_PORT"),
         "TIMEOUT": 5,
     },
 }
