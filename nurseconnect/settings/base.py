@@ -286,8 +286,8 @@ WAGTAIL_SITE_NAME = "base"
 #     "default": {
 #         "BACKEND": ("molo.core.wagtailsearch.backends.elasticsearch"),
 #         "INDEX": "base",
-#         'URLS': ['http://localhost:80'],
-#         'TIMEOUT': 5,
+#         "URLS": ["http://billowing-dew-688.seed.p16n.org:80"],
+#         "TIMEOUT": 5,
 #     },
 # }
 
