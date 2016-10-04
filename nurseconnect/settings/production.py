@@ -41,6 +41,14 @@ COMPRESS_OFFLINE = True
 #         }
 #     }
 # }
+WAGTAILSEARCH_BACKENDS = {
+    "default": {
+        "BACKEND": ("molo.core.wagtailsearch.backends.elasticsearch"),
+        "INDEX": "base",
+        "URLS": environ.get("ES_DSN"),
+        "TIMEOUT": 5,
+    },
+}
 
 RAVEN_CONFIG = {
     'dsn': environ.get('RAVEN_DSN'),

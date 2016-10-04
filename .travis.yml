@@ -18,6 +18,10 @@ script:
   - py.test
 notifications:
   slack: praekelt:37JlRu8DWDq9ZdTowf5cgMoN
+services:
+  - elasticsearch
+before_script:
+  - sleep 10
 after_success:
   - coveralls
 deploy:
