@@ -18,6 +18,12 @@ script:
   - py.test
 notifications:
   slack: praekelt:37JlRu8DWDq9ZdTowf5cgMoN
+services:
+  - elasticsearch
+before_script:
+  - sleep 10
+before_install:
+  - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.7.5.deb && sudo dpkg -i --force-confnew elasticsearch-1.7.5.deb && sudo service elasticsearch restart
 after_success:
   - coveralls
 deploy:
