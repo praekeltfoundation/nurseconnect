@@ -45,8 +45,7 @@ WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "molo.core.wagtailsearch.backends.elasticsearch",
         "INDEX": "base",
-        "HOST": environ.get("ES_URL"),
-        "PORT": environ.get("ES_PORT"),
+        "URLS": [environ.get("ES_DSN"), ],
         "TIMEOUT": 5,
     },
 }
