@@ -45,7 +45,7 @@ WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "molo.core.wagtailsearch.backends.elasticsearch",
         "INDEX": "base",
-        "URLS": [environ.get("ES_DSN")],
+        "URLS": "http://billowing-dew-688.seed.p16n.org:80",
         "TIMEOUT": 5,
     },
 }
