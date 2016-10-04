@@ -282,14 +282,6 @@ WAGTAIL_SITE_NAME = "base"
 # http://wagtail.readthedocs.org/en/latest/core_components/
 #     search/backends.html#elasticsearch-backend
 #
-# WAGTAILSEARCH_BACKENDS = {
-#     "default": {
-#         "BACKEND": ("molo.core.wagtailsearch.backends.elasticsearch"),
-#         "INDEX": "base",
-#         "URLS": ["http://billowing-dew-688.seed.p16n.org:80"],
-#         "TIMEOUT": 5,
-#     },
-# }
 
 SITE_NAME = environ.get("SITE_NAME", "nurseconnect")
 WAGTAIL_SITE_NAME = SITE_NAME
