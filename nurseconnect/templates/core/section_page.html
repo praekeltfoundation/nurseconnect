@@ -18,19 +18,21 @@
             {% load_child_articles_for_section section as articles %}
             <div class="ContentList-body">
                 {% for article in articles %}
-                    <article class="Article">
-                        <a href="{% pageurl article %}" class="Article-hitBox">
+                    <a href="{% pageurl article %}" class="Article-hitBox">
+                        <article class="Article">
                             {% if article.image %}
                                 {% image article.image width-85 class="Article-image Article-image--aside" %}
                             {% endif %}
                             <h2 class="Article-headline">{{ article.title }}</h2>
                             <p class="Article-strapline">{{ article.subtitle }}</p>
-                        </a>
-                    </article>
+
+                        </article>
+                    </a>
                 {% endfor %}
             </div>
             <footer class="ContentList-actions">
-                <a href="{% pageurl section %}" class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
+                <a href="{% pageurl section %}"
+                   class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
             </footer>
         </section>
     {% endfor %}
@@ -39,8 +41,8 @@
 
     <div class="ContentList-body">
         {% for article in articles %}
-            <article class="Article">
-                <a href="{% pageurl article %}" class="Article-hitBox">
+            <a href="{% pageurl article %}" class="Article-hitBox">
+                <article class="Article">
                     {% if article.image %}
                         {% image article.image width-100 class="Article-image Article-image--aside" %}
                     {% endif %}
@@ -48,10 +50,11 @@
                     <p class="Article-strapline">{{ article.subtitle }}</p>
                     {% if article.is_current_topic_of_the_day %}
                         {% get_comment_count for article as comment_count %}
-                        <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25 class="Logo-graphic"> <strong>{{ comment_count }}</strong>
+                        <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25
+                             class="Logo-graphic"> <strong>{{ comment_count }}</strong>
                     {% endif %}
-                </a>
-            </article>
+                </article>
+            </a>
         {% endfor %}
     </div>
 
