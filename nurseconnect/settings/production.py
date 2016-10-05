@@ -41,14 +41,14 @@ COMPRESS_OFFLINE = True
 #         }
 #     }
 # }
-WAGTAILSEARCH_BACKENDS = {
-    "default": {
-        "BACKEND": "molo.core.wagtailsearch.backends.elasticsearch",
-        "INDEX": "base",
-        "URLS": "http://billowing-dew-688.seed.p16n.org:80",
-        "TIMEOUT": 5,
-    },
-}
+# WAGTAILSEARCH_BACKENDS = {
+#     "default": {
+#         "BACKEND": "molo.core.wagtailsearch.backends.elasticsearch",
+#         "INDEX": "base",
+#         "URLS": [environ.get("ES_DSN")],
+#         "TIMEOUT": 5,
+#     },
+# }
 
 RAVEN_CONFIG = {
     'dsn': environ.get('RAVEN_DSN'),
@@ -57,7 +57,7 @@ RAVEN_CONFIG = {
 # Setup for CAS
 ENABLE_SSO = False
 
-# try:
-#     from .local import *  # noqa
-# except ImportError:
-#     pass
+try:
+    from .local import *  # noqa
+except ImportError:
+    pass
