@@ -231,8 +231,8 @@ class ResetPasswordView(FormView):
 
         if password != confirm_password:
             form.add_error(None,
-                           _("The two PINs that you entered do not match. "
-                             "Please try again."))
+                           _("The two passwords that you entered do not "
+                             "match. Please try again."))
             return self.render_to_response({"form": form})
 
         user.set_password(password)

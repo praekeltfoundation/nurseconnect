@@ -203,13 +203,6 @@ class EditProfileForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
-        # if username:
-        #     raw_username = username.raw_input
-        #     if raw_username[0] == "0":
-        #         self.cleaned_data["username"] = \
-        #             INT_PREFIX + raw_username[1:len(username)]
-        #     else:
-        #         self.cleaned_data["username"] = raw_username
 
         if self.user.username != username:
             if User.objects.filter(
