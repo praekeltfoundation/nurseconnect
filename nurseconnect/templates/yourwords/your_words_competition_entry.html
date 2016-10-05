@@ -49,31 +49,27 @@
             {% csrf_token %}
             <fieldset class="Form-fieldGroup">
 
-                {% if form.story_name.errors %}
-                    <p class="alert-error">* {{ form.story_name.errors|join:" "}}</p>
-                {% endif %}
+
                 <div class="Form-field Form-field--required">
                     <label class="Form-fieldLabel">{% trans "Title of your story" %}</label><br/>
                     <input name="story_name" id="story_name" class="Form-input" placeholder="Title">
+                    {{ form.story_name.errors }}
                 </div>
 
-                {% if form.story_text.errors %}
-                    <p class="alert-error">* {{ form.story_text.errors|join:" "}}</p>
-                {% endif %}
+
                 <div class="Form-field Form-field--required">
                     <label class="Form-fieldLabel">{% trans "Tell us your story here" %}</label>
                     <textarea name="story_text" id="story_text" class="Comments-field"></textarea>
+                    {{ form.story_text.errors }}
                 </div>
 
-                {% if form.terms_or_conditions_approved.errors %}
-                    <p class="alert-error">* {{ form.terms_or_conditions_approved.errors|join:" "}}</p>
-                {% endif %}
                 <div class="Form-field Form-field--required">
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
                             <input type="checkbox" name="terms_or_conditions_approved" id="checkbox1"
                                    class="Form-choiceInput">
                             {% footer_link %}
+                            {{ form.terms_or_conditions_approved.errors }}
                         </li>
                     </ul>
                 </div>
