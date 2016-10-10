@@ -64,20 +64,22 @@
                 }
             }
         }
+    }
 
+    &-fieldLabel,
+    &-input,
+    &-message {
         &--error {
-            #{$block}-fieldLabel,
-            #{$block}-input,
-            #{$block}-message {
-                color: $color-secondary-error;
-            }
+            color: $color-secondary-error;
+        }
+    }
 
-            #{$block}-input,
-            #{$block}-textArea,
-            #{$block}-selectBox {
-                border: 1px solid $color-secondary-error;
-                background-color: tint($color-secondary-error, 80%);
-            }
+    &-input,
+    &-textArea,
+    &-selectBox {
+        &--error {
+            border: 1px solid $color-secondary-error;
+            background-color: tint($color-secondary-error, 80%);
         }
     }
 
@@ -203,6 +205,10 @@
 
         &--centered {
             text-align: center;
+        }
+
+        .errorlist { // Molo-generated template - cannot currently override markup, hence deviation from BEM.
+            @include no-list;
         }
     }
 
