@@ -24,13 +24,13 @@
                         <label for="mobilenum" class="Form-fieldLabel">{% trans "Mobile Number" %}</label>
                         <input name="username" type="tel" id="mobilenum" class="Form-input"
                                placeholder="eg. 0821234567">
-                        {{ form.username.errors }}
+                        <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
                     </div>
                     <div class="Form-field Form-field--required">
                         <label for="mobilenum" class="Form-fieldLabel">{% trans "Password" %}</label>
                         <input name="password" type="password" id="pword" class="Form-input"
                                placeholder="Enter password">
-                        {{ form.password.errors }}
+                        <label for="password" class="Form-message Form-message--error">{{ form.password.errors }}</label>
                     </div>
                 </fieldset>
                 <p class="Form-message Form-message--centered"><i class="Form-requiredExample">*</i> {% trans "required field" %}</p>

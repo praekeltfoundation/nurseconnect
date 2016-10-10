@@ -21,17 +21,17 @@
             <div class="Form-field">
                 <label for="fname" class="Form-fieldLabel">{{ settings_form.first_name.label }}</label>
                 {{ settings_form.first_name }}
-                {{ settings_form.first_name.errors }}
+                <label for="fname" class="Form-message Form-message--error">{{ settings_form.first_name.errors }}</label>
             </div>
             <div class="Form-field">
                 <label for="lname" class="Form-fieldLabel">{{ settings_form.last_name.label }}</label>
                 {{ settings_form.last_name }}
-                {{ settings_form.last_name.errors }}
+                <label for="lname" class="Form-message Form-message--error">{{ settings_form.last_name.errors }}</label>
             </div>
             <div class="Form-field">
                 <label for="contactnumber" class="Form-fieldLabel">{{ settings_form.username.label }}</label>
                 {{ settings_form.username }}
-                {{ settings_form.username.errors }}
+                <label for="contactnumber" class="Form-message Form-message--error">{{ settings_form.username.errors }}</label>
             </div>
         </fieldset>
         {% if edit == "edit-settings" %}
