@@ -12,44 +12,57 @@
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Personal Information" %}</legend>
-                    <div class="Form-field Form-field--required">
-                        <label for="mobilenum" class="Form-fieldLabel">{{ form.username.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.username.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.username.name }}" class="Form-fieldLabel">{{ form.username.label }}</label>
                         {{ form.username }}
-                        <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% if form.username.errors %}
+                            <label for="id_{{ form.username.name }}" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% endif %}
                     </div>
-                    {{ form.non_field_errors }}
-                    <div class="Form-field Form-field--required">
-                        <label for="cliniccode" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.clinic_code.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.clinic_code.name }}" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
                         {{ form.clinic_code }}
-                        <label for="cliniccode" class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
+                        {% if form.clinic_code.errors %}
+                            <label for="id_{{ form.clinic_code.name }}" class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
+                        {% endif %}
                     </div>
-                    <div class="Form-field Form-field--required">
-                        <label for="pword" class="Form-fieldLabel">{{ form.password.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.password.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.password.name }}" class="Form-fieldLabel">{{ form.password.label }}</label>
                         {{ form.password }}
-                        <label for="pword" class="Form-message Form-message--error">{{ form.password.errors }}</label>
                         <div class="Form-message">
                             {% trans "Tip: A good password has 4 characters and a mix of capitals and numbers." %}
                         </div>
+                        {% if form.password.errors %}
+                            <label for="id_{{ form.password.name }}" class="Form-message Form-message--error">{{ form.password.errors }}</label>
+                        {% endif %}
                     </div>
-                    <div class="Form-field Form-field--required">
-                        <label for="pwordconf" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.confirm_password.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.confirm_password.name }}" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
                         {{ form.confirm_password }}
-                        <label for="pwordconf" class="Form-message Form-message--error">{{ form.confirm_password.errors }}</label>
+                        {% if form.password.errors %}
+                            <label for="id_{{ form.confirm_password.name }}" class="Form-message Form-message--error">{{ form.confirm_password.errors }}</label>
+                        {% endif %}
                     </div>
                 </fieldset>
-                <p class="Form-message Form-message--centered"><i
-                        class="Form-requiredExample">*</i> {% trans "required field" %}</p>
+                <div class="Form-message Form-message--centered Form-message--error">
+                    {{ form.non_field_errors }}
+                </div>
+                <p class="Form-message Form-message--centered">
+                    <i class="Form-requiredExample">*</i> {% trans "required field" %}
+                </p>
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Security questions" %}</legend>
                     <p>{% trans "These will help you log in later if you forget your password." %}</p>
                     {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
                         {% for field in form %}
                             {% if field in form.security_questions %}
-                                <div class="Form-field Form-field--required">
+                                <div class="Form-field Form-field--required {% if field.errors %} Form-field--error {% endif %}">
                                     <label for="sq{{ forloop.counter }}"
                                            class="Form-fieldLabel">{{ field.label }}</label>
                                     {{ field }}
-                                    <label for="sq{{ forloop.counter }}" class="Form-message Form-message--error">{{ field.errors }}</label>
+                                    {% if field.errors %}
+                                        <label for="sq{{ forloop.counter }}" class="Form-message Form-message--error">{{ field.errors }}</label>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -57,11 +70,12 @@
                     <div class="Form-field Form-field--required">
                         <ul class="Form-choiceGroup">
                             <li class="Form-choiceGroupItem">
-                                <input type="checkbox" name="terms_and_conditions" id="checkbox1"
+                                <input type="checkbox" name="terms_and_conditions" id="id_{{ form.terms_and_conditions.name }}"
                                        class="Form-choiceInput">
                                 {% footer_link %}
-                                {{ form.terms_and_conditions.errors }}
-                                <label for="checkbox1" class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
+                                {% if form.terms_and_conditions.errors %}
+                                    <label for="id_{{ form.terms_and_conditions.name }}" class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>

@@ -68,7 +68,7 @@
         &--error {
             #{$block}-fieldLabel,
             #{$block}-input,
-            #{$block}-message {
+            #{$block}-message--error {
                 color: $color-secondary-error;
             }
 
@@ -203,6 +203,10 @@
 
         &--centered {
             text-align: center;
+        }
+
+        &--error {
+            color: $color-orange-bittersweet;
         }
 
         .errorlist { // Molo-generated markup, hence deviation from BEM.
