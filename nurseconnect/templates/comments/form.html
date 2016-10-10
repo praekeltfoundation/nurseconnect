@@ -9,8 +9,12 @@
             the errors below{% endblocktrans %}</h1>
     {% endif %}
 
-    {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
     <textarea name="comment" id="comment" class="Comments-field" placeholder="Your comment here"></textarea>
+    {% if form.comment.errors %}
+        <label for="comment" class="Form-message Form-message--error">
+            {{ form.comment.errors }}
+        </label>
+    {% endif %}
     <input type="submit" class="Button Comments-submitButton" value="Add Comment">
     <div class="Message Message--centered Message--inpage">
         <p class="Message-caption">Want to hide your name on the comment?</p>

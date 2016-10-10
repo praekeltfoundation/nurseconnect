@@ -8,47 +8,61 @@
             <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
         </div>
         <div class="Splash-body">
-            <form method="POST" action="{% url "user_register" %}" class="Form">
+            <form method="POST" action="{% url "user_register" %}" class="Form" novalidate>
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Personal Information" %}</legend>
-                    <div class="Form-field Form-field--required">
-                        <label for="mobilenum" class="Form-fieldLabel">{{ form.username.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.username.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.username.name }}" class="Form-fieldLabel">{{ form.username.label }}</label>
                         {{ form.username }}
-                        {{ form.username.errors }}
+                        {% if form.username.errors %}
+                            <label for="id_{{ form.username.name }}" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% endif %}
                     </div>
-                    {{ form.non_field_errors }}
-                    <div class="Form-field Form-field--required">
-                        <label for="cliniccode" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.clinic_code.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.clinic_code.name }}" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
                         {{ form.clinic_code }}
-                        {{ form.clinic_code.errors }}
+                        {% if form.clinic_code.errors %}
+                            <label for="id_{{ form.clinic_code.name }}" class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
+                        {% endif %}
                     </div>
-                    <div class="Form-field Form-field--required">
-                        <label for="pword" class="Form-fieldLabel">{{ form.password.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.password.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.password.name }}" class="Form-fieldLabel">{{ form.password.label }}</label>
                         {{ form.password }}
-                        {{ form.password.errors }}
                         <div class="Form-message">
                             {% trans "Tip: A good password has 4 characters and a mix of capitals and numbers." %}
                         </div>
+                        {% if form.password.errors %}
+                            <label for="id_{{ form.password.name }}" class="Form-message Form-message--error">{{ form.password.errors }}</label>
+                        {% endif %}
                     </div>
-                    <div class="Form-field Form-field--required">
-                        <label for="pwordconf" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
+                    <div class="Form-field Form-field--required {% if form.confirm_password.errors %} Form-field--error {% endif %}">
+                        <label for="id_{{ form.confirm_password.name }}" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
                         {{ form.confirm_password }}
-                        {{ form.confirm_password.errors }}
+                        {% if form.password.errors %}
+                            <label for="id_{{ form.confirm_password.name }}" class="Form-message Form-message--error">{{ form.confirm_password.errors }}</label>
+                        {% endif %}
                     </div>
                 </fieldset>
-                <p class="Form-message Form-message--centered"><i class="Form-requiredExample">*</i> {% trans "required field" %}</p>
+                <div class="Form-message Form-message--centered Form-message--error">
+                    {{ form.non_field_errors }}
+                </div>
+                <p class="Form-message Form-message--centered">
+                    <i class="Form-requiredExample">*</i> {% trans "required field" %}
+                </p>
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Security questions" %}</legend>
                     <p>{% trans "These will help you log in later if you forget your password." %}</p>
                     {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
                         {% for field in form %}
                             {% if field in form.security_questions %}
-                                <div class="Form-field Form-field--required">
+                                <div class="Form-field Form-field--required {% if field.errors %} Form-field--error {% endif %}">
                                     <label for="sq{{ forloop.counter }}"
                                            class="Form-fieldLabel">{{ field.label }}</label>
                                     {{ field }}
-                                    {{ field.errors }}
+                                    {% if field.errors %}
+                                        <label for="sq{{ forloop.counter }}" class="Form-message Form-message--error">{{ field.errors }}</label>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -56,9 +70,12 @@
                     <div class="Form-field Form-field--required">
                         <ul class="Form-choiceGroup">
                             <li class="Form-choiceGroupItem">
-                                <input type="checkbox" name="terms_and_conditions" id="checkbox1" class="Form-choiceInput">
+                                <input type="checkbox" name="terms_and_conditions" id="id_terms_and_conditions"
+                                       class="Form-choiceInput">
                                 {% footer_link %}
-                                {{ form.terms_and_conditions.errors }}
+                                {% if form.terms_and_conditions.errors %}
+                                    <label for="id_terms_and_conditions" class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
@@ -72,7 +89,8 @@
                         <li class="ButtonGroup-item">
                             <div class="Message Message--subtle Message--centered">
                                 <p class="Message-caption">
-                                    {% trans "Already have an account? Log in" %} <a href="{% url "auth_login" %}">{% trans "here" %}</a>
+                                    {% trans "Already have an account? Log in" %} <a
+                                        href="{% url "auth_login" %}">{% trans "here" %}</a>
                                 </p>
                             </div>
                         </li>
