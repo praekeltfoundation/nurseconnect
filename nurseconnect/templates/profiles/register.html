@@ -12,16 +12,20 @@
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Personal Information" %}</legend>
-                    <div class="Form-field Form-field--required">
+                    <div class="Form-field Form-field--required {% if form.username.errors %} Form-field--error {% endif %}">
                         <label for="mobilenum" class="Form-fieldLabel">{{ form.username.label }}</label>
-                        {{ form.username }}
-                        <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+{#                        {{ form.username }}#}
+                        {% if form.username.errors %}
+                            <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% endif %}
                     </div>
+
                     {{ form.non_field_errors }}
                     <div class="Form-field Form-field--required">
                         <label for="cliniccode" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
                         {{ form.clinic_code }}
-                        <label for="cliniccode" class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
+                        <label for="cliniccode"
+                               class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
                     </div>
                     <div class="Form-field Form-field--required">
                         <label for="pword" class="Form-fieldLabel">{{ form.password.label }}</label>
@@ -34,7 +38,8 @@
                     <div class="Form-field Form-field--required">
                         <label for="pwordconf" class="Form-fieldLabel">{{ form.confirm_password.label }}</label>
                         {{ form.confirm_password }}
-                        <label for="pwordconf" class="Form-message Form-message--error">{{ form.confirm_password.errors }}</label>
+                        <label for="pwordconf"
+                               class="Form-message Form-message--error">{{ form.confirm_password.errors }}</label>
                     </div>
                 </fieldset>
                 <p class="Form-message Form-message--centered"><i
@@ -49,7 +54,8 @@
                                     <label for="sq{{ forloop.counter }}"
                                            class="Form-fieldLabel">{{ field.label }}</label>
                                     {{ field }}
-                                    <label for="sq{{ forloop.counter }}" class="Form-message Form-message--error">{{ field.errors }}</label>
+                                    <label for="sq{{ forloop.counter }}"
+                                           class="Form-message Form-message--error">{{ field.errors }}</label>
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -61,7 +67,8 @@
                                        class="Form-choiceInput">
                                 {% footer_link %}
                                 {{ form.terms_and_conditions.errors }}
-                                <label for="checkbox1" class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
+                                <label for="checkbox1"
+                                       class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
                             </li>
                         </ul>
                     </div>
