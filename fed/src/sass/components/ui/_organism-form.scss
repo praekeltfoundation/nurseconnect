@@ -49,15 +49,15 @@
         &--error {
             #{$block}-fieldLabel,
             #{$block}-input,
-            #{$block}-message {
-                color: $color-secondary-error;
+            #{$block}-message--error {
+                color: $color-orange-bittersweet;
             }
 
             #{$block}-input,
             #{$block}-textArea,
             #{$block}-selectBox {
-                border: 1px solid $color-secondary-error;
-                background-color: tint($color-secondary-error, 80%);
+                border: 1px solid $color-orange-bittersweet;
+                background-color: tint($color-orange-bittersweet, 80%);
             }
         }
     }
@@ -114,6 +114,18 @@
     &-message {
         display: block;
         margin-top: scale(alpha);
+
+        &--error {
+            color: $color-orange-bittersweet;
+        }
+
+        &--centered {
+            text-align: center;
+        }
+
+        .errorlist {
+            @include no-list;
+        }
     }
 
     &-actions {
