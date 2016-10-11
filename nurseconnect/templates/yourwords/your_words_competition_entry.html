@@ -69,9 +69,7 @@
                 <div class="Form-field Form-field--required {% if form.terms_or_conditions_approved.errors %} Form-field--error {% endif %}">
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
-                            <input for="id_{{ form.terms_or_conditions_approved.name }}" type="checkbox"
-                                   name="terms_or_conditions_approved" id="terms_or_conditions_approved"
-                                   class="Form-choiceInput">
+                            <input type="checkbox" name="terms_or_conditions_approved" id="id_{{ form.terms_or_conditions_approved.name }}" class="Form-choiceInput">
                             {% footer_link %}
                             {% if form.terms_or_conditions_approved.errors %}
                                 <label for="id_{{ form.terms_or_conditions_approved.name }}"
@@ -83,8 +81,8 @@
                 <div class="Form-field Form-field--required {% if form.hide_real_name.errors %} Form-field--error {% endif %}">
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
-                            <input type="checkbox" name="hide_real_name" id=hide_real_name" class="Form-choiceInput">
-                            <label for="id_hide_real_name" class="Form-choiceLabel Form-choiceLabel--checkbox">
+                            <input type="checkbox" name="hide_real_name" id="id_{{ form.hide_real_name.name }}" class="Form-choiceInput">
+                            <label for="id_{{ form.hide_real_name.name }}" class="Form-choiceLabel Form-choiceLabel--checkbox">
                                 {% trans "Share my story anonymously" %}
                             </label>
                             {% if form.hide_real_name.errors %}
