@@ -38,7 +38,6 @@
                 {% if settings_form.username.errors %}
                     <label for="id_{{ settings_form.username.name }}" class="Form-message Form-message--error">{{ settings_form.username.errors }}</label>
                 {% endif %}
-                <label for="id_{{ settings_form.username.name }}" class="Form-message Form-message--error">{{ settings_form.username.errors }}</label>
             </div>
         </fieldset>
         {% if edit == "edit-settings" %}

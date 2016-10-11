@@ -205,7 +205,9 @@ class EditProfileForm(forms.Form):
         username = self.cleaned_data["username"]
 
         if self.user.username != username:
-            if User.objects.filter(
+            if not username:
+                raise forms.ValidationError(_("Please enter a valid South African cellphone number."))
+            elif User.objects.filter(
                 username__iexact=self.cleaned_data["username"]
             ).exclude(pk=self.user.pk).exists():
                 raise forms.ValidationError(_("Username already exists."))

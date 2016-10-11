@@ -179,6 +179,11 @@ class MyProfileView(View):
                             "PLEASE NOTE: You will need to use your new "
                             "cellphone number to log in going forward."
                         )
+                    else:
+                        messages.success(
+                            request,
+                            "Your cellphone number has not changed."
+                        )
                     self.request.user.username = \
                         settings_form.cleaned_data["username"]
                 self.request.user.save()
