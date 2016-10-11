@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
-from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.views.generic import View
