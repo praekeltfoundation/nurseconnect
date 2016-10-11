@@ -20,17 +20,21 @@
                             {% trans "If you’ve forgotten your password," %} <a href="{% url "forgot_password" %}" class="Link">{% trans "click here." %}</a>
                         </p>
                     {% endif %}
-                    <div class="Form-field Form-field--required">
+                    <div class="Form-field Form-field--required {% if form.username.errors %} Form-field--error {% endif %}">
                         <label for="mobilenum" class="Form-fieldLabel">{% trans "Mobile Number" %}</label>
                         <input name="username" type="tel" id="mobilenum" class="Form-input"
                                placeholder="eg. 0821234567">
-                        <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% if form.username.errors %}
+                           <label for="mobilenum" class="Form-message Form-message--error">{{ form.username.errors }}</label>
+                        {% endif %}
                     </div>
-                    <div class="Form-field Form-field--required">
+                    <div class="Form-field Form-field--required {% if form.password.errors %} Form-field--error {% endif %}">
                         <label for="mobilenum" class="Form-fieldLabel">{% trans "Password" %}</label>
                         <input name="password" type="password" id="pword" class="Form-input"
                                placeholder="Enter password">
-                        <label for="password" class="Form-message Form-message--error">{{ form.password.errors }}</label>
+                        {% if form.password.errors %}
+                           <label for="password" class="Form-message Form-message--error">{{ form.password.errors }}</label>
+                        {% endif %}
                     </div>
                 </fieldset>
                 <p class="Form-message Form-message--centered"><i class="Form-requiredExample">*</i> {% trans "required field" %}</p>
