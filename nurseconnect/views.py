@@ -224,10 +224,6 @@ class MyProfileView(View):
                     self.request.user.save()
                     return HttpResponseRedirect(reverse("view_my_profile"))
                 else:
-                    profile_password_change_form.add_error(
-                        "old_password",
-                        _("The old password is incorrect.")
-                    )
                     messages.success(
                         request,
                         "The old password is incorrect."
