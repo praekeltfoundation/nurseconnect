@@ -206,7 +206,9 @@ class EditProfileForm(forms.Form):
 
         if self.user.username != username:
             if not username:
-                raise forms.ValidationError(_("Please enter a valid South African cellphone number."))
+                raise forms.ValidationError(
+                    _("Please enter a valid South African cellphone number.")
+                )
             elif User.objects.filter(
                 username__iexact=self.cleaned_data["username"]
             ).exclude(pk=self.user.pk).exists():
