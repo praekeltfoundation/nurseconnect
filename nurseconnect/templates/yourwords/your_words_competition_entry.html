@@ -48,38 +48,49 @@
         <form method="POST" class="Form Form--padded">
             {% csrf_token %}
             <fieldset class="Form-fieldGroup">
-
-
-                <div class="Form-field Form-field--required">
-                    <label class="Form-fieldLabel">{% trans "Title of your story" %}</label><br/>
+                <div class="Form-field Form-field--required {% if form.story_name.errors %} Form-field--error {% endif %}">
+                    <label for="id_{{ form.story_name.name }}"
+                           class="Form-fieldLabel">{% trans "Title of your story" %}</label>
                     <input name="story_name" id="story_name" class="Form-input" placeholder="Title">
-                    {{ form.story_name.errors }}
+                    {% if form.story_name.errors %}
+                        <label for="id_{{ form.story_name.name }}"
+                               class="Form-message Form-message--error">{{ form.story_name.errors }}</label>
+                    {% endif %}
                 </div>
-
-
-                <div class="Form-field Form-field--required">
+                <div class="Form-field Form-field--required {% if form.story_text.errors %} Form-field--error {% endif %}">
                     <label class="Form-fieldLabel">{% trans "Tell us your story here" %}</label>
-                    <textarea name="story_text" id="story_text" class="Comments-field"></textarea>
-                    {{ form.story_text.errors }}
+                    <textarea for="id_{{ form.story_text.name }}" name="story_text" id="story_text" placeholder="Your story here..."
+                              class="Form-input"></textarea>
+                    {% if form.story_text.errors %}
+                        <label for="id_{{ form.story_text.name }}"
+                               class="Form-message Form-message--error">{{ form.story_text.errors }}</label>
+                    {% endif %}
                 </div>
-
-                <div class="Form-field Form-field--required">
+                <div class="Form-field Form-field--required {% if form.terms_or_conditions_approved.errors %} Form-field--error {% endif %}">
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
-                            <input type="checkbox" name="terms_or_conditions_approved" id="checkbox1"
+                            <input for="id_{{ form.terms_or_conditions_approved.name }}" type="checkbox"
+                                   name="terms_or_conditions_approved" id="terms_or_conditions_approved"
                                    class="Form-choiceInput">
                             {% footer_link %}
-                            {{ form.terms_or_conditions_approved.errors }}
+                            {% if form.terms_or_conditions_approved.errors %}
+                                <label for="id_{{ form.terms_or_conditions_approved.name }}"
+                                       class="Form-message Form-message--error">{{ form.terms_or_conditions_approved.errors }}</label>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
-                <div class="Form-field Form-field--required">
+                <div class="Form-field Form-field--required {% if form.hide_real_name.errors %} Form-field--error {% endif %}">
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
-                            <input type="checkbox" name="hide_real_name" id="checkbox2" class="Form-choiceInput">
-                            <label for="checkbox2" class="Form-choiceLabel Form-choiceLabel--checkbox">
+                            <input type="checkbox" name="hide_real_name" id=hide_real_name" class="Form-choiceInput">
+                            <label for="id_hide_real_name" class="Form-choiceLabel Form-choiceLabel--checkbox">
                                 {% trans "Share my story anonymously" %}
                             </label>
+                            {% if form.hide_real_name.errors %}
+                                <label for="id_{{ form.hide_real_name.name }}"
+                                       class="Form-message Form-message--error">{{ form.hide_real_name.errors }}</label>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>

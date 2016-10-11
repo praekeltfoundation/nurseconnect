@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
-from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.views.generic import View
@@ -35,6 +34,7 @@ def search(request, results_per_page=7):
     search_query = request.GET.get("q", None)
     page = request.GET.get("p", 1)
     locale = get_locale_code(get_language_from_request(request))
+    search_query = search_query.strip()
 
     if search_query:
         results = ArticlePage.objects.filter(
@@ -179,6 +179,11 @@ class MyProfileView(View):
                             "PLEASE NOTE: You will need to use your new "
                             "cellphone number to log in going forward."
                         )
+                    else:
+                        messages.success(
+                            request,
+                            "Your cellphone number has not changed."
+                        )
                     self.request.user.username = \
                         settings_form.cleaned_data["username"]
                 self.request.user.save()
@@ -223,10 +228,11 @@ class MyProfileView(View):
                     self.request.user.save()
                     return HttpResponseRedirect(reverse("view_my_profile"))
                 else:
-                    profile_password_change_form.add_error(
-                        "old_password",
-                        _("The old password is incorrect.")
+                    messages.success(
+                        request,
+                        "The old password is incorrect."
                     )
+                    return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 settings_form = forms.EditProfileForm(
                     prefix="settings_form", user=self.request.user
