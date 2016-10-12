@@ -4,8 +4,11 @@
 {% if articles %}
     <section class="ContentList">
         <div class="ContentList-body">
+            <header class="ContentList-header">
+                <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
+            </header>
             {% for article in articles %}
-                {% if forloop.counter <= 2 %}
+                {% if forloop.counter <= 3 %}
                     <article class="Article">
                         <a href="{% pageurl article %}" class="Article-hitBox">
 
