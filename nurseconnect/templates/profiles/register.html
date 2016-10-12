@@ -72,7 +72,7 @@
                             <li class="Form-choiceGroupItem">
                                 <input type="checkbox" name="terms_and_conditions" id="id_terms_and_conditions"
                                        class="Form-choiceInput">
-                                {% footer_link %}
+                                {% footer_link "id_terms_and_conditions" %}
                                 {% if form.terms_and_conditions.errors %}
                                     <label for="id_terms_and_conditions" class="Form-message Form-message--error">{{ form.terms_and_conditions.errors }}</label>
                                 {% endif %}
