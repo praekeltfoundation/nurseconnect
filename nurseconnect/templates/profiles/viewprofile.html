@@ -9,11 +9,11 @@
         </h1>
     </div>
     {% if messages %}
-        {% for message in messages %}
-            <div class="Message Message--inpage Message--centered">
+        <div class="Message Message--inpage Message--centered">
+            {% for message in messages %}
                 <h2 class="Message-item">{{ message }}</h2>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     {% endif %}
     {% include "profiles/editprofile.html" %}
 
