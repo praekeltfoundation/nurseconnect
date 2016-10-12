@@ -1,4 +1,3 @@
-# from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 from molo.core.tests.base import MoloTestCaseMixin
@@ -31,52 +30,3 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
             response, "form", "terms_and_conditions", [
                 "This field is required."
             ])
-
-
-# class ProfilePasswordChangeViewTest(MoloTestCaseMixin, TestCase):
-#     def setUp(self):
-#         self.user = User.objects.create_user(
-#             "+27811231234",
-#             password="1234"
-#         )
-#         self.client = Client()
-#         self.client.login(username="+27811231234", password="1234")
-#
-#     def test_view(self):
-#         response = self.client.get(reverse("view_my_profile"))
-#         form = response.context["form"]
-#         self.assertTrue(isinstance(form, forms.ProfilePasswordChangeForm))
-#
-#     def test_update_invalid_old_password(self):
-#         response = self.client.post(
-#             reverse("edit_my_profile", kwargs={"edit": "edit-password"}), {
-#                 "old_password": "0000",
-#                 "new_password": "4567",
-#                 "confirm_password": "4567",
-#             })
-#         self.assertFormError(
-#             response, "form", "old_password", ["The old password is incorrect."])
-#
-#     def test_update_passwords_not_matching(self):
-#         response = self.client.post(
-#             reverse("edit_my_profile", kwargs={"edit": "edit-password"}), {
-#                 "old_password": "1234",
-#                 "new_password": "1234",
-#                 "confirm_password": "4567",
-#             })
-#         form = response.context["form"]
-#         [error] = form.non_field_errors().as_data()
-#         self.assertEqual(error.message, "New passwords do not match.")
-#
-#     def test_update_passwords(self):
-#         response = self.client.post(
-#             reverse("edit_my_profile", kwargs={"edit": "edit-password"}), {
-#                 "old_password": "1234",
-#                 "new_password": "4567",
-#                 "confirm_password": "4567",
-#             })
-#         self.assertRedirects(
-#             response, reverse("view_my_profile"))
-#         # Avoid cache by loading from db
-#         user = User.objects.get(pk=self.user.pk)
-#         self.assertTrue(user.check_password("4567"))
