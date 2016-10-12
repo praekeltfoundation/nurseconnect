@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -175,7 +176,7 @@ class MyProfileView(View):
                             settings_form.cleaned_data["username"]:
                         messages.success(
                             request,
-                            "Username successfully updated."
+                            "Username successfully updated. "
                             "PLEASE NOTE: You will need to use your new "
                             "cellphone number to log in going forward."
                         )
@@ -228,11 +229,26 @@ class MyProfileView(View):
                     self.request.user.save()
                     return HttpResponseRedirect(reverse("view_my_profile"))
                 else:
-                    messages.success(
-                        request,
-                        "The old password is incorrect."
+                    profile_password_change_form.add_error(
+                        "old_password",
+                        ValidationError("The old password is incorrect.")
                     )
-                    return HttpResponseRedirect(reverse("view_my_profile"))
+                    settings_form = forms.EditProfileForm(
+                        prefix="settings_form", user=self.request.user
+                    )
+                    profile_password_change_form.change_field_enabled_state(
+                        False
+                    )
+                    return render(
+                        request,
+                        self.template_name,
+                        context={
+                            "edit": "edit-password",
+                            "settings_form": settings_form,
+                            "profile_password_change_form":
+                                profile_password_change_form
+                        }
+                    )
             else:
                 settings_form = forms.EditProfileForm(
                     prefix="settings_form", user=self.request.user
