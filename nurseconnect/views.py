@@ -236,7 +236,9 @@ class MyProfileView(View):
                     settings_form = forms.EditProfileForm(
                         prefix="settings_form", user=self.request.user
                     )
-                    profile_password_change_form.change_field_enabled_state(False)
+                    profile_password_change_form.change_field_enabled_state(
+                        False
+                    )
                     return render(
                         request,
                         self.template_name,
