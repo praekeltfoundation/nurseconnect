@@ -35,7 +35,7 @@ def get_pages(context, qs, locale):
 
 
 @register.inclusion_tag("core/tags/footerlink.html", takes_context=True)
-def footer_link(context):
+def footer_link(context, id):
     request = context["request"]
     locale = context.get("locale_code")
 
@@ -46,6 +46,7 @@ def footer_link(context):
         terms = []
 
     return {
+        "id": id,
         "terms": terms,
         "request": context["request"],
         "locale_code": locale,

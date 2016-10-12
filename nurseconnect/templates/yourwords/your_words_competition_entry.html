@@ -70,7 +70,7 @@
                     <ul class="Form-choiceGroup">
                         <li class="Form-choiceGroupItem">
                             <input type="checkbox" name="terms_or_conditions_approved" id="id_{{ form.terms_or_conditions_approved.name }}" class="Form-choiceInput">
-                            {% footer_link %}
+                            {% footer_link "id_terms_or_conditions_approved" %}
                             {% if form.terms_or_conditions_approved.errors %}
                                 <label for="id_{{ form.terms_or_conditions_approved.name }}"
                                        class="Form-message Form-message--error">{{ form.terms_or_conditions_approved.errors }}</label>
