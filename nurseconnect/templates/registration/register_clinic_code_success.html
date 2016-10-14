@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n static core_tags wagtailcore_tags wagtailsettings_tags nurseconnect_tags %}
+{% get_settings %}
+
+{% block content %}
+    <section action="" class="Splash">
+        <div class="Splash-body">
+            <h1 class="Splash-headline">{% trans "Your clinic code is valid." %}<br> {% trans "Would you like to change it?" %}
+            </h1>
+        </div>
+        <div class="Message Message--subtle Message--centered">
+            <p class="Message-caption">
+                {% trans "Clinic Code" %} {{ request.session.cliniccode }}
+            </p>
+            <p class="Message-caption">
+                {% trans "Clinic Code Name" %} {{ request.session.cliniccodename }}
+            </p>
+        </div>
+        <div class="Splash-body">
+            <div class="Splash-actions">
+                <ul class="ButtonGroup">
+                    <li class="ButtonGroup-item">
+                        <input class="Button" type="submit" value="{% trans "Edit Clinic Code" %}"/>
+                    </li>
+                    <input type="hidden" name="next" value="{% url "user_register_clinic_code" %}"/>
+                    </br>
+                    <li class="ButtonGroup-item">
+                        <input class="Button" type="submit" value="{% trans "Sign Up" %}"/>
+                    </li>
+                    <input type="hidden" name="next" value="{% url "home" %}"/>
+                    <li class="ButtonGroup-item">
+                        <div class="Message Message--subtle Message--centered">
+                            <p class="Message-caption">
+                                {% trans "Already have an account? Log in" %} <a
+                                    href="{% url "auth_login" %}">{% trans "here" %}</a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

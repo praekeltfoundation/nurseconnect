@@ -56,6 +56,26 @@ urlpatterns += patterns(
         name="user_register"
     ),
     url(
+        r"^profiles/register-msisdn/$",
+        views.RegistrationMSISDNView.as_view(),
+        name="user_register_msisdn"
+    ),
+    url(
+        r"^profiles/register-security-questions/$",
+        views.RegistrationSecurityQuestionsView.as_view(),
+        name="user_register_security_questions"
+    ),
+    url(
+        r"^profiles/register-clinic-code/$",
+        views.RegistrationClinicCodeView.as_view(),
+        name="user_register_clinic_code"
+    ),
+    url(
+        r"^profiles/register-clinic-success/$",
+        views.RegistrationClinicCodeSuccessView.as_view(),
+        name="user_register_clinic_code_success"
+    ),
+    url(
         r"^view/myprofile/$",
         login_required(views.MyProfileView.as_view(
             template_name="profiles/viewprofile.html"
