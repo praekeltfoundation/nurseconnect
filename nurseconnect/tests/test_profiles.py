@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.test.client import Client
 
 from molo.core.tests.base import MoloTestCaseMixin
@@ -11,13 +11,12 @@ from nurseconnect import forms
 class UserProfileTests(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.client = Client()
-        self.factory = RequestFactory()
         self.mk_main()
 
     def test_invalid_username_raises_error(self):
         # Username is expected to be a South African number,
         # normalised to +27 country code
-        response = self.client.post(reverse("user_register"), {
+        response = self.client.post(reverse("user_register_msisdn"), {
             "username": "wrong username",
             "confirm_password": "1234"
         })
@@ -27,7 +26,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         )
 
         # Invalid because 088 is not a valid SA cellphone code
-        response = self.client.post(reverse("user_register"), {
+        response = self.client.post(reverse("user_register_msisdn"), {
             "username": "0881231234",
             "confirm_password": "1234"
         })
@@ -38,10 +37,9 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
 
     def test_register_user_validation(self):
         # Passwords with non-alphanumeric characters raise errors
-        response = self.client.post(reverse("user_register"), {
+        response = self.client.post(reverse("user_register_msisdn"), {
             "username": "0820000000",
-            "password": "wrong$$$",
-            "clinic_code": "000xx"
+            "password": "wrong$$$"
         })
         self.assertFormError(
             response, "form", "username",
@@ -53,39 +51,31 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
              u"combination of 4 or more characters."]
         )
 
-        # Clinic code must be six digits
-        self.assertFormError(
-            response, "form", "clinic_code",
-            [u"Please enter your 6 digit clinic code"]
-        )
-
         # Phone number starting with zero gives no errors
         response = self.client.post(
-            reverse("user_register"),
+            reverse("user_register_msisdn"),
             {
                 "username": "0820000000",
-                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
             },
             follow=True
         )
-        self.assertRedirects(response, reverse("home"))
+        self.assertRedirects(response, reverse("user_register_security_questions"))
 
         # Phone number starting with +27 gives no errors
         response = self.client.post(
-            reverse("user_register"),
+            reverse("user_register_msisdn"),
             {
                 "username": "+2782111111",
-                "clinic_code": "000000",
                 "password": "1234",
                 "confirm_password": "1234",
                 "terms_and_conditions": True,
             },
             follow=True
         )
-        self.assertRedirects(response, reverse("home"))
+        self.assertRedirects(response, reverse("user_register_security_questions"))
 
         # User already exists
         User.objects.create_user(
@@ -93,7 +83,7 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             password="1234"
         )
         response = self.client.post(
-            reverse("user_register"),
+            reverse("user_register_msisdn"),
             {
                 "username": "+27791234567",
                 "password": "1234",
@@ -102,6 +92,32 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
         self.assertFormError(
             response, "form", "username",
             [u"Username already exists."]
+        )
+
+    def test_invalid_clinic_code_raises_error(self):
+        # Clinic_code is expected to be 6 digits long
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "111",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )
+
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "1111111",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )
+
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "asdfasdfasdf",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
         )
 
     def test_login(self):

@@ -81,16 +81,16 @@ def search(request, results_per_page=7):
 
 class RegistrationView(TemplateView):
     def get(self, request, *args, **kwargs):
-        if self.request.session.get("registration-step"):
-            if self.request.session["registration-step"] == 1:
+        if request.session.get("registration-step"):
+            if request.session["registration-step"] == 1:
                 return HttpResponseRedirect(
                     reverse("user_register_msisdn")
                 )
-            elif self.request.session["registration-step"] == 2:
+            elif request.session["registration-step"] == 2:
                 return HttpResponseRedirect(
                     reverse("user_register_security_questions")
                 )
-            elif self.request.session["registration-step"] == 3:
+            elif request.session["registration-step"] == 3:
                 return HttpResponseRedirect(
                     reverse("user_register_clinic_code")
                 )
@@ -116,6 +116,7 @@ class RegistrationMSISDNView(FormView):
         self.request.session["registration-step"] = 2
         self.request.session["username"] = username
         self.request.session["password"] = password
+
         return HttpResponseRedirect(
             reverse("user_register_security_questions")
         )
