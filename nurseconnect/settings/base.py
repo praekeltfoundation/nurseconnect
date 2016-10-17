@@ -319,4 +319,7 @@ EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
 # LOGIN URL used for restrcited views
 LOGIN_URL = "auth_login"
 
-CLINIC_CODE_API = "http://praekelt:praekelt@npr-staging.jembi.org:5001/ws/rest/v1/NCfacilityCheck?"
+
+#TODO setup ENV variable for docker image.
+CLINIC_CODE_API = "http://praekelt:praekelt@npr-staging.jembi.org:5001/" \
+                  "ws/rest/v1/NCfacilityCheck?"

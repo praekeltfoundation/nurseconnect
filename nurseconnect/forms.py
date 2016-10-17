@@ -109,7 +109,9 @@ class RegistrationMSISDNForm(forms.Form):
 class RegistrationSecurityQuestionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         questions = kwargs.pop("questions")
-        super(RegistrationSecurityQuestionsForm, self).__init__(*args, **kwargs)
+        super(
+            RegistrationSecurityQuestionsForm, self
+        ).__init__(*args, **kwargs)
         site = Site.objects.get(is_default_site=True)
         settings = SettingsProxy(site)
         profile_settings = settings["profiles"]["UserProfilesSettings"]

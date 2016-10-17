@@ -81,14 +81,19 @@ def search(request, results_per_page=7):
 
 class RegistrationView(TemplateView):
     def get(self, request, *args, **kwargs):
-        # import pdb; pdb.set_trace()
         if self.request.session.get("registration-step"):
             if self.request.session["registration-step"] == 1:
-                return HttpResponseRedirect(reverse("user_register_msisdn"))
+                return HttpResponseRedirect(
+                    reverse("user_register_msisdn")
+                )
             elif self.request.session["registration-step"] == 2:
-                return HttpResponseRedirect(reverse("user_register_security_questions"))
+                return HttpResponseRedirect(
+                    reverse("user_register_security_questions")
+                )
             elif self.request.session["registration-step"] == 3:
-                return HttpResponseRedirect(reverse("user_register_clinic_code"))
+                return HttpResponseRedirect(
+                    reverse("user_register_clinic_code")
+                )
 
         return HttpResponseRedirect(reverse("user_register_msisdn"))
 
@@ -111,7 +116,9 @@ class RegistrationMSISDNView(FormView):
         self.request.session["registration-step"] = 2
         self.request.session["username"] = username
         self.request.session["password"] = password
-        return HttpResponseRedirect(reverse("user_register_security_questions"))
+        return HttpResponseRedirect(
+            reverse("user_register_security_questions")
+        )
 
 
 class RegistrationSecurityQuestionsView(FormView):
@@ -136,7 +143,9 @@ class RegistrationSecurityQuestionsView(FormView):
         return HttpResponseRedirect(reverse("user_register_clinic_code"))
 
     def get_form_kwargs(self):
-        kwargs = super(RegistrationSecurityQuestionsView, self).get_form_kwargs()
+        kwargs = super(
+            RegistrationSecurityQuestionsView, self
+        ).get_form_kwargs()
         kwargs["questions"] = models.SecurityQuestion.objects.all()
         return kwargs
 
@@ -158,32 +167,19 @@ class RegistrationClinicCodeView(FormView):
         self.request.session["registration-step"] = 0
         self.request.session["clinic"] = True
         self.request.session["cliniccode"] = clinic_code
-        self.request.session["cliniccodename"] = tasks.clinic_code_name(clinic_code)
+        self.request.session["cliniccodename"] = tasks.clinic_code_name(
+            clinic_code
+        )
 
         authed_user = authenticate(username=username, password=password)
         login(self.request, authed_user)
-        return HttpResponseRedirect(reverse("user_register_clinic_code_success"))
+        return HttpResponseRedirect(
+            reverse("user_register_clinic_code_success")
+        )
 
 
 class RegistrationClinicCodeSuccessView(TemplateView):
     template_name = "registration/register_clinic_code_success.html"
-
-    # def form_valid(self, form):
-    #     clinic_code = form.cleaned_data["clinic_code"]
-    #
-    #     username = self.request.session["username"]
-    #     password = self.request.session["password"]
-    #     user = User.objects.filter(username__iexact=username).first()
-    #
-    #     # Save clinic code
-    #     user.profile.for_nurseconnect.clinic_code = clinic_code
-    #     user.profile.for_nurseconnect.save()
-    #     self.request.session["registration-step"] = 0
-    #     self.request.session["clinic"] = True
-    #
-    #     authed_user = authenticate(username=username, password=password)
-    #     login(self.request, authed_user)
-    #     return HttpResponseRedirect(reverse("user_register_clinic_code_success"))
 
 
 class MyProfileView(View):
