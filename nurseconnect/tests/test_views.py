@@ -74,8 +74,8 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
             {},
         )
         self.assertFormError(
-                    response, "form", "question_0",
-                    ["This field is required."])
+            response, "form", "question_0",
+            ["This field is required."])
 
     def test_register_clinic_code_view_invalid_form(self):
         # NOTE: empty form submission

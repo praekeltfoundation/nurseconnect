@@ -62,7 +62,9 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             },
             follow=True
         )
-        self.assertRedirects(response, reverse("user_register_security_questions"))
+        self.assertRedirects(
+            response, reverse("user_register_security_questions")
+        )
 
         # Phone number starting with +27 gives no errors
         response = self.client.post(
@@ -75,7 +77,9 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             },
             follow=True
         )
-        self.assertRedirects(response, reverse("user_register_security_questions"))
+        self.assertRedirects(
+            response, reverse("user_register_security_questions")
+        )
 
         # User already exists
         User.objects.create_user(
