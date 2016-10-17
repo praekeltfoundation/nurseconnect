@@ -80,20 +80,16 @@ def search(request, results_per_page=7):
 
 
 class HomePageView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        if self.request.session.get("registered"):
-            self.request.session["registered"] = True
-            username = self.request.session["username"]
-            password = self.request.session["password"]
-            authed_user = authenticate(username=username, password=password)
-            login(self.request, authed_user)
-        return self.render_to_response(context)
+    pass
 
 
 class RegistrationCompleteView(TemplateView):
     def get(self, request, *args, **kwargs):
-        self.request.session["registered"] = True
+        username = self.request.session["username"]
+        password = self.request.session["password"]
+        authed_user = authenticate(username=username, password=password)
+        login(self.request, authed_user)
+
         return HttpResponseRedirect(reverse("home"))
 
 
@@ -199,12 +195,12 @@ class RegistrationClinicCodeView(FormView):
 class RegistrationClinicCodeSuccessView(TemplateView):
     template_name = "registration/register_clinic_code_success.html"
 
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        if self.request.session.get("registered"):
-            return HttpResponseRedirect(reverse("home"))
-
-        return self.render_to_response(context)
+    # def get(self, request, *args, **kwargs):
+    #     context = self.get_context_data(**kwargs)
+    #     if self.request.session.get("registered"):
+    #         return HttpResponseRedirect(reverse("home"))
+    #
+    #     return self.render_to_response(context)
 
 
 class MyProfileView(View):

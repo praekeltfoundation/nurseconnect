@@ -5,15 +5,15 @@
 {% block content %}
     <section action="" class="Splash">
         <div class="Splash-body">
-            <h1 class="Splash-headline">{% trans "Your clinic code is valid." %}<br> {% trans "Would you like to change it?" %}
+            <h1 class="Splash-headline">{% trans "Your clinic code is valid!" %}<br> <br> {% trans "Would you like to change it?" %}
             </h1>
         </div>
         <div class="Message Message--subtle Message--centered">
             <p class="Message-caption">
-                {% trans "Clinic Code" %} {{ request.session.cliniccode }}
+                {% trans "Clinic Code:" %} <strong>{{ request.session.cliniccode }}</strong>
             </p>
             <p class="Message-caption">
-                {% trans "Clinic Code Name" %} {{ request.session.cliniccodename }}
+                {% trans "Clinic Code Name:" %} <strong>{{ request.session.cliniccodename }} </strong>
             </p>
         </div>
         <div class="Splash-actions">

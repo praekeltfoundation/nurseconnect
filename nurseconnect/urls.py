@@ -117,14 +117,14 @@ urlpatterns += patterns(
     ),
     url(
         r"^menu/$",
-        views.MenuView.as_view(),
+        login_required(views.MenuView.as_view()),
         name="menu"
     ),
     url(
         r"^$",
-        views.HomePageView.as_view(
+        login_required(views.HomePageView.as_view(
             template_name="core/main.html"
-        ),
+        )),
         name="home"
     ),
     url(
