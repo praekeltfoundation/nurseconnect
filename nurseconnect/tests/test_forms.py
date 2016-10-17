@@ -66,7 +66,7 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
         form = self.clinic_code_form(
             data=form_data
         )
-        self.assertEqual(form.is_valid(), False)
+        self.assertEqual(form.is_valid(), True)
 
     def test_register_clinic_code_incorrect(self):
         form_data = {
