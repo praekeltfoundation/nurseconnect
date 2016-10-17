@@ -17,7 +17,7 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
             username="+27791234567",
             password="1234")
         self.question = models.SecurityQuestion(question="What is this?")
-        self.clinic_code = "123456"
+        self.user.profile.for_nurseconnect.clinic_code = "123456"
 
     def test_register_username_correct(self):
         form_data = {
@@ -57,7 +57,6 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
     def test_register_clinic_code_correct(self):
         form_data = {
             "clinic_code": "123456"
-
         }
         form = self.clinic_code_form(
             data=form_data
@@ -67,7 +66,6 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
     def test_register_clinic_code_incorrect(self):
         form_data = {
             "clinic_code": "000000"
-
         }
         form = self.clinic_code_form(
             data=form_data
