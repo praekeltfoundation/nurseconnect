@@ -216,6 +216,23 @@ class EditProfileForm(forms.Form):
         ),
     )
 
+    clinic_code = forms.RegexField(
+        regex=r"^\d{6}$",
+        required=True,
+        label=_("Clinic code"),
+        error_messages={
+            "invalid": "Please enter your 6 digit clinic code"
+        },
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Clinic code"),
+                "readonly": True,
+                "class": "Form-input",
+                "for": "cliniccode"
+            }
+        ),
+    )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -236,6 +253,19 @@ class EditProfileForm(forms.Form):
 
         return self.cleaned_data["username"]
 
+    def clean_clinic_code(self):
+        clinic_code = self.cleaned_data["clinic_code"]
+
+        clinic = check_clinic_code(clinic_code)
+
+        if not clinic:
+            raise forms.ValidationError(_("Clinic code is invalid."))
+        else:
+            if clinic[2]:
+                self.cleaned_data["clinic_name"] = clinic[2]
+
+        return self.cleaned_data["clinic_code"]
+
     def set_initial(self, user):
         self.fields["first_name"].initial = user.first_name \
             if user.first_name else ""
@@ -244,6 +274,8 @@ class EditProfileForm(forms.Form):
             if user.last_name else ""
 
         self.fields["username"].initial = user.username
+        self.fields["clinic_code"].initial = \
+            user.profile.for_nurseconnect.clinic_code
 
         return self
 
@@ -251,6 +283,7 @@ class EditProfileForm(forms.Form):
         self.fields["first_name"].widget.attrs["readonly"] = state
         self.fields["last_name"].widget.attrs["readonly"] = state
         self.fields["username"].widget.attrs["readonly"] = state
+        self.fields["clinic_code"].widget.attrs["readonly"] = state
         return self
 
 

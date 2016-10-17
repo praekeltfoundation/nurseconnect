@@ -76,6 +76,11 @@ urlpatterns += patterns(
         name="user_register_clinic_code_success"
     ),
     url(
+        r"^profiles/register-complete/$",
+        views.RegistrationCompleteView.as_view(),
+        name="user_register_complete"
+    ),
+    url(
         r"^view/myprofile/$",
         login_required(views.MyProfileView.as_view(
             template_name="profiles/viewprofile.html"
@@ -117,7 +122,7 @@ urlpatterns += patterns(
     ),
     url(
         r"^$",
-        TemplateView.as_view(
+        views.HomePageView.as_view(
             template_name="core/main.html"
         ),
         name="home"

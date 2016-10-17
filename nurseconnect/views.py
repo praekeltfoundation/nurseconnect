@@ -79,6 +79,24 @@ def search(request, results_per_page=7):
     })
 
 
+class HomePageView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if self.request.session.get("registered"):
+            self.request.session["registered"] = True
+            username = self.request.session["username"]
+            password = self.request.session["password"]
+            authed_user = authenticate(username=username, password=password)
+            login(self.request, authed_user)
+        return self.render_to_response(context)
+
+
+class RegistrationCompleteView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        self.request.session["registered"] = True
+        return HttpResponseRedirect(reverse("home"))
+
+
 class RegistrationView(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.session.get("registration-step"):
@@ -116,6 +134,7 @@ class RegistrationMSISDNView(FormView):
         self.request.session["registration-step"] = 2
         self.request.session["username"] = username
         self.request.session["password"] = password
+        self.request.session["registered"] = False
 
         return HttpResponseRedirect(
             reverse("user_register_security_questions")
@@ -172,8 +191,6 @@ class RegistrationClinicCodeView(FormView):
             clinic_code
         )
 
-        authed_user = authenticate(username=username, password=password)
-        login(self.request, authed_user)
         return HttpResponseRedirect(
             reverse("user_register_clinic_code_success")
         )
@@ -181,6 +198,13 @@ class RegistrationClinicCodeView(FormView):
 
 class RegistrationClinicCodeSuccessView(TemplateView):
     template_name = "registration/register_clinic_code_success.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if self.request.session.get("registered"):
+            return HttpResponseRedirect(reverse("home"))
+
+        return self.render_to_response(context)
 
 
 class MyProfileView(View):

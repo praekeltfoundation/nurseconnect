@@ -16,28 +16,23 @@
                 {% trans "Clinic Code Name" %} {{ request.session.cliniccodename }}
             </p>
         </div>
-        <div class="Splash-body">
-            <div class="Splash-actions">
-                <ul class="ButtonGroup">
-                    <li class="ButtonGroup-item">
-                        <input class="Button" type="submit" value="{% trans "Edit Clinic Code" %}"/>
-                    </li>
-                    <input type="hidden" name="next" value="{% url "user_register_clinic_code" %}"/>
-                    </br>
-                    <li class="ButtonGroup-item">
-                        <input class="Button" type="submit" value="{% trans "Sign Up" %}"/>
-                    </li>
-                    <input type="hidden" name="next" value="{% url "home" %}"/>
-                    <li class="ButtonGroup-item">
-                        <div class="Message Message--subtle Message--centered">
-                            <p class="Message-caption">
-                                {% trans "Already have an account? Log in" %} <a
-                                    href="{% url "auth_login" %}">{% trans "here" %}</a>
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="Splash-actions">
+            <ul class="ButtonGroup">
+                <li class="ButtonGroup-item">
+                    <a href="{% url "user_register_clinic_code" %}"
+                       class="Button">{% trans "Edit Clinic Code" %}</a>
+                </li>
+                <li class="ButtonGroup-item">
+                    <a href="{% url "user_register_complete" %}"
+                       class="Button Button--inverted">{% trans "Complete Registration" %}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="Message Message--subtle Message--centered">
+            <p class="Message-caption">
+                {% trans "Already have an account? Log in" %} <a
+                    href="{% url "auth_login" %}">{% trans "here" %}</a>
+            </p>
         </div>
     </section>
 {% endblock %}
