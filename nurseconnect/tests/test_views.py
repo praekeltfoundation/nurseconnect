@@ -57,7 +57,10 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
         settings = SettingsProxy(site)
 
         SecurityQuestion.objects.create(
-            question="What is your name?",
+            title="What is your name?",
+            slug="what-is-your-name",
+            path="0002",
+            depth=1,
         )
 
         profile_settings = settings['profiles']['UserProfilesSettings']

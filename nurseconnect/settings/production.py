@@ -57,6 +57,8 @@ RAVEN_CONFIG = {
 # Setup for CAS
 ENABLE_SSO = False
 
+CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+
 try:
     from .local import *  # noqa
 except ImportError:
