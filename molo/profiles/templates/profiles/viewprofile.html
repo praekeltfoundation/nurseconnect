@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n wagtailsettings_tags %}
+{% get_settings %}
+
+{% block content %}
+<h1 class="heading heading--profiles">{% trans "Hello " %}{{ user.username }}</h1>
+<div class="profiles">
+
+    <fieldset>
+      <label>{% trans "As you type your name comment will appear as:" %}</label>
+      <p class="profile__alias">{{ user.profile.alias | default:" Anonymous " }}</p>
+    </fieldset>
+
+    <fieldset>
+      <label>{% trans "Date of Birth: " %}</label>
+      <p class="profile__dob">
+        {% if user.profile.date_of_birth %}
+          {{ user.profile.date_of_birth | date:"M d, Y" }}
+        {% else %}
+          {% trans " Not set." %} 
+        {% endif %}
+      </p>
+    </fieldset>
+
+    <fieldset>
+      {% if settings.profiles.UserProfilesSettings.show_mobile_number_field %}
+        <label>{% trans "Mobile Number: " %}</label
+        <p class="profile__mobile-number">{{ user.profile.mobile_number | default:"Not set" }}</p>
+      {% endif %}
+    </fieldset>
+  
+  <fieldset>
+    {% if settings.profiles.UserProfilesSettings.show_email_field %}
+      <label>{% trans "Email Address:" %}</label>
+      <p class="profile__email">{{ user.email | default:"Not set" }}</p>
+    {% endif %}
+  </fieldset>
+  <div class="call-to-action call-to-action--profile call-to-action--view-profile">
+    <a href="{% url "molo.profiles:auth_logout" %}" class="call-to-action__nav-item call-to-action__nav-item--logout">{% trans "log out" %}</a>
+    <a href="{% url "molo.profiles:edit_my_profile" %}" class="call-to-action__nav-item call-to-action__nav-item--editprofile">{% trans "Edit My Profile" %}</a>
+    <a href="{% url "molo.profiles:profile_password_change" %}" class="call-to-action__nav-item call-to-action__nav-item--change-password">{% trans "Change My Password" %}</a>
+  </div>
+</div>
+{% endblock %}
