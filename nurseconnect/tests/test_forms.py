@@ -10,18 +10,18 @@ from nurseconnect import forms
 class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.msisdn_form = forms.RegistrationMSISDNForm
-        self.security_questions_form = forms.RegistrationSecurityQuestionsForm
+        # self.security_questions_form = forms.RegistrationSecurityQuestionsForm
         self.clinic_code_form = forms.RegistrationClinicCodeForm
         self.mk_main()
         self.user = User.objects.create_user(
             username="+27791234567",
             password="1234")
-        self.question = SecurityQuestion.objects.create(
-            title="How old are you?",
-            slug="how-old-are-you",
-            path="0002",
-            depth=1,
-        )
+        # self.question = SecurityQuestion.objects.create(
+        #     title="How old are you?",
+        #     slug="how-old-are-you",
+        #     path="0002",
+        #     depth=1,
+        # )
 
         # self.user.profile.for_nurseconnect.clinic_code = "123456"
 
@@ -49,15 +49,15 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
         )
         self.assertEqual(form.is_valid(), False)
 
-    def test_register_security_questions_correct(self):
-        form_data = {
-            "question_0": "answer"
-        }
-        form = self.security_questions_form(
-            data=form_data,
-            questions=[self.question, ]
-        )
-        self.assertEqual(form.is_valid(), True)
+    # def test_register_security_questions_correct(self):
+    #     form_data = {
+    #         "question_0": "answer"
+    #     }
+    #     form = self.security_questions_form(
+    #         data=form_data,
+    #         questions=[self.question, ]
+    #     )
+    #     self.assertEqual(form.is_valid(), True)
 
     def test_register_clinic_code_correct(self):
         form_data = {
@@ -130,21 +130,21 @@ class PasswordRecoveryTestCase(MoloTestCaseMixin, TestCase):
             email="tester@example.com",
             password="tester")
 
-        self.question = SecurityQuestion.objects.create(
-            title="How old are you?",
-            slug="how-old-are-you",
-            path="0002",
-            depth=1,
-        )
-        self.question.save()
+        # self.question = SecurityQuestion.objects.create(
+        #     title="How old are you?",
+        #     slug="how-old-are-you",
+        #     path="0002",
+        #     depth=1,
+        # )
+        # self.question.save()
 
-    def test_username_and_security_answer(self):
-        form_data = {
-            "username": "0831231234",
-            "question_0": "20"
-        }
-        form = forms.ForgotPasswordForm(
-            data=form_data,
-            questions=[self.question, ]
-        )
-        self.assertEqual(form.is_valid(), True)
+    # def test_username_and_security_answer(self):
+    #     form_data = {
+    #         "username": "0831231234",
+    #         # "question_0": "20"
+    #     }
+    #     form = forms.ForgotPasswordForm(
+    #         data=form_data,
+    #         # questions=[self.question, ]
+    #     )
+    #     self.assertEqual(form.is_valid(), True)
