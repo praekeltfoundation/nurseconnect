@@ -13,7 +13,7 @@ from os.path import abspath, dirname, join
 from os import environ
 from django.conf import global_settings, locale
 from django.utils.translation import ugettext_lazy as _
-import dj_database_url #noqa
+import dj_database_url  # noqa
 import djcelery
 from celery.schedules import crontab
 
