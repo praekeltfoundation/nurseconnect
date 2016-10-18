@@ -13,7 +13,7 @@ from os.path import abspath, dirname, join
 from os import environ
 from django.conf import global_settings, locale
 from django.utils.translation import ugettext_lazy as _
-import dj_database_url
+import dj_database_url  # noqa
 import djcelery
 from celery.schedules import crontab
 
@@ -155,7 +155,7 @@ DATABASES = {"default": dj_database_url.config(
 #         "NAME": "nurseconnect",
 #         "USER": "nurseconnect",
 #         "PASSWORD": "nurseconnect",
-#         "HOST": "",  # Set to empty string for localhost.
+#         "HOST": "localhost",  # Set to empty string for localhost.
 #         "PORT": "",  # Set to empty string for default.
 #         # number of seconds database connections should persist for
 #         "CONN_MAX_AGE": 600,
