@@ -19,7 +19,6 @@ from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms, tasks
 
-REDIRECT_FIELD_NAME = 'next'
 INT_PREFIX = "+27"
 
 
