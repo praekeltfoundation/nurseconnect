@@ -19,7 +19,6 @@ from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms, tasks
 
-REDIRECT_FIELD_NAME = 'next'
 INT_PREFIX = "+27"
 
 
@@ -174,7 +173,6 @@ class RegistrationClinicCodeView(FormView):
         clinic_code = form.cleaned_data["clinic_code"]
 
         username = self.request.session["username"]
-        password = self.request.session["password"]
         user = User.objects.filter(username__iexact=username).first()
 
         # Save clinic code
@@ -194,13 +192,6 @@ class RegistrationClinicCodeView(FormView):
 
 class RegistrationClinicCodeSuccessView(TemplateView):
     template_name = "registration/register_clinic_code_success.html"
-
-    # def get(self, request, *args, **kwargs):
-    #     context = self.get_context_data(**kwargs)
-    #     if self.request.session.get("registered"):
-    #         return HttpResponseRedirect(reverse("home"))
-    #
-    #     return self.render_to_response(context)
 
 
 class MyProfileView(View):
