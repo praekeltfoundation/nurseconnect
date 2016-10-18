@@ -1,11 +1,11 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.profiles.models import SecurityQuestion
+# from molo.profiles.models import SecurityQuestion
 
 from nurseconnect import forms
-from wagtail.contrib.settings.context_processors import SettingsProxy
-from wagtail.wagtailcore.models import Site
+# from wagtail.contrib.settings.context_processors import SettingsProxy
+# from wagtail.wagtailcore.models import Site
 
 
 class RegistrationViewTest(MoloTestCaseMixin, TestCase):
@@ -68,7 +68,9 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
     #     profile_settings.security_questions_required = True
     #     profile_settings.save()
     #
-    #     response = self.client.get(reverse('user_register_security_questions'))
+    #     response = self.client.get(
+    #           reverse('user_register_security_questions')
+    #     )
     #     self.assertContains(response, "What is your name")
     #
     #     # register with security questions

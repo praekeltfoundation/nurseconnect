@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.profiles.models import SecurityQuestion
+# from molo.profiles.models import SecurityQuestion
 
 from nurseconnect import forms
 
@@ -10,7 +10,8 @@ from nurseconnect import forms
 class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.msisdn_form = forms.RegistrationMSISDNForm
-        # self.security_questions_form = forms.RegistrationSecurityQuestionsForm
+        # self.security_questions_form = \
+        # forms.RegistrationSecurityQuestionsForm
         self.clinic_code_form = forms.RegistrationClinicCodeForm
         self.mk_main()
         self.user = User.objects.create_user(
