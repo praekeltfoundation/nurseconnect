@@ -98,9 +98,6 @@ class RegistrationCompleteView(TemplateView):
 
 class RegistrationView(TemplateView):
     def get(self, request, *args, **kwargs):
-        print "======================================"
-        print request.session.get("registration-step")
-        print "======================================"
         if request.session.get("registration-step"):
             if request.session["registration-step"] == 1:
                 return HttpResponseRedirect(
@@ -188,7 +185,7 @@ class RegistrationClinicCodeView(FormView):
         if not clinic:
             form.add_error(
                 "clinic_code",
-                ValidationError("Clinic code does not exist.")
+                ValidationError(_("Clinic code does not exist."))
             )
             return self.render_to_response({'form': form})
 

@@ -129,7 +129,7 @@ class RegisterFormClinicCodeTestCase(MoloTestCaseMixin, TestCase):
 
     def test_register_clinic_code_incorrect(self):
         form_data = {
-            "clinic_code": "000000"
+            "clinic_code": "00000"
         }
         form = self.clinic_code_form(
             data=form_data
