@@ -160,18 +160,18 @@ class RegistrationClinicCodeForm(forms.Form):
         ),
     )
 
-    def clean_clinic_code(self):
-        clinic_code = self.cleaned_data["clinic_code"]
-
-        clinic = check_clinic_code(clinic_code)
-
-        if not clinic:
-            raise forms.ValidationError(_("Clinic code is invalid."))
-        else:
-            if clinic[2]:
-                self.cleaned_data["clinic_name"] = clinic[2]
-
-        return self.cleaned_data["clinic_code"]
+    # def clean_clinic_code(self):
+    #     clinic_code = self.cleaned_data["clinic_code"]
+    #
+    #     clinic = check_clinic_code(clinic_code)
+    #
+    #     if not clinic:
+    #         raise forms.ValidationError(_("Clinic code is invalid."))
+    #     else:
+    #         if clinic[2]:
+    #             self.cleaned_data["clinic_name"] = clinic[2]
+    #
+    #     return self.cleaned_data["clinic_code"]
 
 
 class EditProfileForm(forms.Form):

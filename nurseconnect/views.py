@@ -7,8 +7,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
+
 from django.views.generic import View
 
 from molo.core.models import ArticlePage
@@ -17,7 +19,8 @@ from molo.profiles import models
 
 from wagtail.wagtailsearch.models import Query
 
-from nurseconnect import forms, services
+from nurseconnect import forms
+from nurseconnect.services import check_clinic_code, clinic_code_name
 
 INT_PREFIX = "+27"
 
@@ -84,6 +87,7 @@ class HomePageView(TemplateView):
 
 class RegistrationCompleteView(TemplateView):
     def get(self, request, *args, **kwargs):
+        request.session["registration-step"] = 0
         username = self.request.session["username"]
         password = self.request.session["password"]
         authed_user = authenticate(username=username, password=password)
@@ -94,6 +98,9 @@ class RegistrationCompleteView(TemplateView):
 
 class RegistrationView(TemplateView):
     def get(self, request, *args, **kwargs):
+        print "======================================"
+        print request.session.get("registration-step")
+        print "======================================"
         if request.session.get("registration-step"):
             if request.session["registration-step"] == 1:
                 return HttpResponseRedirect(
@@ -106,6 +113,10 @@ class RegistrationView(TemplateView):
             elif request.session["registration-step"] == 3:
                 return HttpResponseRedirect(
                     reverse("user_register_clinic_code")
+                )
+            elif request.session["registration-step"] == 4:
+                return HttpResponseRedirect(
+                    reverse("user_register_clinic_code_success")
                 )
 
         return HttpResponseRedirect(reverse("user_register_msisdn"))
@@ -172,16 +183,25 @@ class RegistrationClinicCodeView(FormView):
     def form_valid(self, form):
         clinic_code = form.cleaned_data["clinic_code"]
 
+        clinic = check_clinic_code(clinic_code)
+
+        if not clinic:
+            form.add_error(
+                "clinic_code",
+                ValidationError("Clinic code does not exist.")
+            )
+            return self.render_to_response({'form': form})
+
         username = self.request.session["username"]
         user = User.objects.filter(username__iexact=username).first()
 
         # Save clinic code
         user.profile.for_nurseconnect.clinic_code = clinic_code
         user.profile.for_nurseconnect.save()
-        self.request.session["registration-step"] = 0
+        self.request.session["registration-step"] = 4
         self.request.session["clinic"] = True
         self.request.session["cliniccode"] = clinic_code
-        self.request.session["cliniccodename"] = services.clinic_code_name(
+        self.request.session["cliniccodename"] = clinic_code_name(
             clinic_code
         )
 

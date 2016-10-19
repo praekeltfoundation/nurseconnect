@@ -122,9 +122,9 @@ urlpatterns += patterns(
     ),
     url(
         r"^$",
-        login_required(views.HomePageView.as_view(
+        views.HomePageView.as_view(
             template_name="core/main.html"
-        )),
+        ),
         name="home"
     ),
     url(
