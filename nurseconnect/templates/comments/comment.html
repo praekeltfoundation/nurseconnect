@@ -9,7 +9,7 @@
                 {{ node.user.first_name }}
             {% endif %}
             {% if node.user.last_name and node.user.last_name != "Anonymous" and node.user_name != "Anonymous" %}
-                .{{ node.user.last_name.0 }}
+                {{ node.user.last_name.0 }}.
             {% endif %}
         </a>
     </dt>

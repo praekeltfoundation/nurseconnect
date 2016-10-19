@@ -109,6 +109,16 @@ MIDDLEWARE_CLASSES = [
     "molo.core.middleware.NoScriptGASessionMiddleware",
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+)
+
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+)
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -308,3 +318,9 @@ EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
 
 # LOGIN URL used for restrcited views
 LOGIN_URL = "auth_login"
+
+# For QA and production
+# CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+
+
+LOGIN_REDIRECT_URL = "/"
