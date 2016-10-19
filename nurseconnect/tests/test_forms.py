@@ -7,24 +7,13 @@ from molo.core.tests.base import MoloTestCaseMixin
 from nurseconnect import forms
 
 
-class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
+class RegisterFormMSISDNTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.msisdn_form = forms.RegistrationMSISDNForm
-        # self.security_questions_form = \
-        # forms.RegistrationSecurityQuestionsForm
-        self.clinic_code_form = forms.RegistrationClinicCodeForm
         self.mk_main()
         self.user = User.objects.create_user(
             username="+27791234567",
             password="1234")
-        # self.question = SecurityQuestion.objects.create(
-        #     title="How old are you?",
-        #     slug="how-old-are-you",
-        #     path="0002",
-        #     depth=1,
-        # )
-
-        # self.user.profile.for_nurseconnect.clinic_code = "123456"
 
     def test_register_username_correct(self):
         form_data = {
@@ -46,34 +35,6 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
 
         }
         form = self.msisdn_form(
-            data=form_data
-        )
-        self.assertEqual(form.is_valid(), False)
-
-    # def test_register_security_questions_correct(self):
-    #     form_data = {
-    #         "question_0": "answer"
-    #     }
-    #     form = self.security_questions_form(
-    #         data=form_data,
-    #         questions=[self.question, ]
-    #     )
-    #     self.assertEqual(form.is_valid(), True)
-
-    def test_register_clinic_code_correct(self):
-        form_data = {
-            "clinic_code": "123456"
-        }
-        form = self.clinic_code_form(
-            data=form_data
-        )
-        self.assertEqual(form.is_valid(), True)
-
-    def test_register_clinic_code_incorrect(self):
-        form_data = {
-            "clinic_code": "000000"
-        }
-        form = self.clinic_code_form(
             data=form_data
         )
         self.assertEqual(form.is_valid(), False)
@@ -118,6 +79,59 @@ class RegisterFormTestCase(MoloTestCaseMixin, TestCase):
             "password": "12345",
         }
         form = self.msisdn_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), False)
+
+
+class RegisterFormSecutiryQuestionsTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        # self.security_questions_form = \
+        # forms.RegistrationSecurityQuestionsForm
+        self.mk_main()
+        self.user = User.objects.create_user(
+            username="+27791234567",
+            password="1234")
+        # self.question = SecurityQuestion.objects.create(
+        #     title="How old are you?",
+        #     slug="how-old-are-you",
+        #     path="0002",
+        #     depth=1,
+        # )
+
+        # self.user.profile.for_nurseconnect.clinic_code = "123456"
+
+    # def test_register_security_questions_correct(self):
+    #     form_data = {
+    #         "question_0": "answer"
+    #     }
+    #     form = self.security_questions_form(
+    #         data=form_data,
+    #         questions=[self.question, ]
+    #     )
+    #     self.assertEqual(form.is_valid(), True)
+
+
+class RegisterFormClinicCodeTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.clinic_code_form = forms.RegistrationClinicCodeForm
+        self.mk_main()
+        # self.user.profile.for_nurseconnect.clinic_code = "123456"
+
+    def test_register_clinic_code_correct(self):
+        form_data = {
+            "clinic_code": "123456"
+        }
+        form = self.clinic_code_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), True)
+
+    def test_register_clinic_code_incorrect(self):
+        form_data = {
+            "clinic_code": "000000"
+        }
+        form = self.clinic_code_form(
             data=form_data
         )
         self.assertEqual(form.is_valid(), False)

@@ -17,7 +17,7 @@ from molo.profiles import models
 
 from wagtail.wagtailsearch.models import Query
 
-from nurseconnect import forms, tasks
+from nurseconnect import forms, services
 
 INT_PREFIX = "+27"
 
@@ -181,7 +181,7 @@ class RegistrationClinicCodeView(FormView):
         self.request.session["registration-step"] = 0
         self.request.session["clinic"] = True
         self.request.session["cliniccode"] = clinic_code
-        self.request.session["cliniccodename"] = tasks.clinic_code_name(
+        self.request.session["cliniccodename"] = services.clinic_code_name(
             clinic_code
         )
 

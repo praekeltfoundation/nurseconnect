@@ -8,7 +8,7 @@ from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
 from nurseconnect.formfields import PhoneNumberField
-from nurseconnect.tasks import check_clinic_code
+from nurseconnect.services import check_clinic_code
 
 INT_PREFIX = "+27"
 
