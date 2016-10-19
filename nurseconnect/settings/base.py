@@ -320,7 +320,6 @@ EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
 LOGIN_URL = "auth_login"
 
 # For QA and production
-# CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
-
+CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
 
 LOGIN_REDIRECT_URL = "/"
