@@ -20,7 +20,7 @@ from molo.profiles import models
 from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
-from nurseconnect.services import check_clinic_code, clinic_code_name
+from nurseconnect.services import check_clinic_code
 
 INT_PREFIX = "+27"
 
@@ -188,6 +188,9 @@ class RegistrationClinicCodeView(FormView):
                 ValidationError(_("Clinic code does not exist."))
             )
             return self.render_to_response({'form': form})
+        else:
+            if clinic[2]:
+                clinic_name = clinic[2]
 
         username = self.request.session["username"]
         user = User.objects.filter(username__iexact=username).first()
@@ -198,9 +201,7 @@ class RegistrationClinicCodeView(FormView):
         self.request.session["registration-step"] = 4
         self.request.session["clinic"] = True
         self.request.session["cliniccode"] = clinic_code
-        self.request.session["cliniccodename"] = clinic_code_name(
-            clinic_code
-        )
+        self.request.session["cliniccodename"] = clinic_name
 
         return HttpResponseRedirect(
             reverse("user_register_clinic_code_success")
