@@ -8,7 +8,6 @@ from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
 from nurseconnect.formfields import PhoneNumberField
-from nurseconnect.services import check_clinic_code
 
 INT_PREFIX = "+27"
 
@@ -239,19 +238,6 @@ class EditProfileForm(forms.Form):
                 raise forms.ValidationError(_("Username already exists."))
 
         return self.cleaned_data["username"]
-
-    def clean_clinic_code(self):
-        clinic_code = self.cleaned_data["clinic_code"]
-
-        clinic = check_clinic_code(clinic_code)
-
-        if not clinic:
-            raise forms.ValidationError(_("Clinic code is invalid."))
-        else:
-            if clinic[2]:
-                self.cleaned_data["clinic_name"] = clinic[2]
-
-        return self.cleaned_data["clinic_code"]
 
     def set_initial(self, user):
         self.fields["first_name"].initial = user.first_name \

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
@@ -20,7 +20,7 @@ from molo.profiles import models
 from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
-from nurseconnect.services import check_clinic_code
+from nurseconnect.services import get_clinic_code
 
 INT_PREFIX = "+27"
 
@@ -180,7 +180,7 @@ class RegistrationClinicCodeView(FormView):
     def form_valid(self, form):
         clinic_code = form.cleaned_data["clinic_code"]
 
-        clinic = check_clinic_code(clinic_code)
+        clinic = get_clinic_code(clinic_code)
 
         if not clinic:
             form.add_error(
@@ -277,6 +277,33 @@ class MyProfileView(View):
                     self.request.user.username = \
                         settings_form.cleaned_data["username"]
                 self.request.user.save()
+
+                clinic_code = settings_form.cleaned_data["clinic_code"]
+
+                clinic = get_clinic_code(clinic_code)
+
+                if not clinic:
+                    settings_form.add_error(
+                        "clinic_code",
+                        ValidationError(_("Clinic code does not exist."))
+                    )
+                    profile_password_change_form = forms.ProfilePasswordChangeForm(
+                        prefix="profile_password_change_form"
+                    )
+                    settings_form.change_field_enabled_state(False)
+                    return render(
+                        request,
+                        self.template_name,
+                        context={
+                            "edit": "edit-settings",
+                            "settings_form": settings_form,
+                            "profile_password_change_form":
+                                profile_password_change_form
+                        }
+                    )
+                else:
+                    if clinic[2]:
+                        self.request.session["clinic-name"] = clinic[2]
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 profile_password_change_form = forms.ProfilePasswordChangeForm(

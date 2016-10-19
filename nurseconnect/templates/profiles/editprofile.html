@@ -46,6 +46,14 @@
                     <label for="id_{{ settings_form.clinic_code.name }}" class="Form-message Form-message--error">{{ settings_form.clinic_code.errors }}</label>
                 {% endif %}
             </div>
+            <div class="Message Message--subtle Message--centered">
+                {% if request.session %}
+                    <br>
+                    <p class="Message-caption">
+                        {% trans "Clinic Code Name:" %} <strong>{{ request.session.cliniccodename }} </strong>
+                    </p>
+                {% endif %}
+            </div>
         </fieldset>
         {% if edit == "edit-settings" %}
             <div class="Form-actions">

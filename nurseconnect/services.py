@@ -3,7 +3,7 @@ import requests
 from nurseconnect import settings
 
 
-def check_clinic_code(clinic_code):
+def get_clinic_code(clinic_code):
     url = settings.CLINIC_CODE_API
     response = requests.get(url)
     data = response.json()
