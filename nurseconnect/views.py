@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
@@ -287,9 +287,10 @@ class MyProfileView(View):
                         "clinic_code",
                         ValidationError(_("Clinic code does not exist."))
                     )
-                    profile_password_change_form = forms.ProfilePasswordChangeForm(
-                        prefix="profile_password_change_form"
-                    )
+                    profile_password_change_form = \
+                        forms.ProfilePasswordChangeForm(
+                            prefix="profile_password_change_form"
+                        )
                     settings_form.change_field_enabled_state(False)
                     return render(
                         request,
