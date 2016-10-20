@@ -18,7 +18,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 CLINIC_CODE_API = "http://praekelt:praekelt@npr-staging.jembi.org:5001/ws/" \
                   "rest/v1/NCfacilityCheck?"
 
-
 try:
     from .local import *  # noqa
 except ImportError:

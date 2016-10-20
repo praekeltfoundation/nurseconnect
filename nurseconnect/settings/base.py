@@ -144,8 +144,8 @@ WSGI_APPLICATION = "nurseconnect.wsgi.application"
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 # SQLite (simplest install)
-# DATABASES = {"default": dj_database_url.config(
-#     default="sqlite:///%s" % (join(PROJECT_ROOT, "db.sqlite3"),))}
+DATABASES = {"default": dj_database_url.config(
+    default="sqlite:///%s" % (join(PROJECT_ROOT, "db.sqlite3"),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
