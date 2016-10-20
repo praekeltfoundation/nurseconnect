@@ -3,5 +3,5 @@
 <form action="{% url "search_query" %}" class="SearchBar SearchBar--isolated">
     <input class="SearchBar-input" type="text" name="q" id="search-query" value="{{ search_query }}"
            placeholder="{% trans "Search..." %}">
-    <button type="submit" class="SearchBar-submit" value="{% trans "SEARCH" %}"></button>
+    <button type="submit" class="SearchBar-submit" value="{% trans "SEARCH" %}">{% trans "Search" %}</button>
 </form>

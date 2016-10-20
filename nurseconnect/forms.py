@@ -12,7 +12,7 @@ from nurseconnect.formfields import PhoneNumberField
 INT_PREFIX = "+27"
 
 
-class RegistrationForm(forms.Form):
+class RegistrationMSISDNForm(forms.Form):
     # PhoneNumberField doesn't check input length.
     # It only validates country codes for the start of the number
     username = PhoneNumberField(
@@ -28,22 +28,6 @@ class RegistrationForm(forms.Form):
         error_messages={
             "invalid": "Please enter a valid South African cellphone number."
         },
-    )
-
-    clinic_code = forms.RegexField(
-        regex=r"^\d{6}$",
-        required=True,
-        label=_("Clinic code"),
-        error_messages={
-            "invalid": "Please enter your 6 digit clinic code"
-        },
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": _("Clinic code"),
-                "class": "Form-input",
-                "for": "cliniccode"
-            }
-        ),
     )
 
     password = forms.RegexField(
@@ -103,9 +87,30 @@ class RegistrationForm(forms.Form):
         label=_("Accept the Terms of Use")
     )
 
+    def clean_username(self):
+        if User.objects.filter(
+            username__iexact=self.cleaned_data["username"]
+        ).exists():
+            raise forms.ValidationError(_("Username already exists."))
+
+        return self.cleaned_data["username"]
+
+    def clean(self):
+        password = self.cleaned_data.get("password", None)
+        confirm_password = self.cleaned_data.get("confirm_password", None)
+        if (password and confirm_password and
+                (password == confirm_password)):
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError(_("Passwords do not match."))
+
+
+class RegistrationSecurityQuestionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         questions = kwargs.pop("questions")
-        super(RegistrationForm, self).__init__(*args, **kwargs)
+        super(
+            RegistrationSecurityQuestionsForm, self
+        ).__init__(*args, **kwargs)
         site = Site.objects.get(is_default_site=True)
         settings = SettingsProxy(site)
         profile_settings = settings["profiles"]["UserProfilesSettings"]
@@ -136,22 +141,23 @@ class RegistrationForm(forms.Form):
             )
         ]
 
-    def clean_username(self):
-        if User.objects.filter(
-            username__iexact=self.cleaned_data["username"]
-        ).exists():
-            raise forms.ValidationError(_("Username already exists."))
 
-        return self.cleaned_data["username"]
-
-    def clean(self):
-        password = self.cleaned_data.get("password", None)
-        confirm_password = self.cleaned_data.get("confirm_password", None)
-        if (password and confirm_password and
-                (password == confirm_password)):
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError(_("Passwords do not match."))
+class RegistrationClinicCodeForm(forms.Form):
+    clinic_code = forms.RegexField(
+        regex=r"^\d{6}$",
+        required=True,
+        label=_("Clinic code"),
+        error_messages={
+            "invalid": "Please enter your 6 digit clinic code"
+        },
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Clinic code"),
+                "class": "Form-input",
+                "for": "cliniccode"
+            }
+        ),
+    )
 
 
 class EditProfileForm(forms.Form):
@@ -196,6 +202,23 @@ class EditProfileForm(forms.Form):
         ),
     )
 
+    clinic_code = forms.RegexField(
+        regex=r"^\d{6}$",
+        required=True,
+        label=_("Clinic code"),
+        error_messages={
+            "invalid": "Please enter your 6 digit clinic code"
+        },
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Clinic code"),
+                "readonly": True,
+                "class": "Form-input",
+                "for": "cliniccode"
+            }
+        ),
+    )
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -224,6 +247,8 @@ class EditProfileForm(forms.Form):
             if user.last_name else ""
 
         self.fields["username"].initial = user.username
+        self.fields["clinic_code"].initial = \
+            user.profile.for_nurseconnect.clinic_code
 
         return self
 
@@ -231,6 +256,7 @@ class EditProfileForm(forms.Form):
         self.fields["first_name"].widget.attrs["readonly"] = state
         self.fields["last_name"].widget.attrs["readonly"] = state
         self.fields["username"].widget.attrs["readonly"] = state
+        self.fields["clinic_code"].widget.attrs["readonly"] = state
         return self
 
 
