@@ -7,6 +7,7 @@ The registration process is broken down into three steps:
 3) Clinic code: For obtaining the user's clinic codde
 """
 
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -181,22 +182,7 @@ class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
             response, reverse("user_register_security_questions")
         )
 
-        # User already exists
-        User.objects.create_user(
-            username="+27791234567",
-            password="1234"
-        )
-        response = self.client.post(
-            reverse("user_register_msisdn"),
-            {
-                "username": "+27791234567",
-                "password": "1234",
-            }
-        )
-        self.assertFormError(
-            response, "form", "username",
-            [u"Username already exists."]
-        )
+        
 
     def test_invalid_clinic_code_raises_error(self):
         # Clinic_code is expected to be 6 digits long
