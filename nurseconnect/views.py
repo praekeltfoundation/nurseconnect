@@ -7,8 +7,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
+
 from django.views.generic import View
 
 from molo.core.models import ArticlePage
@@ -18,8 +20,8 @@ from molo.profiles import models
 from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
+from nurseconnect.services import get_clinic_code
 
-REDIRECT_FIELD_NAME = 'next'
 INT_PREFIX = "+27"
 
 
@@ -79,17 +81,51 @@ def search(request, results_per_page=7):
     })
 
 
-class RegistrationView(FormView):
-    """
-    Handles user registration
-    """
-    form_class = forms.RegistrationForm
-    template_name = "profiles/register.html"
+class HomePageView(TemplateView):
+    pass
+
+
+class RegistrationCompleteView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        request.session["registration-step"] = 0
+        username = self.request.session["username"]
+        password = self.request.session["password"]
+        authed_user = authenticate(username=username, password=password)
+        login(self.request, authed_user)
+
+        return HttpResponseRedirect(reverse("home"))
+
+
+class RegistrationView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.session.get("registration-step"):
+            if request.session["registration-step"] == 1:
+                return HttpResponseRedirect(
+                    reverse("user_register_msisdn")
+                )
+            elif request.session["registration-step"] == 2:
+                return HttpResponseRedirect(
+                    reverse("user_register_security_questions")
+                )
+            elif request.session["registration-step"] == 3:
+                return HttpResponseRedirect(
+                    reverse("user_register_clinic_code")
+                )
+            elif request.session["registration-step"] == 4:
+                return HttpResponseRedirect(
+                    reverse("user_register_clinic_code_success")
+                )
+
+        return HttpResponseRedirect(reverse("user_register_msisdn"))
+
+
+class RegistrationMSISDNView(FormView):
+    form_class = forms.RegistrationMSISDNForm
+    template_name = "registration/register_msisdn.html"
 
     def form_valid(self, form):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
-        clinic_code = form.cleaned_data["clinic_code"]
 
         user = User.objects.create_user(
             username=username,
@@ -97,6 +133,24 @@ class RegistrationView(FormView):
         )
         user.save()
         user.profile.save()
+
+        self.request.session["registration-step"] = 2
+        self.request.session["username"] = username
+        self.request.session["password"] = password
+        self.request.session["registered"] = False
+
+        return HttpResponseRedirect(
+            reverse("user_register_security_questions")
+        )
+
+
+class RegistrationSecurityQuestionsView(FormView):
+    form_class = forms.RegistrationSecurityQuestionsForm
+    template_name = "registration/register_security_questions.html"
+
+    def form_valid(self, form):
+        username = self.request.session["username"]
+        user = User.objects.filter(username__iexact=username).first()
 
         # Save security question answers
         for index, question in enumerate(
@@ -108,19 +162,54 @@ class RegistrationView(FormView):
                 question=question,
                 answer=answer
             )
+        self.request.session["registration-step"] = 3
+        return HttpResponseRedirect(reverse("user_register_clinic_code"))
+
+    def get_form_kwargs(self):
+        kwargs = super(
+            RegistrationSecurityQuestionsView, self
+        ).get_form_kwargs()
+        kwargs["questions"] = models.SecurityQuestion.objects.all()
+        return kwargs
+
+
+class RegistrationClinicCodeView(FormView):
+    form_class = forms.RegistrationClinicCodeForm
+    template_name = "registration/register_clinic_code.html"
+
+    def form_valid(self, form):
+        clinic_code = form.cleaned_data["clinic_code"]
+
+        clinic = get_clinic_code(clinic_code)
+
+        if not clinic:
+            form.add_error(
+                "clinic_code",
+                ValidationError(_("Clinic code does not exist."))
+            )
+            return self.render_to_response({'form': form})
+        else:
+            if clinic[2]:
+                clinic_name = clinic[2]
+
+        username = self.request.session["username"]
+        user = User.objects.filter(username__iexact=username).first()
 
         # Save clinic code
         user.profile.for_nurseconnect.clinic_code = clinic_code
         user.profile.for_nurseconnect.save()
+        self.request.session["registration-step"] = 4
+        self.request.session["clinic"] = True
+        self.request.session["cliniccode"] = clinic_code
+        self.request.session["cliniccodename"] = clinic_name
 
-        authed_user = authenticate(username=username, password=password)
-        login(self.request, authed_user)
-        return HttpResponseRedirect(reverse("home"))
+        return HttpResponseRedirect(
+            reverse("user_register_clinic_code_success")
+        )
 
-    def get_form_kwargs(self):
-        kwargs = super(RegistrationView, self).get_form_kwargs()
-        kwargs["questions"] = models.SecurityQuestion.objects.all()
-        return kwargs
+
+class RegistrationClinicCodeSuccessView(TemplateView):
+    template_name = "registration/register_clinic_code_success.html"
 
 
 class MyProfileView(View):
@@ -188,6 +277,34 @@ class MyProfileView(View):
                     self.request.user.username = \
                         settings_form.cleaned_data["username"]
                 self.request.user.save()
+
+                clinic_code = settings_form.cleaned_data["clinic_code"]
+
+                clinic = get_clinic_code(clinic_code)
+
+                if not clinic:
+                    settings_form.add_error(
+                        "clinic_code",
+                        ValidationError(_("Clinic code does not exist."))
+                    )
+                    profile_password_change_form = \
+                        forms.ProfilePasswordChangeForm(
+                            prefix="profile_password_change_form"
+                        )
+                    settings_form.change_field_enabled_state(False)
+                    return render(
+                        request,
+                        self.template_name,
+                        context={
+                            "edit": "edit-settings",
+                            "settings_form": settings_form,
+                            "profile_password_change_form":
+                                profile_password_change_form
+                        }
+                    )
+                else:
+                    if clinic[2]:
+                        self.request.session["clinic-name"] = clinic[2]
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 profile_password_change_form = forms.ProfilePasswordChangeForm(

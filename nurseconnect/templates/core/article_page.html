@@ -58,7 +58,7 @@
                 {% endfor %}
             </div>
         </article>
-        {% if self.is_current_topic_of_the_day or self.featured_in_latest %}
+        {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
                 {% include "comments/comment_block.html" %}

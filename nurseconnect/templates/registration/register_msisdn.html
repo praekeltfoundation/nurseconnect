@@ -8,7 +8,7 @@
             <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
         </div>
         <div class="Splash-body">
-            <form method="POST" action="{% url "user_register" %}" class="Form" novalidate>
+            <form method="POST" action="{% url "user_register_msisdn" %}" class="Form" novalidate>
                 {% csrf_token %}
                 <fieldset class="Form-fieldGroup">
                     <legend class="Form-groupHeading">{% trans "Personal Information" %}</legend>
@@ -17,13 +17,6 @@
                         {{ form.username }}
                         {% if form.username.errors %}
                             <label for="id_{{ form.username.name }}" class="Form-message Form-message--error">{{ form.username.errors }}</label>
-                        {% endif %}
-                    </div>
-                    <div class="Form-field Form-field--required {% if form.clinic_code.errors %} Form-field--error {% endif %}">
-                        <label for="id_{{ form.clinic_code.name }}" class="Form-fieldLabel">{{ form.clinic_code.label }}</label>
-                        {{ form.clinic_code }}
-                        {% if form.clinic_code.errors %}
-                            <label for="id_{{ form.clinic_code.name }}" class="Form-message Form-message--error">{{ form.clinic_code.errors }}</label>
                         {% endif %}
                     </div>
                     <div class="Form-field Form-field--required {% if form.password.errors %} Form-field--error {% endif %}">
@@ -51,22 +44,6 @@
                     <i class="Form-requiredExample">*</i> {% trans "required field" %}
                 </p>
                 <fieldset class="Form-fieldGroup">
-                    <legend class="Form-groupHeading">{% trans "Security questions" %}</legend>
-                    <p>{% trans "These will help you log in later if you forget your password." %}</p>
-                    {% if settings.profiles.UserProfilesSettings.show_security_question_fields %}
-                        {% for field in form %}
-                            {% if field in form.security_questions %}
-                                <div class="Form-field Form-field--required {% if field.errors %} Form-field--error {% endif %}">
-                                    <label for="sq{{ forloop.counter }}"
-                                           class="Form-fieldLabel">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.errors %}
-                                        <label for="sq{{ forloop.counter }}" class="Form-message Form-message--error">{{ field.errors }}</label>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
                     <div class="Form-field Form-field--required">
                         <ul class="Form-choiceGroup">
                             <li class="Form-choiceGroupItem">
@@ -83,9 +60,9 @@
                 <div class="Splash-actions">
                     <ul class="ButtonGroup">
                         <li class="ButtonGroup-item">
-                            <input class="Button" type="submit" value="{% trans "Sign Up" %}"/>
+                            <input class="Button" type="submit" value="{% trans "Next" %}"/>
                         </li>
-                        <input type="hidden" name="next" value="{% url "home" %}"/>
+                        <input type="hidden" name="next" value="{% url "user_register_security_questions" %}"/>
                         <li class="ButtonGroup-item">
                             <div class="Message Message--subtle Message--centered">
                                 <p class="Message-caption">

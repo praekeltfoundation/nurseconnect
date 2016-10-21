@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n static core_tags wagtailcore_tags wagtailsettings_tags nurseconnect_tags %}
+{% get_settings %}
+
+{% block content %}
+    <section class="Splash">
+        <div class="Splash-body">
+            <h1 class="Splash-headline">{% trans "Your clinic code is valid!" %}</h1>
+            <p class="Splash-strapline">{% trans "Would you like to change it?" %}</p>
+        </div>
+        <div class="Message Message--subtle Message--centered">
+            <p class="Message-caption">
+                {% trans "Clinic Code:" %} <strong>{{ request.session.cliniccode }}</strong>
+            </p>
+            <p class="Message-caption">
+                {% trans "Clinic Code Name:" %} <strong>{{ request.session.cliniccodename }} </strong>
+            </p>
+        </div>
+        <div class="Splash-actions">
+            <ul class="ButtonGroup">
+                <li class="ButtonGroup-item">
+                    <a href="{% url "user_register_clinic_code" %}"
+                       class="Button">{% trans "Edit Clinic Code" %}</a>
+                </li>
+                <li class="ButtonGroup-item">
+                    <a href="{% url "user_register_complete" %}"
+                       class="Button Button--inverted">{% trans "Complete Registration" %}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="Message Message--subtle Message--centered">
+            <p class="Message-caption">
+                {% trans "Already have an account? Log in" %} <a
+                    href="{% url "auth_login" %}">{% trans "here" %}</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}
