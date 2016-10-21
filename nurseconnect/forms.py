@@ -87,14 +87,6 @@ class RegistrationMSISDNForm(forms.Form):
         label=_("Accept the Terms of Use")
     )
 
-    def clean_username(self):
-        if User.objects.filter(
-            username__iexact=self.cleaned_data["username"]
-        ).exists():
-            raise forms.ValidationError(_("Username already exists."))
-
-        return self.cleaned_data["username"]
-
     def clean(self):
         password = self.cleaned_data.get("password", None)
         confirm_password = self.cleaned_data.get("confirm_password", None)

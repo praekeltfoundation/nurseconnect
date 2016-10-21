@@ -127,6 +127,15 @@ class RegistrationMSISDNView(FormView):
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
 
+        if User.objects.filter(
+            username__iexact=username
+        ).exists():
+            form.add_error(
+                "username",
+                ValidationError(_("Username already exists."))
+            )
+            return self.render_to_response({'form': form})
+
         user = User.objects.create_user(
             username=username,
             password=password
