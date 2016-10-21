@@ -8,9 +8,13 @@
                     <header class="Paper-header">
                         <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
                         {% if bannerpage.banner_link_page %}
-                            <a href="{% pageurl bannerpage.banner_link_page %}">{% image bannerpage.banner width-320 class="Article-image Article-image--prominent" %}</a>
+                            <a class="ImageViewport ImageViewport--16-5" href="{% pageurl bannerpage.banner_link_page %}">
+                                {% image bannerpage.banner width-320 %}
+                            </a>
                         {% else %}
-                            {% image bannerpage.banner width-320 class="Article-image Article-image--prominent" %}
+                            <div class="ImageViewport ImageViewport--16-5">
+                                {% image bannerpage.banner width-320 %}
+                            </div>
                         {% endif %}
                     </header>
                 {% endif %}
