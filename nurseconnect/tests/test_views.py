@@ -19,7 +19,7 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
             response,
             "/profiles/register-msisdn/",
             status_code=302,
-            target_status_code=200, host=None, msg_prefix='',
+            target_status_code=200, host=None, msg_prefix="",
             fetch_redirect_response=True)
 
     def test_register_msisdn_view(self):
@@ -63,13 +63,13 @@ class RegistrationViewTest(MoloTestCaseMixin, TestCase):
             depth=1,
         )
 
-        profile_settings = settings['profiles']['UserProfilesSettings']
+        profile_settings = settings["profiles"]["UserProfilesSettings"]
         profile_settings.show_security_question_fields = True
         profile_settings.security_questions_required = True
         profile_settings.save()
 
         response = self.client.get(
-              reverse('user_register_security_questions')
+            reverse("user_register_security_questions")
         )
         self.assertContains(response, "What is your name")
 

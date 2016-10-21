@@ -86,8 +86,7 @@ class RegisterFormMSISDNTestCase(MoloTestCaseMixin, TestCase):
 
 class RegisterFormSecutiryQuestionsTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
-        self.security_questions_form = \
-        forms.RegistrationSecurityQuestionsForm
+        self.security_questions_form = forms.RegistrationSecurityQuestionsForm
         self.mk_main()
         self.user = User.objects.create_user(
             username="+27791234567",
