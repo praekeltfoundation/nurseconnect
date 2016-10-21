@@ -1,3 +1,12 @@
+"""
+Tests for the registration process.
+
+The registration process is broken down into three steps:
+1) MSISDN: for userame and password
+2) Security questions: getting answers to be used for password recovery
+3) Clinic code: For obtaining the user's clinic codde
+"""
+
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -8,7 +17,92 @@ from molo.core.tests.base import MoloTestCaseMixin
 from nurseconnect import forms
 
 
-class UserProfileTests(MoloTestCaseMixin, TestCase):
+class PerfectRegistrationTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.mk_main()
+
+    def test_it(self):
+        pass
+
+
+class PerfectEditProfileTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.mk_main()
+
+    def test_it(self):
+        pass
+
+
+class EditProfileTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.mk_main()
+
+    def test_edit_user_profile(self):
+        # Redirects to login page if user is not logged in
+        response = self.client.get(reverse("view_my_profile"))
+        redirect_url = reverse("auth_login") + "?next=/view/myprofile/"
+        self.assertRedirects(response, redirect_url)
+
+        # EditProfileForm and ProfilePasswordChangeForm should both be rendered
+        User.objects.create_user("0811231234", password="1234")
+        self.client.login(username="0811231234", password="1234")
+
+        response = self.client.get(
+            reverse("view_my_profile"),
+        )
+        self.assertIsInstance(
+            response.context["settings_form"],
+            forms.EditProfileForm
+        )
+        self.assertIsInstance(
+            response.context["profile_password_change_form"],
+            forms.ProfilePasswordChangeForm
+        )
+
+        # Fields in both forms should be read-only
+        self.assertEqual(
+            response.context["settings_form"].fields[
+                "first_name"].widget.attrs["readonly"],
+            True
+        )
+        self.assertEqual(
+            response.context["profile_password_change_form"].fields[
+                "old_password"].widget.attrs["readonly"],
+            True
+        )
+
+    def test_edit_personal_details(self):
+        User.objects.create_user("+27811231234", password="1234")
+        self.client.login(username="+27811231234", password="1234")
+
+        response = self.client.get(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"})
+        )
+
+        # EditProfileForm fields should be editable
+        self.assertEqual(
+            response.context["settings_form"].fields[
+                "first_name"].widget.attrs["readonly"],
+            False
+        )
+
+        # For unspecified first and last names, show "Anonymous"
+        self.assertEqual(
+            response.context["settings_form"].fields[
+                "first_name"].initial,
+            ""
+        )
+
+
+class MSISDNTestCase(MoloTestCaseMixin, TestCase):
+    """
+    Verify the correct error messages for the
+    MSISDN step
+    """
+
     def setUp(self):
         self.client = Client()
         self.mk_main()
@@ -34,6 +128,14 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             response, "form", "username",
             [u"Please enter a valid South African cellphone number."]
         )
+
+
+
+
+class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.mk_main()
 
     def test_register_user_validation(self):
         # Passwords with non-alphanumeric characters raise errors
@@ -98,89 +200,28 @@ class UserProfileTests(MoloTestCaseMixin, TestCase):
             [u"Username already exists."]
         )
 
-    def test_invalid_clinic_code_raises_error(self):
-        # Clinic_code is expected to be 6 digits long
-        response = self.client.post(reverse("user_register_clinic_code"), {
-            "clinic_code": "111",
-        })
-        self.assertFormError(
-            response, "form", "clinic_code",
-            [u"Please enter your 6 digit clinic code"]
-        )
+        def test_invalid_clinic_code_raises_error(self):
+            # Clinic_code is expected to be 6 digits long
+            response = self.client.post(reverse("user_register_clinic_code"), {
+                "clinic_code": "111",
+            })
+            self.assertFormError(
+                response, "form", "clinic_code",
+                [u"Please enter your 6 digit clinic code"]
+            )
 
-        response = self.client.post(reverse("user_register_clinic_code"), {
-            "clinic_code": "1111111",
-        })
-        self.assertFormError(
-            response, "form", "clinic_code",
-            [u"Please enter your 6 digit clinic code"]
-        )
+            response = self.client.post(reverse("user_register_clinic_code"), {
+                "clinic_code": "1111111",
+            })
+            self.assertFormError(
+                response, "form", "clinic_code",
+                [u"Please enter your 6 digit clinic code"]
+            )
 
-        response = self.client.post(reverse("user_register_clinic_code"), {
-            "clinic_code": "asdfasdfasdf",
-        })
-        self.assertFormError(
-            response, "form", "clinic_code",
-            [u"Please enter your 6 digit clinic code"]
-        )
-
-    def test_login(self):
-        pass
-
-    def test_edit_user_profile(self):
-        # Redirects to login page if user is not logged in
-        response = self.client.get(reverse("view_my_profile"))
-        redirect_url = reverse("auth_login") + "?next=/view/myprofile/"
-        self.assertRedirects(response, redirect_url)
-
-        # EditProfileForm and ProfilePasswordChangeForm should both be rendered
-        User.objects.create_user("0811231234", password="1234")
-        self.client.login(username="0811231234", password="1234")
-
-        response = self.client.get(
-            reverse("view_my_profile"),
-        )
-        self.assertIsInstance(
-            response.context["settings_form"],
-            forms.EditProfileForm
-        )
-        self.assertIsInstance(
-            response.context["profile_password_change_form"],
-            forms.ProfilePasswordChangeForm
-        )
-
-        # Fields in both forms should be read-only
-        self.assertEqual(
-            response.context["settings_form"].fields[
-                "first_name"].widget.attrs["readonly"],
-            True
-        )
-        self.assertEqual(
-            response.context["profile_password_change_form"].fields[
-                "old_password"].widget.attrs["readonly"],
-            True
-        )
-
-    def test_edit_personal_details(self):
-        User.objects.create_user("+27811231234", password="1234")
-        self.client.login(username="+27811231234", password="1234")
-
-        response = self.client.get(
-            reverse("edit_my_profile", kwargs={"edit": "edit-settings"})
-        )
-
-        # EditProfileForm fields should be editable
-        self.assertEqual(
-            response.context["settings_form"].fields[
-                "first_name"].widget.attrs["readonly"],
-            False
-        )
-
-        # For unspecified first and last names, show "Anonymous"
-        self.assertEqual(
-            response.context["settings_form"].fields[
-                "first_name"].initial,
-            ""
-        )
-
-        # TOOD: verify that data has changed after edit
+            response = self.client.post(reverse("user_register_clinic_code"), {
+                "clinic_code": "asdfasdfasdf",
+            })
+            self.assertFormError(
+                response, "form", "clinic_code",
+                [u"Please enter your 6 digit clinic code"]
+            )
