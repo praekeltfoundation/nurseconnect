@@ -7,7 +7,6 @@ The registration process is broken down into three steps:
 3) Clinic code: For obtaining the user's clinic codde
 """
 
-from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -181,8 +180,6 @@ class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
         self.assertRedirects(
             response, reverse("user_register_security_questions")
         )
-
-        
 
     def test_invalid_clinic_code_raises_error(self):
         # Clinic_code is expected to be 6 digits long
