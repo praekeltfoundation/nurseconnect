@@ -12,7 +12,9 @@
             <header class="Paper-header">
 
                 {% if self.image %}
-                    {% image self.image width-320 class="Paper-graphic" %}
+                    <div class="ImageViewport ImageViewport--16-5">
+                        {% image self.image width-320 class="Paper-graphic" %}
+                    </div>
                 {% endif %}
 
                 <h1 class="Paper-headline">{{ self.title }}</h1>
