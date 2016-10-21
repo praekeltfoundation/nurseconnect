@@ -130,8 +130,6 @@ class MSISDNTestCase(MoloTestCaseMixin, TestCase):
         )
 
 
-
-
 class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.client = Client()
