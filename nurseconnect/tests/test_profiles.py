@@ -107,7 +107,7 @@ class MSISDNTestCase(MoloTestCaseMixin, TestCase):
         self.client = Client()
         self.mk_main()
 
-    def test_invalid_username_raises_error(self):
+    def test_invalid_username_raises_error_on_registration(self):
         # Username is expected to be a South African number,
         # normalised to +27 country code
         response = self.client.post(reverse("user_register_msisdn"), {
@@ -200,28 +200,28 @@ class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
             [u"Username already exists."]
         )
 
-        def test_invalid_clinic_code_raises_error(self):
-            # Clinic_code is expected to be 6 digits long
-            response = self.client.post(reverse("user_register_clinic_code"), {
-                "clinic_code": "111",
-            })
-            self.assertFormError(
-                response, "form", "clinic_code",
-                [u"Please enter your 6 digit clinic code"]
-            )
+    def test_invalid_clinic_code_raises_error(self):
+        # Clinic_code is expected to be 6 digits long
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "111",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )
 
-            response = self.client.post(reverse("user_register_clinic_code"), {
-                "clinic_code": "1111111",
-            })
-            self.assertFormError(
-                response, "form", "clinic_code",
-                [u"Please enter your 6 digit clinic code"]
-            )
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "1111111",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )
 
-            response = self.client.post(reverse("user_register_clinic_code"), {
-                "clinic_code": "asdfasdfasdf",
-            })
-            self.assertFormError(
-                response, "form", "clinic_code",
-                [u"Please enter your 6 digit clinic code"]
-            )
+        response = self.client.post(reverse("user_register_clinic_code"), {
+            "clinic_code": "asdfasdfasdf",
+        })
+        self.assertFormError(
+            response, "form", "clinic_code",
+            [u"Please enter your 6 digit clinic code"]
+        )

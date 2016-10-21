@@ -1,0 +1,8 @@
+[run]
+branch = True
+source =
+    nurseconnect
+omit =
+    */migrations/*
+    */settings/*
+    nurseconnect/wsgi.py

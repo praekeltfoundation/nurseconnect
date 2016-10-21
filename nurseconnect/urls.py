@@ -17,7 +17,7 @@ from nurseconnect import forms, views
 from nurseconnect.forms import NurseconnectAuthenticationForm
 
 # implement CAS URLs in a production setting
-if settings.ENABLE_SSO:
+if settings.ENABLE_SSO:  # pragma: no cover
     urlpatterns = patterns(
         "",
         url(r"^admin/login/", "django_cas_ng.views.login"),
@@ -144,7 +144,7 @@ urlpatterns += patterns(
     url(r"", include(wagtail_urls)),
 )
 
-if settings.DEBUG:
+if settings.DEBUG:  # pragma: no cover
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     urlpatterns += staticfiles_urlpatterns()
