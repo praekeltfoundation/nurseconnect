@@ -14,6 +14,12 @@
         margin-right: auto;
         margin-bottom: scale(beta);
         margin-left: auto;
+
+        &--inline {
+            float: left;
+            width: 50%;
+            margin-right: scale(beta);
+        }
     }
 
     &-headline {
@@ -45,7 +51,8 @@
         font-weight: 300;
 
         p {
-            margin: scale(beta) 0;
+            margin: 0;
+            margin-bottom: scale(beta);
 
             &:first-child {
                 margin-top: 0;

@@ -10,13 +10,6 @@
     <section class="Paper">
         <article class="Paper-body">
             <header class="Paper-header">
-
-                {% if self.image %}
-                    <div class="ImageViewport ImageViewport--16-5">
-                        {% image self.image width-320 class="Paper-graphic" %}
-                    </div>
-                {% endif %}
-
                 <h1 class="Paper-headline">{{ self.title }}</h1>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
                 {% if self.is_current_topic_of_the_day %}
@@ -26,6 +19,9 @@
                 {% endif %}
             </header>
             <div class="Paper-copy">
+                {% if self.image %}
+                    {% image self.image width-320 class="Paper-graphic Paper-graphic--inline" %}
+                {% endif %}
                 {% for block in self.body %}
                     {% if block.block_type == "heading" %}
                         <h2>{{ block.value }}</h2>
