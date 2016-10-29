@@ -14,6 +14,7 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from molo.core.models import ArticlePage
+from molo.core.templatetags.core_tags import get_pages
 from molo.core.utils import get_locale_code
 from molo.profiles import models
 
@@ -163,7 +164,7 @@ class RegistrationSecurityQuestionsView(FormView):
 
         # Save security question answers
         for index, question in enumerate(
-            models.SecurityQuestion.objects.all()
+            self.questions
         ):
             answer = form.cleaned_data["question_%s" % index]
             models.SecurityAnswer.objects.create(
@@ -178,7 +179,14 @@ class RegistrationSecurityQuestionsView(FormView):
         kwargs = super(
             RegistrationSecurityQuestionsView, self
         ).get_form_kwargs()
-        kwargs["questions"] = models.SecurityQuestion.objects.all()
+        self.questions = models.SecurityQuestion.objects.live().filter(
+            languages__language__is_main_language=True)
+
+        # create context dictionary with request for get_pages()
+        request = {"request": self.request}
+        translated_questions = get_pages(
+            request, self.questions, self.request.LANGUAGE_CODE)
+        kwargs["questions"] = translated_questions
         return kwargs
 
 
@@ -256,64 +264,62 @@ class MyProfileView(View):
                 user=request.user
             )
             if settings_form.is_valid():
-
-                if self.request.user.last_name != \
-                        settings_form.cleaned_data["last_name"] or \
-                        self.request.user.first_name != \
-                        settings_form.cleaned_data["first_name"]:
+                first_name = settings_form.cleaned_data["first_name"]
+                last_name = settings_form.cleaned_data["last_name"]
+                username = settings_form.cleaned_data["username"]
+                clinic_code = settings_form.cleaned_data["clinic_code"]
+                if self.request.user.last_name != last_name or \
+                        self.request.user.first_name != first_name:
                     messages.success(
                         request,
                         "Profile successfully updated."
                     )
-                    self.request.user.first_name = \
-                        settings_form.cleaned_data["first_name"]
-                    self.request.user.last_name = \
-                        settings_form.cleaned_data["last_name"]
-                if settings_form.cleaned_data["username"]:
-                    if self.request.user.username != \
-                            settings_form.cleaned_data["username"]:
-                        messages.success(
+                    self.request.user.first_name = first_name
+                    self.request.user.last_name = last_name
+                    self.request.user.save()
+
+                if username and self.request.user.username != username:
+                    messages.success(
+                        request,
+                        "Username successfully updated. "
+                        "PLEASE NOTE: You will need to use your new "
+                        "cellphone number to log in going forward."
+                    )
+                    self.request.user.username = username
+                    self.request.user.save()
+                else:
+                    messages.success(
+                        request,
+                        "Your cellphone number has not changed."
+                    )
+
+                if clinic_code:
+                    clinic = get_clinic_code(clinic_code)
+                    if not clinic:
+                        settings_form.add_error(
+                            "clinic_code",
+                            ValidationError(_("Clinic code does not exist."))
+                        )
+                        profile_password_change_form = \
+                            forms.ProfilePasswordChangeForm(
+                                prefix="profile_password_change_form"
+                            )
+                        settings_form.change_field_enabled_state(False)
+                        return render(
                             request,
-                            "Username successfully updated. "
-                            "PLEASE NOTE: You will need to use your new "
-                            "cellphone number to log in going forward."
+                            self.template_name,
+                            context={
+                                "edit": "edit-settings",
+                                "settings_form": settings_form,
+                                "profile_password_change_form":
+                                    profile_password_change_form
+                            }
                         )
                     else:
-                        messages.success(
-                            request,
-                            "Your cellphone number has not changed."
-                        )
-                    self.request.user.username = \
-                        settings_form.cleaned_data["username"]
-                self.request.user.save()
+                        if clinic[2]:
+                            self.request.session["clinic-name"] = clinic[2]
+                        # self.request.user.profile.for_nurseconnect.clinic_code = clinic[0]
 
-                clinic_code = settings_form.cleaned_data["clinic_code"]
-
-                clinic = get_clinic_code(clinic_code)
-
-                if not clinic:
-                    settings_form.add_error(
-                        "clinic_code",
-                        ValidationError(_("Clinic code does not exist."))
-                    )
-                    profile_password_change_form = \
-                        forms.ProfilePasswordChangeForm(
-                            prefix="profile_password_change_form"
-                        )
-                    settings_form.change_field_enabled_state(False)
-                    return render(
-                        request,
-                        self.template_name,
-                        context={
-                            "edit": "edit-settings",
-                            "settings_form": settings_form,
-                            "profile_password_change_form":
-                                profile_password_change_form
-                        }
-                    )
-                else:
-                    if clinic[2]:
-                        self.request.session["clinic-name"] = clinic[2]
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:
                 profile_password_change_form = forms.ProfilePasswordChangeForm(
@@ -333,7 +339,7 @@ class MyProfileView(View):
 
         elif edit == "edit-password":
             profile_password_change_form = forms.ProfilePasswordChangeForm(
-                request.POST,
+                data=request.POST,
                 prefix="profile_password_change_form"
             )
             if profile_password_change_form.is_valid():
