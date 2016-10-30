@@ -196,7 +196,6 @@ class RegistrationClinicCodeView(FormView):
 
     def form_valid(self, form):
         clinic_code = form.cleaned_data["clinic_code"]
-
         clinic = get_clinic_code(clinic_code)
 
         if not clinic:

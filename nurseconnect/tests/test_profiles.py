@@ -13,6 +13,7 @@ from django.test import TestCase, LiveServerTestCase
 from django.test.client import Client
 
 import mock
+from mock import patch
 
 from molo.core.models import SiteLanguage
 from molo.core.tests.base import MoloTestCaseMixin
@@ -54,7 +55,9 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
         )
         self.q1.save()
 
-    def test_it(self):
+    @mock.patch("nurseconnect.views.get_clinic_code")
+    def test_it(self, clinic_code_mock):
+        clinic_code_mock.return_value = "388624", "IKchmc9mrc6", "kz Mshudu Clinic"
         # post msisdn step
         response = self.client.post(
             reverse("user_register_msisdn"),
@@ -71,7 +74,7 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
             response, reverse("user_register_security_questions")
         )
 
-        # create security question
+        # post security question step
         self.client.get(reverse("user_register_security_questions"))
         response = self.client.post(
             reverse("user_register_security_questions"),
@@ -83,6 +86,16 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
         self.assertRedirects(
             response, reverse("user_register_clinic_code")
         )
+
+        # post clinic code step
+        response = self.client.post(
+            reverse("user_register_clinic_code"),
+            {
+                "clinic_code": "000000",
+            },
+            follow=True
+        )
+        self.assertContains(response, "Your clinic code is valid")
 
 
 class MSISDNTestCase(MoloTestCaseMixin, TestCase):
@@ -119,16 +132,6 @@ class MSISDNTestCase(MoloTestCaseMixin, TestCase):
             [u"Please enter a valid South African cellphone number."]
         )
 
-    def invalid_south_african_number_raises_error(self):
-        # Invalid because 088 is not a valid SA cellphone code
-        response = self.client.post(reverse("user_register_msisdn"), {
-            "username": "0881231234",
-        })
-        self.assertFormError(
-            response, "form", "username",
-            [u"Please enter a valid South African cellphone number."]
-        )
-
     def test_password_with_non_alphanumneric_chars_raise_error(self):
         response = self.client.post(reverse("user_register_msisdn"), {
             "password": "wrong$$$"
@@ -138,6 +141,24 @@ class MSISDNTestCase(MoloTestCaseMixin, TestCase):
             [u"Your password must contain any alphanumeric "
              u"combination of 4 or more characters."]
         )
+
+
+class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.mk_main()
+        self.client = Client()
+
+    @mock.patch("nurseconnect.views.get_clinic_code")
+    def test_invalid_clinic_code_raises_error(self, clinic_code_mock):
+        clinic_code_mock.return_value = None
+        response = self.client.post(
+            reverse("user_register_clinic_code"),
+            {
+                "clinic_code": "000000",
+            },
+            follow=True
+        )
+        self.assertContains(response, "Clinic code does not exist")
 
 
 # class PerfectEditProfileTestCase(MoloTestCaseMixin, TestCase):
@@ -186,43 +207,40 @@ class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
             False
         )
 
-    @mock.patch("nurseconnect.views.get_clinic_code")
-    def test_personal_details_can_be_changed(self, clinic_code_mock):
+    with patch("nurseconnect.views.get_clinic_code") as clinic_code_mock:
         clinic_code_mock.return_value = "388624","IKchmc9mrc6","kz Mshudu Clinic"
-        response = self.client.post(
-            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-            {
-                "settings_form-first_name": "First",
-                "settings_form-last_name": "Last",
-                "settings_form-username": "+27811231234",
-            },
-            follow=True
-        )
-        self.assertContains(response, "Profile successfully updated")
 
-    @mock.patch("nurseconnect.views.get_clinic_code")
-    def test_username_can_be_changed(self, clinic_code_mock):
-        clinic_code_mock.return_value = "388624", "IKchmc9mrc6", "kz Mshudu Clinic"
-        response = self.client.post(
-            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-            {
-                "settings_form-username": "+27811231233",
-            },
-            follow=True
-        )
-        self.assertContains(response, "Username successfully updated")
+        def test_personal_details_can_be_changed_in(self):
+            response = self.client.post(
+                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+                {
+                    "settings_form-first_name": "First",
+                    "settings_form-last_name": "Last",
+                    "settings_form-username": "+27811231234",
+                },
+                follow=True
+            )
+            self.assertContains(response, "Profile successfully updated")
 
-    @mock.patch("nurseconnect.views.get_clinic_code")
-    def test_invalid_username_raises_error(self, clinic_code_mock):
-        clinic_code_mock.return_value = "388624", "IKchmc9mrc6", "kz Mshudu Clinic"
-        response = self.client.post(
-            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-            {
-                "settings_form-username": "39311231233",
-            },
-            follow=True
-        )
-        self.assertContains(response, "Please enter a valid South African cellphone number")
+        def test_username_can_be_changed(self):
+            response = self.client.post(
+                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+                {
+                    "settings_form-username": "+27811231233",
+                },
+                follow=True
+            )
+            self.assertContains(response, "Username successfully updated")
+
+        def test_invalid_username_raises_error(self):
+            response = self.client.post(
+                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+                {
+                    "settings_form-username": "39311231233",
+                },
+                follow=True
+            )
+            self.assertContains(response, "Please enter a valid South African cellphone number")
 
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_clinic_code_can_be_changed(self, clinic_code_mock):

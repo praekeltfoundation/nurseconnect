@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+import mock
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import SecurityQuestion
 
@@ -15,76 +16,76 @@ class RegisterFormMSISDNTestCase(MoloTestCaseMixin, TestCase):
             username="+27791234567",
             password="1234")
 
-    # def test_register_username_correct(self):
-    #     form_data = {
-    #         "username": "0820000000",
-    #         "password": "1234",
-    #         "confirm_password": "1234",
-    #         "terms_and_conditions": True
-    #     }
-    #     form = self.msisdn_form(
-    #         data=form_data
-    #     )
-    #     self.assertEqual(form.is_valid(), True)
-    #
-    # def test_register_username_incorrect(self):
-    #     form_data = {
-    #         "username": "Jeyabal#",
-    #         "password": "1234",
-    #         "terms_and_conditions": True
-    #
-    #     }
-    #     form = self.msisdn_form(
-    #         data=form_data
-    #     )
-    #     self.assertEqual(form.is_valid(), False)
-    #
-    # def test_register_password_incorrect(self):
-    #     form_data = {
-    #         "username": "Jeyabal#",
-    #         "password": "12345",
-    #         "terms_and_conditions": True
-    #
-    #     }
-    #     form = self.msisdn_form(
-    #         data=form_data
-    #     )
-    #     self.assertEqual(form.is_valid(), False)
-    #
-    # def test_password_change_incorrect(self):
-    #     form_data = {
-    #         "old_password": "123",
-    #         "new_password": "jey123",
-    #         "confirm_password": "jey123",
-    #     }
-    #     form = forms.ProfilePasswordChangeForm(
-    #         data=form_data,
-    #     )
-    #     self.assertEqual(form.is_valid(), False)
-    #
-    # def test_password_change_correct(self):
-    #     form_data = {
-    #         "old_password": "1234",
-    #         "new_password": "3456",
-    #         "confirm_password": "3456",
-    #     }
-    #     form = forms.ProfilePasswordChangeForm(
-    #         data=form_data,
-    #     )
-    #     self.assertEqual(form.is_valid(), True)
-    #
-    # def test_terms_and_conditions_is_required(self):
-    #     form_data = {
-    #         "username": "test",
-    #         "password": "12345",
-    #     }
-    #     form = self.msisdn_form(
-    #         data=form_data
-    #     )
-    #     self.assertEqual(form.is_valid(), False)
+    def test_register_username_correct(self):
+        form_data = {
+            "username": "0820000000",
+            "password": "1234",
+            "confirm_password": "1234",
+            "terms_and_conditions": True
+        }
+        form = self.msisdn_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), True)
+
+    def test_register_username_incorrect(self):
+        form_data = {
+            "username": "Jeyabal#",
+            "password": "1234",
+            "terms_and_conditions": True
+
+        }
+        form = self.msisdn_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), False)
+
+    def test_register_password_incorrect(self):
+        form_data = {
+            "username": "Jeyabal#",
+            "password": "12345",
+            "terms_and_conditions": True
+
+        }
+        form = self.msisdn_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), False)
+
+    def test_password_change_incorrect(self):
+        form_data = {
+            "old_password": "123",
+            "new_password": "jey123",
+            "confirm_password": "jey123",
+        }
+        form = forms.ProfilePasswordChangeForm(
+            data=form_data,
+        )
+        self.assertEqual(form.is_valid(), False)
+
+    def test_password_change_correct(self):
+        form_data = {
+            "old_password": "1234",
+            "new_password": "3456",
+            "confirm_password": "3456",
+        }
+        form = forms.ProfilePasswordChangeForm(
+            data=form_data,
+        )
+        self.assertEqual(form.is_valid(), True)
+
+    def test_terms_and_conditions_is_required(self):
+        form_data = {
+            "username": "test",
+            "password": "12345",
+        }
+        form = self.msisdn_form(
+            data=form_data
+        )
+        self.assertEqual(form.is_valid(), False)
 
 
-class RegisterFormSecutiryQuestionsTestCase(MoloTestCaseMixin, TestCase):
+class RegisterFormSecurityQuestionsTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.security_questions_form = forms.RegistrationSecurityQuestionsForm
         self.mk_main()
