@@ -98,6 +98,10 @@ class RegistrationMSISDNForm(forms.Form):
 
 
 class RegistrationSecurityQuestionsForm(forms.Form):
+    """
+    Adapted from https://github.com/praekelt/molo.profiles
+    Security questions are created dynamically and are CMS driven.
+    """
     def __init__(self, *args, **kwargs):
         questions = kwargs.pop("questions")
         super(
@@ -426,23 +430,39 @@ class ResetPasswordForm(forms.Form):
 
 
 class NurseconnectAuthenticationForm(AuthenticationForm):
-    def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
+    """
+    Adapted from django.contrib.auth.forms.AuthenticationForm
+    This project requires special form field validation for
+    the username, which is performed by the PhoneNumberField.
+    """
+    username = PhoneNumberField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Cellphone number"),
+                "class": "Form-input"
+            }
+        ),
+        label=_("Cellphone number")
+    )
 
-        if username and username[0] == "0":
-            username = INT_PREFIX + username[1:len(username)]
-
-        if username and password:
-            self.user_cache = authenticate(username=username,
-                                           password=password)
-            if self.user_cache is None:
-                raise forms.ValidationError(
-                    self.error_messages['invalid_login'],
-                    code='invalid_login',
-                    params={'username': self.username_field.verbose_name},
-                )
-            else:
-                self.confirm_login_allowed(self.user_cache)
-
-        return self.cleaned_data
+    # def clean(self):
+    #     username = self.cleaned_data.get('username')
+    #     password = self.cleaned_data.get('password')
+    #
+    #     if username and username[0] == "0":
+    #         username = INT_PREFIX + username[1:len(username)]
+    #
+    #     if username and password:
+    #         self.user_cache = authenticate(username=username,
+    #                                        password=password)
+    #         if self.user_cache is None:
+    #             raise forms.ValidationError(
+    #                 self.error_messages['invalid_login'],
+    #                 code='invalid_login',
+    #                 params={'username': self.username_field.verbose_name},
+    #             )
+    #         else:
+    #             self.confirm_login_allowed(self.user_cache)
+    #
+    #     return self.cleaned_data
