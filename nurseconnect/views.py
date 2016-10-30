@@ -317,7 +317,8 @@ class MyProfileView(View):
                     else:
                         if clinic[2]:
                             self.request.session["clinic-name"] = clinic[2]
-                        # self.request.user.profile.for_nurseconnect.clinic_code = clinic[0]
+                        self.request.user.profile.for_nurseconnect.clinic_code\
+                            = clinic[0]
 
                 return HttpResponseRedirect(reverse("view_my_profile"))
             else:

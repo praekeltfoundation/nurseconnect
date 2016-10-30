@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-import mock
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import SecurityQuestion
 

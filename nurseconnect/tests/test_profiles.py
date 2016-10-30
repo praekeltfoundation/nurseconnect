@@ -9,7 +9,7 @@ The registration process is broken down into three steps:
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.test import TestCase, LiveServerTestCase
+from django.test import TestCase
 from django.test.client import Client
 
 import mock
@@ -19,11 +19,8 @@ from molo.core.models import SiteLanguage
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import SecurityQuestion
 from wagtail.contrib.settings.context_processors import SettingsProxy
-from wagtail.wagtailcore.models import Site
 
 from nurseconnect import forms
-
-import pytest
 
 
 class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
@@ -57,7 +54,7 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
 
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_it(self, clinic_code_mock):
-        clinic_code_mock.return_value = "388624", "IKchmc9mrc6", "kz Mshudu Clinic"
+        clinic_code_mock.return_value = "388624", "Test", "gp Test"
         # post msisdn step
         response = self.client.post(
             reverse("user_register_msisdn"),
@@ -161,33 +158,6 @@ class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
         self.assertContains(response, "Clinic code does not exist")
 
 
-# class PerfectEditProfileTestCase(MoloTestCaseMixin, TestCase):
-#     def setUp(self):
-#         self.client = Client()
-#         self.mk_main()
-#         # self.user = User.objects.create_user("0811231234", password="1234")
-#
-#     def test_edit_personal_details(self):
-#         User.objects.create_user("0811231234", password="1234")
-#         self.client.login(username="+27811231234", password="1234")
-#         response = self.client.get(
-#             reverse("edit_my_profile", kwargs={"edit": "edit-settings"})
-#         )
-#
-#         # EditProfileForm fields should be editable
-#         self.assertEqual(
-#             response.context["settings_form"].fields[
-#                 "first_name"].widget.attrs["readonly"],
-#             False
-#         )
-#
-#         # For unspecified first and last names, show "Anonymous"
-#         self.assertEqual(
-#             response.context["settings_form"].fields[
-#                 "first_name"].initial,
-#             ""
-#         )
-
 class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.client = Client()
@@ -208,7 +178,7 @@ class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
         )
 
     with patch("nurseconnect.views.get_clinic_code") as clinic_code_mock:
-        clinic_code_mock.return_value = "388624","IKchmc9mrc6","kz Mshudu Clinic"
+        clinic_code_mock.return_value = "388624", "Test", "gp Test"
 
         def test_personal_details_can_be_changed_in(self):
             response = self.client.post(
@@ -240,19 +210,22 @@ class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
                 },
                 follow=True
             )
-            self.assertContains(response, "Please enter a valid South African cellphone number")
+            self.assertContains(
+                response,
+                "Please enter a valid South African cellphone number"
+            )
 
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_clinic_code_can_be_changed(self, clinic_code_mock):
-        clinic_code_mock.return_value = "000111", "IKchmc9mrc6", "kz Mshudu Clinic"
-        response = self.client.post(
-            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-            {
-                "settings_form-username": "+27811231233",
-                "settings_form-clinic_code": "000111"
-            },
-            follow=True
-        )
+        clinic_code_mock.return_value = "388624", "Test", "gp Test"
+        # response = self.client.post(
+        #     reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+        #     {
+        #         "settings_form-username": "+27811231233",
+        #         "settings_form-clinic_code": "000111"
+        #     },
+        #     follow=True
+        # )
         # TODO: save the changed clinic code
 
     @mock.patch("nurseconnect.views.get_clinic_code")
@@ -341,7 +314,10 @@ class ViewProfileTestCase(MoloTestCaseMixin, TestCase):
 
     def test_both_forms_are_displayed(self):
         # EditProfileForm and ProfilePasswordChangeForm should both be rendered
-        self.user = User.objects.create_user(username="+27811231234", password="1234")
+        self.user = User.objects.create_user(
+            username="+27811231234",
+            password="1234"
+        )
         self.client.login(username="+27811231234", password="1234")
 
         response = self.client.get(
@@ -367,35 +343,3 @@ class ViewProfileTestCase(MoloTestCaseMixin, TestCase):
                 "old_password"].widget.attrs["readonly"],
             True
         )
-
-
-# class ClinicCodeTestCase(MoloTestCaseMixin, TestCase):
-#     def setUp(self):
-#         self.client = Client()
-#         self.mk_main()
-#
-#     def test_invalid_clinic_code_raises_error(self):
-#         # Clinic_code is expected to be 6 digits long
-#         response = self.client.post(reverse("user_register_clinic_code"), {
-#             "clinic_code": "111",
-#         })
-#         self.assertFormError(
-#             response, "form", "clinic_code",
-#             [u"Please enter your 6 digit clinic code"]
-#         )
-#
-#         response = self.client.post(reverse("user_register_clinic_code"), {
-#             "clinic_code": "1111111",
-#         })
-#         self.assertFormError(
-#             response, "form", "clinic_code",
-#             [u"Please enter your 6 digit clinic code"]
-#         )
-#
-#         response = self.client.post(reverse("user_register_clinic_code"), {
-#             "clinic_code": "asdfasdfasdf",
-#         })
-#         self.assertFormError(
-#             response, "form", "clinic_code",
-#             [u"Please enter your 6 digit clinic code"]
-#         )

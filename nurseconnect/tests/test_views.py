@@ -10,6 +10,7 @@ from wagtail.wagtailcore.models import Site
 
 from nurseconnect import forms
 
+
 class MenuTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()
