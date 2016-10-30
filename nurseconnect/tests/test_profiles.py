@@ -218,14 +218,14 @@ class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_clinic_code_can_be_changed(self, clinic_code_mock):
         clinic_code_mock.return_value = "388624", "Test", "gp Test"
-        # response = self.client.post(
-        #     reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-        #     {
-        #         "settings_form-username": "+27811231233",
-        #         "settings_form-clinic_code": "000111"
-        #     },
-        #     follow=True
-        # )
+        self.client.post(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+            {
+                "settings_form-username": "+27811231233",
+                "settings_form-clinic_code": "000111"
+            },
+            follow=True
+        )
         # TODO: save the changed clinic code
 
     @mock.patch("nurseconnect.views.get_clinic_code")
