@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -8,8 +7,6 @@ from wagtail.contrib.settings.context_processors import SettingsProxy
 from wagtail.wagtailcore.models import Site
 
 from nurseconnect.formfields import PhoneNumberField
-
-INT_PREFIX = "+27"
 
 
 class RegistrationMSISDNForm(forms.Form):
@@ -87,14 +84,6 @@ class RegistrationMSISDNForm(forms.Form):
         label=_("Accept the Terms of Use")
     )
 
-    def clean_username(self):
-        if User.objects.filter(
-            username__iexact=self.cleaned_data["username"]
-        ).exists():
-            raise forms.ValidationError(_("Username already exists."))
-
-        return self.cleaned_data["username"]
-
     def clean(self):
         password = self.cleaned_data.get("password", None)
         confirm_password = self.cleaned_data.get("confirm_password", None)
@@ -106,6 +95,10 @@ class RegistrationMSISDNForm(forms.Form):
 
 
 class RegistrationSecurityQuestionsForm(forms.Form):
+    """
+    Adapted from https://github.com/praekelt/molo.profiles
+    Security questions are created dynamically and are CMS driven.
+    """
     def __init__(self, *args, **kwargs):
         questions = kwargs.pop("questions")
         super(
@@ -204,7 +197,7 @@ class EditProfileForm(forms.Form):
 
     clinic_code = forms.RegexField(
         regex=r"^\d{6}$",
-        required=True,
+        required=False,
         label=_("Clinic code"),
         error_messages={
             "invalid": "Please enter your 6 digit clinic code"
@@ -434,23 +427,18 @@ class ResetPasswordForm(forms.Form):
 
 
 class NurseconnectAuthenticationForm(AuthenticationForm):
-    def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        if username and username[0] == "0":
-            username = INT_PREFIX + username[1:len(username)]
-
-        if username and password:
-            self.user_cache = authenticate(username=username,
-                                           password=password)
-            if self.user_cache is None:
-                raise forms.ValidationError(
-                    self.error_messages['invalid_login'],
-                    code='invalid_login',
-                    params={'username': self.username_field.verbose_name},
-                )
-            else:
-                self.confirm_login_allowed(self.user_cache)
-
-        return self.cleaned_data
+    """
+    Adapted from django.contrib.auth.forms.AuthenticationForm
+    This project requires special form field validation for
+    the username, which is performed by the PhoneNumberField.
+    """
+    username = PhoneNumberField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": _("Cellphone number"),
+                "class": "Form-input"
+            }
+        ),
+        label=_("Cellphone number")
+    )
