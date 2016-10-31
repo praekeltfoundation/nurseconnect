@@ -4,7 +4,7 @@ Tests for the registration process.
 The registration process is broken down into three steps:
 1) MSISDN: for userame and password
 2) Security questions: getting answers to be used for password recovery
-3) Clinic code: For obtaining the user's clinic codde
+3) Clinic code: For obtaining the user's clinic code
 """
 
 from django.core.urlresolvers import reverse
@@ -33,7 +33,6 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
         self.mk_main()
         self.client = Client()
 
-        # site = Site.objects.get(is_default_site=True)
         settings = SettingsProxy(self.site)
         self.profile_settings = settings["profiles"]["UserProfilesSettings"]
         self.profile_settings.show_security_question_fields = True
