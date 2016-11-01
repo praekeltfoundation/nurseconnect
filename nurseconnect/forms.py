@@ -197,7 +197,7 @@ class EditProfileForm(forms.Form):
 
     clinic_code = forms.RegexField(
         regex=r"^\d{6}$",
-        required=False,
+        required=True,
         label=_("Clinic code"),
         error_messages={
             "invalid": "Please enter your 6 digit clinic code"

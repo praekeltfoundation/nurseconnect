@@ -6,14 +6,13 @@ The registration process is broken down into three steps:
 2) Security questions: getting answers to be used for password recovery
 3) Clinic code: For obtaining the user's clinic code
 """
+import mock
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
 
-import mock
-from mock import patch
 
 from molo.core.models import SiteLanguage
 from molo.core.tests.base import MoloTestCaseMixin
@@ -176,43 +175,46 @@ class EditPersonalDetailsTestCase(MoloTestCaseMixin, TestCase):
             False
         )
 
-    with patch("nurseconnect.views.get_clinic_code") as clinic_code_mock:
+    @mock.patch("nurseconnect.views.get_clinic_code")
+    def test_personal_details_can_be_changed_in(self, clinic_code_mock):
         clinic_code_mock.return_value = "388624", "Test", "gp Test"
+        response = self.client.post(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+            {
+                "settings_form-first_name": "First",
+                "settings_form-last_name": "Last",
+                "settings_form-clinic_code": "388624",
+                "settings_form-username": "+27811231234",
+            },
+            follow=True
+        )
+        self.assertContains(response, "Profile successfully updated")
 
-        def test_personal_details_can_be_changed_in(self):
-            response = self.client.post(
-                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-                {
-                    "settings_form-first_name": "First",
-                    "settings_form-last_name": "Last",
-                    "settings_form-username": "+27811231234",
-                },
-                follow=True
-            )
-            self.assertContains(response, "Profile successfully updated")
+    @mock.patch("nurseconnect.views.get_clinic_code")
+    def test_username_can_be_changed(self, clinic_code_mock):
+        clinic_code_mock.return_value = "388624", "Test", "gp Test"
+        response = self.client.post(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+            {
+                "settings_form-clinic_code": "388624",
+                "settings_form-username": "+27811231233",
+            },
+            follow=True
+        )
+        self.assertContains(response, "Username successfully updated")
 
-        def test_username_can_be_changed(self):
-            response = self.client.post(
-                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-                {
-                    "settings_form-username": "+27811231233",
-                },
-                follow=True
-            )
-            self.assertContains(response, "Username successfully updated")
-
-        def test_invalid_username_raises_error(self):
-            response = self.client.post(
-                reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
-                {
-                    "settings_form-username": "39311231233",
-                },
-                follow=True
-            )
-            self.assertContains(
-                response,
-                "Please enter a valid South African cellphone number"
-            )
+    def test_invalid_username_raises_error(self):
+        response = self.client.post(
+            reverse("edit_my_profile", kwargs={"edit": "edit-settings"}),
+            {
+                "settings_form-username": "39311231233",
+            },
+            follow=True
+        )
+        self.assertContains(
+            response,
+            "Please enter a valid South African cellphone number"
+        )
 
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_clinic_code_can_be_changed(self, clinic_code_mock):
