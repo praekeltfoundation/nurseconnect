@@ -6,14 +6,13 @@ The registration process is broken down into three steps:
 2) Security questions: getting answers to be used for password recovery
 3) Clinic code: For obtaining the user's clinic code
 """
+import mock
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
 
-import mock
-from mock import patch
 
 from molo.core.models import SiteLanguage
 from molo.core.tests.base import MoloTestCaseMixin
