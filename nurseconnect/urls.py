@@ -139,7 +139,6 @@ urlpatterns += patterns(
 
     url(r"^sections/$", include(wagtail_urls)),
     url(r"^comments/", include("molo.commenting.urls")),
-    url(r"^styleguide/", include("styleguide.urls", namespace="styleguide")),
     url(r"", include("molo.core.urls")),
     url(r"", include(wagtail_urls)),
 )
@@ -151,3 +150,9 @@ if settings.DEBUG:  # pragma: no cover
     urlpatterns += static(
         settings.MEDIA_URL + "images/",
         document_root=os.path.join(settings.MEDIA_ROOT, "images"))
+    urlpatterns += \
+        url(
+            r"^styleguide/",
+            include("styleguide.urls",
+                    namespace="styleguide")
+        ),
