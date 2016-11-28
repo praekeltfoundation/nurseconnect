@@ -20,7 +20,7 @@ from molo.profiles import models
 
 from wagtail.wagtailsearch.models import Query
 
-from nurseconnect import forms, tasks
+from nurseconnect import forms
 from nurseconnect.services import get_clinic_code
 
 INT_PREFIX = "+27"

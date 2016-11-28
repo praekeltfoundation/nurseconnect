@@ -322,6 +322,3 @@ LOGIN_URL = "auth_login"
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
 
 LOGIN_REDIRECT_URL = "/"
-
-import djcelery
-djcelery.setup_loader()

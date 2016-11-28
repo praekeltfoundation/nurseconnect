@@ -19,7 +19,9 @@ def nurses_registered():
     ignore_result=True
 )
 def send_data():
-    url = "https://praekelt:praekelt@npr-staging.jembi.org:5000/ws/rest/v1/nurseconnectdataset"
+    url = "https://praekelt:praekelt@npr-staging.jembi.org:5000/ws/rest/v1/" \
+          "nurseconnectdataset"
+
     data = {
       "dataValues": [
         {
