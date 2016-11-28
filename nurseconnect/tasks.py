@@ -1,11 +1,11 @@
 from __future__ import absolute_import
 
+import json
 import requests
+
 from celery.schedules import crontab
 from celery.task import periodic_task
 from django.contrib.auth.models import User
-
-from raven.utils import json
 
 
 def nurses_registered():
@@ -14,7 +14,7 @@ def nurses_registered():
 
 
 @periodic_task(
-    run_every=crontab(),
+    run_every=crontab(hour=12),
     default_retry_delay=300,
     ignore_result=True
 )
