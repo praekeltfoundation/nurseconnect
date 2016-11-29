@@ -70,7 +70,7 @@ def download_as_csv(NurseConnectEndUsersModelAdmin, request, queryset):
     return response
 
 
-        download_as_csv.short_description = "Download selected as csv"
+    download_as_csv.short_description = "Download selected as csv"
 
 
 class NurseConnectEndUsersModelAdmin(FrontendUsersModelAdmin):
