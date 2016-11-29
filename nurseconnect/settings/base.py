@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     "wagtailsurveys",
 
     "mptt",
-    "molo.usermetadata",
     "molo.surveys",
     "molo.profiles",
     "molo.yourwords",

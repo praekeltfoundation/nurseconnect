@@ -32,9 +32,6 @@ urlpatterns += patterns(
     url(r"^django-admin/", include(admin.site.urls)),
     url(r"^admin/", include(wagtailadmin_urls)),
     url(r"^documents/", include(wagtaildocs_urls)),
-    url(r'^meta/', include('molo.usermetadata.urls',
-                           namespace='molo.usermetadata',
-                           app_name='molo.usermetadata')),
     url(
         r"^search/$",
         login_required(views.SearchView.as_view(
