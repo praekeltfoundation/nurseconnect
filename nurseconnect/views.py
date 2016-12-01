@@ -17,6 +17,7 @@ from molo.core.models import ArticlePage
 from molo.core.templatetags.core_tags import get_pages
 from molo.core.utils import get_locale_code
 from molo.profiles import models
+from nurseconnect import tasks
 
 from wagtail.wagtailsearch.models import Query
 
