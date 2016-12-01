@@ -46,7 +46,7 @@
     }
 
     &-copy {
-        padding: scale(gamma);
+        padding: 0 scale(gamma);
         background-color: $color-white;
         font-weight: 300;
 

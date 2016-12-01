@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static core_tags i18n competition_tag %}
+{% load static core_tags i18n competition_tag molo_survey_tags %}
 
 {% block content %}
     {% if user.is_authenticated %}
@@ -14,6 +14,7 @@
         {% latest_listing_homepage num_count=6 %}
         {% your_words_competition %}
         {% section_listing_homepage %}
+        {% surveys_list %}
     {% else %}
         {% include "core/home_page_before_login.html" %}
     {% endif %}
