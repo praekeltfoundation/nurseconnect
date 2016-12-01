@@ -1,17 +1,16 @@
 from __future__ import absolute_import
 
 import json
-import urllib
-
 import requests
 
 from celery.schedules import crontab
 from celery.task import periodic_task
+
 from django.contrib.auth.models import User
 
 
 URL = "https://praekelt:praekelt@npr-staging.jembi.org:5000/ws/rest/v1/" \
-          "nurseconnectdataset"
+      "nurseconnectdataset"
 
 
 def nurses_registered():
@@ -66,6 +65,7 @@ def lookup_clinic_code_orgunit(clinic_code, data):
     for clinic in data["rows"]:
         if str(clinic_code) == clinic[0]:
             return clinic[1]
+
 
 @periodic_task(
     run_every=crontab(),
