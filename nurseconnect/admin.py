@@ -1,9 +1,12 @@
 import csv
 
+from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.admin.sites import NotRegistered
 from django.http import HttpResponse
 
 from molo.core.models import ArticlePage
-from molo.profiles.admin import FrontendUsersModelAdmin
+from molo.profiles.admin import FrontendUsersModelAdmin, ProfileUserAdmin
 from molo.yourwords.admin import (
     YourWordsCompetitionAdmin, YourWordsCompetitionEntryAdmin)
 from molo.yourwords.models import (
@@ -12,6 +15,28 @@ from wagtailmodeladmin.options import ModelAdminGroup
 from wagtailmodeladmin.options import ModelAdmin as WagtailModelAdmin
 
 from nurseconnect.admin_views import NurseConnectFrontendUsersAdminView
+
+
+try:
+    admin.site.unregister(User)
+except NotRegistered:
+    pass
+
+
+@admin.register(User)
+class NurseConnectProfileUserAdmin(ProfileUserAdmin):
+    list_display = ProfileUserAdmin.list_display + (
+        "_clinic_code",
+    )
+
+    def _clinic_code(self, obj, *args, **kwargs):
+        if (
+                hasattr(obj, "profile") and
+                hasattr(obj.profile, "for_nurseconnect") and
+                obj.profile.for_nurseconnect.clinic_code
+        ):
+            return obj.profile.for_nurseconnect.clinic_code
+        return ""
 
 
 class ArticlePageModelAdmin(WagtailModelAdmin):
