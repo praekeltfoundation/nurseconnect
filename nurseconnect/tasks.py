@@ -2,59 +2,71 @@ from __future__ import absolute_import
 
 import json
 import requests
+from collections import Counter
 
 from celery.schedules import crontab
 from celery.task import periodic_task
 
 from django.contrib.auth.models import User
 
+from nurseconnect.settings import JEMBI_URL, JEMBI_USERNAME, JEMBI_PASSWORD
+
+
+class JembiMetricsPoster(object):
+    """
+    Send metrics to Jembi
+    """
+    def send_metric(self, data):
+        headers = {"Content-type": "application/json"}
+        requests.post(
+            url=JEMBI_URL,
+            headers=headers,
+            data=json.dumps(data),
+            auth=(JEMBI_USERNAME, JEMBI_PASSWORD),
+            verify=False
+        )
+
 
 def nurses_registered():
     """Returns the number of nurses registered on the system."""
-    nurses = User.objects.filter(is_staff=False).count()
-
+    num_nurses = User.objects.filter(is_staff=False).count()
     data = {
         "dataValues": [
             {
                 "dataElement": "CSv1k6HyWaX",
                 "period": "201601",
                 "orgUnit": "Fws0A9spb9F",
-                "value": str(nurses)
+                "value": str(num_nurses)
             },
         ]
     }
-    headers = {'Content-type': 'application/json'}
 
-    requests.post(URL, data=json.dumps(data), headers=headers, verify=False)
+    JembiMetricsPoster().send_metric(data)
 
 
 def nurses_registered_per_clinic():
     """ Returns the number of nurses registered per facility. """
-    json_data = open("nurseconnect/facility_codes.json")
-    data = json.loads(json_data.read())
     users = User.objects.filter(is_staff=False)
-    count = 0
+    clinic_codes = [
+        user.profile.for_nurseconnect.clinic_code for user in users
+    ]
+    nurses_per_facility = Counter(clinic_codes)
+    metric_poster = JembiMetricsPoster()
 
-    for clinic in data["rows"]:
-        for user in users:
-            if user.profile.for_nurseconnect.clinic_code == clinic[0]:
-                count += 1
-        if count > 0:
+    # nurses_per_facility =  {"clinic_code": total} pairs
+    for k, v in nurses_per_facility:
+        if k:
             data = {
                 "dataValues": [
                     {
                         "dataElement": "CSv1k6HyWaX",
                         "period": "201601",
-                        "orgUnit": clinic[1],
-                        "value": "999"
+                        "orgUnit": k,
+                        "value": str(v)
                     },
                 ]
             }
-            headers = {'Content-type': 'application/json'}
-
-            requests.post(URL, data=json.dumps(data), headers=headers,
-                          verify=False)
-            count = 0
+            metric_poster.send_metric(data)
 
 
 def lookup_clinic_code_orgunit(clinic_code, data):
