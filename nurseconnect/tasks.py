@@ -9,10 +9,6 @@ from celery.task import periodic_task
 from django.contrib.auth.models import User
 
 
-URL = "https://praekelt:praekelt@npr-staging.jembi.org:5000/ws/rest/v1/" \
-      "nurseconnectdataset"
-
-
 def nurses_registered():
     """Returns the number of nurses registered on the system."""
     nurses = User.objects.filter(is_staff=False).count()
@@ -33,7 +29,7 @@ def nurses_registered():
 
 
 def nurses_registered_per_clinic():
-    """Returns the number of nurses registered on the system."""
+    """ Returns the number of nurses registered per facility. """
     json_data = open("nurseconnect/facility_codes.json")
     data = json.loads(json_data.read())
     users = User.objects.filter(is_staff=False)
