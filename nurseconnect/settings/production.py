@@ -59,6 +59,11 @@ ENABLE_SSO = False
 
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
 
+# JEMBI configuration
+JEMBI_URL = environ.get("JEMBI_URL")
+JEMBI_USERNAME = environ.get("JEMBI_USERNAME")
+JEMBI_PASSWORD = environ.get("JEMBI_PASSWORD")
+
 try:
     from .local import *  # noqa
 except ImportError:
