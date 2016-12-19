@@ -53,7 +53,7 @@ def nurses_registered_per_clinic():
     nurses_per_facility = Counter(clinic_codes)
     metric_poster = JembiMetricsPoster()
 
-    # nurses_per_facility =  {"clinic_code": total} pairs
+    # nurses_per_facility = {"clinic_code": total} pairs
     for k, v in nurses_per_facility:
         if k:
             data = {
