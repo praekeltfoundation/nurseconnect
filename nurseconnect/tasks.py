@@ -10,7 +10,8 @@ from celery.task import periodic_task
 from django.contrib.auth.models import User
 
 from nurseconnect.services import get_clinic_code
-from nurseconnect.settings import JEMBI_URL, JEMBI_USERNAME, JEMBI_PASSWORD
+from nurseconnect.settings import (
+    JEMBI_URL, JEMBI_USERNAME, JEMBI_PASSWORD, JEMBI)
 
 
 class JembiMetricsPoster(object):
@@ -34,9 +35,8 @@ def nurses_registered():
     data = {
         "dataValues": [
             {
-                "dataElement": "CSv1k6HyWaX",
+                "dataElement": JEMBI["num_nurses"]["dataElement"],
                 "period": "201601",
-                "orgUnit": "Fws0A9spb9F",
                 "value": str(num_nurses)
             },
         ]
@@ -61,7 +61,8 @@ def nurses_registered_per_clinic():
             data = {
                 "dataValues": [
                     {
-                        "dataElement": "BAolygGNLPC",
+                        "dataElement": JEMBI["nurses_per_facility"][
+                            "dataElement"],
                         "period": "201601",
                         "orgUnit": clinic[1],
                         "value": str(v)

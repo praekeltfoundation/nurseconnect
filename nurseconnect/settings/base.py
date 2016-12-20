@@ -325,3 +325,12 @@ LOGIN_URL = "auth_login"
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
 
 LOGIN_REDIRECT_URL = "/"
+
+JEMBI = {
+    "num_nurses": {
+        "dataElement": "bpowKfFev4E",
+    },
+    "nurses_per_facility": {
+        "dataElement": "BAolygGNLPC",
+    }
+}
