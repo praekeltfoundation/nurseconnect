@@ -9,6 +9,7 @@ from celery.task import periodic_task
 
 from django.contrib.auth.models import User
 
+from nurseconnect.services import get_clinic_code
 from nurseconnect.settings import JEMBI_URL, JEMBI_USERNAME, JEMBI_PASSWORD
 
 
@@ -54,14 +55,15 @@ def nurses_registered_per_clinic():
     metric_poster = JembiMetricsPoster()
 
     # nurses_per_facility = {"clinic_code": total} pairs
-    for k, v in nurses_per_facility:
+    for k, v in nurses_per_facility.items():
         if k:
+            clinic = get_clinic_code(k)
             data = {
                 "dataValues": [
                     {
-                        "dataElement": "CSv1k6HyWaX",
+                        "dataElement": "BAolygGNLPC",
                         "period": "201601",
-                        "orgUnit": k,
+                        "orgUnit": clinic[1],
                         "value": str(v)
                     },
                 ]
@@ -69,14 +71,8 @@ def nurses_registered_per_clinic():
             metric_poster.send_metric(data)
 
 
-def lookup_clinic_code_orgunit(clinic_code, data):
-    for clinic in data["rows"]:
-        if str(clinic_code) == clinic[0]:
-            return clinic[1]
-
-
 @periodic_task(
-    run_every=crontab(),
+    run_every=crontab(minute=0, hour=6),
     default_retry_delay=300,
     ignore_result=True
 )
