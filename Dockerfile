@@ -1,4 +1,4 @@
-FROM praekeltfoundation/django-bootstrap
+FROM praekeltfoundation/django-bootstrap:onbuild
 ENV DJANGO_SETTINGS_MODULE "nurseconnect.settings.production"
 RUN apt-get-install.sh libjpeg-dev
 RUN django-admin collectstatic --noinput
