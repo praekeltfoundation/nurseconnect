@@ -14,6 +14,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 #     },
 # }
 
+CLINIC_CODE_API = "http://example.com"
 JEMBI_URL = "http://example.com"
 JEMBI_USERNAME = "user"
 JEMBI_PASSWORD = "password"
