@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-import json
 import requests
 from collections import Counter
 
@@ -20,7 +19,7 @@ class JembiMetricsPoster(object):
     """
     def send_metric(self, data):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        response = requests.post(
+        requests.post(
             url=JEMBI_URL,
             headers=headers,
             json=data,

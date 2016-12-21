@@ -68,5 +68,3 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
             responses.calls[-2].response.json(),
             FACILITIES
         )
-
-
