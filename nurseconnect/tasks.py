@@ -19,11 +19,11 @@ class JembiMetricsPoster(object):
     Send metrics to Jembi
     """
     def send_metric(self, data):
-        headers = {"Content-type": "application/json"}
-        requests.post(
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        response = requests.post(
             url=JEMBI_URL,
             headers=headers,
-            data=json.dumps(data),
+            json=data,
             auth=(JEMBI_USERNAME, JEMBI_PASSWORD),
             verify=False
         )
