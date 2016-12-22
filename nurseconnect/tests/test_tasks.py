@@ -44,7 +44,7 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
         self.assertEqual(
             responses.calls[-1].request.body,
             '{"dataValues": [{"dataElement": '
-            '"bpowKfFev4E", "period": "201601", "value": "2"}]}'
+            '"uaQ8nZ2z8sl", "period": "201601", "value": "2"}]}'
         )
         self.assertEqual(responses.calls[-1].response.status_code, 200)
 

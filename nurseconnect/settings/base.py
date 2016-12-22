@@ -329,7 +329,7 @@ LOGIN_REDIRECT_URL = "/"
 
 JEMBI = {
     "num_nurses": {
-        "dataElement": "bpowKfFev4E",
+        "dataElement": "uaQ8nZ2z8sl",
     },
     "nurses_per_facility": {
         "dataElement": "BAolygGNLPC",
