@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import requests
+from datetime import datetime
 from collections import Counter
 
 from celery.schedules import crontab
@@ -35,7 +36,8 @@ def nurses_registered():
         "dataValues": [
             {
                 "dataElement": JEMBI["num_nurses"]["dataElement"],
-                "period": "201601",
+                "period": str(datetime.now().year) +
+                "%02d" % datetime.now().month,
                 "value": str(num_nurses)
             },
         ]
@@ -62,7 +64,8 @@ def nurses_registered_per_clinic():
                     {
                         "dataElement": JEMBI["nurses_per_facility"][
                             "dataElement"],
-                        "period": "201601",
+                        "period": str(datetime.now().year) +
+                        "%02d" % datetime.now().month,
                         "orgUnit": clinic[1],
                         "value": str(v)
                     },

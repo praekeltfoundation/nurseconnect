@@ -1,5 +1,7 @@
 import responses
 
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
@@ -41,10 +43,12 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
                       body="<Response [200]>", status=200,)
 
         tasks.nurses_registered()
+        date = str(datetime.now().year) + "%02d" % datetime.now().month
+
         self.assertEqual(
             responses.calls[-1].request.body,
             '{"dataValues": [{"dataElement": '
-            '"uaQ8nZ2z8sl", "period": "201601", "value": "2"}]}'
+            '"uaQ8nZ2z8sl", "period": "' + date + '", "value": "2"}]}'
         )
         self.assertEqual(responses.calls[-1].response.status_code, 200)
 
