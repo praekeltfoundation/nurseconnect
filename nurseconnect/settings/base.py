@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
 from os.path import abspath, dirname, join
 from os import environ
 from django.conf import global_settings, locale
@@ -327,3 +326,12 @@ LOGIN_URL = "auth_login"
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
 
 LOGIN_REDIRECT_URL = "/"
+
+JEMBI = {
+    "num_nurses": {
+        "dataElement": "uaQ8nZ2z8sl",
+    },
+    "nurses_per_facility": {
+        "dataElement": "BAolygGNLPC",
+    }
+}
