@@ -59,8 +59,8 @@ def nurses_registered_per_clinic():
 
     # nurses_per_facility = {"clinic_code": total} pairs
     for k, v in nurses_per_facility.items():
-        if k:
-            clinic = get_clinic_code(k)
+        clinic = get_clinic_code(k)
+        if clinic is not None:
             data = {
                 "dataValues": [
                     {
