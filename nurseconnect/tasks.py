@@ -49,9 +49,11 @@ def nurses_registered():
 def nurses_registered_per_clinic():
     """ Returns the number of nurses registered per facility. """
     users = User.objects.filter(is_staff=False)
-    clinic_codes = [
-        user.profile.for_nurseconnect.clinic_code for user in users
-    ]
+
+    clinic_codes = []
+    for user in users:
+        if hasattr(user.profile, "for_nurseconnect"):
+            clinic_codes.append(user.profile.for_nurseconnect.clinic_code)
     nurses_per_facility = Counter(clinic_codes)
     metric_poster = JembiMetricsPoster()
 
