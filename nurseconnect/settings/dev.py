@@ -14,10 +14,13 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 #     },
 # }
 
-CLINIC_CODE_API = "http://example.com"
-JEMBI_URL = "http://example.com"
-JEMBI_USERNAME = "user"
-JEMBI_PASSWORD = "password"
+
+CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+
+# JEMBI configuration
+JEMBI_URL = environ.get("JEMBI_URL")
+JEMBI_USERNAME = environ.get("JEMBI_USERNAME")
+JEMBI_PASSWORD = environ.get("JEMBI_PASSWORD")
 
 try:
     from .local import *  # noqa
