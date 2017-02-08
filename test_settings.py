@@ -10,7 +10,7 @@ DATABASES = {
 DEBUG = True
 CELERY_ALWAYS_EAGER = True
 
-CLINIC_CODE_API = "http://user:password@exmaple.com
+CLINIC_CODE_API = "http://user:password@exmaple.com"
 JEMBI_URL = "http://www.example.com"
 JEMBI_USERNAME = "username"
 JEMBI_PASSWORD = "password"
