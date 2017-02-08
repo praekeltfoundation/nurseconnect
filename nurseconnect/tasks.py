@@ -7,11 +7,10 @@ from collections import Counter
 from celery.schedules import crontab
 from celery.task import periodic_task
 
+from django.conf import settings
 from django.contrib.auth.models import User
 
 from nurseconnect.services import get_clinic_code
-from nurseconnect.settings import (
-    JEMBI_URL, JEMBI_USERNAME, JEMBI_PASSWORD, JEMBI)
 
 
 class JembiMetricsPoster(object):
@@ -21,10 +20,10 @@ class JembiMetricsPoster(object):
     def send_metric(self, data):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         requests.post(
-            url=JEMBI_URL,
+            url=settings.JEMBI_URL,
             headers=headers,
             json=data,
-            auth=(JEMBI_USERNAME, JEMBI_PASSWORD),
+            auth=(settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD),
             verify=False
         )
 
@@ -35,7 +34,7 @@ def nurses_registered():
     data = {
         "dataValues": [
             {
-                "dataElement": JEMBI["num_nurses"]["dataElement"],
+                "dataElement": settings.JEMBI["num_nurses"]["dataElement"],
                 "period":
                     str(datetime.now().year) + "%02d" % datetime.now().month,
                 "value": str(num_nurses)
@@ -64,7 +63,7 @@ def nurses_registered_per_clinic():
             data = {
                 "dataValues": [
                     {
-                        "dataElement": JEMBI["nurses_per_facility"][
+                        "dataElement": settings.JEMBI["nurses_per_facility"][
                             "dataElement"],
                         "period":
                             str(datetime.now().year) +

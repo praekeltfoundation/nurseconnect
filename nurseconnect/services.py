@@ -1,6 +1,6 @@
 import requests
 
-from nurseconnect import settings
+from django.conf import settings
 
 
 def get_clinic_code(clinic_code):
