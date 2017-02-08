@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 from os.path import abspath, dirname, join
 from os import environ
+import sys
 from django.conf import global_settings, locale
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url  # noqa
@@ -333,5 +334,32 @@ JEMBI = {
     },
     "nurses_per_facility": {
         "dataElement": "BAolygGNLPC",
+    }
+}
+
+LOGGING = {
+    "version": 1,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "WARN",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+            "stream": sys.stdout
+        },
+    },
+    "loggers": {
+        "nurseconnect.services": {
+            "level": "WARN",
+        },
+        "requests.packages.urllib3": {
+            "level": "WARN",
+            "formatter": "verbose",
+            "stream": sys.stdout
+        },
     }
 }

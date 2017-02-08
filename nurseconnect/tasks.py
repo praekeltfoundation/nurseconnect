@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import requests
+import logging
 from datetime import datetime
 from collections import Counter
 
@@ -12,6 +13,7 @@ from django.contrib.auth.models import User
 
 from nurseconnect.services import get_clinic_code
 
+logger = logging.getLogger("nurseconnect.services")
 
 class JembiMetricsPoster(object):
     """
@@ -19,13 +21,21 @@ class JembiMetricsPoster(object):
     """
     def send_metric(self, data):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        requests.post(
-            url=settings.JEMBI_URL,
-            headers=headers,
-            json=data,
-            auth=(settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD),
-            verify=False
-        )
+        if all([
+            settings.JEMBI_URL, settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD
+        ]):
+            requests.post(
+                url=settings.JEMBI_URL,
+                headers=headers,
+                json=data,
+                auth=(settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD),
+                verify=False
+            )
+        else:
+            logger.warn(
+                "The JEMBI_URL, JEMBI_PASSWORD and/or JEMBI_USERNAME environment "
+                "variables are not configured"
+            )
 
 
 def nurses_registered():
