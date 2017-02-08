@@ -15,6 +15,7 @@ from nurseconnect.services import get_clinic_code
 
 logger = logging.getLogger("nurseconnect.services")
 
+
 class JembiMetricsPoster(object):
     """
     Send metrics to Jembi
@@ -22,7 +23,8 @@ class JembiMetricsPoster(object):
     def send_metric(self, data):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         if all([
-            settings.JEMBI_URL, settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD
+            settings.JEMBI_URL, settings.JEMBI_USERNAME,
+            settings.JEMBI_PASSWORD
         ]):
             requests.post(
                 url=settings.JEMBI_URL,
@@ -33,8 +35,8 @@ class JembiMetricsPoster(object):
             )
         else:
             logger.warn(
-                "The JEMBI_URL, JEMBI_PASSWORD and/or JEMBI_USERNAME environment "
-                "variables are not configured"
+                "The JEMBI_URL, JEMBI_PASSWORD and/or JEMBI_USERNAME "
+                "environment variables are not configured"
             )
 
 
