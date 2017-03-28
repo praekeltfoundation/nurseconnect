@@ -2,7 +2,6 @@ import logging
 import requests
 
 from django.conf import settings
-from requests import RequestException
 
 logger = logging.getLogger("nurseconnect.services")
 
@@ -11,7 +10,7 @@ def get_clinic_code(clinic_code):
     url = settings.CLINIC_CODE_API
     try:
         response = requests.get(url)
-    except RequestException as e:
+    except requests.RequestException as e:
         logger.info("Error: {}".format(e))
         return None
 
