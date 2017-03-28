@@ -11,7 +11,7 @@ def get_clinic_code(clinic_code):
     try:
         response = requests.get(url)
     except requests.RequestException as e:
-        logger.info("Error: {}".format(e))
+        logger.error("Error: {}".format(e))
         return None
 
     if response.status_code == 200:
@@ -19,12 +19,12 @@ def get_clinic_code(clinic_code):
             data = response.json()
             logger.info("Obtained clinic code data from API")
         except ValueError as e:
-            logger.info("JSON Error: {}".format(e))
+            logger.error("JSON Error: {}".format(e))
 
         if data and ("rows" in data):
             for clinic in data["rows"]:
                 if clinic_code == clinic[0]:
                     return clinic
     else:
-        logger.info("Error: Status code {}".format(response.status_code))
+        logger.error("Error: Status code {}".format(response.status_code))
     return None
