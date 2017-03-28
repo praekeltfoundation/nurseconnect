@@ -25,4 +25,6 @@ def get_clinic_code(clinic_code):
             for clinic in data["rows"]:
                 if clinic_code == clinic[0]:
                     return clinic
+    else:
+        logger.info("Error: Status code {}".format(response.status_code))
     return None
