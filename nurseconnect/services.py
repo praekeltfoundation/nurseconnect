@@ -2,19 +2,28 @@ import logging
 import requests
 
 from django.conf import settings
+from requests import RequestException
 
 logger = logging.getLogger("nurseconnect.services")
 
 
 def get_clinic_code(clinic_code):
     url = settings.CLINIC_CODE_API
-    response = requests.get(url)
-    data = response.json()
-    logger.info("Obtained clinic code data from API")
+    try:
+        response = requests.get(url)
+    except RequestException as e:
+        logger.info("Error: {}".format(e))
+        return None
 
-    if data and ("rows" in data):
-        for clinic in data["rows"]:
-            if clinic_code == clinic[0]:
-                return clinic
+    if response.status_code == 200:
+        try:
+            data = response.json()
+            logger.info("Obtained clinic code data from API")
+        except ValueError as e:
+            logger.info("JSON Error: {}".format(e))
 
+        if data and ("rows" in data):
+            for clinic in data["rows"]:
+                if clinic_code == clinic[0]:
+                    return clinic
     return None
