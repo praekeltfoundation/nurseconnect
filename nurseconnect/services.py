@@ -20,6 +20,7 @@ def get_clinic_code(clinic_code):
             logger.info("Obtained clinic code data from API")
         except ValueError as e:
             logger.error("JSON Error: {}".format(e))
+            return None
 
         if data and ("rows" in data):
             for clinic in data["rows"]:
