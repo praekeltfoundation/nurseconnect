@@ -1,5 +1,6 @@
 from nurseconnect.admin import (
-    ArticlePageModelAdmin, YourWordsModelAdminGroup,)
+    ArticlePageModelAdmin,
+)
 from nurseconnect.admin import NurseConnectEndUsersModelAdmin
 
 from wagtailmodeladmin.options import wagtailmodeladmin_register
@@ -24,5 +25,4 @@ def wagtailmodeladmin_register_without_menu(wagtailmodeladmin_class):
 
 
 wagtailmodeladmin_register(ArticlePageModelAdmin)
-wagtailmodeladmin_register(YourWordsModelAdminGroup)
 wagtailmodeladmin_register_without_menu(NurseConnectEndUsersModelAdmin)
