@@ -84,14 +84,22 @@ class RegistrationMSISDNForm(forms.Form):
         label=_("Accept the Terms of Use")
     )
 
+    def clean_password(self):
+        if not self.cleaned_data.get("password", None):
+            raise forms.ValidationError()
+        return self.cleaned_data.get("password", None)
+
+    def clean_confirm_password(self):
+        if not self.cleaned_data.get("confirm_password", None):
+            raise forms.ValidationError()
+        return self.cleaned_data.get("confirm_password", None)
+
     def clean(self):
-        password = self.cleaned_data.get("password", None)
-        confirm_password = self.cleaned_data.get("confirm_password", None)
-        if (password and confirm_password and
-                (password == confirm_password)):
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError(_("Passwords do not match."))
+        password = self.cleaned_data.get("password")
+        confirm = self.cleaned_data.get("confirm_password")
+        if password != confirm:
+            raise forms.ValidationError(_("Passwords do not match"))
+        return self.cleaned_data
 
 
 class RegistrationSecurityQuestionsForm(forms.Form):
