@@ -95,9 +95,11 @@ class RegistrationMSISDNForm(forms.Form):
         return self.cleaned_data.get("confirm_password", None)
 
     def clean(self):
-        if self.cleaned_data.get("password") != \
-            self.cleaned_data.get("confirm_password"):
-                raise forms.ValidationError(_("Passwords do not match"))
+        password = self.cleaned_data.get("password")
+        confirm = self.cleaned_data.get("confirmed_password")
+        if password != confirm:
+            raise forms.ValidationError(_("Passwords do not match"))
+        return self.cleaned_data
 
 
 class RegistrationSecurityQuestionsForm(forms.Form):
