@@ -7,11 +7,16 @@ from collections import Counter
 
 from celery.schedules import crontab
 from celery.task import periodic_task
+from celery.signals import celeryd_init
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.management import call_command
 
 from nurseconnect.services import get_clinic_code
+
+from wagtail.wagtailsearch.backends.db import DBSearch
+from wagtail.wagtailsearch.backends import get_search_backend
 
 logger = logging.getLogger("nurseconnect.services")
 
@@ -96,3 +101,12 @@ def nurses_registered_per_clinic():
 def send_data():
     nurses_registered()
     nurses_registered_per_clinic()
+
+
+@celeryd_init.connect
+def ensure_search_index_updated(sender, instance, **kwargs):
+    '''
+    Run update_index when celery starts
+    '''
+    if not isinstance(get_search_backend(), DBSearch):
+        call_command('update_index')
