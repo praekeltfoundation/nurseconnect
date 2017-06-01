@@ -182,7 +182,7 @@ CELERYBEAT_SCHEDULE = {
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-LANGUAGE_CODE = "en-gb"
+LANGUAGE_CODE = "en"
 TIME_ZONE = "Africa/Johannesburg"
 USE_I18N = True
 USE_L10N = True
@@ -290,13 +290,6 @@ COMPRESS_PRECOMPILERS = [
 
 WAGTAIL_SITE_NAME = "base"
 
-# Use Elasticsearch as the search backend for extra performance and better
-# search results:
-# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
-# http://wagtail.readthedocs.org/en/latest/core_components/
-#     search/backends.html#elasticsearch-backend
-#
-
 SITE_NAME = environ.get("SITE_NAME", "nurseconnect")
 WAGTAIL_SITE_NAME = SITE_NAME
 
@@ -363,3 +356,33 @@ LOGGING = {
         },
     }
 }
+
+# Use Elasticsearch as the search backend for extra performance and better
+# search results:
+# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
+# http://wagtail.readthedocs.org/en/latest/core_components/
+#     search/backends.html#elasticsearch-backend
+#
+
+ES_HOST = environ.get('ES_HOST')
+ES_INDEX = environ.get('ES_INDEX')
+ES_VERSION = int(environ.get('ES_VERSION', 2))
+
+ES_BACKEND_V1 = 'molo.core.wagtailsearch.backends.elasticsearch'
+ES_BACKEND_V2 = 'molo.core.wagtailsearch.backends.elasticsearch2'
+
+if ES_VERSION == 2:
+    SELECTED_ES_BACKEND = ES_BACKEND_V2
+else:
+    SELECTED_ES_BACKEND = ES_BACKEND_V1
+
+if ES_HOST:
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': SELECTED_ES_BACKEND,
+            'URLS': [ES_HOST],
+            'INDEX':
+                ES_INDEX or
+                environ.get('MARATHON_APP_ID', 'nurse-mobi').replace('/', '')
+        },
+    }
