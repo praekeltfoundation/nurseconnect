@@ -44,7 +44,6 @@ class JembiMetricsPoster(object):
                 "The JEMBI_URL, JEMBI_PASSWORD and/or JEMBI_USERNAME "
                 "environment variables are not configured"
             )
-            return
 
 
 def nurses_registered():
