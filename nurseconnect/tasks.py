@@ -31,13 +31,14 @@ class JembiMetricsPoster(object):
             settings.JEMBI_URL, settings.JEMBI_USERNAME,
             settings.JEMBI_PASSWORD
         ]):
-            requests.post(
+            result = requests.post(
                 url=settings.JEMBI_URL,
                 headers=headers,
                 json=data,
                 auth=(settings.JEMBI_USERNAME, settings.JEMBI_PASSWORD),
                 verify=False
             )
+            result.raise_for_status()
         else:
             logger.warn(
                 "The JEMBI_URL, JEMBI_PASSWORD and/or JEMBI_USERNAME "
@@ -99,7 +100,6 @@ def nurses_registered_per_clinic():
     ignore_result=True
 )
 def send_data():
-    nurses_registered()
     nurses_registered_per_clinic()
 
 

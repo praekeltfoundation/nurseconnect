@@ -1,5 +1,5 @@
-pytest==2.9.2
-pytest-django==2.9.1
+pytest>=3.0,<4.0
+pytest-django
 pytest-cov
 pytest-xdist
 flake8
