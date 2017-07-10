@@ -100,7 +100,6 @@ def nurses_registered_per_clinic():
     ignore_result=True
 )
 def send_data():
-    nurses_registered()
     nurses_registered_per_clinic()
 
 
