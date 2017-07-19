@@ -1,8 +1,6 @@
 .ContentBody {
     $block: unquote("#{&}");
-
-    @include clearfix;
-
+        @include clearfix;
     &-secondaryNav {
         padding: scale(gamma);
         background-color: rgba($color-white, .5);

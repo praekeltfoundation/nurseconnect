@@ -42,9 +42,8 @@ html {
 body {
     background-color: $color-blue-tranquil;
     color: $color-blue-regal;
-
     @if $enhanced == true {
-        max-width: em(768);
+        max-width: em(360);
         margin: 0 auto;
     }
 }

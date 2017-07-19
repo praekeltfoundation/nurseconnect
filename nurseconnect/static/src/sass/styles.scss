@@ -4,7 +4,8 @@
 // Partials
 @import "partials/root";
 @import "partials/typography";
-// add new component partials here
+
+// New Component Partials:
 @import "partials/logo";
 @import "partials/breadcrumb";
 @import "partials/buttons";
@@ -24,8 +25,8 @@
 @import "partials/onoffswitch";
 @import "partials/auth";
 
-// Third-party magic goes here
+// Third-party
 
 
-// import utils last
+// Import utils
 @import "modules/utils";

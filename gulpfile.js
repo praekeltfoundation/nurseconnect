@@ -30,7 +30,7 @@ var sassConfig = {
     includePaths: [
         'node_modules/breakpoint-sass/stylesheets/'
     ].concat(bourbon),
-    // outputStyle: 'compressed'
+    outputStyle: 'compressed'
 };
 
 /* =================================== */

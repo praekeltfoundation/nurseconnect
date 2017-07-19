@@ -1,14 +1,5 @@
 /*! sanitize.css v4.1.0 | CC0 License | github.com/jonathantneal/sanitize.css */
 
-/* Display definitions
-   ========================================================================== */
-
-/**
- * Add the correct display in IE 9-.
- * 1. Add the correct display in Edge, IE, and Firefox.
- * 2. Add the correct display in IE.
- */
-
 article,
 aside,
 details,
@@ -21,13 +12,8 @@ menu,
 nav,
 section,
 summary {
-  /* 1 */
   display: block;
 }
-
-/**
- * Add the correct display in IE 9-.
- */
 
 audio,
 canvas,
@@ -36,217 +22,104 @@ video {
   display: inline-block;
 }
 
-/**
- * Add the correct display in iOS 4-7.
- */
-
 audio:not([controls]) {
   display: none;
   height: 0;
 }
-
-/**
- * Add the correct display in IE 10-.
- * 1. Add the correct display in IE.
- */
 
 template,
 [hidden] {
   display: none;
 }
 
-/* Elements of HTML (https://www.w3.org/TR/html5/semantics.html)
-   ========================================================================== */
-
-/**
- * 1. Remove repeating backgrounds in all browsers (opinionated).
- * 2. Add box sizing inheritence in all browsers (opinionated).
- */
-
 *,
 ::before,
 ::after {
   background-repeat: no-repeat;
-  /* 1 */
   -webkit-box-sizing: inherit;
      -moz-box-sizing: inherit;
           box-sizing: inherit;
-  /* 2 */
 }
-
-/**
- * 1. Add text decoration inheritance in all browsers (opinionated).
- * 2. Add vertical alignment inheritence in all browsers (opinionated).
- */
 
 ::before,
 ::after {
   text-decoration: inherit;
-  /* 1 */
   vertical-align: inherit;
-  /* 2 */
 }
-
-/**
- * 1. Add border box sizing in all browsers (opinionated).
- * 2. Add the default cursor in all browsers (opinionated).
- * 3. Add a flattened line height in all browsers (opinionated).
- * 4. Prevent font size adjustments after orientation changes in IE and iOS.
- */
 
 html {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-  /* 1 */
   cursor: default;
-  /* 2 */
   font-family: sans-serif;
-  /* 3 */
   line-height: 1.5;
-  /* 3 */
   -ms-text-size-adjust: 100%;
-  /* 4 */
   -webkit-text-size-adjust: 100%;
-  /* 5 */
 }
-
-/* Sections (https://www.w3.org/TR/html5/sections.html)
-   ========================================================================== */
-
-/**
- * Remove the margin in all browsers (opinionated).
- */
 
 body {
   margin: 0;
 }
-
-/**
- * Correct the font sizes and margins on `h1` elements within
- * `section` and `article` contexts in Chrome, Firefox, and Safari.
- */
 
 h1 {
   font-size: 2em;
   margin: .67em 0;
 }
 
-/* Grouping content (https://www.w3.org/TR/html5/grouping-content.html)
-   ========================================================================== */
-
-/**
- * 1. Correct font sizing inheritance and scaling in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
-
 code,
 kbd,
 pre,
 samp {
   font-family: monospace, monospace;
-  /* 1 */
   font-size: 1em;
-  /* 2 */
 }
-
-/**
- * 1. Correct the height in Firefox.
- * 2. Add visible overflow in Edge and IE.
- */
 
 hr {
   height: 0;
-  /* 1 */
   overflow: visible;
-  /* 2 */
 }
-
-/**
- * Remove the list style on navigation lists in all browsers (opinionated).
- */
 
 nav ol,
 nav ul {
   list-style: none;
 }
 
-/* Text-level semantics
-   ========================================================================== */
-
-/**
- * 1. Add a bordered underline effect in all browsers.
- * 2. Remove text decoration in Firefox 40+.
- */
-
 abbr[title] {
   border-bottom: 1px dotted;
-  /* 1 */
   text-decoration: none;
-  /* 2 */
 }
-
-/**
- * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
- */
 
 b,
 strong {
   font-weight: inherit;
 }
 
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
-
 b,
 strong {
   font-weight: bolder;
 }
 
-/**
- * Add the correct font style in Android 4.3-.
- */
-
 dfn {
   font-style: italic;
 }
-
-/**
- * Add the correct colors in IE 9-.
- */
 
 mark {
   background-color: #ffff00;
   color: #000000;
 }
 
-/**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
-
 progress {
   vertical-align: baseline;
 }
-
-/**
- * Correct the font size in all browsers.
- */
 
 small {
   font-size: 83.3333%;
 }
 
-/**
- * Change the positioning on superscript and subscript elements
- * in all browsers (opinionated).
- * 1. Correct the font size in all browsers.
- */
-
 sub,
 sup {
   font-size: 83.3333%;
-  /* 1 */
   line-height: 0;
   position: relative;
   vertical-align: baseline;
@@ -260,33 +133,17 @@ sup {
   top: -.5em;
 }
 
-/*
- * Remove the text shadow on text selections (opinionated).
- * 1. Restore the coloring undone by defining the text shadow (opinionated).
- */
-
 ::-moz-selection {
   background-color: #b3d4fc;
-  /* 1 */
   color: #000000;
-  /* 1 */
   text-shadow: none;
 }
 
 ::selection {
   background-color: #b3d4fc;
-  /* 1 */
   color: #000000;
-  /* 1 */
   text-shadow: none;
 }
-
-/* Embedded content (https://www.w3.org/TR/html5/embedded-content-0.html)
-   ========================================================================== */
-
-/*
- * Change the alignment on media elements in all browers (opinionated).
- */
 
 audio,
 canvas,
@@ -297,145 +154,68 @@ video {
   vertical-align: middle;
 }
 
-/**
- * Remove the border on images inside links in IE 10-.
- */
-
 img {
   border-style: none;
 }
-
-/**
- * Change the fill color to match the text color in all browsers (opinionated).
- */
 
 svg {
   fill: currentColor;
 }
 
-/**
- * Hide the overflow in IE.
- */
-
 svg:not(:root) {
   overflow: hidden;
 }
 
-/* Links (https://www.w3.org/TR/html5/links.html#links)
-   ========================================================================== */
-
-/**
- * 1. Remove the gray background on active links in IE 10.
- * 2. Remove the gaps in underlines in iOS 8+ and Safari 8+.
- */
-
 a {
   background-color: transparent;
-  /* 1 */
   -webkit-text-decoration-skip: objects;
-  /* 2 */
 }
-
-/**
- * Remove the outline when hovering in all browsers (opinionated).
- */
 
 a:hover {
   outline-width: 0;
 }
-
-/* Tabular data (https://www.w3.org/TR/html5/tabular-data.html)
-   ========================================================================== */
-
-/*
- * Remove border spacing in all browsers (opinionated).
- */
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* transform-style:  (https://www.w3.org/TR/html5/forms.html)
-   ========================================================================== */
-
-/**
- * 1. Remove the default styling in all browsers (opinionated).
- * 3. Remove the margin in Firefox and Safari.
- */
-
 button,
 input,
 select,
 textarea {
   background-color: transparent;
-  /* 1 */
   border-style: none;
-  /* 1 */
   color: inherit;
-  /* 1 */
   font-size: 1em;
-  /* 1 */
   margin: 0;
-  /* 3 */
 }
-
-/**
- * Correct the overflow in IE.
- * 1. Correct the overflow in Edge.
- */
 
 button,
 input {
-  /* 1 */
   overflow: visible;
 }
 
-/**
- * Remove the inheritance in Edge, Firefox, and IE.
- * 1. Remove the inheritance in Firefox.
- */
-
 button,
 select {
-  /* 1 */
   text-transform: none;
 }
-
-/**
- * 1. Prevent the WebKit bug where (2) destroys native `audio` and `video`
- *    controls in Android 4.
- * 2. Correct the inability to style clickable types in iOS and Safari.
- */
 
 button,
 html [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
-  /* 2 */
 }
-
-/**
- * Remove the inner border and padding in Firefox.
- */
 
 ::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
-/**
- * Correct the focus styles unset by the previous rule.
- */
-
 :-moz-focusring {
   outline: 1px dotted ButtonText;
 }
-
-/**
- * Correct the border, margin, and padding in all browsers.
- */
 
 fieldset {
   border: 1px solid #c0c0c0;
@@ -443,130 +223,59 @@ fieldset {
   padding: .35em .625em .75em;
 }
 
-/**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
- */
-
 legend {
   display: table;
-  /* 1 */
   max-width: 100%;
-  /* 1 */
   padding: 0;
-  /* 2 */
   white-space: normal;
-  /* 1 */
 }
-
-/**
- * 1. Remove the vertical scrollbar in IE.
- * 2. Change the resize direction on textareas in all browsers (opinionated).
- */
 
 textarea {
   overflow: auto;
-  /* 1 */
   resize: vertical;
-  /* 2 */
 }
-
-/**
- * Remove the padding in IE 10-.
- */
 
 [type="checkbox"],
 [type="radio"] {
   padding: 0;
 }
 
-/**
- * Correct the cursor style on increment and decrement buttons in Chrome.
- */
-
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
   height: auto;
 }
 
-/**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
- */
-
 [type="search"] {
   -webkit-appearance: textfield;
-  /* 1 */
   outline-offset: -2px;
-  /* 2 */
 }
-
-/**
- * Remove the inner padding and cancel buttons in Chrome and Safari for OS X.
- */
 
 ::-webkit-search-cancel-button,
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-/**
- * Correct the text style on placeholders in Chrome, Edge, and Safari.
- */
-
 ::-webkit-input-placeholder {
   color: inherit;
   opacity: .54;
 }
 
-/**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
- */
-
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
-  /* 1 */
   font: inherit;
-  /* 2 */
 }
-
-/* WAI-ARIA (https://www.w3.org/TR/html5/dom.html#wai-aria)
-   ========================================================================== */
-
-/**
- * Change the cursor on busy elements (opinionated).
- */
 
 [aria-busy="true"] {
   cursor: progress;
 }
 
-/*
- * Change the cursor on control elements (opinionated).
- */
-
 [aria-controls] {
   cursor: pointer;
 }
 
-/*
- * Change the cursor on disabled, not-editable, or otherwise
- * inoperable elements (opinionated).
- */
-
 [aria-disabled] {
   cursor: default;
 }
-
-/* User interaction (https://www.w3.org/TR/html5/editing.html)
-   ========================================================================== */
-
-/*
- * Remove the tapping delay on clickable elements (opinionated).
- * 1. Remove the tapping delay in IE 10.
- */
 
 a,
 area,
@@ -577,13 +286,8 @@ select,
 textarea,
 [tabindex] {
   -ms-touch-action: manipulation;
-  /* 1 */
   touch-action: manipulation;
 }
-
-/*
- * Change the display on visually hidden accessible elements (opinionated).
- */
 
 [hidden][aria-hidden="false"] {
   clip: rect(0, 0, 0, 0);
@@ -597,13 +301,13 @@ textarea,
 
 :root,
 html {
-  font-family: "light", Helvetica, Arial, sans-serif;
+  font-family: "light",Helvetica,Arial,sans-serif;
   font-size: 16px;
   line-height: 1.2em;
 }
 
 body {
-  background-color: #dae8eb;
+  background-color: #c0d6dd;
   color: #213d55;
 }
 
@@ -624,7 +328,6 @@ input {
   }
 
   main {
-    max-width: 320px;
     background-color: #dae8eb;
     margin: auto;
   }
@@ -652,7 +355,7 @@ input {
   padding-bottom: .75rem;
   padding-left: 8px;
   padding-left: .5rem;
-  background-color: #ffffff;
+  background-color: #fff;
   font-size: 12px;
   font-size: .75rem;
   list-style: none;
@@ -681,7 +384,7 @@ input {
   position: relative;
   padding: 16px;
   padding: 1rem;
-  border-top: 1px solid #ffffff;
+  border-top: 1px solid #fff;
   background-color: #dae8eb;
   color: #2d9ec5;
 }
@@ -698,7 +401,7 @@ input {
   margin-bottom: 16px;
   margin-bottom: 1rem;
   color: #2d9ec5;
-  font-family: "medium", Helvetica, Arial, sans-serif;
+  font-family: "medium",Helvetica,Arial,sans-serif;
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
@@ -718,7 +421,7 @@ input {
   -webkit-border-radius: 2rem;
      -moz-border-radius: 2rem;
           border-radius: 2rem;
-  color: #ffffff;
+  color: #fff;
   font-size: 12px;
   font-size: .75rem;
   text-align: center;
@@ -735,7 +438,7 @@ input {
 }
 
 .PillButton--orange {
-  background-color: #ff6655;
+  background-color: #f65;
 }
 
 .PillButton--orange:hover,
@@ -749,7 +452,7 @@ input {
 }
 
 .FormGroup--bordered {
-  border-top: 1px solid #ffffff;
+  border-top: 1px solid #fff;
 }
 
 .FormField {
@@ -782,7 +485,7 @@ input {
 }
 
 .FormField--bordered {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #fff;
 }
 
 .FormField-label {
@@ -807,15 +510,19 @@ input {
   color: #2d9ec5;
 }
 
-.FormField-input::-moz-placeholder {
-  color: #2d9ec5;
-}
-
 .FormField-input:-moz-placeholder {
   color: #2d9ec5;
 }
 
+.FormField-input::-moz-placeholder {
+  color: #2d9ec5;
+}
+
 .FormField-input:-ms-input-placeholder {
+  color: #2d9ec5;
+}
+
+.FormField-input::placeholder {
   color: #2d9ec5;
 }
 
@@ -826,7 +533,7 @@ input {
   min-height: 1.5rem;
   margin-top: 12px;
   margin-top: .75rem;
-  background: #ffffff;
+  background: #fff;
   color: #2d9ec5;
   font-size: 14px;
   font-weight: 100;
@@ -962,7 +669,7 @@ input {
   opacity: 0;
 }
 
-.Radio-input:checked + .Radio-label .Radio-radioBox .Radio-ticked {
+.Radio-input:checked+.Radio-label .Radio-radioBox .Radio-ticked {
   display: block;
   position: absolute;
   top: 0;
@@ -988,7 +695,7 @@ input {
   -webkit-border-radius: .25rem;
      -moz-border-radius: .25rem;
           border-radius: .25rem;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .Profile::after {
@@ -1070,7 +777,7 @@ input {
 .SelectBox-wrapper {
   display: block;
   width: 100%;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #fff;
   background: no-repeat 98.5% center;
   background: no-repeat right 8px center;
   background: no-repeat right .5rem center;
@@ -1101,7 +808,7 @@ input {
 }
 
 .ListView--menu {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .ListViewProfile {
@@ -1122,12 +829,12 @@ input {
   padding-bottom: 1rem;
   padding-left: 16px;
   padding-left: 1rem;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #fff;
 }
 
 .ListTitle-name {
   margin: 0;
-  color: #ff6655;
+  color: #f65;
   font-size: 12px;
   font-size: .75rem;
   text-transform: uppercase;
@@ -1143,18 +850,18 @@ input {
 
 .ListTitle--menu {
   padding-bottom: 0;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .ListTitle--highlight {
   background-color: #c0d6dd;
 }
 
-.ListItemWrapper + .ListItemWrapper {
-  border-top: 1px solid #ffffff;
+.ListItemWrapper+.ListItemWrapper {
+  border-top: 1px solid #fff;
 }
 
-.ListItemWrapper--menu + .ListItemWrapper--menu {
+.ListItemWrapper--menu+.ListItemWrapper--menu {
   border-top: 1px solid #dae8eb;
 }
 
@@ -1165,8 +872,8 @@ input {
   padding: 1rem;
 }
 
-.ListItem + .ListItem {
-  border-top: 1px solid #ffffff;
+.ListItem+.ListItem {
+  border-top: 1px solid #fff;
 }
 
 .ListItem--leftIcon {
@@ -1216,7 +923,7 @@ input {
   margin-bottom: 0;
   padding-right: 12px;
   padding-right: .75rem;
-  color: #ff6655;
+  color: #f65;
   font-size: 12px;
   font-size: .75rem;
   text-transform: uppercase;
@@ -1227,7 +934,7 @@ input {
   margin: 0;
   padding-right: 12px;
   padding-right: .75rem;
-  color: #ff6655;
+  color: #f65;
   font-size: 12px;
   font-size: .75rem;
   text-transform: uppercase;
@@ -1408,8 +1115,8 @@ input {
   margin-top: 1rem;
   margin-bottom: 16px;
   margin-bottom: 1rem;
-  color: #ff6655;
-  font-family: "medium", Helvetica, Arial, sans-serif;
+  color: #f65;
+  font-family: "medium",Helvetica,Arial,sans-serif;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1444,7 +1151,7 @@ input {
   -webkit-border-radius: 2rem 0 0 2rem;
      -moz-border-radius: 2rem 0 0 2rem;
           border-radius: 2rem 0 0 2rem;
-  background-color: #ffffff;
+  background-color: #fff;
   font-size: 16px;
   font-size: 1rem;
   line-height: 16px;
@@ -1475,7 +1182,7 @@ input {
 }
 
 .Quote {
-  color: #ff6655;
+  color: #f65;
 }
 
 .Footer {
@@ -1486,7 +1193,7 @@ input {
   padding-bottom: 16px;
   padding-bottom: 1rem;
   border-top: 1px solid #dae8eb;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .Footer-link {
@@ -1589,11 +1296,11 @@ input {
   background: #2d9ec5;
 }
 
-.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-inner {
+.OnOffSwitch-checkbox:checked+.OnOffSwitch-label .OnOffSwitch-inner {
   margin-left: 0;
 }
 
-.OnOffSwitch-checkbox:checked + .OnOffSwitch-label .OnOffSwitch-switch {
+.OnOffSwitch-checkbox:checked+.OnOffSwitch-label .OnOffSwitch-switch {
   right: 0;
 }
 

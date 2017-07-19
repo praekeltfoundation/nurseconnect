@@ -1,9 +1,6 @@
 'use strict';
-/**
-* DJANGO
-* Add additional banner image field - get field-tag into a variables as a cookie value?
-*
-*/
+
+
 (function() {
   //SET COOKIE
   function createCookie(name, value, days) {
