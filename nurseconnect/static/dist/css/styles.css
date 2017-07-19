@@ -638,7 +638,6 @@ input {
   margin-bottom: 24px;
   -webkit-background-size: 100% 100%;
      -moz-background-size: 100%;
-       -o-background-size: 100%;
           background-size: 100%;
 }
 
@@ -1077,7 +1076,6 @@ input {
   background: no-repeat right .5rem center;
   -webkit-background-size: 1rem 1rem;
      -moz-background-size: 1rem 1rem;
-       -o-background-size: 1rem 1rem;
           background-size: 1rem 1rem;
   color: #2d9ec5;
   overflow: hidden;
