@@ -2,7 +2,7 @@
     $block: unquote("#{&}");
 
     &-header {
-        padding: scale(gamma);
+        padding: scale(gamma) scale(gamma) 0 scale(gamma);
         background-color: $color-blue-spindle;
         border-bottom: $color-blue-tranquil;
     }
@@ -12,7 +12,6 @@
         max-width: 100%;
         height: auto;
         margin-right: auto;
-        margin-bottom: scale(beta);
         margin-left: auto;
 
         &--inline {

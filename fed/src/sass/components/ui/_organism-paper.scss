@@ -2,7 +2,7 @@
     $block: unquote("#{&}");
 
     &-header {
-        padding: scale(alpha);
+        padding: scale(alpha) scale(alpha) 0 scale(alpha);
         background-color: $color-blue-spindle;
         border-bottom: $color-blue-tranquil;
     }
