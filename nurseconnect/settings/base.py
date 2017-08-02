@@ -50,27 +50,29 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_extensions",
 
-    "taggit",
+    'taggit',
     "modelcluster",
 
-    "molo.core",
     "nurseconnect",
+    "molo.core",
+    'google_analytics',
 
-    "wagtail.wagtailcore",
-    "wagtail.wagtailadmin",
-    "wagtail.wagtaildocs",
-    "wagtail.wagtailsnippets",
-    "wagtail.wagtailusers",
-    "wagtail.wagtailsites",
-    "wagtail.wagtailimages",
-    "wagtail.wagtailembeds",
-    "wagtail.wagtailsearch",
-    "wagtail.wagtailredirects",
-    "wagtail.wagtailforms",
-    "wagtailmodeladmin",
-    "wagtailmedia",
-    "wagtail.contrib.settings",
-    "wagtailsurveys",
+    'wagtail.wagtailcore',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailforms',
+    'wagtailmedia',
+    'wagtail.contrib.settings',
+    'wagtail.contrib.modeladmin',
+    'wagtailsurveys',
+    'wagtail.contrib.wagtailsitemaps',
 
     "mptt",
     "molo.surveys",
@@ -79,11 +81,11 @@ INSTALLED_APPS = [
     "django_comments",
     "molo.commenting",
 
-    "raven.contrib.django.raven_compat",
-    "djcelery",
-
-    "django_cas_ng",
-    "compressor",
+    'raven.contrib.django.raven_compat',
+    'djcelery',
+    'django_cas_ng',
+    'compressor',
+    'el_pagination',
 
     # styleguide
     "styleguide",
@@ -123,6 +125,8 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
+ENV = 'dev'
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -136,6 +140,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "molo.core.context_processors.locale",
                 "wagtail.contrib.settings.context_processors.settings",
+                'nurseconnect.context_processors.compress_settings',
             ],
         },
     },
