@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.profiles.models import SecurityQuestion
+from molo.profiles.models import SecurityQuestion, SecurityQuestionIndexPage
 
 from nurseconnect import forms
 
@@ -91,12 +91,18 @@ class RegisterFormSecurityQuestionsTestCase(MoloTestCaseMixin, TestCase):
         self.user = User.objects.create_user(
             username="+27791234567",
             password="1234")
-        self.question = SecurityQuestion.objects.create(
+        self.security_index = SecurityQuestionIndexPage(
+            title='Security Questions',
+            slug='security_questions',
+        )
+        self.main.add_child(instance=self.security_index)
+        self.security_index.save()
+        self.question = SecurityQuestion(
             title="How old are you?",
             slug="how-old-are-you",
-            path="0002",
-            depth=1,
         )
+        self.security_index.add_child(instance=self.question)
+        self.question.save()
 
     def test_register_security_questions_correct(self):
         form_data = {
@@ -141,12 +147,17 @@ class PasswordRecoveryTestCase(MoloTestCaseMixin, TestCase):
             email="tester@example.com",
             password="tester")
 
-        self.question = SecurityQuestion.objects.create(
+        self.security_index = SecurityQuestionIndexPage(
+            title='Security Questions',
+            slug='security_questions',
+        )
+        self.main.add_child(instance=self.security_index)
+        self.security_index.save()
+        self.question = SecurityQuestion(
             title="How old are you?",
             slug="how-old-are-you",
-            path="0002",
-            depth=1,
         )
+        self.security_index.add_child(instance=self.question)
         self.question.save()
 
     def test_username_and_security_answer(self):
