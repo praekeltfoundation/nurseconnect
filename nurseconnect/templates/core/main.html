@@ -1,14 +1,12 @@
-{% extends "base.html" %}
-{% load static core_tags i18n competition_tag molo_survey_tags %}
-{% if user.is_authenticated %}
+  {% extends "base.html" %}
+{% load wagtailcore_tags static core_tags i18n competition_tag molo_survey_tags %}
   {% block hero %}
-  <div class="HeroTout">
-    <h1 class="HeroTout-headline">
-       {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
-    </h1>
-  </div>
+    <div class="HeroTout">
+      <h1 class="HeroTout-headline">
+         {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
+      </h1>
+    </div>
   {% endblock %}
-{% endif %}
 {% block content %}
   {% if user.is_authenticated %}
     {% topic_of_the_day %}

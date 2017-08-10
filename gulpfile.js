@@ -14,8 +14,11 @@ var plumber         = require('gulp-plumber');
 var runSequence     = require('run-sequence');
 var sass            = require('gulp-sass');
 var sassLint        = require('gulp-sass-lint');
+var sassGlob        = require('gulp-sass-glob');
 var watch           = require('gulp-watch');
 var bourbon         = require('bourbon').includePaths;
+var uglify          = require('gulp-uglify');
+var concat          = require('gulp-concat');
 
 /* =================================== */
 /* *** constants *** */
@@ -33,24 +36,36 @@ var sassConfig = {
     outputStyle: 'compressed'
 };
 
+
+/* =================================== */
+/* *** JS *** */
+gulp.task('scripts', function() {
+    return gulp.src(srcPath + '/js/**/*.js')
+        .pipe(concat('main.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(distPath + '/js'));
+});
+
+
 /* =================================== */
 /* *** SASS *** */
 
 gulp.task('styles', ['clean-css', 'lint-sass'], function () {
     return gulp.src(srcPath + '/sass/**/*.s+(a|c)ss')
     .pipe(plumber())
+    .pipe(sassGlob())
     .pipe(sass(sassConfig).on('error', sass.logError))
     .pipe(bless())
-    .pipe(autoprefixer({
+    .pipe(gulpif(production, autoprefixer({
         browsers: [
             'ie >= 8',
             'android >= 2.3',
             'iOS >= 6',
             '> 0%'
         ]
-    }))
+    })))
     .pipe(pixrem())
-    .pipe(gulpif(production, cssNano()))
+    .pipe(cssNano())
     .pipe(plumber.stop())
     .pipe(gulp.dest(distPath + '/css'))
     .pipe(browserSync.stream());
@@ -68,10 +83,17 @@ gulp.task('lint-sass', function() {
 });
 
 /* =================================== */
+/* *** Watch *** */
+gulp.task('watch', function() {
+    gulp.watch(srcPath + '/js/**/*.js', ['scripts']);
+    gulp.watch(srcPath + '/sass/**/*.s+(a|c)ss', ['styles']);
+});
+
+/* =================================== */
 /* *** generate iconset *** */
 
 gulp.task('clean-generated-icons', function() {
-    return del(srcPath + '/images/generated-icons');
+    return del(srcPath + '/img/generated-icons');
 });
 
 gulp.task('clean-icons', function() {
@@ -79,13 +101,13 @@ gulp.task('clean-icons', function() {
 });
 
 gulp.task('crush-svgs', ['clean-generated-icons'], function () {
-    return gulp.src(srcPath + '/images/svgs/*.svg')
+    return gulp.src(srcPath + '/img/svgs/*.svg')
         .pipe(svgmin())
-        .pipe(gulp.dest(srcPath + '/images/generated-icons'));
+        .pipe(gulp.dest(srcPath + '/img/generated-icons'));
 });
 
 gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
-    var icons = glob.sync(srcPath + '/images/generated-icons/*.*');
+    var icons = glob.sync(srcPath + '/img/generated-icons/*.*');
     var options = {
         dynamicColorOnly: true,
         colors: {
@@ -115,9 +137,8 @@ gulp.task('browser-sync', function() {
 });
 
 /* =================================== */
-/* *** sync browser *** */
-
+/* *** Default tasks *** */
 
 gulp.task('default', ['clean-css'], function() {
-    runSequence('styles', 'browser-sync');
+    runSequence('styles', 'scripts','icons');
 });

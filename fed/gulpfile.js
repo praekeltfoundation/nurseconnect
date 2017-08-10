@@ -143,5 +143,5 @@ gulp.task('browser-sync', function() {
 
 
 gulp.task('default', ['clean-css'], function() {
-    runSequence('styles', 'browser-sync');
+    runSequence('styles','browser-sync');
 });

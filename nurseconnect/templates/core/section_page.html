@@ -1,14 +1,11 @@
 {% extends "base.html" %}
-
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load comments mptt_tags molo_commenting_tags i18n %}
 {% load nurseconnect_tags %}
 
-
 {% block content %}
     {% load_child_sections_for_section self as sections %}
-
     {% for section in sections %}
         <section class="ContentList ContentList--bgTertiary">
             <header class="ContentList-header">
@@ -35,9 +32,7 @@
             </footer>
         </section>
     {% endfor %}
-
     {% load_child_articles_for_section self as articles %}
-
     <div class="ContentList-body">
         {% for article in articles %}
             <a href="{% pageurl article %}" class="Article-hitBox">
@@ -56,7 +51,6 @@
             </a>
         {% endfor %}
     </div>
-
     {% if articles %}
         <aside class="ContentBody-secondaryNav">
             <nav class="Pagination" role="navigation">

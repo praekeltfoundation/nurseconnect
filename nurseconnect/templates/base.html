@@ -1,4 +1,4 @@
-{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailcore_tags compress wagtailuserbar core_tags staticfiles i18n %}
 {% load wagtailsettings_tags wagtailimages_tags %}
 {% get_settings %}
 <!DOCTYPE html>
@@ -23,24 +23,23 @@
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <noscript>
-            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            {% compress css %}
+              <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
+            {% endcompress %}
             <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
-
         {% block extra_css %}
         {% endblock %}
-
         <script type="text/javascript">
             var CutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
             var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
             if (!CutsTheMustard || !ScreenLargeEnough) {
                 // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
             } else {
                 // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.enhanced.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
 
                 // Replace no-js class with js class
                 var RootElem = document.getElementsByTagName('html')[0];
@@ -97,29 +96,26 @@
         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
         <!-- End Google Tag Manager -->
         {% endif %}
-
         {% wagtailuserbar %}
-
         <main class="ContentBody" role="main">
+
             {% include "core/header.html" %}
 
             {% if user.is_authenticated %}
-                {% breadcrumbs %}
+              {% breadcrumbs %}
+              {% block hero %}{% endblock %}
+              {% bannerpages %}
+              {% block search %}
+                <div id="search" class="SearchBar--form">
+                  <h2 class="SearchBar__title">{% trans "What are you looking for?" %}</h2>
+                  <h3 class="SearchBar__subtitle">{% trans "Information at your fingertips" %}</h3>
+                  {% include "search/search_block.html" %}
+                </div>
+              {% endblock %}
             {% endif %}
-
-            {% block hero %}{% endblock %}
-            {% bannerpages %}
-            {% block search %}
-              <div id="search" class="SearchBar--form">
-                <h2 class="SearchBar__title">{% trans "What are you looking for?" %}</h2>
-                <h3 class="SearchBar__subtitle">{% trans "Information at your fingertips" %}</h3>
-                {% include "search/search_block.html" %}
-              </div>
-            {% endblock %}
-
+            
             {% block content %}
             {% endblock %}
-
             {% block extra_js %}
             {% endblock %}
             <div id="nav-enhanced" class="FancyNav">

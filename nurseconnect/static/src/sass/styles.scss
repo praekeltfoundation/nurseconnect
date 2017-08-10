@@ -1,4 +1,25 @@
-// Modules and Variables
+$enhanced: false;
+
+// SCSS Helpers and Utilities
+@import "helpers/vendor";
+@import "helpers/functions";
+@import "helpers/variables";
+@import "helpers/mixins";
+
+// Globals
+@import "globals/resets";
+@import "globals/globals";
+
+// Components
+@import "components/ui/*";
+
+// Utility Classes
+@import "helpers/utils";
+
+
+
+
+// Partials In Cascading order - Modules and Variables
 @import "partials/base";
 
 // Partials
@@ -24,9 +45,3 @@
 @import "partials/footer";
 @import "partials/onoffswitch";
 @import "partials/auth";
-
-// Third-party
-
-
-// Import utils
-@import "modules/utils";

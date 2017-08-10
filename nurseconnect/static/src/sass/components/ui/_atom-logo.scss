@@ -1,0 +1,11 @@
+.Logo {
+    $block: unquote("#{&}");
+
+    display: block;
+
+    &-graphic {
+        display: block;
+        max-width: rem(100);
+        margin: 0 auto;
+    }
+}
