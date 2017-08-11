@@ -108,8 +108,7 @@
 
               {% block search %}
                 <div id="search" class="SearchBar--form">
-                  <h2 class="SearchBar__title">{% trans "What are you looking for?" %}</h2>
-                  <h3 class="SearchBar__subtitle">{% trans "Information at your fingertips" %}</h3>
+                  {% include "patterns/basics/heading/search-cta.html" %}
                   {% include "search/search_block.html" %}
                 </div>
               {% endblock %}

@@ -1,15 +1,12 @@
 .Form {
     $block: unquote("#{&}");
-
     &--padded {
         padding: scale(gamma);
-
         #{$block}-actions {
             margin-left: 0;
             margin-right: 0;
         }
     }
-
     &-fieldGroup {
         @include clearfix;
         position: relative;
@@ -17,24 +14,20 @@
         margin: 0;
         padding: 0;
         border: 0;
-
         & + & {
             margin-top: scale(eta);
         }
     }
-
     &-groupStateToggle {
         position: absolute;
         top: 0;
         right: 0;
         color: $color-blue-pelorous;
         font-weight: 600;
-
         & + #{$block}-groupHeading {
             padding-right: scale(gamma);
         }
     }
-
     &-groupHeading {
         display: block;
         width: 100%;
@@ -44,14 +37,11 @@
         font-size: scale(gamma);
         font-weight: 400;
     }
-
     &-field {
         display: block;
-
         & + & {
             margin-top: scale(beta);
         }
-
         &--required {
             #{$block}-fieldLabel {
                 &:after {
@@ -64,7 +54,6 @@
                 }
             }
         }
-
         &--error {
             #{$block}-fieldLabel,
             #{$block}-input,
@@ -80,7 +69,6 @@
             }
         }
     }
-
     &-fieldLabel {
         display: block;
         margin-bottom: .5em;
@@ -89,7 +77,6 @@
         font-weight: 600;
         text-transform: uppercase;
     }
-
     &-input,
     &-textArea,
     &-selectBox {
@@ -100,21 +87,18 @@
         background-color: $color-white;
         color: $color-blue-regal;
         appearance: none;
-
+        outline: none;
         &[disabled],
         &[readonly] {
             background-color: shade($color-blue-spindle, 5%);
             cursor: not-allowed;
         }
     }
-
     &-textArea {
         height: 6rem;
     }
-
     &-choiceGroup {
         @include no-list;
-
         &Item {
             position: relative;
 
@@ -123,11 +107,9 @@
             }
         }
     }
-
     &-choiceLabel {
         display: block;
         cursor: pointer;
-
         &:before {
             display: inline-block;
             width: 2em;
@@ -140,21 +122,17 @@
             content: "";
             vertical-align: middle;
         }
-
-
         &--radio {
             &:before {
                 border-radius: 50%;
             }
         }
     }
-
     &-choiceInput {
         position: absolute;
         width: 0;
         height: 0;
         opacity: 0;
-
         &:checked {
             & + #{$block}-choiceLabel {
                 &:before {
@@ -162,7 +140,6 @@
                 }
             }
         }
-
         &[disabled],
         &[readonly] {
             & + #{$block}-choiceLabel {
@@ -175,14 +152,12 @@
             }
         }
     }
-
     &-selectBox {
         display: inline-block;
         float: left;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-
         &Indicator {
             display: inline-block;
             margin-left: -2em;
@@ -196,28 +171,22 @@
             }
         }
     }
-
     &-message {
         display: block;
         margin-top: scale(alpha);
-
         &--centered {
             text-align: center;
         }
-
         &--error {
             color: $color-orange-bittersweet;
         }
-
         .errorlist { // Molo-generated markup, hence deviation from BEM.
             @include no-list;
         }
     }
-
     &-requiredExample {
         color: $color-orange-bittersweet;
     }
-
     &-actions {
         margin: scale(gamma);
     }

@@ -1,21 +1,17 @@
 .Form {
     $block: unquote("#{&}");
-
     &--padded {
         padding: scale(alpha);
     }
-
     &-fieldGroup {
         display: block;
         margin: 0;
         padding: 0;
         border: 0;
-
         & + & {
             margin-top: scale(gamma);
         }
     }
-
     &-groupHeading {
         display: block;
         width: 100%;
@@ -25,14 +21,11 @@
         font-size: scale(beta);
         font-weight: 400;
     }
-
     &-field {
         display: block;
-
         & + & {
             margin-top: scale(beta);
         }
-
         &--required {
             #{$block}-fieldLabel {
                 &:after {
@@ -45,14 +38,12 @@
                 }
             }
         }
-
         &--error {
             #{$block}-fieldLabel,
             #{$block}-input,
             #{$block}-message--error {
                 color: $color-orange-bittersweet;
             }
-
             #{$block}-input,
             #{$block}-textArea,
             #{$block}-selectBox {
@@ -61,7 +52,6 @@
             }
         }
     }
-
     &-fieldLabel {
         display: block;
         margin-bottom: 3px;
@@ -70,7 +60,6 @@
         font-weight: 600;
         text-transform: uppercase;
     }
-
     &-input,
     &-textArea {
         display: block;
@@ -79,55 +68,45 @@
         border: 0;
         background-color: $color-white;
         color: $color-blue-regal;
-
+        outline: none;
         &[disabled],
         &[readonly] {
             background-color: shade($color-blue-spindle, 5%);
             cursor: not-allowed;
         }
     }
-
     &-textArea {
         height: 80px;
     }
-
     &-choiceGroup {
         @include no-list;
-
         &Item {
             & + & {
                 margin-top: scale(alpha);
             }
         }
     }
-
     &-choiceLabel {
         display: inline-block;
         vertical-align: middle;
     }
-
     &-choiceInput {
         display: inline-block;
         vertical-align: middle;
     }
-
     &-message {
         display: block;
         margin-top: scale(alpha);
-
         &--error {
             color: $color-orange-bittersweet;
         }
-
         &--centered {
             text-align: center;
         }
-
         .errorlist {
             @include no-list;
         }
     }
-
     &-actions {
         margin: scale(alpha);
     }

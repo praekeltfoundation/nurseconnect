@@ -5,6 +5,7 @@
       background-color: $color-blue-spindle;
     }
     &__title {
+        font-weight: normal;
         margin: 0;
         padding: 0 scale(alpha);
     }
@@ -22,6 +23,7 @@
         display: block;
         float: left;
         border: 0;
+        outline: none;
     }
     &-input {
         padding: scale(alpha) 5%;
