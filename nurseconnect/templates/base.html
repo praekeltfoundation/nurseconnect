@@ -23,9 +23,17 @@
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+<<<<<<< HEAD
         <noscript>
             {% compress css %}
               <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
+=======
+
+
+        <noscript>
+            {% compress css %}
+              <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+>>>>>>> feature/update-to-latest-molo-and-profiles
             {% endcompress %}
             <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
