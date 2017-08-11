@@ -105,6 +105,7 @@
               {% breadcrumbs %}
               {% block hero %}{% endblock %}
               {% bannerpages %}
+
               {% block search %}
                 <div id="search" class="SearchBar--form">
                   <h2 class="SearchBar__title">{% trans "What are you looking for?" %}</h2>
@@ -112,8 +113,9 @@
                   {% include "search/search_block.html" %}
                 </div>
               {% endblock %}
+              
             {% endif %}
-            
+
             {% block content %}
             {% endblock %}
             {% block extra_js %}

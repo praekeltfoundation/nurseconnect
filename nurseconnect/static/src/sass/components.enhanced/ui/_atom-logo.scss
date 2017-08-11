@@ -1,5 +1,4 @@
 .Logo {
-
     &--auth {
         display: inline-block;
         width: 60%;
@@ -12,9 +11,7 @@
 
 .Logo {
     $block: unquote("#{&}");
-
     display: block;
-
     &-graphic {
         max-width: rem(125);
     }

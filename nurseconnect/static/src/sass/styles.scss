@@ -17,14 +17,10 @@ $enhanced: false;
 @import "helpers/utils";
 
 
-
+//WHICH SCENARIOS ARE THESE USED ON
 
 // Partials In Cascading order - Modules and Variables
 @import "partials/base";
-
-// Partials
-@import "partials/root";
-@import "partials/typography";
 
 // New Component Partials:
 @import "partials/logo";

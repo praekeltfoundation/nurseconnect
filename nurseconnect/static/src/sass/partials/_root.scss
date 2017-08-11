@@ -19,15 +19,15 @@ html {
   line-height: $base-line-height;
 }
 body {
-  //background-color: $color-blue-tranquil;
-  background-color: $color-blue-spindle;
+  background-color: $color-blue-tranquil;
+  //background-color: $color-blue-spindle;
   color: $color-blue-regal;
 }
 
-// img {
-//  display: block;
-//  max-width: 100%;
-// }
+img {
+   display: block;
+   max-width: 100%;
+}
 .clear {clear: both;}
 
 button,a,input {
@@ -35,9 +35,11 @@ button,a,input {
   cursor: pointer;
 }
 @media screen and (min-width: 760px) {
-  body {background-color: #efefef;}
+  body {
+    background-color: #efefef;
+  }
   main {
-    //max-width: 320px;
+    max-width: 320px;
     background-color: $color-blue-tranquil;
     margin: auto;
   }
