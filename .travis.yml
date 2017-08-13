@@ -7,6 +7,7 @@ cache:
     - $HOME/.cache/pip
 install:
   - pip install --upgrade setuptools
+  - pip install --upgrade responses
   - pip install html5lib==0.9999999
   - pip install --upgrade pip --cache-dir $HOME/.cache/pip
   - pip install coveralls --cache-dir $HOME/.cache/pip
