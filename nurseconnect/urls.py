@@ -139,6 +139,12 @@ urlpatterns += patterns(
 
     url(r"^sections/$", include(wagtail_urls)),
     url(r"^comments/", include("molo.commenting.urls")),
+    url(r'^surveys/',
+        include('molo.surveys.urls',
+                namespace='molo.surveys',
+                app_name='molo.surveys')),
+
+    url(r'', include('django_comments.urls')),
     url(r"", include("molo.core.urls")),
     url(r"", include(wagtail_urls)),
 )

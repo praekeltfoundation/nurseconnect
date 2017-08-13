@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
-from wagtailmodeladmin.views import IndexView
+from wagtail.contrib.modeladmin.views import IndexView
 
 # Custom - specific to NurseConnect. Adpated from the one
 # provided by molo.profiles
