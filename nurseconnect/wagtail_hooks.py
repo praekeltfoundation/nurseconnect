@@ -35,6 +35,8 @@ class ArticlePageModelAdmin(ModelAdmin):
             feature_as_topic_of_the_day=True
         ).order_by("-promote_date")
         return queryset
+
+
 modeladmin_register(ArticlePageModelAdmin)
 wagtailmodeladmin_register_without_menu(NurseConnectEndUsersModelAdmin)
 
