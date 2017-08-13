@@ -109,7 +109,6 @@ MIDDLEWARE_CLASSES = [
 
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
-    "wagtailmodeladmin.middleware.ModelAdminMiddleware",
 
     "molo.core.middleware.AdminLocaleMiddleware",
     "molo.core.middleware.NoScriptGASessionMiddleware",
