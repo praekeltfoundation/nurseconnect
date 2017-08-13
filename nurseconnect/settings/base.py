@@ -110,8 +110,10 @@ MIDDLEWARE_CLASSES = [
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
 
-    "molo.core.middleware.AdminLocaleMiddleware",
-    "molo.core.middleware.NoScriptGASessionMiddleware",
+    'molo.core.middleware.AdminLocaleMiddleware',
+    'molo.core.middleware.NoScriptGASessionMiddleware',
+    'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
