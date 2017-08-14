@@ -42,11 +42,15 @@ html {
 body {
     background-color: $color-blue-tranquil;
     color: $color-blue-regal;
-    @if $enhanced == true {
-        max-width: em(360);
-        margin: 0 auto;
+    @media screen and (min-width: 640px) {
+      @if $enhanced == true {
+          max-width: 360px;
+          //max-width: em(360);
+          margin: 0 auto;
+      }
     }
 }
+
 
 @if $enhanced == true {
     *,
