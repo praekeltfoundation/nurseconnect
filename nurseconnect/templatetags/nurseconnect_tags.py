@@ -3,6 +3,7 @@ import calendar
 from django.template import Library
 
 from molo.core.templatetags.core_tags import load_sections
+from molo.profiles.models import UserProfilesSettings
 
 register = Library()
 
@@ -12,11 +13,7 @@ def footer_link(context, id):
     request = context["request"]
     locale = context.get("locale_code")
 
-    if request.site:
-        pages = request.site.root_page.specific.footers()
-        terms = pages.filter(title="Terms").first()
-    else:
-        terms = []
+    terms = UserProfilesSettings.for_site(request.site).terms_and_conditions
 
     return {
         "id": id,

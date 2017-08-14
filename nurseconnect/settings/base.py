@@ -56,6 +56,11 @@ INSTALLED_APPS = [
     "nurseconnect",
     "molo.core",
     'google_analytics',
+    "molo.surveys",
+    "molo.profiles",
+    "molo.yourwords",
+    "django_comments",
+    "molo.commenting",
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -75,12 +80,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.wagtailsitemaps',
 
     "mptt",
-    "molo.surveys",
-    "molo.profiles",
-    "molo.yourwords",
-    "django_comments",
-    "molo.commenting",
-
     'raven.contrib.django.raven_compat',
     'djcelery',
     'django_cas_ng',
@@ -107,18 +106,16 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
+
+    'molo.core.middleware.AdminLocaleMiddleware',
+    'molo.core.middleware.NoScriptGASessionMiddleware',
+    'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
-    "wagtailmodeladmin.middleware.ModelAdminMiddleware",
-
-    "molo.core.middleware.AdminLocaleMiddleware",
-    "molo.core.middleware.NoScriptGASessionMiddleware",
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
-)
-
+GOOGLE_ANALYTICS = {}
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
@@ -138,8 +135,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "molo.core.context_processors.locale",
                 "wagtail.contrib.settings.context_processors.settings",
+                "molo.core.context_processors.locale",
                 'nurseconnect.context_processors.compress_settings',
             ],
         },
