@@ -135,7 +135,7 @@ class RegistrationMSISDNView(FormView):
                 "username",
                 ValidationError(_("Username already exists."))
             )
-            return self.render_to_response({'form': form, 'request': self.request})
+            return self.render_to_response({'form': form})
         user = User.objects.create_user(
             username=username,
             password=password
