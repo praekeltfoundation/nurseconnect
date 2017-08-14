@@ -125,9 +125,9 @@ class RegistrationMSISDNView(FormView):
     template_name = "registration/register_msisdn.html"
 
     def form_valid(self, form):
+        print self.get_context_data()
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
-
         if User.objects.filter(
             username__iexact=username
         ).exists():
@@ -135,8 +135,7 @@ class RegistrationMSISDNView(FormView):
                 "username",
                 ValidationError(_("Username already exists."))
             )
-            return self.render_to_response({'form': form})
-
+            return self.render_to_response({'form': form, 'request': self.request})
         user = User.objects.create_user(
             username=username,
             password=password
