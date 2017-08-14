@@ -12,30 +12,26 @@ from nurseconnect import tasks
 
 
 class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.user1 = User.objects.create_user(
-            username="user1",
-            password="user1"
-        )
-        cls.user1.save()
-        cls.user1.profile.save()
-        cls.user1.profile.for_nurseconnect.clinic_code = "123456"
-        cls.user1.profile.for_nurseconnect.save()
-
-        cls.user2 = User.objects.create_user(
-            username="user2",
-            password="user2"
-        )
-        cls.user2.save()
-        cls.user2.profile.save()
-        cls.user2.profile.for_nurseconnect.clinic_code = "234567"
-        cls.user2.profile.for_nurseconnect.save()
-
     def setUp(self):
         self.client = Client()
         self.mk_main()
+        self.user1 = User.objects.create_user(
+            username="user1",
+            password="user1"
+        )
+        self.user1.save()
+        self.user1.profile.save()
+        self.user1.profile.for_nurseconnect.clinic_code = "123456"
+        self.user1.profile.for_nurseconnect.save()
+
+        self.user2 = User.objects.create_user(
+            username="user2",
+            password="user2"
+        )
+        self.user2.save()
+        self.user2.profile.save()
+        self.user2.profile.for_nurseconnect.clinic_code = "234567"
+        self.user2.profile.for_nurseconnect.save()
 
     @responses.activate
     def test_num_nurses_sent_successfully(self):
