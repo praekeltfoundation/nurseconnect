@@ -93,7 +93,7 @@ gulp.task('watch', function() {
 /* *** generate iconset *** */
 
 gulp.task('clean-generated-icons', function() {
-    return del(srcPath + '/img/generated-icons');
+    return del(srcPath + '/images/generated-icons');
 });
 
 gulp.task('clean-icons', function() {
@@ -101,13 +101,13 @@ gulp.task('clean-icons', function() {
 });
 
 gulp.task('crush-svgs', ['clean-generated-icons'], function () {
-    return gulp.src(srcPath + '/img/svgs/*.svg')
+    return gulp.src(srcPath + '/images/svgs/*.svg')
         .pipe(svgmin())
-        .pipe(gulp.dest(srcPath + '/img/generated-icons'));
+        .pipe(gulp.dest(srcPath + '/images/generated-icons'));
 });
 
 gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
-    var icons = glob.sync(srcPath + '/img/generated-icons/*.*');
+    var icons = glob.sync(srcPath + '/images/generated-icons/*.*');
     var options = {
         dynamicColorOnly: true,
         colors: {
