@@ -115,7 +115,7 @@ MIDDLEWARE_CLASSES = [
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
 ]
 
-#GOOGLE_ANALYTICS = {}
+GOOGLE_ANALYTICS = {}
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
