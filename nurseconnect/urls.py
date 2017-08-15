@@ -2,7 +2,6 @@ import os
 
 from django.conf import settings
 from django.conf.urls import patterns, include, url
-from django.core.urlresolvers import RegexURLResolver
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
@@ -16,11 +15,6 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from nurseconnect import forms, views
 from nurseconnect.forms import NurseconnectAuthenticationForm
-
-def lookup_root(urlconf):
-    urlconf_module, app_name, namespace = include(urlconf)
-    resolver = RegexURLResolver('^', urlconf_module, app_name=app_name, namespace=namespace)
-    return resolver.resolve('').func
 
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:  # pragma: no cover
