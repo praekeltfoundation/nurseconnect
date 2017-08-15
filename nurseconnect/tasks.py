@@ -15,7 +15,7 @@ from django.core.management import call_command
 
 from nurseconnect.services import get_clinic_code
 
-from wagtail.wagtailsearch.backends.db import DBSearch
+from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
 from wagtail.wagtailsearch.backends import get_search_backend
 
 logger = logging.getLogger("nurseconnect.services")
@@ -108,5 +108,5 @@ def ensure_search_index_updated(sender, instance, **kwargs):
     '''
     Run update_index when celery starts
     '''
-    if not isinstance(get_search_backend(), DBSearch):
-        call_command('update_index')
+    if not isinstance(get_search_backend(), DatabaseSearchBackend):
+        call_command('refresh_index')

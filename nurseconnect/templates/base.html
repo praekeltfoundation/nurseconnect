@@ -1,4 +1,4 @@
-{% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
+{% load wagtailcore_tags compress wagtailuserbar core_tags staticfiles i18n %}
 {% load wagtailsettings_tags wagtailimages_tags %}
 {% get_settings %}
 
@@ -26,8 +26,11 @@
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+
         <noscript>
-            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            {% compress css %}
+              <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            {% endcompress %}
             <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
 

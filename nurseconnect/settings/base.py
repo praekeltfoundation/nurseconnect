@@ -50,40 +50,41 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django_extensions",
 
-    "taggit",
+    'taggit',
     "modelcluster",
 
-    "molo.core",
     "nurseconnect",
-
-    "wagtail.wagtailcore",
-    "wagtail.wagtailadmin",
-    "wagtail.wagtaildocs",
-    "wagtail.wagtailsnippets",
-    "wagtail.wagtailusers",
-    "wagtail.wagtailsites",
-    "wagtail.wagtailimages",
-    "wagtail.wagtailembeds",
-    "wagtail.wagtailsearch",
-    "wagtail.wagtailredirects",
-    "wagtail.wagtailforms",
-    "wagtailmodeladmin",
-    "wagtailmedia",
-    "wagtail.contrib.settings",
-    "wagtailsurveys",
-
-    "mptt",
+    "molo.core",
+    'google_analytics',
     "molo.surveys",
     "molo.profiles",
     "molo.yourwords",
     "django_comments",
     "molo.commenting",
 
-    "raven.contrib.django.raven_compat",
-    "djcelery",
+    'wagtail.wagtailcore',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailforms',
+    'wagtailmedia',
+    'wagtail.contrib.settings',
+    'wagtail.contrib.modeladmin',
+    'wagtailsurveys',
+    'wagtail.contrib.wagtailsitemaps',
 
-    "django_cas_ng",
-    "compressor",
+    "mptt",
+    'raven.contrib.django.raven_compat',
+    'djcelery',
+    'django_cas_ng',
+    'compressor',
+    'el_pagination',
 
     # styleguide
     "styleguide",
@@ -105,23 +106,23 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
+
+    'molo.core.middleware.AdminLocaleMiddleware',
+    'molo.core.middleware.NoScriptGASessionMiddleware',
+    'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
-    "wagtailmodeladmin.middleware.ModelAdminMiddleware",
-
-    "molo.core.middleware.AdminLocaleMiddleware",
-    "molo.core.middleware.NoScriptGASessionMiddleware",
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
-)
-
+GOOGLE_ANALYTICS = {}
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
+
+ENV = 'dev'
 
 TEMPLATES = [
     {
@@ -134,8 +135,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "molo.core.context_processors.locale",
                 "wagtail.contrib.settings.context_processors.settings",
+                "molo.core.context_processors.locale",
+                'nurseconnect.context_processors.compress_settings',
             ],
         },
     },

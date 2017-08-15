@@ -14,10 +14,10 @@ from django.test import TestCase
 from django.test.client import Client
 
 
-from molo.core.models import SiteLanguage
+from molo.core.models import SiteLanguageRelation, Languages, Main
 from molo.core.tests.base import MoloTestCaseMixin
-from molo.profiles.models import SecurityQuestion
-from wagtail.contrib.settings.context_processors import SettingsProxy
+from molo.profiles.models import (
+    SecurityQuestion, UserProfilesSettings, SecurityQuestionIndexPage)
 
 from nurseconnect import forms
 
@@ -32,22 +32,33 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
         self.mk_main()
         self.client = Client()
 
-        settings = SettingsProxy(self.site)
-        self.profile_settings = settings["profiles"]["UserProfilesSettings"]
+        self.main = Main.objects.all().first()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+
+        self.profile_settings = UserProfilesSettings.for_site(
+            self.main.get_site())
         self.profile_settings.show_security_question_fields = True
         self.profile_settings.security_questions_required = True
         self.profile_settings.save()
 
         # security question
-        # Creates Main language
-        SiteLanguage.objects.create(locale='en')
+        self.security_index = SecurityQuestionIndexPage(
+            title='Security Questions',
+            slug='security_questions',
+        )
+        self.main.add_child(instance=self.security_index)
+        self.security_index.save()
         # create a few security questions
         self.q1 = SecurityQuestion(
             title="How old are you?",
             slug="how-old-are-you",
-            path="0002",
-            depth=1,
         )
+        self.security_index.add_child(instance=self.q1)
         self.q1.save()
 
     @mock.patch("nurseconnect.views.get_clinic_code")

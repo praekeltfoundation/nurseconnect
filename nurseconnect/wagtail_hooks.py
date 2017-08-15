@@ -1,10 +1,9 @@
-from nurseconnect.admin import (
-    ArticlePageModelAdmin,
-)
 from nurseconnect.admin import NurseConnectEndUsersModelAdmin
 
-from wagtailmodeladmin.options import wagtailmodeladmin_register
 from wagtail.wagtailcore import hooks
+from wagtail.contrib.modeladmin.options import modeladmin_register
+from molo.core.models import ArticlePage
+from wagtail.contrib.modeladmin.options import ModelAdmin
 
 
 def wagtailmodeladmin_register_without_menu(wagtailmodeladmin_class):
@@ -24,5 +23,25 @@ def wagtailmodeladmin_register_without_menu(wagtailmodeladmin_class):
         return instance.get_admin_urls_for_registration()
 
 
-wagtailmodeladmin_register(ArticlePageModelAdmin)
+class ArticlePageModelAdmin(ModelAdmin):
+    model = ArticlePage
+    menu_label = "Topic of the Day"
+    list_display = ("title", "promote_date", "demote_date")
+
+    def get_queryset(self, request):
+        # Return only Topic of the day articles
+        queryset = ArticlePage.objects.filter(
+            feature_as_topic_of_the_day=True
+        ).order_by("-promote_date")
+        return queryset
+
+
+modeladmin_register(ArticlePageModelAdmin)
 wagtailmodeladmin_register_without_menu(NurseConnectEndUsersModelAdmin)
+
+
+@hooks.register('construct_main_menu')
+def hide_reaction_questions_menu_item(request, menu_items):
+    menu_items[:] = [
+        item for item in menu_items if item.name not in
+        'reaction-question-summary']
