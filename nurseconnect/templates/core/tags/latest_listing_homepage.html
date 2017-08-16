@@ -1,24 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% load comments mptt_tags molo_commenting_tags %}
 {% if articles %}
-    <section class="ContentList">
-        <div class="ContentList-body">
-            <header class="ContentList-header">
-                <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
-            </header>
-            {% for article in articles %}
-                {% if forloop.counter <= 3 %}
-                    <article class="Article">
-                        <a href="{% pageurl article %}" class="Article-hitBox">
-                            {% if article.image %}
-                                {% image article.image width-85 class="Article-image Article-image--aside" %}
-                            {% endif %}
-                            <h2 class="Article-headline">{{ article.title }}</h2>
-                            <p class="Article-strapline">{{ article.subtitle }}</p>
-                        </a>
-                    </article>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </section>
+  <section class="ContentList">
+    <div class="ContentList-body">
+      <header class="ContentList-header">
+        <h1 class="ContentList-categoryLabel">{% trans "Latest Articles" %}</h1>
+      </header>
+      {% for article in articles %}
+        {% if forloop.counter <= 3 %}
+          <article class="Article">
+            <a href="{% pageurl article %}" class="Article-hitBox">
+              {% if article.image %}
+                  {% image article.image width-85 class="Article-image Article-image--aside" %}
+              {% endif %}
+              <h2 class="Article-headline">{{ article.title }}</h2>
+              <p class="Article-strapline">{{ article.subtitle }}</p>
+            </a>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
 {% endif %}

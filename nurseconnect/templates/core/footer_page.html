@@ -1,35 +1,33 @@
 {% extends "base.html" %}
-
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% block content %}
-    <section class="Paper">
-        <article class="Paper-body">
-            <header class="Paper-header">
-                <h1 class="Paper-headline">{{ self.title }}</h1>
-                <p class="Paper-lead">{{ self.subtitle }}</p>
-                {% if self.image %}
-                    {% image self.image width-240 class="Paper-graphic" %}
+  <section class="Paper">
+    <article class="Paper-body">
+        <header class="Paper-header">
+            <h1 class="Paper-headline">{{ self.title }}</h1>
+            <p class="Paper-lead">{{ self.subtitle }}</p>
+            {% if self.image %}
+                {% image self.image width-240 class="Paper-graphic" %}
+            {% endif %}
+        </header>
+        <div class="Paper-copy">
+            {% for block in self.body %}
+                {% if block.block_type == "heading" %}
+                    <h2>{{ block.value }}</h2>
+                {% elif block.block_type == "image" %}
+                    {% image block.value width-240 %}
+                {% elif block.block_type == "numbered_list" %}
+                    <ul>
+                        {% for item in block.value %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    {{ block }}
                 {% endif %}
-            </header>
-            <div class="Paper-copy">
-                {% for block in self.body %}
-                    {% if block.block_type == "heading" %}
-                        <h2>{{ block.value }}</h2>
-                    {% elif block.block_type == "image" %}
-                        {% image block.value width-240 %}
-                    {% elif block.block_type == "numbered_list" %}
-                        <ul>
-                            {% for item in block.value %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ block }}
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </article>
-    </section>
+            {% endfor %}
+        </div>
+    </article>
+  </section>
 {% endblock %}

@@ -1,35 +1,38 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags static i18n %}
 {% if sections %}
-    <section class="ContentList">
-        <div class="ContentList-body">
-            <nav class="Menu" role="menubar">
-                <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
-                    <li class="Menu-navItem" role="presentation">
-                        {% for section in sections %}
-                            {% if not section.show_in_menus %}
-                                <a href="{% pageurl section %}" class="Menu-navLink"
-                                   role="menuitem">{{ section.title }}
-                                    <img src="{% static 'icons/png/chevron_right-bluePelorous.png' %}" alt=""
-                                         class="Menu-navIcon Menu-navIcon--after Menu-navIcon--scaledToText">
-                                </a>
-                                {% load_descendant_articles_for_section section count=2 featured_in_homepage=True as featured_articles %}
-                                <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
-                                    {% for article in featured_articles %}
-                                        <li class="Menu-navItem" role="presentation">
-                                            <a class="Menu-navLink" role="menuitem" href="{% pageurl article %}">
-                                                <span class="Menu-contentTout">
-                                                    <span class="Menu-contentToutHeadline">{{ article.title }}</span>
-                                                    <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                        {% endfor %}
-                    </li>
+  <section class="ContentList">
+    <div class="ContentList-body">
+      <nav class="Menu" role="menubar">
+        <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+          <li class="Menu-navItem" role="presentation">
+          {% for section in sections %}
+            {% load_descendant_articles_for_section section count=2 featured_in_homepage=True as featured_articles %}
+            {% if featured_articles %}
+              {% if not section.show_in_menus %}
+                <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
+                {{ section.title }}
+                  <img src="{% static 'icons/png/chevron_right-bluePelorous.png' %}" alt=""
+                  class="Menu-navIcon Menu-navIcon--after Menu-navIcon--scaledToText">
+                </a>
+
+                <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
+                {% for article in featured_articles %}
+                  <li class="Menu-navItem" role="presentation">
+                    <a class="Menu-navLink" role="menuitem" href="{% pageurl article %}">
+                      <span class="Menu-contentTout">
+                        <span class="Menu-contentToutHeadline">{{ article.title }}</span>
+                        <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
+                      </span>
+                  </a>
+                  </li>
+                {% endfor %}
                 </ul>
-            </nav>
-        </div>
-    </section>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
 {% endif %}

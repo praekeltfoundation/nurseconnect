@@ -1,9 +1,8 @@
 .SiteFooter {
     $block: unquote("#{&}");
-
     background-color: $color-white;
     text-align: center;
-
+    padding: scale(beta) 0 0;
     &-actions,
     &-brand {
         padding: scale(alpha);

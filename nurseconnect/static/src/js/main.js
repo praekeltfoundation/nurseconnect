@@ -5,6 +5,14 @@
 *
 */
 (function() {
+
+  var searchLink = document.getElementById('static-menu__search'),
+      searchFormField = document.getElementById('search-query');
+      searchLink.addEventListener('click', function() {
+        searchFormField.focus();
+        console.log('Search activated...');
+      });
+
   //SET COOKIE
   function createCookie(name, value, days) {
     var expires;

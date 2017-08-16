@@ -120,17 +120,59 @@
 
             {% endif %}
 
-            {% block content %}
-            {% endblock %}
-            {% block extra_js %}
-            {% endblock %}
+            {% block content %}{% endblock %}
+            {% block extra_js %}{% endblock %}
+
             <div id="nav-enhanced" class="FancyNav">
                 <button class="FancyNav-toggle">X</button>
             </div>
             {% block footer %}
-                <footer class="Footer" role="contentinfo">
-                    {% footer_page %}
-                </footer>
+            <footer class="Footer" role="contentinfo">
+            {% if user.is_authenticated %}
+                {% block menu_static %}
+                  <div class="static-menu">
+                    <ul class="static-menu-list">
+                      <li class="static-menu-list__item">
+                        <a href="#" class="static-menu-list__anchor">{% trans "Back to top" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
+                      </li>
+
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
+                      </li>
+
+                      <li class="static-menu-list__item">
+                        <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:view_my_profile' %}{% else %}{% url 'molo.profiles:user_register' %}{% endif %}" class="static-menu-list__anchor">
+                          {% if user.is_authenticated %}
+                            {% trans "Your Profile" %}
+                          {% else %}
+                            {% trans "Sign Up" %}
+                          {% endif %}
+                        </a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:auth_logout' %}{% else %}{% url 'molo.profiles:auth_login' %}{% endif %}" class="static-menu-list__anchor">
+                          {% if user.is_authenticated %}
+                            {% trans "Log out" %}
+                          {% else %}
+                            {% trans "Log in" %}
+                          {% endif %}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                {% endblock %}
+              {% endif %}
+                {% footer_page %}
+            </footer>
             {% endblock %}
         </main>
     </body>
