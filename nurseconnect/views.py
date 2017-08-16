@@ -125,7 +125,6 @@ class RegistrationMSISDNView(FormView):
     template_name = "registration/register_msisdn.html"
 
     def form_valid(self, form):
-        print self.get_context_data()
         username = form.cleaned_data["username"]
         password = form.cleaned_data["password"]
         if User.objects.filter(
