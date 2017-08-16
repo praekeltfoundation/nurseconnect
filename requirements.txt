@@ -8,3 +8,4 @@ django-modelcluster>=2.0,<3.0
 setuptools==25.1.6
 html5lib==0.9999999
 django_compressor==2.1
+responses
