@@ -9,6 +9,12 @@
   {% endblock %}
 {% block content %}
   {% if user.is_authenticated %}
+    {% block search_top %}
+      <div id="search" class="SearchBar--form">
+        {% include "patterns/basics/heading/search-cta.html" %}
+        {% include "search/search_block.html" %}
+      </div>
+    {% endblock %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
     {% your_words_competition %}
@@ -17,4 +23,5 @@
   {% else %}
     {% include "core/home_page_before_login.html" %}
   {% endif %}
+  {% block search %}{% endblock %}
 {% endblock %}
