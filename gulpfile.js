@@ -41,7 +41,7 @@ var sassConfig = {
 /* *** JS *** */
 gulp.task('scripts', function() {
     return gulp.src(srcPath + '/js/**/*.js')
-        .pipe(concat('main.js'))
+        .pipe(concat('index.js'))
         .pipe(uglify())
         .pipe(gulp.dest(distPath + '/js'));
 });
@@ -140,5 +140,5 @@ gulp.task('browser-sync', function() {
 /* *** Default tasks *** */
 
 gulp.task('default', ['clean-css'], function() {
-    runSequence('styles','scripts','icons');
+    runSequence('styles','scripts');
 });
