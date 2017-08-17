@@ -1,0 +1,49 @@
+.Button {
+    display: block;
+    width: 100%;
+    padding-top: scale(alpha);
+    padding-bottom: scale(alpha);
+    border: 0;
+    background-color: $color-orange-bittersweet;
+    color: $color-white;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    text-transform: capitalize;
+    appearance: none;
+
+    &[type="submit"] {
+        width: 90%;
+        padding-right: 5%;
+        padding-left: 5%;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: darken($color-orange-bittersweet, 10%);
+    }
+
+    &--blue {
+        background-color: $color-blue-pelorous;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: darken($color-blue-pelorous, 10%);
+        }
+    }
+
+    &--inverted {
+        border: 1px solid $color-orange-bittersweet;
+        background-color: $color-white;
+        background-color: transparent;
+        color: $color-orange-bittersweet;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: tint($color-orange-bittersweet, 80%);
+        }
+    }
+}

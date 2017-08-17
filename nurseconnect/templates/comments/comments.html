@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags comments molo_commenting_tags i18n mptt_tags %}
-
 {% block content %}
     <section class="Comments">
         <h1 class="Comments-label">{% trans "Comments" %}</h1>
@@ -11,7 +10,6 @@
                 {{ children }}
             {% endrecursetree %}
         {% endfor %}
-
         <aside class="ContentBody-secondaryNav">
             <nav class="Pagination" role="navigation">
                 <ul class="Pagination-bar" role="menubar" aria-labelledby="pagination-label">
@@ -21,11 +19,9 @@
                                href="?p={{ page.previous_page_number }}">Prev</a>
                         </li>
                     {% endif %}
-
                     <span class="Pagination-label"
                           id="pagination-label">Page {{ page.number }} of {{ page.paginator.num_pages }}
                     </span>
-
                     {% if page.has_next %}
                         <li class="Pagination-item Pagination-item--next" role="presentation">
                             <a class="Pagination-link" role="menuitem"

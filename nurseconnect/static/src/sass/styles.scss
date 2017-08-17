@@ -1,11 +1,29 @@
-// Modules and Variables
+$enhanced: false;
+
+// SCSS Helpers and Utilities
+@import "helpers/vendor";
+@import "helpers/functions";
+@import "helpers/variables";
+@import "helpers/mixins";
+
+// Globals
+@import "globals/resets";
+@import "globals/globals";
+
+// Components
+@import "components/ui/*";
+
+// Utility Classes
+@import "helpers/utils";
+
+
+//WHICH SCENARIOS ARE THESE USED ON
+
+// Partials In Cascading order - Modules and Variables
 @import "partials/base";
 
-// Partials
-@import "partials/root";
-@import "partials/typography";
-// add new component partials here
-@import "partials/logo";
+// New Component Partials:
+/*@import "partials/logo";
 @import "partials/breadcrumb";
 @import "partials/buttons";
 @import "partials/form-group";
@@ -22,10 +40,4 @@
 @import "partials/quote";
 @import "partials/footer";
 @import "partials/onoffswitch";
-@import "partials/auth";
-
-// Third-party magic goes here
-
-
-// import utils last
-@import "modules/utils";
+@import "partials/auth";*/

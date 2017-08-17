@@ -15,6 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/praekelt/nurseconnect.git"
   },
+  "license": "UNLICENSED",
   "devDependencies": {
     "backstopjs": "^1.2.1",
     "bourbon": "^4.2.7",
