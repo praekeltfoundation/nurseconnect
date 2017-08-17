@@ -117,6 +117,15 @@
                 {% include "search/search_block.html" %}
               </div>
             {% endblock %}
+            {% block learn %}
+              {% if sections %}
+                {% for section in sections %}
+                  {% if section.title == "Learn" %}
+                    {{ section.title }}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endblock %}
             <div id="nav-enhanced" class="FancyNav">
                 <button class="FancyNav-toggle">X</button>
             </div>

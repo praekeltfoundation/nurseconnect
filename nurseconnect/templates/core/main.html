@@ -16,6 +16,17 @@
       </div>
     {% endblock %}
     {% topic_of_the_day %}
+
+    {% block learn %}
+      {% if sections %}
+        {% for section in sections %}
+          {% if section.title == "Learn" %}
+            {{ section.title }}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
+
     {% latest_listing_homepage num_count=6 %}
     {% your_words_competition %}
     {% section_listing_homepage %}
