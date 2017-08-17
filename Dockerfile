@@ -8,4 +8,5 @@ RUN LANGUAGE_CODE=en django-admin compilemessages && \
     django-admin collectstatic --noinput && \
     django-admin compress
 
+
 CMD ["nurseconnect.wsgi:application", "--timeout", "1800"]
