@@ -1,8 +1,6 @@
 {% load comments mptt_tags molo_commenting_tags nurseconnect_tags i18n %}
-
 {% if self.is_commenting_enabled %}
     <div class="Comments-body">
-
         {% get_comment_count for self as comment_count %}
         {% get_molo_comments for self as comment_list %}
 
@@ -24,14 +22,12 @@
                 {% endrecursetree %}
             {% endif %}
         {% endfor %}
-
         {% if comment_count > 3 %}
             <div class="Comments-actions">
                 <a class="Button Button--blue"
                    href="{% url "more-comments" self.pk %}">{% trans "view more comments" %}</a>
             </div>
         {% endif %}
-
         {% if self.allow_commenting %}
             {% render_comment_form for self %}
         {% else %}
@@ -41,6 +37,5 @@
                 </p>
             </div>
         {% endif %}
-
     </div>
 {% endif %}

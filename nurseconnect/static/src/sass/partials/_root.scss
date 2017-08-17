@@ -14,41 +14,33 @@
 
 :root,
 html {
-    font-family: $font-light;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
+  font-family: $font-light;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
 }
-
 body {
-    background-color: $color-blue-tranquil;
-    color: $color-blue-regal;
+  background-color: $color-blue-tranquil;
+  //background-color: $color-blue-spindle;
+  color: $color-blue-regal;
 }
 
-// img {
-//     display: block;
-//     max-width: 100%;
-// }
-
-
-
-.clear {
-    clear: both;
+img {
+   display: block;
+   max-width: 100%;
 }
+.clear {clear: both;}
 
-button,
-a,
-input {
-    text-decoration: none;
-    cursor: pointer;
+button,a,input {
+  text-decoration: none;
+  cursor: pointer;
 }
-
 @media screen and (min-width: 760px) {
-    body {
-        background-color: #efefef;
-    }
-    main {
-        max-width: 320px;
-        background-color: $color-blue-tranquil;
-        margin: auto;
-    }
+  body {
+    background-color: #efefef;
+  }
+  main {
+    max-width: 320px;
+    background-color: $color-blue-tranquil;
+    margin: auto;
+  }
 }

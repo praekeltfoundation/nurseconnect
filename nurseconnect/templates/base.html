@@ -1,8 +1,6 @@
 {% load wagtailcore_tags compress wagtailuserbar core_tags staticfiles i18n %}
 {% load wagtailsettings_tags wagtailimages_tags %}
 {% get_settings %}
-
-
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -25,28 +23,23 @@
         <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
         <noscript>
             {% compress css %}
-              <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+              <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
             {% endcompress %}
             <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
-
         {% block extra_css %}
         {% endblock %}
-
         <script type="text/javascript">
             var CutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
             var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
-
             if (!CutsTheMustard || !ScreenLargeEnough) {
                 // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
             } else {
                 // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.enhanced.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
 
                 // Replace no-js class with js class
                 var RootElem = document.getElementsByTagName('html')[0];
@@ -63,12 +56,10 @@
                     if (cb && typeof(cb) === "function") {
                         script.onload = cb;
                     }
-                    return script;
+                  return script;
                 }
-
                 // Load JS as Enhancement
                 loadJS( "{% static 'js/main.js' %}" );
-
                 // Load Custom Fonts Async
                 WebFontConfig = {
                     google: { families: [ 'Open Sans:300,400,600' ] }
@@ -82,9 +73,13 @@
                     var s = document.getElementsByTagName('script')[0];
                     s.parentNode.insertBefore(wf, s);
                 })();
+
+              //CHECK DEVICE SCREEN SIZE
+              //var screenSize = document.write(screen.width + 'x' + screen.height);
+              //var screenSize = screen.width + 'x' + screen.height;
+              //console.log(screenSize);
             }
         </script>
-
         <!--[if lt IE 9]>
             <script>
                 /**
@@ -94,9 +89,7 @@
             </script>
         <![endif]-->
     </head>
-
     <body class="{% block body_class %}{% endblock %}">
-
         {% if settings.core.SiteSettings.ga_tag_manager %}
         <!-- Google Tag Manager -->
         <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
@@ -108,30 +101,78 @@
         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
         <!-- End Google Tag Manager -->
         {% endif %}
-
         {% wagtailuserbar %}
-
         <main class="ContentBody" role="main">
+
             {% include "core/header.html" %}
 
             {% if user.is_authenticated %}
-                {% breadcrumbs %}
+              {% breadcrumbs %}
+              {% block hero %}{% endblock %}
+              {% bannerpages %}
+
+              {% block search %}
+                <div id="search" class="SearchBar--form">
+                  {% include "patterns/basics/heading/search-cta.html" %}
+                  {% include "search/search_block.html" %}
+                </div>
+              {% endblock %}
+
             {% endif %}
 
-            {% block content %}
-            {% endblock %}
-
-            {% block extra_js %}
-            {% endblock %}
+            {% block content %}{% endblock %}
+            {% block extra_js %}{% endblock %}
 
             <div id="nav-enhanced" class="FancyNav">
                 <button class="FancyNav-toggle">X</button>
             </div>
-
             {% block footer %}
-                <footer class="Footer" role="contentinfo">
-                    {% footer_page %}
-                </footer>
+            <footer class="Footer" role="contentinfo">
+            {% if user.is_authenticated %}
+                {% block menu_static %}
+                  <div class="static-menu">
+                    <ul class="static-menu-list">
+                      <li class="static-menu-list__item">
+                        <a href="#" class="static-menu-list__anchor">{% trans "Back to top" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
+                      </li>
+
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
+                      </li>
+
+                      <li class="static-menu-list__item">
+                        <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:view_my_profile' %}{% else %}{% url 'molo.profiles:user_register' %}{% endif %}" class="static-menu-list__anchor">
+                          {% if user.is_authenticated %}
+                            {% trans "Your Profile" %}
+                          {% else %}
+                            {% trans "Sign Up" %}
+                          {% endif %}
+                        </a>
+                      </li>
+                      <li class="static-menu-list__item">
+                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:auth_logout' %}{% else %}{% url 'molo.profiles:auth_login' %}{% endif %}" class="static-menu-list__anchor">
+                          {% if user.is_authenticated %}
+                            {% trans "Log out" %}
+                          {% else %}
+                            {% trans "Log in" %}
+                          {% endif %}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                {% endblock %}
+              {% endif %}
+                {% footer_page %}
+            </footer>
             {% endblock %}
         </main>
     </body>
