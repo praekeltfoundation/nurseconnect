@@ -117,6 +117,9 @@
                 {% include "search/search_block.html" %}
               </div>
             {% endblock %}
+            <div id="nav-enhanced" class="FancyNav">
+                <button class="FancyNav-toggle">X</button>
+            </div>
             {% block footer %}
             <footer class="Footer" role="contentinfo">
             {% if user.is_authenticated %}
