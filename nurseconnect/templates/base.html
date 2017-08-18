@@ -121,7 +121,7 @@
               {% if sections %}
                 {% for section in sections %}
                   {% if section.title == "Learn" %}
-                    {{ section.title }}
+                -->{{ section.title }}
                   {% endif %}
                 {% endfor %}
               {% endif %}
@@ -142,12 +142,20 @@
                         <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
                       </li>
 
-                      <li class="static-menu-list__item">
+                      <!--<li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
                       </li>
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
-                      </li>
+                      </li>-->
+
+                      {% if sections %}
+                        {% for section in sections %}
+                          {% if section.title == "Learn" %}
+                        -->{{ section.title }}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
 
                       <li class="static-menu-list__item">
                         <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
