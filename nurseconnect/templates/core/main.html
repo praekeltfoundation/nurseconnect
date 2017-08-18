@@ -8,6 +8,7 @@
     </div>
   {% endblock %}
 {% block content %}
+  {% bannerpages %}
   {% if user.is_authenticated %}
     {% block search_top %}
       <div id="search" class="SearchBar--form">
