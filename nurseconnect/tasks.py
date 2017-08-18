@@ -8,7 +8,6 @@ from collections import Counter
 from celery.schedules import crontab
 from celery.task import periodic_task
 from celery.signals import celeryd_init
-from .celery import app
 
 from django.conf import settings
 from django.contrib.auth.models import User

@@ -127,7 +127,7 @@
                   <div class="static-menu">
                     <ul class="static-menu-list">
                       <li class="static-menu-list__item">
-                        <a href="#" class="static-menu-list__anchor">{% trans "Back to top" %}</a>
+                        <a href="#" class="static-menu-list__anchor static-menu-list__anchor--backToTop">{% trans "Back to top" %}</a>
                       </li>
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
@@ -135,9 +135,14 @@
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
                       </li>
-                      <li class="static-menu-list__item">
-                        <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
-                      </li>
+                      {% load_sections as sections %}
+                        {% for section in sections %}
+                          {% if section.title == "Learn" %}
+                            <li class="static-menu-list__item">
+                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Learn" %}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
                       <li class="static-menu-list__item">
                         <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
                       </li>
@@ -151,7 +156,7 @@
                         </a>
                       </li>
                       <li class="static-menu-list__item">
-                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:auth_logout' %}{% else %}{% url 'molo.profiles:auth_login' %}{% endif %}" class="static-menu-list__anchor">
+                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:auth_logout' %}{% else %}{% url 'molo.profiles:auth_login' %}{% endif %}" class="static-menu-list__anchor static-menu-list__anchor--logout">
                           {% if user.is_authenticated %}
                             {% trans "Log out" %}
                           {% else %}
