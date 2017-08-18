@@ -11,7 +11,6 @@
             <header class="ContentList-header">
                 <h1 class="ContentList-categoryLabel">{{ section.title }}</h1>
             </header>
-
             {% load_child_articles_for_section section as articles %}
             <div class="ContentList-body">
                 {% for article in articles %}
