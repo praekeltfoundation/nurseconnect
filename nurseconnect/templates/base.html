@@ -117,17 +117,8 @@
                 {% include "search/search_block.html" %}
               </div>
             {% endblock %}
-            {% block learn %}
-              {% if sections %}
-                {% for section in sections %}
-                  {% if section.title == "Learn" %}
-                -->{{ section.title }}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            {% endblock %}
             <div id="nav-enhanced" class="FancyNav">
-                <button class="FancyNav-toggle">X</button>
+              <button class="FancyNav-toggle">X</button>
             </div>
             {% block footer %}
             <footer class="Footer" role="contentinfo">
@@ -141,22 +132,12 @@
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
                       </li>
-
-                      <!--<li class="static-menu-list__item">
+                      <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
                       </li>
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
-                      </li>-->
-
-                      {% if sections %}
-                        {% for section in sections %}
-                          {% if section.title == "Learn" %}
-                        -->{{ section.title }}
-                          {% endif %}
-                        {% endfor %}
-                      {% endif %}
-
+                      </li>
                       <li class="static-menu-list__item">
                         <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
                       </li>

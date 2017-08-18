@@ -1,0 +1,26 @@
+{% load wagtailcore_tags core_tags i18n %}
+{% load_sections as sections %}
+{% block learn %}
+<section class="ContentList ContentList--bgSecondary">
+  {% if sections %}
+    {% for section in sections %}
+      {% if section.title == "Learn" %}
+        <header class="ContentList-header">
+            <h1 class="ContentList-categoryLabel">{{ section.title }}</h1>
+        </header>
+        <div class="ContentList-body">
+            <article class="Article">
+                <a href="{% pageurl section %}" class="Article-hitBox">
+                    <h2 class="Article-headline Article-headline--Learn">{{section.get_effective_extra_style_hints}}</h2>
+                    <p class="Article-strapline">{{ section.description }}</p>
+                    <div class="Article-actions">
+                        <span class="Button">{% trans "Start learning now" %}</span>
+                    </div>
+                </a>
+            </article>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</section>
+{% endblock %}
