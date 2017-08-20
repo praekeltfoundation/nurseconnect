@@ -11,19 +11,20 @@
   {% bannerpages %}
   {% if user.is_authenticated %}
     {% block search_top %}
-      <div id="search" class="SearchBar--form">
-        {% include "patterns/basics/heading/search-cta.html" %}
-        {% include "search/search_block.html" %}
-      </div>
+      {% include "core/search-form.html" %}
     {% endblock %}
     {% topic_of_the_day %}
-      {% include "core/learn-banner.html" %}
     {% latest_listing_homepage num_count=6 %}
-    {% your_words_competition %}
+    {% include "core/learn-banner.html" %}
     {% section_listing_homepage %}
+    {% your_words_competition %}
     {% surveys_list %}
   {% else %}
     {% include "core/home_page_before_login.html" %}
   {% endif %}
-  {% block search %}{% endblock %}
+  {% if user.is_authenticated %}
+    {% block search %}
+      {% include "core/search-form.html" %}
+    {% endblock %}
+  {% endif %}
 {% endblock %}

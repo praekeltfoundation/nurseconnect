@@ -110,14 +110,7 @@
             {% endif %}
             {% block content %}{% endblock %}
             {% block extra_js %}{% endblock %}
-            {% if user.is_authenticated %}
-              {% block search %}
-                <div id="search" class="SearchBar--form">
-                  {% include "patterns/basics/heading/search-cta.html" %}
-                  {% include "search/search_block.html" %}
-                </div>
-              {% endblock %}
-            {% endif %}
+            
             <div id="nav-enhanced" class="FancyNav">
               <button class="FancyNav-toggle">X</button>
             </div>

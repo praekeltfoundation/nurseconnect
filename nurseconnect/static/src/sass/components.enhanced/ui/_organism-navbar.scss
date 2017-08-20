@@ -25,15 +25,15 @@
         }
     }
     &-navLink {
-        color: inherit;
-        font-weight: 700;
-        text-decoration: none;
-        font-size: 18px;
-        &:active,
-        &:focus,
-        &:hover {
-            color: $color-orange-bittersweet;
-        }
+      color: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 18px;
+      &:active,
+      &:focus,
+      &:hover {
+          color: $color-orange-bittersweet;
+      }
     }
     &--siteHead {
       margin: 15px 0 0;
