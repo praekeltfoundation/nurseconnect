@@ -53,6 +53,10 @@
           height: 30px;
           margin-right: scale(alpha);
         }
+        &:hover:before {
+          background-color: $color-white;
+          border-radius: 50%;
+        }
       }
     }
     &-navIcon {
