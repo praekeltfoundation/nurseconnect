@@ -150,7 +150,7 @@
                         <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
                       </li>
                       <li class="static-menu-list__item">
-                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:view_my_profile' %}{% else %}{% url 'molo.profiles:user_register' %}{% endif %}" class="static-menu-list__anchor">
+                        <a href="{% if user.is_authenticated %}{% url "view_my_profile" %}{% else %}{% url "user_register_msisdn" %}{% endif %}" class="static-menu-list__anchor">
                           {% if user.is_authenticated %}
                             {% trans "Your Profile" %}
                           {% else %}
@@ -159,7 +159,7 @@
                         </a>
                       </li>
                       <li class="static-menu-list__item">
-                        <a href="{% if user.is_authenticated %}{% url 'molo.profiles:auth_logout' %}{% else %}{% url 'molo.profiles:auth_login' %}{% endif %}" class="static-menu-list__anchor">
+                        <a href="{% if user.is_authenticated %}{% url "molo.profiles:auth_logout" %}{% else %}{% url "molo.profiles:auth_login" %}{% endif %}" class="static-menu-list__anchor">
                           {% if user.is_authenticated %}
                             {% trans "Log out" %}
                           {% else %}
