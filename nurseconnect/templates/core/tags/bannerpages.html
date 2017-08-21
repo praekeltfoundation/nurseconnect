@@ -56,16 +56,9 @@
                     <header class="Paper-header">
                         <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
                         {% if bannerpage.banner_link_page %}
-<<<<<<< HEAD
                             <a href="{% pageurl bannerpage.banner_link_page %}">
                                 {% image bannerpage.banner fill-320-160 class="Paper-graphic" %}
                             </a>
-=======
-                          <a href="{% pageurl bannerpage.banner_link_page %}">
-                            {% image bannerpage.banner width-320 as imagePath %}
-                            <img src="{{imagePath.url}}" class="Paper-graphic">
-                          </a>
->>>>>>> develop
                         {% else %}
                           {% image bannerpage.banner width-320 as imagePath %}
                           <img src="{{imagePath.url}}" class="Paper-graphic">
