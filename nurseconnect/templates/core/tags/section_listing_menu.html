@@ -28,6 +28,11 @@
       {% endif %}
     {% endfor %}
       <li class="Menu-navItem" role="presentation">
+        <a href="#search" class="Menu-navLink" role="menuitem">
+            {% trans "Search" %}
+        </a>
+      </li>
+      <li class="Menu-navItem" role="presentation">
         <a href="{% url 'molo.profiles:view_my_profile' %}" class="Menu-navLink" role="menuitem">
           {% trans "Your Profile" %}
         </a>
