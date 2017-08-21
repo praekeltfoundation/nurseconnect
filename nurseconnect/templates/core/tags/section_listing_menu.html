@@ -1,37 +1,45 @@
-{% load wagtailcore_tags wagtailimages_tags core_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 <!-- FLY BY MENU -->
 {% if sections %}
   <div class="HeroTout">
     <h1 class="HeroTout-headline">
-        {% trans "Select a category from the list to view" %}
+        {% trans "Select an action from the list to view" %}
     </h1>
   </div>
   <nav class="Menu Menu--highContrast" role="menubar" id="site-nav">
     <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
+      <li class="Menu-navItem" role="presentation">
+        <a href="{% url "home" %}" class="Menu-navLink" role="menuitem">
+          {% trans "Home" %}
+        </a>
+      </li>
+      <li class="Menu-navItem" role="presentation">
+        <a href="/" class="Menu-navLink" role="menuitem">
+          {% trans "Articles" %}
+        </a>
+      </li>
     {% for section in sections %}
-      {% if section.title == "Home" %}
-        <li class="Menu-navItem" role="presentation">
-          <a href="{% url "home" %}" class="Menu-navLink" role="menuitem">
-            {% if section.image %}
-                {% image section.image width-85 alt="" class="Menu-navIcon" %}
-            {% endif %}
-            {{ section.title }}
-          </a>
-        </li>
-      {% else %}
+      {% if section.title == "Learn" %}
         <li class="Menu-navItem" role="presentation">
           <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
-            {% if section.image %}
-                {% image section.image width-85 alt="" class="Menu-navIcon" %}
-            {% endif %}
             {{ section.title }}
           </a>
         </li>
       {% endif %}
     {% endfor %}
       <li class="Menu-navItem" role="presentation">
+        <a href="{% url "search" %}" class="Menu-navLink" role="menuitem">
+            {% trans "Search" %}
+        </a>
+      </li>
+      <li class="Menu-navItem" role="presentation">
+        <a href="{% url 'molo.profiles:view_my_profile' %}" class="Menu-navLink" role="menuitem">
+          {% trans "Your Profile" %}
+        </a>
+      </li>
+      <li class="Menu-navItem" role="presentation">
         <a href="{% url "molo.profiles:auth_logout" %}" class="Menu-navLink" role="menuitem">
-            {% trans "Log out" %}
+          {% trans "Log out" %}
         </a>
       </li>
     </ul>

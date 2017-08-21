@@ -1,5 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-{% if bannerpages %}
+{% if user.is_authenticated %}
+  {% if bannerpages %}
     <section class="Paper">
         <article class="Paper-body">
             {% for bannerpage in bannerpages %}
@@ -20,4 +21,5 @@
             {% endfor %}
         </article>
     </section>
+  {% endif %}
 {% endif %}

@@ -64,6 +64,10 @@
 
         &Item {
             display: inline-block;
+            &__CommentCounter {
+              font-size: scale(beta);
+              color: $color-black;
+            }
         }
     }
 }

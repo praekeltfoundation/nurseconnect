@@ -41,7 +41,7 @@ var sassConfig = {
 /* *** JS *** */
 gulp.task('scripts', function() {
     return gulp.src(srcPath + '/js/**/*.js')
-        .pipe(concat('main.js'))
+        .pipe(concat('index.js'))
         .pipe(uglify())
         .pipe(gulp.dest(distPath + '/js'));
 });
@@ -114,7 +114,8 @@ gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
             orangeBittersweet: '#ff6655',
             bluePelorous: '#2d9ec5',
             blueRegal: '#213d55',
-            white: '#ffffff'
+            white: '#ffffff',
+            black: '#000000'
         }
     };
 
@@ -140,5 +141,5 @@ gulp.task('browser-sync', function() {
 /* *** Default tasks *** */
 
 gulp.task('default', ['clean-css'], function() {
-    runSequence('styles','scripts','icons');
+    runSequence('styles','scripts');
 });

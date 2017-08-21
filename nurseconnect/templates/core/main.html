@@ -8,11 +8,16 @@
     </div>
   {% endblock %}
 {% block content %}
+  {% bannerpages %}
   {% if user.is_authenticated %}
+    {% block search %}
+      {% include "core/search-form.html" with id="search" %}
+    {% endblock %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
-    {% your_words_competition %}
+    {% include "core/learn-banner.html" %}
     {% section_listing_homepage %}
+    {% your_words_competition %}
     {% surveys_list %}
   {% else %}
     {% include "core/home_page_before_login.html" %}

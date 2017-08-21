@@ -27,7 +27,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <noscript>
-            <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+            <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
             <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
 
@@ -40,10 +40,10 @@
 
             if (!CutsTheMustard || !ScreenLargeEnough) {
                 // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
             } else {
                 // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'css/styles.enhanced.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
 
                 // Replace no-js class with js class
                 var RootElem = document.getElementsByTagName('html')[0];
@@ -64,7 +64,7 @@
                 }
 
                 // Load JS as Enhancement
-                loadJS( "{% static 'js/main.js' %}" );
+                loadJS( "{% static 'dist/js/index.js' %}" );
 
                 // Load Custom Fonts Async
                 WebFontConfig = {
@@ -105,25 +105,18 @@
         })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
         <!-- End Google Tag Manager -->
         {% endif %}
-
         {% wagtailuserbar %}
-
         <main class="ContentBody" role="main">
-
             {% if user.is_authenticated %}
                 {% breadcrumbs %}
             {% endif %}
-
             {% block content %}
             {% endblock %}
-
-            {% block extra_js %}
-            {% endblock %}
+            {% block extra_js %}{% endblock %}
 
             <div id="nav-enhanced" class="FancyNav">
                 <button class="FancyNav-toggle">X</button>
             </div>
-
             {% block footer %}
                 <footer class="Footer" role="contentinfo">
                     {% footer_page %}
