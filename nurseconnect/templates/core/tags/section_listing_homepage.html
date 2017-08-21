@@ -1,4 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags core_tags static i18n %}
+
 {% if sections %}
   <section class="ContentList">
     <div class="ContentList-body">
@@ -11,10 +12,9 @@
               {% if not section.show_in_menus %}
                 <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
                 {{ section.title }}
-                  <img src="{% static 'icons/png/chevron_right-bluePelorous.png' %}" alt=""
+                  <img src="{% static 'dist/icons/png/chevron_right-bluePelorous.png' %}" alt=""
                   class="Menu-navIcon Menu-navIcon--after Menu-navIcon--scaledToText">
                 </a>
-
                 <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
                 {% for article in featured_articles %}
                   <li class="Menu-navItem" role="presentation">

@@ -3,6 +3,7 @@
     @include clearfix;
     &--form {
       background-color: $color-blue-spindle;
+      text-align: center;
     }
     &__title {
         font-weight: normal;
@@ -17,22 +18,26 @@
     &--isolated {
         padding: scale(alpha);
         background-color: $color-blue-spindle;
+        text-align: center;
     }
     &-input,
     &-submit {
-        display: block;
-        float: left;
+        display: inline-block;
         border: 0;
         outline: none;
     }
     &-input {
-        padding: scale(alpha) 5%;
+        padding: scale(alpha) 0;
         background-color: $color-white;
+        text-align: center;
+        margin: 0 auto;
+        width: 50%;
     }
     &-submit {
         background-color: $color-white;
         color: $color-blue-pelorous;
         cursor: pointer;
         padding: scale(alpha);
+        margin: 0 -5px;
     }
 }

@@ -1,7 +1,15 @@
-{% load static wagtailcore_tags i18n %}
+{% load wagtailcore_tags core_tags static i18n %}
 {% if ancestors %}
     <div class="HeroTout">
         <h1 class="HeroTout-headline">
+          {% load_sections as sections %}
+            {% for section in sections %}
+              {% if section.title == "Learn" %}
+                 {% trans "Learning Library Select a category from the list below" %}
+              {% endif %}
+
+            {% endfor %}
+
             {% for ancestor in ancestors %}
                 {% if forloop.last %}
                     {{ ancestor }}
@@ -14,7 +22,7 @@
                     <li class="Breadcrumb-item" role="presentation">
                         <a class="Breadcrumb-link" role="menuitem" href="{% url "home" %}">{% trans "Home" %}</a>
                         <span class="Breadcrumb-chevron">
-                            <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+                            <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
                         </span>
                     </li>
                     {% for ancestor in ancestors %}
@@ -27,7 +35,7 @@
                             <li class="Breadcrumb-item" role="presentation">
                                 <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}</a>
                                 <span class="Breadcrumb-chevron">
-                                    <img src="{% static 'icons/png/chevron_right-white.png' %}" alt="">
+                                    <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
                                 </span>
                             </li>
                         {% endif %}

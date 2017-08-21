@@ -137,3 +137,11 @@ STYLEGUIDE
 nurseconnect/styleguide
 
 RUNNING Styleguides
+
+
+TO DO
+
+- Footer Back to Top button
+  => JS enabled on Desktop and Smartphone
+- Menu hover - to use selected icon
+- Selected section menu static [page]

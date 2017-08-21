@@ -18,7 +18,8 @@
                             <li class="Article-actionsItem">
                                 {% get_comment_count for article as comment_count %}
                                 <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25
-                                     height=25 class="Logo-graphic"> {{ comment_count }}
+                                     height=25 class="Logo-graphic">
+                                    <span class="Article-actionsItem__CommentCounter">{{ comment_count }}</span>
                             </li>
                         </ul>
                     </a>

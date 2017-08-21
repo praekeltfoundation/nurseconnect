@@ -10,11 +10,9 @@
     <section class="Paper">
         <article class="Paper-body">
             <header class="Paper-header">
-
                 {% if self.image %}
                     {% image self.image width-320 class="Paper-graphic" %}
                 {% endif %}
-
                 <h1 class="Paper-headline">{{ self.title }}</h1>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
                 {% if self.is_current_topic_of_the_day %}

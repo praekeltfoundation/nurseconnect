@@ -1,9 +1,7 @@
 .NavBar {
     $block: unquote("#{&}");
-
     display: flex;
     color: $color-blue-pelorous;
-
     &-navGroup {
         @include no-list;
         display: flex;
@@ -12,43 +10,35 @@
         align-items: center;
         justify-content: center;
     }
-
     &-navItem {
         display: inline-block;
         position: relative;
-        margin: 0 scale(beta);
-
+        margin: 0 scale(alpha);
         &:first-child {
             margin-left: 0;
         }
-
         &:last-child {
             margin-right: 0;
         }
-
         &--active {
             color: $color-orange-bittersweet;
         }
     }
-
     &-navLink {
-        color: inherit;
-        font-weight: 700;
-        text-decoration: none;
-
-        &:active,
-        &:focus,
-        &:hover {
-            color: $color-orange-bittersweet;
-        }
+      color: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 18px;
+      &:active,
+      &:focus,
+      &:hover {
+          color: $color-orange-bittersweet;
+      }
     }
-
-
-
     &--siteHead {
+      margin: 15px 0 0;
         @include breakpoint($bp-smart) {
             position: relative;
-
             #{$block}-navItem {
                 &--active {
                     &:after {
@@ -64,6 +54,16 @@
                         background-color: $color-blue-pelorous;
                         content: "";
                     }
+                }
+                &--search {
+                  &:after {
+                    background-color: $color-blue-spindle;
+                  }
+                }
+                &--searchResults {
+                  &:after {
+                    background-color: $color-blue-pelorous;
+                  }
                 }
             }
         }
