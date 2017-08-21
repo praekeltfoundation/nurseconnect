@@ -2,24 +2,24 @@
 {% if user.is_authenticated %}
   {% if bannerpages %}
     <section class="Paper">
-      <article class="Paper-body">
-        {% for bannerpage in bannerpages %}
-          {% if bannerpage.banner %}
-            <header class="Paper-header">
-              <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
-              {% if bannerpage.banner_link_page %}
-                <a href="{% pageurl bannerpage.banner_link_page %}">
-                  {% image bannerpage.banner width-320 as imagePath %}
-                  <img src="{{imagePath.url}}" class="Paper-graphic">
-                </a>
-              {% else %}
-                {% image bannerpage.banner width-320 as imagePath %}
-                <img src="{{imagePath.url}}" class="Paper-graphic">
-              {% endif %}
-            </header>
-            {% endif %}
-        {% endfor %}
-      </article>
+        <article class="Paper-body">
+            {% for bannerpage in bannerpages %}
+              {% if bannerpage.banner %}
+                    <header class="Paper-header Paper-header--banner">
+                        <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
+                        {% if bannerpage.banner_link_page %}
+                            <a href="{% pageurl bannerpage.banner_link_page %}">
+                                {% image bannerpage.banner fill-320x225 as imagePath %}
+                                <img src="{{imagePath.url}}" class="Paper-graphic">
+                            </a>
+                        {% else %}
+                          {% image bannerpage.banner fill-320x225 as imagePath %}
+                          <img src="{{imagePath.url}}" class="Paper-graphic">
+                        {% endif %}
+                    </header>
+                {% endif %}
+            {% endfor %}
+        </article>
     </section>
   {% endif %}
 {% endif %}

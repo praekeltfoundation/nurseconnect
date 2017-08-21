@@ -138,4 +138,18 @@
             text-align: center;
         }
     }
+
+    &-header--banner {
+      padding: scale(gamma) 0;
+      .Paper-headline {
+          padding: 0 scale(gamma);
+      }
+
+      .Paper-graphic  {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+      }
+    }
+
 }

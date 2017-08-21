@@ -148,7 +148,8 @@
                         </a>
                       </li>
                       <li class="static-menu-list__item">
-                        <a href="{% url 'molo.profiles:auth_logout' %}" class="static-menu-list__anchor static-menu-list__anchor--logout">
+                        <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
+                          {% if user.is_authenticated %}
                             {% trans "Log out" %}
                         </a>
                       </li>
