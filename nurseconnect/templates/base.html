@@ -110,7 +110,7 @@
             {% endif %}
             {% block content %}{% endblock %}
             {% block extra_js %}{% endblock %}
-            
+
             <div id="nav-enhanced" class="FancyNav">
               <button class="FancyNav-toggle">X</button>
             </div>
@@ -137,9 +137,11 @@
                             </li>
                           {% endif %}
                         {% endfor %}
-                      <li class="static-menu-list__item">
-                        <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
-                      </li>
+                        <li class="static-menu-list__item">
+                            <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
+                              {% trans "Search" %}
+                            </a>
+                        </li>
                       <li class="static-menu-list__item">
                         <a href="{% url 'molo.profiles:view_my_profile' %}" class="static-menu-list__anchor">
                             {% trans "Your Profile" %}

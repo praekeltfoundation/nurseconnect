@@ -17,9 +17,9 @@
                     </li>
                     <li class="NavBar-navItem{% if active == "search" %} NavBar-navItem--search {% if search_results %}NavBar-navItem--searchResults{% endif %} NavBar-navItem--active{% endif %}"
                         role="presentation">
-                        <a href="#search-query" class="NavBar-navLink" role="menuitem">
-                          {% trans "Search" %}
-                        </a>
+                          <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" class="NavBar-navLink" id="NavBar__search" role="menuitem">
+                            {% trans "Search" %}
+                          </a>
                     </li>
                 </ul>
             </nav>

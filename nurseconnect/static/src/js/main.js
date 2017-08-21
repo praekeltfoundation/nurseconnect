@@ -6,8 +6,8 @@
 */
 (function() {
 
-  var searchLink = document.getElementById('static-menu__search'),
-      searchFormField = document.getElementById('search-query');
+  var searchLink = document.getElementById('NavBar__search'),
+      searchFormField = document.getElementById('search');
       searchLink.addEventListener('click', function() {
         searchFormField.focus();
       });
