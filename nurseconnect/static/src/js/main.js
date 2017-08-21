@@ -6,11 +6,10 @@
 */
 (function() {
 
-  var searchLink = document.getElementById('static-menu__search'),
-      searchFormField = document.getElementById('search-query');
+  var searchLink = document.getElementById('NavBar__search'),
+      searchFormField = document.getElementById('search');
       searchLink.addEventListener('click', function() {
         searchFormField.focus();
-        console.log('Search activated...');
       });
 
   //SET COOKIE
@@ -37,5 +36,4 @@
   //SET COOKIE VALUE
   createCookie("banner_image", 1 , 30);
   var get_cookieValue = readCookie("banner_image")
-  console.log("Same here",get_cookieValue);
 })();

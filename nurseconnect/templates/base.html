@@ -59,7 +59,7 @@
                   return script;
                 }
                 // Load JS as Enhancement
-                loadJS( "{% static 'js/main.js' %}" );
+                loadJS( "{% static 'dist/js/index.js' %}" );
                 // Load Custom Fonts Async
                 WebFontConfig = {
                     google: { families: [ 'Open Sans:300,400,600' ] }
@@ -103,28 +103,16 @@
         {% endif %}
         {% wagtailuserbar %}
         <main class="ContentBody" role="main">
-
             {% include "core/header.html" %}
-
             {% if user.is_authenticated %}
               {% breadcrumbs %}
               {% block hero %}{% endblock %}
-              {% bannerpages %}
-
-              {% block search %}
-                <div id="search" class="SearchBar--form">
-                  {% include "patterns/basics/heading/search-cta.html" %}
-                  {% include "search/search_block.html" %}
-                </div>
-              {% endblock %}
-
             {% endif %}
-
             {% block content %}{% endblock %}
             {% block extra_js %}{% endblock %}
 
             <div id="nav-enhanced" class="FancyNav">
-                <button class="FancyNav-toggle">X</button>
+              <button class="FancyNav-toggle">X</button>
             </div>
             {% block footer %}
             <footer class="Footer" role="contentinfo">
@@ -133,38 +121,36 @@
                   <div class="static-menu">
                     <ul class="static-menu-list">
                       <li class="static-menu-list__item">
-                        <a href="#" class="static-menu-list__anchor">{% trans "Back to top" %}</a>
+                        <a href="#" class="static-menu-list__anchor static-menu-list__anchor--backToTop">{% trans "Back to top" %}</a>
                       </li>
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
                       </li>
-
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
                       </li>
-                      <li class="static-menu-list__item">
-                        <a href="/" class="static-menu-list__anchor">{% trans "Learn" %}</a>
-                      </li>
-
-                      <li class="static-menu-list__item">
-                        <a href="#search-query" id="static-menu__search" class="static-menu-list__anchor">{% trans "Search" %}</a>
-                      </li>
-                      <li class="static-menu-list__item">
-                        <a href="{% if user.is_authenticated %}{% url "view_my_profile" %}{% else %}{% url "user_register_msisdn" %}{% endif %}" class="static-menu-list__anchor">
-                          {% if user.is_authenticated %}
-                            {% trans "Your Profile" %}
-                          {% else %}
-                            {% trans "Sign Up" %}
+                      {% load_sections as sections %}
+                        {% for section in sections %}
+                          {% if section.title == "Learn" %}
+                            <li class="static-menu-list__item">
+                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Learn" %}</a>
+                            </li>
                           {% endif %}
+                        {% endfor %}
+                        <li class="static-menu-list__item">
+                            <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
+                              {% trans "Search" %}
+                            </a>
+                        </li>
+                      <li class="static-menu-list__item">
+                        <a href="{% url 'molo.profiles:view_my_profile' %}" class="static-menu-list__anchor">
+                            {% trans "Your Profile" %}
                         </a>
                       </li>
                       <li class="static-menu-list__item">
                         <a href="{% if user.is_authenticated %}{% url "molo.profiles:auth_logout" %}{% else %}{% url "molo.profiles:auth_login" %}{% endif %}" class="static-menu-list__anchor">
                           {% if user.is_authenticated %}
                             {% trans "Log out" %}
-                          {% else %}
-                            {% trans "Log in" %}
-                          {% endif %}
                         </a>
                       </li>
                     </ul>

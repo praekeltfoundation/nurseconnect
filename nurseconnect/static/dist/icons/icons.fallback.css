@@ -4,9 +4,17 @@
 
 .icon-chevron_down-bluePelorous { background-image: url('png/chevron_down-bluePelorous.png'); background-repeat: no-repeat; }
 
+.icon-chevron_down-blueRegal { background-image: url('png/chevron_down-blueRegal.png'); background-repeat: no-repeat; }
+
 .icon-chevron_left-bluePelorous { background-image: url('png/chevron_left-bluePelorous.png'); background-repeat: no-repeat; }
 
+.icon-chevron_left-blueRegal { background-image: url('png/chevron_left-blueRegal.png'); background-repeat: no-repeat; }
+
 .icon-chevron_right-bluePelorous { background-image: url('png/chevron_right-bluePelorous.png'); background-repeat: no-repeat; }
+
+.icon-chevron_right-blueRegal { background-image: url('png/chevron_right-blueRegal.png'); background-repeat: no-repeat; }
+
+.icon-chevron_right-white { background-image: url('png/chevron_right-white.png'); background-repeat: no-repeat; }
 
 .icon-clinic-blueRegal { background-image: url('png/clinic-blueRegal.png'); background-repeat: no-repeat; }
 
@@ -29,6 +37,8 @@
 .icon-profile-orangeBittersweet { background-image: url('png/profile-orangeBittersweet.png'); background-repeat: no-repeat; }
 
 .icon-radiobutton_selected-blueRegal { background-image: url('png/radiobutton_selected-blueRegal.png'); background-repeat: no-repeat; }
+
+.icon-radiobutton_unselected-black { background-image: url('png/radiobutton_unselected-black.png'); background-repeat: no-repeat; }
 
 .icon-radiobutton_unselected-blueRegal { background-image: url('png/radiobutton_unselected-blueRegal.png'); background-repeat: no-repeat; }
 

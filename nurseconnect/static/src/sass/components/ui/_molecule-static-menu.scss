@@ -1,0 +1,32 @@
+.Footer {
+  .static-menu {
+  background-color: $color-white;
+  &-list {
+    margin: 0;
+    padding: scale(alpha) 0;
+    &__item {
+      list-style-type: none;
+      display: block;
+      padding: inherit;
+      padding: 0 scale(alpha) 5px;
+    }
+    &__anchor {
+      background-color: $color-blue-spindle;
+      color: $color-blue-regal;
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      text-transform: capitalize;
+      padding: scale(beta) 0;
+      width: 100%;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: darken($color-blue-spindle, 10%);
+      }
+    }
+  }
+}
+}

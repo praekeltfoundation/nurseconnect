@@ -23,11 +23,14 @@
                 <label for="id_{{ settings_form.first_name.name }}" class="Form-fieldLabel">{{ settings_form.first_name.label }}</label>
                 {{ settings_form.first_name }}
                 {% if settings_form.first_name.errors %}
-                    <label for="id_{{ settings_form.first_name.name }}" class="Form-message Form-message--error">{{ settings_form.first_name.errors }}</label>
+                    <label for="id_{{ settings_form.first_name.name }}" class="Form-message Form-message--error">
+                      {{ settings_form.first_name.errors }}</label>
                 {% endif %}
             </div>
             <div class="Form-field {% if settings_form.last_name.errors %} Form-field--error {% endif %}">
-                <label for="id_{{ settings_form.last_name.name }}" class="Form-fieldLabel">{{ settings_form.last_name.label }}</label>
+                <label for="id_{{ settings_form.last_name.name }}" class="Form-fieldLabel">
+                  {{ settings_form.last_name.label }}
+                </label>
                 {{ settings_form.last_name }}
                 {% if settings_form.last_name.errors %}
                     <label for="id_{{ settings_form.last_name.name }}" class="Form-message Form-message--error">{{ settings_form.last_name.errors }}</label>
