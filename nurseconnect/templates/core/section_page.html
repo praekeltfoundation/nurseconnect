@@ -22,42 +22,53 @@
     {% breadcrumbs %}
   </div>
   {% endblock %}
-
     {% for section in sections %}
-        <section class="ContentList ContentList--bgTertiary">
+        <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
             <header class="ContentList-header">
               <h1 class="ContentList-categoryLabel">
                 {% if self.title == "Learn" %}
-                  <a href="{% pageurl section %}">
+                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link">
+                    {{section.title}} -
+                    {% load_descendant_articles_for_section section as section_featured_articles %}
+                      <span class="ContentList-categoryLabel--resourcesCount">
+                        {{section_featured_articles|length}} resources</span>
+                  </a>
+                {% elif self.get_parent_section.title == "Learn" %}
+                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
                     {{section.title}}
+                    <span class="ContentList-categoryLabel--subtitle">{{section.description}}</span>
                   </a>
                 {% else %}
                   {{section.title}}
                 {% endif %}
               </h1>
             </header>
-            {% load_child_articles_for_section section as articles %}
-            {% if articles %}
-            <div class="ContentList-body">
-                {% for article in articles %}
-                    <a href="{% pageurl article %}" class="Article-hitBox">
-                        <article class="Article">
-                            {% if article.image %}
-                                {% image article.image width-85 class="Article-image Article-image--aside" %}
-                            {% endif %}
-                            <h2 class="Article-headline">{{ article.title }}</h2>
-                            <p class="Article-strapline">{{ article.subtitle }}</p>
-                        </article>
-                    </a>
-                {% endfor %}
-            </div>
-            <footer class="ContentList-actions">
-                <a href="{% pageurl section %}"
-                   class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
-            </footer>
+            {% if not self.get_parent_section.title == "Learn" %}
+              {% load_child_articles_for_section section as articles %}
+              {% if articles %}
+              <div class="ContentList-body">
+                  {% for article in articles %}
+
+                      <a href="{% pageurl article %}" class="Article-hitBox">
+                          <article class="Article">
+                              {% if article.image %}
+                                  {% image article.image width-85 class="Article-image Article-image--aside" %}
+                              {% endif %}
+                              <h2 class="Article-headline">{{ article.title }}</h2>
+                              <p class="Article-strapline">{{ article.subtitle }}</p>
+                          </article>
+                      </a>
+                  {% endfor %}
+              </div>
+              <footer class="ContentList-actions">
+                  <a href="{% pageurl section %}"
+                     class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
+              </footer>
+              {% endif %}
             {% endif %}
         </section>
     {% endfor %}
+    <!-- Which page is this? -->
     {% load_child_articles_for_section self as articles %}
     <div class="ContentList-body">
         {% for article in articles %}
