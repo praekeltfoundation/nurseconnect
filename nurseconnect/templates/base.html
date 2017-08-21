@@ -138,21 +138,20 @@
                           {% endif %}
                         {% endfor %}
                         <li class="static-menu-list__item">
-                            <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
-                              {% trans "Search" %}
-                            </a>
+                           <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
+                             {% trans "Search" %}
+                           </a>
+                       </li>
+                        <li class="static-menu-list__item">
+                          <a href="{% url "view_my_profile" %}" class="static-menu-list__anchor">
+                              {% trans "Your Profile" %}
+                          </a>
                         </li>
-                      <li class="static-menu-list__item">
-                        <a href="{% url 'molo.profiles:view_my_profile' %}" class="static-menu-list__anchor">
-                            {% trans "Your Profile" %}
-                        </a>
-                      </li>
-                      <li class="static-menu-list__item">
-                        <a href="{% if user.is_authenticated %}{% url "molo.profiles:auth_logout" %}{% else %}{% url "molo.profiles:auth_login" %}{% endif %}" class="static-menu-list__anchor">
-                          {% if user.is_authenticated %}
+                        <li class="static-menu-list__item">
+                          <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
                             {% trans "Log out" %}
-                        </a>
-                      </li>
+                          </a>
+                        </li>
                     </ul>
                   </div>
                 {% endblock %}
