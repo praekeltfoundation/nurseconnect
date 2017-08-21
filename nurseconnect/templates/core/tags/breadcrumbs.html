@@ -1,47 +1,39 @@
 {% load wagtailcore_tags core_tags static i18n %}
 {% if ancestors %}
-    <div class="HeroTout">
-        <h1 class="HeroTout-headline">
-          {% load_sections as sections %}
-            {% for section in sections %}
-              {% if section.title == "Learn" %}
-                 {% trans "Learning Library Select a category from the list below" %}
-              {% endif %}
-
-            {% endfor %}
-
-            {% for ancestor in ancestors %}
-                {% if forloop.last %}
-                    {{ ancestor }}
-                {% endif %}
-            {% endfor %}
-        </h1>
-        <div class="HeroTout-actions">
-            <nav class="Breadcrumb" role="navigation">
-                <ul class="Breadcrumb-group" role="menu">
-                    <li class="Breadcrumb-item" role="presentation">
-                        <a class="Breadcrumb-link" role="menuitem" href="{% url "home" %}">{% trans "Home" %}</a>
-                        <span class="Breadcrumb-chevron">
-                            <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
-                        </span>
-                    </li>
-                    {% for ancestor in ancestors %}
-                        {% if forloop.last %}
-                            <li class="Breadcrumb-item" role="presentation">
-                                <span class="Breadcrumb-link Breadcrumb-link--current"
-                                      role="menuitem">{{ ancestor }}</span>
-                            </li>
-                        {% else %}
-                            <li class="Breadcrumb-item" role="presentation">
-                                <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}</a>
-                                <span class="Breadcrumb-chevron">
-                                    <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
-                                </span>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </nav>
-        </div>
+  {% block hero_tout_banner %}
+    <h1 class="HeroTout-headline">
+      {% for ancestor in ancestors %}
+          {% if forloop.last %}
+              {{ ancestor }}
+          {% endif %}
+      {% endfor %}
+    </h1>
+  {% endblock %}
+    <div class="HeroTout-actions">
+        <nav class="Breadcrumb" role="navigation">
+            <ul class="Breadcrumb-group" role="menu">
+                <li class="Breadcrumb-item" role="presentation">
+                    <a class="Breadcrumb-link" role="menuitem" href="{% url "home" %}">{% trans "Home" %}</a>
+                    <span class="Breadcrumb-chevron">
+                        <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
+                    </span>
+                </li>
+                {% for ancestor in ancestors %}
+                    {% if forloop.last %}
+                        <li class="Breadcrumb-item" role="presentation">
+                            <span class="Breadcrumb-link Breadcrumb-link--current"
+                                  role="menuitem">{{ ancestor }}</span>
+                        </li>
+                    {% else %}
+                        <li class="Breadcrumb-item" role="presentation">
+                            <a class="Breadcrumb-link" href="{% pageurl ancestor %}">{{ ancestor }}</a>
+                            <span class="Breadcrumb-chevron">
+                                <img src="{% static 'dist/icons/png/chevron_right-white.png' %}" alt="">
+                            </span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
     </div>
 {% endif %}

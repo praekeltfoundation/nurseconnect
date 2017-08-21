@@ -6,7 +6,23 @@
 
 {% block content %}
   {% load_child_sections_for_section self as sections %}
-  {% if sections %}
+  {% block breadcrumbs %}
+  <div class="HeroTout">
+    {% block hero_tout_banner %}
+      {% if self.title == "Learn" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Learning Library Select a category from the list below" %}
+        </h1>
+      {% elif self.title == "Articles" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Select a category from the list to view" %}
+        </h1>
+      {% endif %}
+    {% endblock %}
+    {% breadcrumbs %}
+  </div>
+  {% endblock %}
+
     {% for section in sections %}
         <section class="ContentList ContentList--bgTertiary">
             <header class="ContentList-header">
@@ -78,5 +94,4 @@
       </nav>
     </aside>
     {% endif %}
-  {% endif %}
 {% endblock %}
