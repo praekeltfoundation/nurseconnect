@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% block search %}{% endblock %}
 {% block content %}
     {% if search_results %}
         <div class="HeroTout">
             <h1 class="HeroTout-headline">Your search results for <strong>{{ search_query }}</strong></h1>
         </div>
+        <div class="SearchBar--form">
+          {% include "patterns/basics/heading/search-cta.html" %}
+        </div>
     {% else %}
         <div class="HeroTout">
-            <h1 class="HeroTout-headline">What are you looking for?</h1>
+            <h1 class="HeroTout-headline">Search</h1>
+        </div>
+        <div class="SearchBar--form">
+          {% include "patterns/basics/heading/search-cta.html" %}
         </div>
     {% endif %}
     {% include "search/search_block.html" %}

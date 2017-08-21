@@ -1,7 +1,6 @@
 {% load wagtailcore_tags compress static wagtailuserbar core_tags i18n %}
 {% load wagtailsettings_tags wagtailimages_tags %}
 {% get_settings %}
-
 {% if user.is_authenticated %}
     <header class="SiteHead">
         <div class="SiteHead-brand">
@@ -16,14 +15,11 @@
                         role="presentation" data-enhanced-nav>
                         <a href="{% url "menu" %}" class="NavBar-navLink" role="menuitem">{% trans "Menu" %}</a>
                     </li>
-                    <li class="NavBar-navItem{% if active == "profile" %} NavBar-navItem--active{% endif %}"
-                        role="presentation">
-                        <a href="{% url "view_my_profile" %}" class="NavBar-navLink"
-                           role="menuitem">{% trans "Profile" %}</a>
-                    </li>
                     <li class="NavBar-navItem{% if active == "search" %} NavBar-navItem--active{% endif %}"
                         role="presentation">
-                        <a href="{% url "search" %}" class="NavBar-navLink" role="menuitem">{% trans "Search" %}</a>
+                        <a href="#search" class="NavBar-navLink" role="menuitem">
+                          {% trans "Search" %}
+                        </a>
                     </li>
                 </ul>
             </nav>

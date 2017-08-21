@@ -2,9 +2,7 @@
     // @TODO: Refactor this to use the @at-root directive as soon
     // as a fix becomes available.
     $scoped-block-name: unquote("#{&}");
-
     padding: .5rem;
-
     &-logo {
         display: inline-block;
         position: relative;
@@ -19,7 +17,6 @@
             padding: .5rem;
         }
     }
-
     &-logoIcon {
         display: block;
         position: absolute;
@@ -31,21 +28,17 @@
         //padding-bottom technique, aspect ration fix
         padding-bottom: 28.33333333%;
     }
-
     &-item {
         display: inline-block;
     }
-
     &-navigation {
         float: right;
     }
-
     &-linkList {
         display: inline-block;
         margin: 0;
         padding: 0;
     }
-
     &-link {
         display: inline-block;
         width: 2.75rem;

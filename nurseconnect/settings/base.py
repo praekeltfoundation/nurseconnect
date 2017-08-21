@@ -110,9 +110,9 @@ MIDDLEWARE_CLASSES = [
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
     'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
-    'molo.core.middleware.MultiSiteRedirectToHomepage',
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
+    'molo.core.middleware.MultiSiteRedirectToHomepage',
 ]
 
 GOOGLE_ANALYTICS = {}

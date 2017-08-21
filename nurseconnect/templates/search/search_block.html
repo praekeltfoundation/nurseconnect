@@ -1,5 +1,4 @@
 {% load i18n %}
-
 <form action="{% url "search_query" %}" class="SearchBar SearchBar--isolated">
     <input class="SearchBar-input" type="text" name="q" id="search-query" value="{{ search_query }}"
            placeholder="{% trans "Search..." %}">

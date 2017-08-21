@@ -1,6 +1,4 @@
 {% load comments i18n wagtailcore_tags wagtailimages_tags %}
-
-
 <form action="{% url "molo-comments-post" %}" class="Comments-submission" method="POST">
     {% csrf_token %}
     <label for="textarea" class="Comments-fieldLabel">Add your comment</label>
@@ -8,7 +6,6 @@
         <h1>{% blocktrans count counter=form.errors|length %}Please correct the error below{% plural %}Please correct
             the errors below{% endblocktrans %}</h1>
     {% endif %}
-
     <textarea name="comment" id="comment" class="Comments-field" placeholder="Your comment here"></textarea>
     {% if form.comment.errors %}
         <label for="comment" class="Form-message Form-message--error">
