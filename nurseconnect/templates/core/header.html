@@ -15,7 +15,7 @@
                         role="presentation" data-enhanced-nav>
                         <a href="{% url "menu" %}" class="NavBar-navLink" role="menuitem">{% trans "Menu" %}</a>
                     </li>
-                    <li class="NavBar-navItem{% if active == "search" %} NavBar-navItem--active{% endif %}"
+                    <li class="NavBar-navItem{% if active == "search" %} NavBar-navItem--search {% if search_results %}NavBar-navItem--searchResults{% endif %} NavBar-navItem--active{% endif %}"
                         role="presentation">
                         <a href="#search-query" class="NavBar-navLink" role="menuitem">
                           {% trans "Search" %}

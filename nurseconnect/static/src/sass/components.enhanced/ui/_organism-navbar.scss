@@ -13,7 +13,7 @@
     &-navItem {
         display: inline-block;
         position: relative;
-        margin: 0 5px;
+        margin: 0 scale(alpha);
         &:first-child {
             margin-left: 0;
         }
@@ -54,6 +54,16 @@
                         background-color: $color-blue-pelorous;
                         content: "";
                     }
+                }
+                &--search {
+                  &:after {
+                    background-color: $color-blue-spindle;
+                  }
+                }
+                &--searchResults {
+                  &:after {
+                    background-color: $color-blue-pelorous;
+                  }
                 }
             }
         }
