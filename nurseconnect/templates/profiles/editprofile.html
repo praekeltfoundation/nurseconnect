@@ -2,6 +2,8 @@
 {% get_settings %}
 
 {% block content %}
+
+<div class="profiles">
     <form method="POST" action="{% url 'edit_my_profile' 'edit-settings' %}" class="Form Form--padded">
         <fieldset class="Form-fieldGroup">
             <a href="{% url "edit_my_profile" "edit-settings" %}" class="Form-groupStateToggle">{% trans "Edit" %}</a>
