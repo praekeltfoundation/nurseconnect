@@ -8,24 +8,47 @@
 {% block content %}
   {% block breadcrumbs %}
     {% load_child_sections_for_section self as sections %}
-    <div class="HeroTout HeroTout--subBanner">
-    {% if self.get_parent_section.get_parent_section.title == "Learn"%}
-      <h1 class="HeroTout-headline">
-          {% trans "Learning Library Select a category from the list below" %}
-      </h1>
-      <h2 class="HeroTout-headline--subtitle">
-        {% trans "Learning Library Select a category from the list below" %}
-      </h2>
-    {% elif self.get_parent_section.get_parent_section.get_parent_section.title == "Learn"%}
-      <h1 class="HeroTout-headline">
-          {% trans "Learning Library Select a category from the list below" %}
-      </h1>
+    {% if self.get_parent_section.get_parent_section.title == "Learn" or self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
+      <div class="HeroTout HeroTout--subBanner">
+        <h1 class="HeroTout-headline">{{self.title}}
+        </h1>
+      </div>
+      <p class="HeroTout-headline--subtitle">
+        {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+      </p>
+    {% else %}
+      {% breadcrumbs %}
     {% endif %}
-    {% breadcrumbs %}
-    </div>
   {% endblock %}
     <section class="Paper">
         <article class="Paper-body">
+          {% if self.get_parent_section.get_parent_section.title == "Learn" or self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
+          <div class="Paper-copy Paper-copy--sectionLearn">
+            {% for block in self.body %}
+                {% if block.block_type == "heading" %}
+                    <h2>{{ block.value }}</h2>
+                {% elif block.block_type == "numbered_list" %}
+                    {% if block.value %}
+                        <ul class="Paper-copy-list">
+                            {% for item in block.value %}
+                                <li  class="Paper-copy-list__Item Paper-copy-list__Item--Numbered">{{ item|handle_markdown }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% elif block.block_type == "list" %}
+                    {% if block.value %}
+                        <ul class="Paper-copy-list">
+                            {% for item in block.value %}
+                                <li  class="Paper-copy-list__Item">{{ item|handle_markdown }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% else %}
+                    {{ block }}
+                {% endif %}
+            {% endfor %}
+          </div>
+          {% else %}
             <header class="Paper-header">
                 <h1 class="Paper-headline">{{ self.title }}</h1>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
@@ -35,6 +58,7 @@
                          class="Logo-graphic"> <strong>{{ comment_count }}</strong>
                 {% endif %}
             </header>
+
             <div class="Paper-copy">
                 {% if self.image %}
                     {% image self.image width-320 class="Paper-graphic Paper-graphic--inline" %}
@@ -70,6 +94,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+          {% endif %}
         </article>
         {% if self.allow_commenting %}
             <section class="Comments">

@@ -9,9 +9,22 @@
         font-weight: 400;
         letter-spacing: kerning(-75);
         line-height: 1;
+        &--subtitle {
+          background-color: $color-white;
+          border-bottom: 1px solid $color-grey;
+          padding: scale(gamma);
+          font-style: italic;
+          font-weight: bold;
+          margin: 0;
+        }
     }
 
     &-actions {
         margin-top: scale(gamma);
     }
+
+  &--subBanner {
+    background-color: $color-blue-spindle;
+    color: $color-blue-regal;
+  }
 }

@@ -5,8 +5,8 @@
     background-color: $color-white;
 
     & + & {
-        border-top: 1px solid $color-blue-regal;
-        border-top: 1px solid rgba($color-blue-regal, .1);
+        border-top: 2px solid $color-blue-regal;
+        border-top: 2px solid rgba($color-blue-regal, .1);
     }
 
     &--bgSecondary {
