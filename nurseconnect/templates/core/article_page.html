@@ -6,11 +6,24 @@
 {% load nurseconnect_tags %}
 
 {% block content %}
-    {% block breadcrumbs %}
-    <div class="HeroTout">
-      {% breadcrumbs %}
+  {% block breadcrumbs %}
+    {% load_child_sections_for_section self as sections %}
+    <div class="HeroTout HeroTout--subBanner">
+    {% if self.get_parent_section.get_parent_section.title == "Learn"%}
+      <h1 class="HeroTout-headline">
+          {% trans "Learning Library Select a category from the list below" %}
+      </h1>
+      <h2 class="HeroTout-headline--subtitle">
+        {% trans "Learning Library Select a category from the list below" %}
+      </h2>
+    {% elif self.get_parent_section.get_parent_section.get_parent_section.title == "Learn"%}
+      <h1 class="HeroTout-headline">
+          {% trans "Learning Library Select a category from the list below" %}
+      </h1>
+    {% endif %}
+    {% breadcrumbs %}
     </div>
-    {% endblock %}
+  {% endblock %}
     <section class="Paper">
         <article class="Paper-body">
             <header class="Paper-header">

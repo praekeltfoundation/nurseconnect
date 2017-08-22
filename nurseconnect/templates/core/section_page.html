@@ -25,36 +25,43 @@
     {% for section in sections %}
         <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
             <header class="ContentList-header">
-              <h1 class="ContentList-categoryLabel">
-                {% if self.title == "Learn" %}
+              {% load_descendant_articles_for_section section as section_featured_articles %}
+              {% if self.title == "Learn" %}
+                <h1 class="ContentList-categoryLabel">
                   <a href="{% pageurl section %}" class="ContentList-categoryLabel--link">
                     {{section.title}} -
-                    {% load_descendant_articles_for_section section as section_featured_articles %}
                       <span class="ContentList-categoryLabel--resourcesCount">
                         {{section_featured_articles|length}} resources</span>
                   </a>
-                {% elif self.get_parent_section.title == "Learn" %}
+                </h1>
+              {% elif self.get_parent_section.title == "Learn" %}
+                <h1 class="ContentList-categoryLabel">
                   <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
                     {{section.title}}
                     <span class="ContentList-categoryLabel--subtitle">{{section.description}}</span>
                   </a>
-                {% else %}
-                  {{section.title}}
-                {% endif %}
-              </h1>
+                </h1>
+              {% else %}
+                <h1 class="ContentList-categoryLabel ContentList-categoryLabel--section">
+                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--section-Link">
+                    {{section.title}}
+                  </a>
+                </h1>
+            {% endif %}
             </header>
+
             {% if not self.get_parent_section.title == "Learn" %}
               {% load_child_articles_for_section section as articles %}
               {% if articles %}
               <div class="ContentList-body">
                   {% for article in articles %}
-
                       <a href="{% pageurl article %}" class="Article-hitBox">
                           <article class="Article">
                               {% if article.image %}
                                   {% image article.image width-85 class="Article-image Article-image--aside" %}
                               {% endif %}
-                              <h2 class="Article-headline">{{ article.title }}</h2>
+                              <h2 class="Article-headline">
+                                {{ article.title }}</h2>
                               <p class="Article-strapline">{{ article.subtitle }}</p>
                           </article>
                       </a>
@@ -68,17 +75,41 @@
             {% endif %}
         </section>
     {% endfor %}
-    <!-- Which page is this? -->
+
+    <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
-    <div class="ContentList-body">
+    {% if self.get_parent_section.title == "Learn" %}
+    <header class="ContentList-header">
+        {% for article in articles %}
+        <h1 class="ContentList-categoryLabel">
+          <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
+            {{ article.title }}
+            <span class="ContentList-categoryLabel--subtitle">{{ article.subtitle }}</span>
+          </a>
+        {% endfor %}
+    </header>
+    {% elif self.get_parent_section.get_parent_section.title == "Learn" %}
+      <header class="ContentList-header">
+          {% for article in articles %}
+          <h1 class="ContentList-categoryLabel">
+            <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
+              {{ article.title }}
+              <span class="ContentList-categoryLabel--subtitle">{{ article.subtitle }}</span>
+            </a>
+          {% endfor %}
+      </header>
+    {% else %}
+      <div class="ContentList-body">
         {% for article in articles %}
         <a href="{% pageurl article %}" class="Article-hitBox">
           <article class="Article">
             {% if article.image %}
               {% image article.image width-85 class="Article-image Article-image--aside" %}
             {% endif %}
-            <h2 class="Article-headline">{{ article.title }}</h2>
-            <p class="Article-strapline">{{ article.subtitle }}</p>
+            <h2 class="Article-headline">
+              {{ article.title }}</h2>
+            <p class="Article-strapline">
+              {{ article.subtitle }}</p>
             {% if article.is_current_topic_of_the_day %}
               {% get_comment_count for article as comment_count %}
               <img src="{% static 'images/comments.png' %}" alt="NurseConnect Comments" width=25 height=25
@@ -87,7 +118,10 @@
           </article>
         </a>
         {% endfor %}
-    </div>
+      </div>
+    {% endif %}
+
+    <!-- PAGINATION -->
     {% if articles %}
     <aside class="ContentBody-secondaryNav">
       <nav class="Pagination" role="navigation">
@@ -111,4 +145,5 @@
       </nav>
     </aside>
     {% endif %}
+
 {% endblock %}
