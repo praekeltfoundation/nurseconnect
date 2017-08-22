@@ -134,18 +134,24 @@
               background-position: 0 0;
               width: 15px;
               height: 15px;
-              margin-right: scale(alpha);
               position: absolute;
               right: 0;
               bottom: 0;
-              top: 0;
+              top: 15px;
             }
             &--Numbered {
               list-style: decimal;
             }
             a {
-              display: inline-block;
+              display: block;
               color: $color-blue-pelorous;
+              &:hover,
+              &focus {
+                color: $color-orange-bittersweet;
+              }
+              &:visited {
+                outline: 1px $color-orange-bittersweet dotted;
+              }
             }
           }
         }
