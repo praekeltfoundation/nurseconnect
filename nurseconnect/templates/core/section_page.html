@@ -50,7 +50,9 @@
             {% endif %}
             </header>
 
-            {% if not self.get_parent_section.title == "Learn" %}
+            {% if self.title == "Learn" %}
+            {% elif self.get_parent_section.title  == "Learn" %}
+            {% else %}
               {% load_child_articles_for_section section as articles %}
               {% if articles %}
               <div class="ContentList-body">

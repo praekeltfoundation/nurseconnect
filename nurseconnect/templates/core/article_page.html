@@ -8,7 +8,15 @@
 {% block content %}
   {% block breadcrumbs %}
     {% load_child_sections_for_section self as sections %}
-    {% if self.get_parent_section.get_parent_section.title == "Learn" or self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
+    {% if self.get_parent_section.get_parent_section.title == "Learn" %}
+      <div class="HeroTout HeroTout--subBanner">
+        <h1 class="HeroTout-headline">{{self.title}}
+        </h1>
+      </div>
+      <p class="HeroTout-headline--subtitle">
+        {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+      </p>
+    {% elif self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
       <div class="HeroTout HeroTout--subBanner">
         <h1 class="HeroTout-headline">{{self.title}}
         </h1>
@@ -17,7 +25,9 @@
         {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
       </p>
     {% else %}
+    <div class="HeroTout">
       {% breadcrumbs %}
+    </div>
     {% endif %}
   {% endblock %}
     <section class="Paper">
