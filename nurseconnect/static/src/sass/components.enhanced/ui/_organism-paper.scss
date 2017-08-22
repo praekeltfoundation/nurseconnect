@@ -117,7 +117,6 @@
         }
 
         &--sectionLearn {}
-
         &-list {
           margin: 0;
           &__Item {
@@ -125,6 +124,7 @@
             color: $color-blue-pelorous;
             display: block;
             list-style: none;
+            position: relative;
             &:after {
               content: " ";
               display: inline-block;
@@ -134,13 +134,15 @@
               background-position: 0 0;
               width: 15px;
               height: 15px;
-              float: right;
               margin-right: scale(alpha);
+              position: absolute;
+              right: 0;
+              bottom: 0;
+              top: 0;
             }
             &--Numbered {
               list-style: decimal;
             }
-
             a {
               display: inline-block;
               color: $color-blue-pelorous;
