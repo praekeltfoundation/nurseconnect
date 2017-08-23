@@ -8,51 +8,39 @@
   {% load_child_sections_for_section self as sections %}
   {% block breadcrumbs %}
   <div class="HeroTout">
-    {% block hero_tout_banner %}
-      {% if self.title == "Learn" %}
-        <h1 class="HeroTout-headline">
-            {% trans "Learning Library Select a category from the list below" %}
-        </h1>
-      {% elif self.title == "Articles" %}
-        <h1 class="HeroTout-headline">
-            {% trans "Select a category from the list to view" %}
-        </h1>
-      {% endif %}
-    {% endblock %}
-    {% breadcrumbs %}
+    {% if self.extra_style_hints == "LearnModule" %}
+      <h1 class="HeroTout-headline">
+          {% trans "Learning Library Select a category from the list below" %}
+      </h1>
+    {% elif self.extra_style_hints == "articlesModule" %}
+      <h1 class="HeroTout-headline">
+          {% trans "Select a category from the list to view" %}
+      </h1>
+    {% else %}
+      {% breadcrumbs %}
+    {% endif %}
   </div>
   {% endblock %}
     {% for section in sections %}
         <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
             <header class="ContentList-header">
-              {% load_descendant_articles_for_section section as section_featured_articles %}
-              {% if self.title == "Learn" %}
-                <h1 class="ContentList-categoryLabel">
-                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link">
-                    {{section.title}} -
-                      <span class="ContentList-categoryLabel--resourcesCount">
-                        {{section_featured_articles|length}} resources</span>
-                  </a>
-                </h1>
-              {% elif self.get_parent_section.title == "Learn" %}
-                <h1 class="ContentList-categoryLabel">
-                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
-                    {{section.title}}
-                    <span class="ContentList-categoryLabel--subtitle">{{section.description}}</span>
-                  </a>
-                </h1>
-              {% else %}
-                <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
-                  <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--section-Link">
-                   {{section.title}}
-                  </a>
-                </h1>
-            {% endif %}
+              {% load_descendant_articles_for_section section as section_articles %}
+              <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
+                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--sectionMenu-link{% endif%}">
+                {% if self.extra_style_hints == "LearnModule" %}
+                  {{section.title}} -
+                  <span class="ContentList-categoryLabel--resourcesCount">
+                    {{section_articles|length}} {% trans "resources" %}
+                  </span>
+                {% else %}
+                  {{section.title}}
+                {% endif %}
+              </a>
+            </h1>
             </header>
 
-            {% if self.title == "Learn" %}
-            {% elif self.get_parent_section.title  == "Learn" %}
-            {% else %}
+            <!--TODO Add if not section[child or Learn section] -->
+            {% if not self.extra_style_hints == "LearnModule" %}
               {% load_child_articles_for_section section as articles %}
               {% if articles %}
               <div class="ContentList-body">
@@ -80,17 +68,7 @@
 
     <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
-    {% if self.get_parent_section.title == "Learn" %}
-    <header class="ContentList-header">
-        {% for article in articles %}
-        <h1 class="ContentList-categoryLabel">
-          <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
-            {{ article.title }}
-            <span class="ContentList-categoryLabel--subtitle">{{ article.subtitle }}</span>
-          </a>
-        {% endfor %}
-    </header>
-    {% elif self.get_parent_section.get_parent_section.title == "Learn" %}
+    {% if self.get_parent_section.extra_style_hints == "LearnModule" %}
       <header class="ContentList-header">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
