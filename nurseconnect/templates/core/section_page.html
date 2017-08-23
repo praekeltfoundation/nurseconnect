@@ -37,10 +37,10 @@
             <header class="ContentList-header">
               {% load_descendant_articles_for_section section as section_articles %}
               <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
-                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--SectionMenu-link{% endif%}">
+                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--SectionMenu-link{% endif%} {% if self.extra_style_hints == "LearnModule" %}ContentList-categoryLabel--SubLink{% endif %}">
                 {% if self.extra_style_hints == "LearnModule" %}
                   {{section.title}} -
-                  <span class="ContentList-categoryLabel--resourcesCount">
+                  <span class="ContentList-categoryLabel--ResourcesCount">
                     {{section_articles|length}} {% trans "resources" %}
                   </span>
                 {% else %}
@@ -83,7 +83,7 @@
       <header class="ContentList-header {% if self.get_parent_section.extra_style_hints %}SectionLearn{% endif %}">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
-            <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
+            <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--SubLink">
               {{ article.title }}
               <span class="ContentList-categoryLabel--subtitle">{{ article.subtitle }}</span>
             </a>

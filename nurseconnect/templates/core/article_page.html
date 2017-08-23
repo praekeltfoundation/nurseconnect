@@ -26,9 +26,9 @@
     </div>
   {% endblock %}
 
-    <section class="Paper">
+  <section class="Paper">
+    {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}
       <article class="Paper-body">
-        {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}
           <div class="Paper-copy SectionLearn">
             {% for block in self.body %}
                 {% if block.block_type == "heading" %}
@@ -99,14 +99,13 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        {% endif %}
         </article>
-
         {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
                 {% include "comments/comment_block.html" %}
             </section>
         {% endif %}
-    </section>
+    {% endif %}
+  </section>
 {% endblock %}
