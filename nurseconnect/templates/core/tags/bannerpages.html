@@ -1,5 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags static %}
-{% if user.is_authenticated %}
+{% if request.user.is_authenticated %}
   {% if bannerpages %}
     <section class="Paper">
         <article class="Paper-body">

@@ -14,21 +14,11 @@
         </a>
       </li>
     {% for section in sections %}
-      {% if section.title == "Articles" %}
-        <li class="Menu-navItem" role="presentation">
-          <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
-            {% trans "Articles" %}
-          </a>
-        </li>
-      {% endif %}
-
-      {% if section.title == "Learn" %}
         <li class="Menu-navItem" role="presentation">
           <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
             {{ section.title }}
           </a>
         </li>
-      {% endif %}
     {% endfor %}
       <li class="Menu-navItem" role="presentation">
         <a href="{% url "search" %}" class="Menu-navLink" role="menuitem">
