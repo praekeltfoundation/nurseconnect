@@ -8,18 +8,17 @@
   {% load_child_sections_for_section self as sections %}
   {% block breadcrumbs %}
   <div class="HeroTout">
-    {% block hero_tout_banner %}
-      {% if self.title == "Learn" %}
-        <h1 class="HeroTout-headline">
-            {% trans "Learning Library Select a category from the list below" %}
-        </h1>
-      {% elif self.title == "Articles" %}
-        <h1 class="HeroTout-headline">
-            {% trans "Select a category from the list to view" %}
-        </h1>
-      {% endif %}
-    {% endblock %}
-    {% breadcrumbs %}
+    {% if self.extra_style_hints == "LearnModule" %}
+      <h1 class="HeroTout-headline">
+          {% trans "Learning Library Select a category from the list below" %}
+      </h1>
+    {% elif self.extra_style_hints == "articlesModule" %}
+      <h1 class="HeroTout-headline">
+          {% trans "Select a category from the list to view" %}
+      </h1>
+    {% else %}
+      {% breadcrumbs %}
+    {% endif %}
   </div>
   {% endblock %}
     {% for section in sections %}
