@@ -12,7 +12,13 @@
       <h1 class="HeroTout-headline">
           {% trans "Learning Library Select a category from the list below" %}
       </h1>
-    {% elif self.extra_style_hints == "articlesModule" %}
+    {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
+      <h1 class="HeroTout-headline">
+        {% block hero_tout_banner %}
+          {{ self.title }} {% trans "Library" %}
+        {% endblock %}
+      </h1>
+    {% elif self.extra_style_hints == "ArticlesModule" %}
       <h1 class="HeroTout-headline">
           {% trans "Select a category from the list to view" %}
       </h1>
@@ -26,7 +32,7 @@
             <header class="ContentList-header">
               {% load_descendant_articles_for_section section as section_articles %}
               <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
-                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--sectionMenu-link{% endif%}">
+                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--SectionMenu-link{% endif%}">
                 {% if self.extra_style_hints == "LearnModule" %}
                   {{section.title}} -
                   <span class="ContentList-categoryLabel--resourcesCount">
