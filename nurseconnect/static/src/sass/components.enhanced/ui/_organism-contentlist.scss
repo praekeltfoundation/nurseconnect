@@ -37,6 +37,13 @@
         font-size: scale(beta);
         font-weight: 600;
         text-transform: uppercase;
+        &--Secondary {
+          text-transform: capitalize;
+          color: $color-blue-pelorous;
+          padding: scale(beta) 0 scale(alpha);
+          border-bottom: 1px solid $color-blue-spindle;
+        }
+
         &--link {
           color: $color-orange-bittersweet;
           cursor: pointer;
