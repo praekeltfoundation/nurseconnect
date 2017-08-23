@@ -7,12 +7,23 @@
 {% block content %}
   {% load_child_sections_for_section self as sections %}
   {% block breadcrumbs %}
-  <div class="HeroTout">
+  <div class="HeroTout {% if self.get_parent_section.extra_style_hints == "LearnModule" %}HeroTout--subBanner{% endif %}">
     {% if self.extra_style_hints == "LearnModule" %}
       <h1 class="HeroTout-headline">
           {% trans "Learning Library Select a category from the list below" %}
       </h1>
-    {% elif self.extra_style_hints == "articlesModule" %}
+    {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
+      <h1 class="HeroTout-headline">
+        {% block hero_tout_banner %}
+          {{ self.title }} {% trans "Library" %}
+        {% endblock %}
+      </h1>
+      <div class="HeroTout-headline--subMessage">
+        <p class="HeroTout-headline--subtitle">
+          {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+        </p>
+      </div>
+    {% elif self.extra_style_hints == "ArticlesModule" %}
       <h1 class="HeroTout-headline">
           {% trans "Select a category from the list to view" %}
       </h1>
@@ -22,14 +33,14 @@
   </div>
   {% endblock %}
     {% for section in sections %}
-        <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
+        <section class="ContentList ContentList--bgTertiary {% if section.extra_style_hints %}ContentList--LearnCategory{% endif %}">
             <header class="ContentList-header">
               {% load_descendant_articles_for_section section as section_articles %}
               <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
-                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--sectionMenu-link{% endif%}">
+                <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--SectionMenu-link{% endif%} {% if self.extra_style_hints == "LearnModule" %}ContentList-categoryLabel--SubLink{% endif %}">
                 {% if self.extra_style_hints == "LearnModule" %}
                   {{section.title}} -
-                  <span class="ContentList-categoryLabel--resourcesCount">
+                  <span class="ContentList-categoryLabel--ResourcesCount">
                     {{section_articles|length}} {% trans "resources" %}
                   </span>
                 {% else %}
@@ -69,10 +80,10 @@
     <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
     {% if self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <header class="ContentList-header">
+      <header class="ContentList-header {% if self.get_parent_section.extra_style_hints %}SectionLearn{% endif %}">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
-            <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">
+            <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--SubLink">
               {{ article.title }}
               <span class="ContentList-categoryLabel--subtitle">{{ article.subtitle }}</span>
             </a>

@@ -9,9 +9,11 @@
         font-weight: 400;
         letter-spacing: kerning(-75);
         line-height: 1;
-        &--subtitle {
+        &--subMessage {
           background-color: $color-white;
           border-bottom: 1px solid $color-grey;
+        }
+        &--subtitle {
           padding: scale(gamma);
           font-style: italic;
           font-weight: bold;
@@ -22,9 +24,12 @@
     &-actions {
         margin-top: scale(gamma);
     }
-
-  &--subBanner {
-    background-color: $color-blue-spindle;
-    color: $color-blue-regal;
-  }
+    &--subBanner {
+      padding: 0;
+      background-color: $color-blue-spindle;
+      color: $color-blue-regal;
+      .HeroTout-headline {
+        padding: scale(gamma);
+      }
+    }
 }
