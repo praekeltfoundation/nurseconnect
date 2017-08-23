@@ -7,7 +7,7 @@
 {% block content %}
   {% load_child_sections_for_section self as sections %}
   {% block breadcrumbs %}
-  <div class="HeroTout">
+  <div class="HeroTout {% if self.get_parent_section.extra_style_hints == "LearnModule" %}HeroTout--subBanner{% endif %}">
     {% if self.extra_style_hints == "LearnModule" %}
       <h1 class="HeroTout-headline">
           {% trans "Learning Library Select a category from the list below" %}
@@ -18,6 +18,11 @@
           {{ self.title }} {% trans "Library" %}
         {% endblock %}
       </h1>
+      <div class="HeroTout-headline--subMessage">
+        <p class="HeroTout-headline--subtitle">
+          {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+        </p>
+      </div>
     {% elif self.extra_style_hints == "ArticlesModule" %}
       <h1 class="HeroTout-headline">
           {% trans "Select a category from the list to view" %}

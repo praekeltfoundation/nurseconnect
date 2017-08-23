@@ -6,33 +6,28 @@
 {% load nurseconnect_tags %}
 
 {% block content %}
+{% load_child_sections_for_section self as sections %}
   {% block breadcrumbs %}
-    {% load_child_sections_for_section self as sections %}
-    {% if self.get_parent_section.get_parent_section.title == "Learn" %}
-      <div class="HeroTout HeroTout--subBanner">
-        <h1 class="HeroTout-headline">{{self.title}}
+    <div class="HeroTout {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}HeroTout--subBanner{% endif %}">
+      {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}
+        <h1 class="HeroTout-headline">
+          {% block hero_tout_banner %}
+            {{ self.title }}
+          {% endblock %}
         </h1>
-      </div>
-      <p class="HeroTout-headline--subtitle">
-        {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
-      </p>
-    {% elif self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
-      <div class="HeroTout HeroTout--subBanner">
-        <h1 class="HeroTout-headline">{{self.title}}
-        </h1>
-      </div>
-      <p class="HeroTout-headline--subtitle">
-        {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
-      </p>
-    {% else %}
-    <div class="HeroTout">
-      {% breadcrumbs %}
+        <div class="HeroTout-headline--subMessage">
+          <p class="HeroTout-headline--subtitle">
+            {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+          </p>
+        </div>
+      {% else %}
+        {% breadcrumbs %}
+      {% endif %}
     </div>
-    {% endif %}
   {% endblock %}
     <section class="Paper">
-        <article class="Paper-body">
-          {% if self.get_parent_section.get_parent_section.title == "Learn" or self.get_parent_section.get_parent_section.get_parent_section.title == "Learn" %}
+      <article class="Paper-body">
+        {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}
           <div class="Paper-copy Paper-copy--sectionLearn">
             {% for block in self.body %}
                 {% if block.block_type == "heading" %}
@@ -58,7 +53,7 @@
                 {% endif %}
             {% endfor %}
           </div>
-          {% else %}
+        {% else %}
             <header class="Paper-header">
                 <h1 class="Paper-headline">{{ self.title }}</h1>
                 <p class="Paper-lead">{{ self.subtitle }}</p>
@@ -104,7 +99,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-          {% endif %}
+        {% endif %}
         </article>
         {% if self.allow_commenting %}
             <section class="Comments">
