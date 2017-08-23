@@ -127,16 +127,9 @@
                       </li>
                       {% load_sections as sections %}
                         {% for section in sections %}
-                          {% if section.title == "Articles" %}
                             <li class="static-menu-list__item">
-                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Articles" %}</a>
+                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{{section.title}}</a>
                             </li>
-                          {% endif %}
-                          {% if section.title == "Learn" %}
-                            <li class="static-menu-list__item">
-                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Learn" %}</a>
-                            </li>
-                          {% endif %}
                         {% endfor %}
                         <li class="static-menu-list__item">
                            <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">

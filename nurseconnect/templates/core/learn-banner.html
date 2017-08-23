@@ -4,19 +4,19 @@
 <section class="ContentList ContentList--bgSecondary">
   {% if sections %}
     {% for section in sections %}
-      {% if section.title == "Learn" %}
+      {% if section.slug == "learn" %}
         <header class="ContentList-header">
             <h1 class="ContentList-categoryLabel">{{ section.title }}</h1>
         </header>
         <div class="ContentList-body">
             <article class="Article">
-                <a href="{% pageurl section %}" class="Article-hitBox">
-                    <h2 class="Article-headline Article-headline--Learn">{{section.get_effective_extra_style_hints}}</h2>
-                    <p class="Article-strapline">{{ section.description }}</p>
-                    <div class="Article-actions">
-                        <span class="Button">{% trans "Start learning now" %}</span>
-                    </div>
-                </a>
+                <h2 class="Article-headline Article-headline--Learn">{% trans "Browse our Learning Modules" %}</h2>
+                <p class="Article-strapline">{{ section.description }}</p>
+                <div class="Article-actions">
+                  <a href="{% pageurl section %}" class="Article-hitBox">
+                    <span class="Button">{% trans "Start learning now" %}</span>
+                  </a>
+                </div>
             </article>
         </div>
       {% endif %}

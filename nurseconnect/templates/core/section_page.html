@@ -42,9 +42,9 @@
                   </a>
                 </h1>
               {% else %}
-                <h1 class="ContentList-categoryLabel ContentList-categoryLabel--section">
+                <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
                   <a href="{% pageurl section %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--section-Link">
-                    {{section.title}}
+                   {{section.title}}
                   </a>
                 </h1>
             {% endif %}
