@@ -22,7 +22,8 @@
         background-color: inherit;
     }
 
-    &--learnCategory {
+    //Where is this being used?
+    &--LearnCategory {
       .ContentList-header {
         .ContentList-categoryLabel {
           color: $color-blue-pelorous;
@@ -50,23 +51,11 @@
           display: block;
           text-decoration: none;
         }
-        &--subLink {
+        &--SubLink {
           position: relative;
           color: $color-blue-pelorous;
-          &:after {
-            content: " ";
-            background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M95.2%205.9C87.4-2%2074.5-2%2066.6%205.9s-7.9%2020.8%200%2028.6L182.1%20150%2066.6%20265.5c-7.9%207.9-7.9%2020.8%200%2028.6%203.8%203.8%208.9%205.9%2014.3%205.9s10.5-2.1%2014.3-5.9L239.3%20150%2095.2%205.9z%22%20fill%3D%22%232d9ec5%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat;
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            right: 0;
-            top: 6px;
-            bottom: 0;
-          }
         }
-        &--resourcesCount,
+        &--ResourcesCount,
         &--subtitle {
           color: $color-black;
           font-size: 12px;
@@ -82,7 +71,7 @@
         }
     }
 
-    &-categoryLabel--sectionMenu {
+    &-categoryLabel--SectionMenu {
       color: $color-blue-pelorous;
       cursor: pointer;
       vertical-align: middle;
@@ -110,4 +99,21 @@
     &-actions {
         margin: scale(gamma);
     }
+}
+
+.SectionLearn {
+  .ContentList-categoryLabel--SubLink {
+    &:after {
+      content: " ";
+      background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M95.2%205.9C87.4-2%2074.5-2%2066.6%205.9s-7.9%2020.8%200%2028.6L182.1%20150%2066.6%20265.5c-7.9%207.9-7.9%2020.8%200%2028.6%203.8%203.8%208.9%205.9%2014.3%205.9s10.5-2.1%2014.3-5.9L239.3%20150%2095.2%205.9z%22%20fill%3D%22%232d9ec5%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+      background-repeat: no-repeat;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 0;
+      top: 6px;
+      bottom: 0;
+    }
+  }
 }
