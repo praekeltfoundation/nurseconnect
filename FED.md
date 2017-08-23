@@ -143,5 +143,7 @@ TO DO
 
 - Footer Back to Top button
   => JS enabled on Desktop and Smartphone
-- Menu hover - to use selected icon
+- Menu active - to use selected icon
 - Selected section menu static [page]
+
+- Add section, subsection, article pages flow [section_page.html] & [article_page.html]

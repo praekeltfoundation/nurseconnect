@@ -105,7 +105,6 @@
         <main class="ContentBody" role="main">
             {% include "core/header.html" %}
             {% if user.is_authenticated %}
-              {% breadcrumbs %}
               {% block hero %}{% endblock %}
             {% endif %}
             {% block content %}{% endblock %}
@@ -126,11 +125,13 @@
                       <li class="static-menu-list__item">
                         <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
                       </li>
-                      <li class="static-menu-list__item">
-                        <a href="/" class="static-menu-list__anchor">{% trans "Articles" %}</a>
-                      </li>
                       {% load_sections as sections %}
                         {% for section in sections %}
+                          {% if section.title == "Articles" %}
+                            <li class="static-menu-list__item">
+                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Articles" %}</a>
+                            </li>
+                          {% endif %}
                           {% if section.title == "Learn" %}
                             <li class="static-menu-list__item">
                               <a href="{% pageurl section %}" class="static-menu-list__anchor">{% trans "Learn" %}</a>
@@ -138,21 +139,20 @@
                           {% endif %}
                         {% endfor %}
                         <li class="static-menu-list__item">
-                            <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
-                              {% trans "Search" %}
-                            </a>
+                           <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
+                             {% trans "Search" %}
+                           </a>
+                       </li>
+                        <li class="static-menu-list__item">
+                          <a href="{% url "view_my_profile" %}" class="static-menu-list__anchor">
+                              {% trans "Your Profile" %}
+                          </a>
                         </li>
-                      <li class="static-menu-list__item">
-                        <a href="{% url 'molo.profiles:view_my_profile' %}" class="static-menu-list__anchor">
-                            {% trans "Your Profile" %}
-                        </a>
-                      </li>
-                      <li class="static-menu-list__item">
-                        <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
-                          {% if user.is_authenticated %}
+                        <li class="static-menu-list__item">
+                          <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
                             {% trans "Log out" %}
-                        </a>
-                      </li>
+                          </a>
+                        </li>
                     </ul>
                   </div>
                 {% endblock %}
