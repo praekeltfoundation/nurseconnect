@@ -24,7 +24,7 @@
     {% for section in sections %}
         <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
             <header class="ContentList-header">
-              {% load_descendant_articles_for_section section as section_featured_articles %}
+              {% load_descendant_articles_for_section section as section_articles %}
               <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
                 <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--sectionMenu-link{% endif%}">
                 {% if self.extra_style_hints == "LearnModule" %}
