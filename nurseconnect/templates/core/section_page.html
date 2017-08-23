@@ -33,7 +33,7 @@
   </div>
   {% endblock %}
     {% for section in sections %}
-        <section class="ContentList ContentList--bgTertiary {% if self.title == "Learn" %}ContentList--learnCategory{% endif %}">
+        <section class="ContentList ContentList--bgTertiary {% if section.extra_style_hints %}ContentList--LearnCategory{% endif %}">
             <header class="ContentList-header">
               {% load_descendant_articles_for_section section as section_articles %}
               <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
@@ -80,7 +80,7 @@
     <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
     {% if self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <header class="ContentList-header">
+      <header class="ContentList-header {% if self.get_parent_section.extra_style_hints %}SectionLearn{% endif %}">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
             <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--subLink">

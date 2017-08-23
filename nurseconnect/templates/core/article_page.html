@@ -25,10 +25,11 @@
       {% endif %}
     </div>
   {% endblock %}
+
     <section class="Paper">
       <article class="Paper-body">
         {% if self.get_parent_section.get_parent_section.extra_style_hints == "LearnModule" %}
-          <div class="Paper-copy Paper-copy--sectionLearn">
+          <div class="Paper-copy SectionLearn">
             {% for block in self.body %}
                 {% if block.block_type == "heading" %}
                     <h2>{{ block.value }}</h2>
@@ -63,7 +64,6 @@
                          class="Logo-graphic"> <strong>{{ comment_count }}</strong>
                 {% endif %}
             </header>
-
             <div class="Paper-copy">
                 {% if self.image %}
                     {% image self.image width-320 class="Paper-graphic Paper-graphic--inline" %}
@@ -101,6 +101,7 @@
             </div>
         {% endif %}
         </article>
+
         {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
