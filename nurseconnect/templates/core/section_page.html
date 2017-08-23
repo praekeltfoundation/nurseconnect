@@ -30,7 +30,7 @@
                 {% if self.extra_style_hints == "LearnModule" %}
                   {{section.title}} -
                   <span class="ContentList-categoryLabel--resourcesCount">
-                    {{section_featured_articles|length}} {% trans "resources" %}
+                    {{section_articles|length}} {% trans "resources" %}
                   </span>
                 {% else %}
                   {{section.title}}
