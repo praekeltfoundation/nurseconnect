@@ -4,15 +4,17 @@
     {% for page in search_results %}
         {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
             <article class="ContentList ContentList--bgTertiary">
-                {% if ancestor.sectionpage.image %}
-                    <header class="ContentList-header">
-                        <h2 class="ContentList-categoryLabel">{{ ancestor.title }}</h2>
-                    </header>
-                {% else %}
-                    <header class="ContentList-header">
-                        <h2 class="ContentList-categoryLabel">{{ parent_section.title }}</h2>
-                    </header>
+                {% if page.get_parent_section.get_effective_extra_style_hints == "LearnModule" %}
+                  <p class="HeroTout-headline--subtitle">
+                    {% trans "Selecting a chapter will redirect you to the content provider's mobilesite" %}
+                  </p>
                 {% endif %}
+                <!--TODO Print an image? -->
+                {% if ancestor.sectionpage.image %}{% else %}{% endif %}
+                <header class="ContentList-header">
+                  <h2 class="ContentList-categoryLabel">{{ ancestor.title }}</h2>
+                  <h3 class="ContentList-categoryLabel ContentList-categoryLabel--Secondary">{{ parent_section.title }}</h3>
+                </header>
                 <div class="ContentList-body">
                     <div class="Article">
                         <a href="{% pageurl page %}" class="Article-hitBox">
@@ -34,8 +36,10 @@
                     </div>
                 </div>
             </article>
+
         {% endwith %}
     {% endfor %}
+
     <aside class="ContentBody-secondaryNav">
         <nav class="Pagination" role="navigation">
             <ul class="Pagination-bar" role="menubar" aria-labelledby="pagination-label">
