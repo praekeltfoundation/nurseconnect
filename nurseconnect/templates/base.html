@@ -114,7 +114,7 @@
               <button class="FancyNav-toggle">X</button>
             </div>
             {% block footer %}
-            <footer class="Footer" role="contentinfo">
+            <footer id="menu" class="Footer" role="contentinfo">
             {% if user.is_authenticated %}
                 {% block menu_static %}
                   <div class="static-menu">
