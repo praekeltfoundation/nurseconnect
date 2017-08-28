@@ -15,7 +15,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # }
 
 
-CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+CLINIC_CODE_API = environ.get("https://praekelt:IJGRu5gnCJeGfkd@npr-him.jembi.org:5000/ws/rest/v1/NCfacilityCheck")
 
 # JEMBI configuration
 JEMBI_URL = environ.get("JEMBI_URL")

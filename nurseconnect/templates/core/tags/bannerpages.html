@@ -1,25 +1,50 @@
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% if request.user.is_authenticated %}
   {% if bannerpages %}
-    <section class="Paper">
+    {% if 'week' in request.user.date_joined|timesince %}
+    {% else %}
+      {% block hero %}
+        <div class="HeroTout">
+          <h1 class="HeroTout-headline">
+             {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
+          </h1>
+        </div>
+      {% endblock %}
+    {% endif %}
+      <section class="Paper">
         <article class="Paper-body">
-            {% for bannerpage in bannerpages %}
-              {% if bannerpage.banner %}
-                    <header class="Paper-header Paper-header--banner">
-                        <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
-                        {% if bannerpage.banner_link_page %}
-                            <a href="{% pageurl bannerpage.banner_link_page %}">
-                                {% image bannerpage.banner fill-320x225 as imagePath %}
-                                <img src="{{imagePath.url}}" class="Paper-graphic">
-                            </a>
-                        {% else %}
+          {% for bannerpage in bannerpages %}
+            {% if bannerpage.banner %}
+              {% if 'week' in request.user.date_joined|timesince %}
+                <header class="Paper-header Paper-header--banner  Paper-header--returning">
+                  <h1 class="Paper-headline Paper-headline--returning">{% trans "Welcome back" %}</h1>
+                  {% if bannerpage.banner_link_page %}
+                      <a href="{% pageurl bannerpage.banner_link_page %}">
+                          {% image bannerpage.banner width-160 as imagePath %}
+                          <img src="{{imagePath.url}}" class="Paper-graphic Paper-graphic--returning">
+                      </a>
+                  {% else %}
+                    {% image bannerpage.banner width-160 as imagePath %}
+                    <img src="{{imagePath.url}}" class="Paper-graphic  Paper-graphic--returning">
+                  {% endif %}
+                </header>
+              {% else %}
+                <header class="Paper-header Paper-header--banner">
+                  <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
+                  {% if bannerpage.banner_link_page %}
+                      <a href="{% pageurl bannerpage.banner_link_page %}">
                           {% image bannerpage.banner fill-320x225 as imagePath %}
                           <img src="{{imagePath.url}}" class="Paper-graphic">
-                        {% endif %}
-                    </header>
-                {% endif %}
-            {% endfor %}
+                      </a>
+                  {% else %}
+                    {% image bannerpage.banner fill-320x225 as imagePath %}
+                    <img src="{{imagePath.url}}" class="Paper-graphic">
+                  {% endif %}
+                </header>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         </article>
-    </section>
+      </section>
   {% endif %}
 {% endif %}
