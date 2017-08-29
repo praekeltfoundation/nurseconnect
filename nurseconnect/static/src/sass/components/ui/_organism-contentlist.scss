@@ -21,8 +21,12 @@
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
+
+      &--link {
+        color: $color-blue-pelorous;
+        cursor: pointer;
+      }
     }
-    &-body {}
     &-actions {
         padding: scale(alpha);
     }
