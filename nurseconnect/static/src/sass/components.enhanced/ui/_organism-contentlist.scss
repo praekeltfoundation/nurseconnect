@@ -1,27 +1,21 @@
 .ContentList {
     $block: unquote("#{&}");
-
     @include clearfix;
     background-color: $color-white;
-
     & + & {
         border-top: 2px solid $color-blue-regal;
         border-top: 2px solid rgba($color-blue-regal, .1);
     }
-
     &--bgSecondary {
         background-color: $color-blue-spindle;
     }
-
     &--bgTertiary {
         background-color: $color-blue-tranquil;
     }
-
     &-header {
         margin: scale(beta) scale(gamma);
         background-color: inherit;
     }
-
     //Where is this being used?
     &--LearnCategory {
       .ContentList-header {
@@ -31,7 +25,6 @@
         }
       }
     }
-
     &-categoryLabel {
         margin: 0;
         color: $color-orange-bittersweet;
@@ -44,7 +37,6 @@
           padding: scale(beta) 0 scale(alpha);
           border-bottom: 1px solid $color-blue-spindle;
         }
-
         &--link {
           color: $color-orange-bittersweet;
           cursor: pointer;
@@ -70,7 +62,6 @@
           font-weight: normal;
         }
     }
-
     &-categoryLabel--SectionMenu {
       color: $color-blue-pelorous;
       cursor: pointer;
@@ -100,7 +91,6 @@
         margin: scale(gamma);
     }
 }
-
 .SectionLearn {
   .ContentList-categoryLabel--SubLink {
     &:after {
