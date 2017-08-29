@@ -1,16 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% if request.user.is_authenticated %}
   {% if bannerpages %}
-    {% if 'week' in request.user.date_joined|timesince %}
-    {% else %}
-      {% block hero %}
-        <div class="HeroTout">
-          <h1 class="HeroTout-headline">
-             {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
-          </h1>
-        </div>
-      {% endblock %}
-    {% endif %}
       <section class="Paper">
         <article class="Paper-body">
           {% for bannerpage in bannerpages %}
@@ -29,6 +19,13 @@
                   {% endif %}
                 </header>
               {% else %}
+              {% block hero %}
+                <div class="HeroTout">
+                  <h1 class="HeroTout-headline">
+                     {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
+                  </h1>
+                </div>
+              {% endblock %}
                 <header class="Paper-header Paper-header--banner">
                   <h1 class="Paper-headline">{{ bannerpage.title }}</h1>
                   {% if bannerpage.banner_link_page %}
