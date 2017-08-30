@@ -23,7 +23,21 @@
             }
         }
     }
-    &-navItem {}
+    &-navItem {
+      &__Link {
+        color: $color-blue-pelorous;
+        text-decoration: none;
+        &:hover,
+        &:active,
+        &:focus {
+          color: $color-orange-bittersweet;
+          .Menu-contentToutHeadline {
+            color: $color-orange-bittersweet;
+          }
+        }
+      }
+    }
+
     &-navLink {
       display: block;
       display: flex;
@@ -34,11 +48,6 @@
       border-bottom: 1px solid rgba($color-blue-regal, .1);
       color: $color-blue-pelorous;
       text-decoration: none;
-      &:hover,
-      &:active,
-      &:focus {
-        color: $color-orange-bittersweet;
-      }
     }
     &--highContrast {
       .Menu-navLink {
@@ -85,6 +94,14 @@
             display: block;
             color: $color-blue-regal;
         }
+    }
+    &-contentToutLabel {
+      color: $color-orange-bittersweet;
+      margin-bottom: 0;
+      font-size: 1.5rem;
+    }
+    &-contentToutStraplabel {
+      margin: 0;
     }
     // Menu Modifiers
     &--highContrast {
