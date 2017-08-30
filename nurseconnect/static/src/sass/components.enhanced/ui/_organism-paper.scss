@@ -1,12 +1,10 @@
 .Paper {
     $block: unquote("#{&}");
-
     &-header {
         padding: scale(gamma);
         background-color: $color-blue-spindle;
         border-bottom: $color-blue-tranquil;
     }
-
     &-graphic {
         display: block;
         max-width: 100%;
@@ -19,30 +17,25 @@
             margin-right: scale(beta);
         }
     }
-
     &-headline {
         margin: scale(alpha) 0;
         color: $color-blue-pelorous;
         font-weight: 400;
         line-height: 1.25;
     }
-
     &-dateline {
         color: $color-orange-bittersweet;
         font-weight: 600;
         text-transform: uppercase;
     }
-
     &-byline {
         font-weight: 300;
     }
-
     &-lead {
         margin: scale(alpha) 0 0;
         font-size: scale(gamma);
         font-weight: 300;
     }
-
     &-copy {
         padding: scale(beta) scale(gamma);
         background-color: $color-white;
@@ -59,14 +52,12 @@
                 margin-bottom: 0;
             }
         }
-
         b,
         strong {font-weight: 600;}
         a {
             color: $color-orange-bittersweet;
             font-weight: 600;
         }
-
         blockquote {
             max-width: 90%;
             margin: scale(beta) (-(scale(gamma))) scale(beta) auto;
@@ -76,7 +67,6 @@
             font-size: scale(gamma);
             font-style: italic;
         }
-
         h1,
         h2,
         h3,
@@ -93,13 +83,11 @@
         h3 {font-size: scale(gamma);}
         h4 {font-size: scale(beta);}
         h5 {font-size: scale(alpha);}
-
         ul,
         ol {
             margin: scale(beta) 0;
             padding: 0 0 0 1em;
         }
-
         figure {
             width: 100%;
             margin: scale(beta) auto;
@@ -156,19 +144,29 @@
     }
 
     &-header--banner {
-      padding: scale(gamma) 0;
-      .Paper-headline {
-          padding: 0 scale(gamma);
-      }
+      padding: scale(gamma);
       .Paper-graphic  {
         width: 100%;
         height: auto;
         margin: 0 auto;
       }
     }
-
+    &-header--returning {
+      position: relative;
+      overflow: auto;
+      padding: scale(gamma) scale(gamma) 0;
+      .Paper-headline--returning {
+        position: absolute;
+        top: 20%;
+        width: 50%;
+      }
+      .Paper-graphic--returning {
+          float: right;
+          width: 50%;
+          margin: 0;
+      }
+    }
 }
-
 .SectionLearn {
   background-color: $color-white;
   margin: 0;
