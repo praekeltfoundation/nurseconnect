@@ -17,14 +17,20 @@
                 </a>
                 <ul class="Menu-navGroup Menu-navGroup--lvl2" role="menu">
                 {% for article in featured_articles %}
+                  {% with ancestor=article.get_parent_section.get_ancestors.last parent_section=article.get_parent_section %}
                   <li class="Menu-navItem" role="presentation">
-                    <a class="Menu-navLink" role="menuitem" href="{% pageurl article %}">
-                      <span class="Menu-contentTout">
-                        <span class="Menu-contentToutHeadline">{{ article.title }}</span>
-                        <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
-                      </span>
-                  </a>
+                    <a class="Menu-navItem__Link" role="menuitem" href="{% pageurl article %}">
+                      <h1 class="Menu-contentToutLabel">{{ancestor}}</h1>
+                      <h2 class="Menu-contentToutStraplabel">{{parent_section}}</h2>
+                      <div class="Menu-navLink" role="menuitem">
+                        <span class="Menu-contentTout">
+                          <span class="Menu-contentToutHeadline">{{ article.title }}</span>
+                          <span class="Menu-contentToutStrapline">{{ article.subtitle }}</span>
+                        </span>
+                      </div>
+                    </a>
                   </li>
+                  {% endwith %}
                 {% endfor %}
                 </ul>
               {% endif %}

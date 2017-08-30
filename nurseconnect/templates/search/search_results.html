@@ -2,41 +2,44 @@
 
 {% block content %}
     {% for page in search_results %}
-        {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
-            <article class="ContentList ContentList--bgTertiary">
-                {% if page.get_parent_section.get_effective_extra_style_hints == "LearnModule" %}
-                  <p class="HeroTout-headline--subtitle">
-                    {% trans "Selecting a chapter will redirect you to the content provider's mobilesite" %}
-                  </p>
-                {% endif %}
-                <!--TODO Print an image? -->
-                {% if ancestor.sectionpage.image %}{% else %}{% endif %}
-                <header class="ContentList-header">
-                  <h2 class="ContentList-categoryLabel">{{ ancestor.title }}</h2>
-                  <h3 class="ContentList-categoryLabel ContentList-categoryLabel--Secondary">{{ parent_section.title }}</h3>
-                </header>
-                <div class="ContentList-body">
-                    <div class="Article">
-                        <a href="{% pageurl page %}" class="Article-hitBox">
-                            {% if page.title_highlight %}
-                                <h2 class="Article-headline">{{ page.title_highlight|safe }}</h2>
-                            {% else %}
-                                <h2 class="Article-headline">{{ page.title }}</h2>
+        {% with rootAncestor=page.get_parent_section.get_ancestors.3 ancestor=page.get_parent_section.get_ancestors.last parent_section=page.get_parent_section %}
+        <article class="ContentList ContentList--bgTertiary">
+            <header class="ContentList-header">
+              {% if rootAncestor.title == "Learn"%}
+                  <h2 class="ContentList-categoryLabel">
+                    {% trans "Learning Resources" %}
+                  </h2>
+              {% else %}
+                <h2 class="ContentList-categoryLabel">
+                  {{ rootAncestor.title }}
+                </h2>
+                <h3 class="ContentList-c3tegoryLabel ContentList-categoryLabel--Secondary">
+                  {{ ancestor.title }}<br/>
+                  {{ parent_section.title }}
+                </h3>
+              {% endif %}
+            </header>
+            <div class="ContentList-body">
+                <div class="Article">
+                    <a href="{% pageurl page %}" class="Article-hitBox">
+                        {% if page.title_highlight %}
+                            <h2 class="Article-headline">{{ page.title_highlight|safe }}</h2>
+                        {% else %}
+                            <h2 class="Article-headline">{{ page.title }}</h2>
+                        {% endif %}
+                        {% if page.subtitle_highlight or page.body_highlight %}
+                            {% if page.subtitle_highlight %}
+                                <p class="Article-strapline">{{ page.subtitle_highlight|safe }}</p>
+                            {% elif page.body_highlight %}
+                                <p class="Article-strapline">{{ page.body_highlight|safe }}</p>
                             {% endif %}
-                            {% if page.subtitle_highlight or page.body_highlight %}
-                                {% if page.subtitle_highlight %}
-                                    <p class="Article-strapline">{{ page.subtitle_highlight|safe }}</p>
-                                {% elif page.body_highlight %}
-                                    <p class="Article-strapline">{{ page.body_highlight|safe }}</p>
-                                {% endif %}
-                            {% else %}
-                                <p class="Article-strapline">{{ page.subtitle }}</p>
-                            {% endif %}
-                        </a>
-                    </div>
+                        {% else %}
+                            <p class="Article-strapline">{{ page.subtitle }}</p>
+                        {% endif %}
+                    </a>
                 </div>
-            </article>
-
+            </div>
+        </article>
         {% endwith %}
     {% endfor %}
 
@@ -46,7 +49,8 @@
                 {% if search_results.has_previous %}
                     <li class="Pagination-item Pagination-item--prev" role="presentation">
                         <a class="Pagination-link" role="menuitem"
-                           href="?p={{ search_results.previous_page_number }}&amp;q={{ search_query }}">Prev</a>
+                           href="?p={{ search_results.previous_page_number }}&amp;q={{ search_query }}">
+                           {% trans "Prev" %}</a>
                     </li>
                 {% endif %}
                 <span class="Pagination-label" id="pagination-label">
@@ -55,7 +59,7 @@
                 {% if search_results.has_next %}
                     <li class="Pagination-item Pagination-item--next" role="presentation">
                         <a class="Pagination-link" role="menuitem"
-                           href="?p={{ search_results.next_page_number }}&amp;q={{ search_query }}">Next</a>
+                           href="?p={{ search_results.next_page_number }}&amp;q={{ search_query }}">{% trans "Next" %}</a>
                     </li>
                 {% endif %}
             </ul>
