@@ -31,21 +31,25 @@
         }
     }
 
-    &-navItem {}
-
+    &-navItem {
+      &__Link {
+        text-decoration: none;
+        &:hover,
+        &:active,
+        &:focus {
+          color: $color-orange-bittersweet;
+          .Menu-contentToutHeadline {
+            color: $color-orange-bittersweet;
+          }
+        }
+      }
+    }
     &-navLink {
         display: block;
         border-bottom: 1px solid $color-blue-tranquil;
         color: $color-blue-pelorous;
         text-decoration: none;
-
-        &:hover,
-        &:active,
-        &:focus {
-            color: $color-orange-bittersweet;
-        }
     }
-
     &-navIcon {
         display: inline-block;
         width: auto;
@@ -61,7 +65,6 @@
 
     &-contentTout {
         display: block;
-
         &Headline {
             display: block;
             font-weight: 600;
@@ -71,5 +74,14 @@
             display: block;
             color: $color-blue-regal;
         }
+    }
+    &-contentToutLabel {
+      color: $color-orange-bittersweet;
+      margin-bottom: 0;
+      font-size: 1.5rem;
+    }
+    &-contentToutStraplabel {
+      margin: 0;
+      color: $color-blue-pelorous;
     }
 }
