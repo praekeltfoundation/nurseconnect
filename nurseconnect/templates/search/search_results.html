@@ -1,24 +1,54 @@
 {% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content %}
+<header class="ContentList-header">
+  <h2 class="ContentList-categoryLabel ContentList-categoryLabel--Mainsections">
+    Articles
+  </h2>
+</header>
+{% for page in search_results %}
+    {% with rootAncestor=page.get_parent_section.get_ancestors.3 ancestor=page.get_parent_section.get_ancestors.last parent_section=page.get_parent_section %}
+    {% if rootAncestor.title == "Articles"%}
+    <article class="ContentList ContentList--bgTertiary">
+        <h2 class="ContentList-categoryLabel ContentList-categoryLabel--Subsections">
+          {{ ancestor.title }}<br/>
+          {{ parent_section.title }}
+        </h2>
+        <div class="ContentList-body">
+            <div class="Article">
+                <a href="{% pageurl page %}" class="Article-hitBox">
+                    {% if page.title_highlight %}
+                        <h2 class="Article-headline">{{ page.title_highlight|safe }}</h2>
+                    {% else %}
+                        <h2 class="Article-headline">{{ page.title }}</h2>
+                    {% endif %}
+                    {% if page.subtitle_highlight or page.body_highlight %}
+                        {% if page.subtitle_highlight %}
+                            <p class="Article-strapline">{{ page.subtitle_highlight|safe }}</p>
+                        {% elif page.body_highlight %}
+                            <p class="Article-strapline">{{ page.body_highlight|safe }}</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="Article-strapline">{{ page.subtitle }}</p>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </article>
+    {% endif %}
+    {% endwith %}
+{% endfor %}
+
+  <header class="ContentList-header">
+    <h2 class="ContentList-categoryLabel ContentList-categoryLabel--Mainsections">
+      {% trans "Learning Resources" %}
+    </h2>
+  </header>
+
     {% for page in search_results %}
         {% with rootAncestor=page.get_parent_section.get_ancestors.3 ancestor=page.get_parent_section.get_ancestors.last parent_section=page.get_parent_section %}
+        {% if rootAncestor.title == "Learn"%}
         <article class="ContentList ContentList--bgTertiary">
-            <header class="ContentList-header">
-              {% if rootAncestor.title == "Learn"%}
-                  <h2 class="ContentList-categoryLabel">
-                    {% trans "Learning Resources" %}
-                  </h2>
-              {% else %}
-                <h2 class="ContentList-categoryLabel">
-                  {{ rootAncestor.title }}
-                </h2>
-                <h3 class="ContentList-c3tegoryLabel ContentList-categoryLabel--Secondary">
-                  {{ ancestor.title }}<br/>
-                  {{ parent_section.title }}
-                </h3>
-              {% endif %}
-            </header>
             <div class="ContentList-body">
                 <div class="Article">
                     <a href="{% pageurl page %}" class="Article-hitBox">
@@ -40,8 +70,11 @@
                 </div>
             </div>
         </article>
+        {% endif %}
         {% endwith %}
     {% endfor %}
+
+
 
     <aside class="ContentBody-secondaryNav">
         <nav class="Pagination" role="navigation">
