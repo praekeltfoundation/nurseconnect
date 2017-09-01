@@ -42,7 +42,7 @@ html {
 body {
     background-color: $color-blue-tranquil;
     color: $color-blue-regal;
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 800px) {
       @if $enhanced == true {
           max-width: 360px;
           //max-width: em(360);
