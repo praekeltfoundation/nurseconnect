@@ -22,10 +22,14 @@
         font-weight: 600;
         text-transform: uppercase;
 
-      &--link {
-        color: $color-blue-pelorous;
-        cursor: pointer;
-      }
+        &--Subsections {
+          color: $color-blue-pelorous;
+          margin: scale(alpha);
+        }
+        &--link {
+          color: $color-blue-pelorous;
+          cursor: pointer;
+        }
     }
     &-actions {
         padding: scale(alpha);

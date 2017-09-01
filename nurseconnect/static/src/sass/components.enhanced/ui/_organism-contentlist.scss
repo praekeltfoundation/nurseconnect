@@ -31,6 +31,13 @@
         font-size: scale(beta);
         font-weight: 600;
         text-transform: uppercase;
+        &--Mainsections {
+          font-size: scale(gamma);
+        }
+        &--Subsections {
+          color: $color-blue-pelorous;
+          margin: scale(alpha) scale(gamma);
+        }
         &--Secondary {
           text-transform: capitalize;
           color: $color-blue-pelorous;
