@@ -88,6 +88,8 @@ INSTALLED_APPS = [
 
     # styleguide
     "styleguide",
+
+    'storages'
 ]
 
 COMMENTS_APP = "molo.commenting"
@@ -388,3 +390,12 @@ if ES_HOST:
                 environ.get('MARATHON_APP_ID', 'nurse-mobi').replace('/', '')
         },
     }
+
+AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME', '')
+AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+    MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
