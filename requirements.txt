@@ -9,3 +9,5 @@ html5lib==0.9999999
 django_compressor==2.1
 responses
 Unidecode==0.04.16
+django-storages
+boto
