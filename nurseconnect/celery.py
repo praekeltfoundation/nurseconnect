@@ -6,7 +6,6 @@ from celery import Celery
 from django.conf import settings
 from celery.signals import celeryd_init
 
-from django.conf import settings
 from django.core.management import call_command
 
 
@@ -19,6 +18,7 @@ app = Celery("proj")
 # pickle the object when using Windows.
 app.config_from_object("django.conf:settings")
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)  # pragma: no cover
+
 
 @celeryd_init.connect
 def ensure_search_index_updated(sender, instance, **kwargs):
