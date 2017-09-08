@@ -118,6 +118,21 @@ MIDDLEWARE_CLASSES = [
 ]
 
 GOOGLE_ANALYTICS = {}
+GOOGLE_ANALYTICS_IGNORE_PATH = [
+    # health check used by marathon
+    '/health/',
+    # admin interfaces for wagtail and django
+    '/admin/', '/django-admin/',
+    # Universal Core content import URL
+    '/import/',
+    # browser troll paths
+    '/favicon.ico', '/robots.txt',
+    # when using nginx, we handle statics and media
+    # but including them here just incase
+    '/media/', '/static/',
+    # metrics URL used by promethius monitoring system
+    '/metrics',
+]
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
