@@ -137,7 +137,7 @@ urlpatterns += patterns(
         name="auth_login"
     ),
 
-    url(r"^sections/$", include(wagtail_urls)),
+    url(r"^sections/", include(wagtail_urls)),
     url(r"^comments/", include("molo.commenting.urls")),
     url(r'^surveys/',
         include('molo.surveys.urls',
