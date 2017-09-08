@@ -185,17 +185,22 @@ DATABASES = {"default": dj_database_url.config(
 #     }
 # }
 
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_IMPORTS = ("molo.core.tasks")
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ALWAYS_EAGER = False
+CELERY_IMPORTS = ('molo.core.tasks', 'google_analytics.tasks')
 BROKER_URL = environ.get("BROKER_URL", "redis://localhost:6379/0")
 CELERY_RESULT_BACKEND = environ.get(
     "CELERY_RESULT_BACKEND", "redis://localhost:6379/0")
 CELERYBEAT_SCHEDULE = {
-    "rotate_content": {
-        "task": "molo.core.tasks.rotate_content",
-        "schedule": crontab(minute=0),
+    'rotate_content': {
+        'task': 'molo.core.tasks.rotate_content',
+        'schedule': crontab(minute=0),
+    },
+    'molo_consolidated_minute_task': {
+        'task': 'molo.core.tasks.molo_consolidated_minute_task',
+        'schedule': crontab(minute='*'),
     },
 }
 
