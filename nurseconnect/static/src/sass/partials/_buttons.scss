@@ -12,34 +12,28 @@
 }
 
 .PillButton {
-
     display: block;
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+    padding: .75rem 0 .80rem;
     border-radius: 2rem;
     color: $color-white;
     font-size: .75rem;
     text-align: center;
     text-transform: uppercase;
-
     &--blue {
-        background-color: $color-blue-pelorous;
-
-        &:hover,
-        &:active {
-            background-color: darken($color-blue-pelorous, 10%);
-        }
+      background-color: $color-blue-pelorous;
+      &:hover,
+      &:active {
+          background-color: darken($color-blue-pelorous, 10%);
+      }
     }
-
     &--orange {
-        background-color: $color-orange-bittersweet;
-
-        &:hover,
-        &:active {
-            background-color: darken($color-orange-bittersweet, 10%);
-        }
+      background-color: $color-orange-bittersweet;
+      &:hover,
+      &:active {
+          background-color: darken($color-orange-bittersweet, 10%);
+      }
     }
 }

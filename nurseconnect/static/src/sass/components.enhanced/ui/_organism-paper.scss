@@ -180,3 +180,12 @@
     padding: 0;
   }
 }
+
+
+.ArticleFeature__page {
+  display: block;
+  padding-right: 4rem;
+  &-link {
+    word-break: break-word;
+  }
+}
