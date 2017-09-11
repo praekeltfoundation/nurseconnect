@@ -94,6 +94,12 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
+                    {% elif block.block_type == 'page' %}
+                      {% if block.value %}
+                        <span class="ArticleFeature__page">
+                          <a href="{% pageurl block.value %}" class="ArticleFeature__page-link">{{block.value }}</a>
+                        </span>
+                      {% endif %}
                     {% else %}
                         {{ block }}
                     {% endif %}

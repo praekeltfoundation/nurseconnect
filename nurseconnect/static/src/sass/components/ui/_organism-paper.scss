@@ -114,3 +114,12 @@
       }
     }
 }
+
+
+.ArticleFeature__page {
+  display: block;
+  padding-right: 2rem;
+  &-link {
+    word-break: break-word;
+  }
+}

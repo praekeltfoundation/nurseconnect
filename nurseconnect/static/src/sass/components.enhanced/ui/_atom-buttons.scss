@@ -1,8 +1,7 @@
 .Button {
     display: block;
     width: 100%;
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+    padding: .75rem 2rem;
     border-radius: 2rem;
     background-color: $color-orange-bittersweet;
     color: $color-white;
@@ -11,13 +10,11 @@
     text-align: center;
     text-decoration: none;
     text-transform: capitalize;
-
     &:hover,
     &:active,
     &:focus {
         background-color: darken($color-orange-bittersweet, 10%);
     }
-
     &--blue {
         background-color: $color-blue-pelorous;
 
@@ -27,13 +24,11 @@
             background-color: darken($color-blue-pelorous, 10%);
         }
     }
-
     &--inverted {
         border: 1px solid $color-orange-bittersweet;
         background-color: $color-white;
         background-color: transparent;
         color: $color-orange-bittersweet;
-
         &:hover,
         &:active,
         &:focus {
