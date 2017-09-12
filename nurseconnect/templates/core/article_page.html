@@ -98,9 +98,11 @@
                         {% endif %}
                     {% elif block.block_type == 'page' %}
                       {% if block.value %}
-                        <span class="ArticleFeature__page">
-                          <a href="{% pageurl block.value %}" class="ArticleFeature__page-link">{{block.value }}</a>
-                        </span>
+                        <div class="Paper-copy__FeaturedPages">
+                            <span class="ArticleFeature__page">
+                              <a href="{% pageurl block.value %}" class="ArticleFeature__page-link">{{block.value }}</a>
+                            </span>
+                        </div>
                       {% endif %}
                     {% else %}
                         {{ block }}
