@@ -1,5 +1,5 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
-<!-- FLY BY MENU -->
+
 {% if sections %}
   <div class="HeroTout">
     <h1 class="HeroTout-headline">
@@ -10,23 +10,30 @@
     <ul class="Menu-navGroup Menu-navGroup--lvl1" role="menu">
       <li class="Menu-navItem" role="presentation">
         <a href="{% url "home" %}" class="Menu-navLink" role="menuitem">
-          {% trans "Home" %} 
+          <img alt="Home" src="{% static "dist/icons/png/clinic-bluePelorous.png" %}" class="Menu-navIcon">
+          {% trans "Home" %}
         </a>
       </li>
     {% for section in sections %}
         <li class="Menu-navItem" role="presentation">
           <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
+            {% if section.image %}
+              {% image section.image width-40 as imagePath %}
+              <img alt="{{section.title}}" src="{{imagePath.url}}" class="Menu-navIcon">
+            {% endif %}
             {{ section.title }}
           </a>
         </li>
     {% endfor %}
       <li class="Menu-navItem" role="presentation">
         <a href="{% url "search" %}" class="Menu-navLink" role="menuitem">
+          <img alt="Search" src="{% static "dist/icons/png/search-bluePelorous.png" %}" class="Menu-navIcon">
             {% trans "Search" %}
         </a>
       </li>
       <li class="Menu-navItem" role="presentation">
         <a href="{% url 'molo.profiles:view_my_profile' %}" class="Menu-navLink" role="menuitem">
+          <img alt="Profile" src="{% static "dist/icons/png/profile-bluePelorous.png" %}" class="Menu-navIcon">
           {% trans "Your Profile" %}
         </a>
       </li>

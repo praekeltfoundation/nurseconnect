@@ -1,4 +1,4 @@
-molo.core==5.8.2
+molo.core==5.9.5
 celery<4.0
 molo.surveys==5.3.0
 molo.yourwords==5.0.1
