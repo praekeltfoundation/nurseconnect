@@ -14,7 +14,7 @@
         &--inline {
             float: left;
             width: 50%;
-            margin-right: scale(beta);
+            margin: 0 scale(beta) scale(beta) 0;
         }
     }
     &-headline {
@@ -41,6 +41,12 @@
         background-color: $color-white;
         font-weight: 300;
         overflow: auto;
+        &__imageWrap {
+            width: 75%;
+            #{$block}-graphic--inline {
+                padding: 0 scale(beta) scale(beta) 0;
+            }
+        }
 
         p {
             margin: 0;

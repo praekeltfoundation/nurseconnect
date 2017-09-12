@@ -66,7 +66,9 @@
             </header>
             <div class="Paper-copy">
                 {% if self.image %}
+                  <div class="Paper-copy__imageWrap">
                     {% image self.image width-320 class="Paper-graphic Paper-graphic--inline" %}
+                  </div>
                 {% endif %}
                 {% for block in self.body %}
                     {% if block.block_type == "heading" %}

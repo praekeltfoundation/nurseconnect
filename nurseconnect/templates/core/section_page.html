@@ -63,7 +63,9 @@
                       <a href="{% pageurl article %}" class="Article-hitBox">
                           <article class="Article">
                               {% if article.image %}
-                                  {% image article.image width-85 class="Article-image Article-image--aside" %}
+                              <div class="Article-imageWrap">
+                                {% image article.image width-85 class="Article-image Article-image--aside" %}
+                              </div>
                               {% endif %}
                               <h2 class="Article-headline">
                                 {{ article.title }}</h2>
@@ -99,7 +101,9 @@
         <a href="{% pageurl article %}" class="Article-hitBox">
           <article class="Article">
             {% if article.image %}
-              {% image article.image width-85 class="Article-image Article-image--aside" %}
+             <div class="Article-imageWrap">
+                {% image article.image width-85 class="Article-image Article-image--aside" %}
+             </div>
             {% endif %}
             <h2 class="Article-headline">
               {{ article.title }}</h2>
