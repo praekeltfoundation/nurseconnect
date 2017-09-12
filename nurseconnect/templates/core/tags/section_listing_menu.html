@@ -18,7 +18,7 @@
         <li class="Menu-navItem" role="presentation">
           <a href="{% pageurl section %}" class="Menu-navLink" role="menuitem">
             {% if section.image %}
-              {% image section.image width-85 as imagePath %}
+              {% image section.image width-40 as imagePath %}
               <img alt="{{section.title}}" src="{{imagePath.url}}" class="Menu-navIcon">
             {% endif %}
             {{ section.title }}

@@ -146,7 +146,7 @@
 
     &-header--banner {
       padding: 0 scale(gamma);
-      .Paper-graphic  {
+      #{$block}-graphic  {
         width: auto;
         height: auto;
         margin: 0 auto;
@@ -156,7 +156,7 @@
       position: relative;
       overflow: auto;
       padding: scale(gamma) scale(gamma);
-      .Paper-headline--landing {
+      #{$block}-headline--landing {
         position: absolute;
         top: 20%;
         width: 50%;
@@ -164,28 +164,26 @@
         font-size: 1.88em;
         word-break: break-word;
       }
-      .Paper-graphic--landing {
+      #{$block}-graphic--landing {
           float: right;
           width: 50%;
           margin: 0;
       }
     }
-}
-.SectionLearn {
-  background-color: $color-white;
-  margin: 0;
-  padding: scale(gamma);
-  .Paper-copy-list {
-    margin: 0;
-    padding: 0;
-  }
-}
-
-
-.ArticleFeature__page {
-  display: block;
-  padding-right: 4rem;
-  &-link {
-    word-break: break-word;
-  }
+    .SectionLearn {
+      background-color: $color-white;
+      margin: 0;
+      padding: scale(gamma);
+      #{$block}-copy-list {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    .ArticleFeature__page {
+      display: block;
+      padding: 0 4rem .75rem 0;
+      &-link {
+        word-break: break-word;
+      }
+    }
 }
