@@ -50,18 +50,7 @@
       text-decoration: none;
     }
     &--highContrast {
-      .Menu-navLink {
-        &:before {
-          content: " ";
-          display: inline-block;
-          background: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M150%20300C67.3%20300%200%20232.7%200%20150S67.3%200%20150%200s150%2067.3%20150%20150-67.3%20150-150%20150zm0-284.7C75.7%2015.3%2015.3%2075.7%2015.3%20150S75.7%20284.7%20150%20284.7%20284.7%20224.3%20284.7%20150%20224.3%2015.3%20150%2015.3z%22%20fill%3D%22%23213d55%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
-          background-repeat: no-repeat;
-          background-size: auto;
-          background-position: 0 0;
-          width: 30px;
-          height: 30px;
-          margin-right: scale(alpha);
-        }
+      #{$block}-navLink {
         &:hover:before {
           background-color: $color-white;
           border-radius: 50%;
@@ -71,9 +60,9 @@
     &-navIcon {
         @include clearfix;
         display: inline-block;
-        max-width: scale(zeta);
+        max-width: scale(eta);
         height: auto;
-        margin-right: scale(gamma);
+        margin-right: scale(alpha);
         vertical-align: middle;
         &--after {
             margin-right: 0;
