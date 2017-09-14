@@ -41,6 +41,9 @@
         background-color: $color-white;
         font-weight: 300;
         overflow: auto;
+        * {
+            box-sizing: content-box;
+        }
         &__imageWrap {
             width: 75%;
             #{$block}-graphic--inline {
