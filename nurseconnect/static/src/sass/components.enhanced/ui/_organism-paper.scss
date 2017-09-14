@@ -110,6 +110,9 @@
             font-weight: 600;
             text-align: center;
         }
+        &-listOrdered {
+            list-style-type: decimal;
+        }
         &-list {
           &__Item {
             padding: scale(alpha) 0;
