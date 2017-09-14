@@ -35,11 +35,11 @@
                     <h2>{{ block.value }}</h2>
                 {% elif block.block_type == "numbered_list" %}
                     {% if block.value %}
-                        <ul class="Paper-copy-list">
+                        <ol class="Paper-copy-list Paper-copy-listOrdered">
                             {% for item in block.value %}
                                 <li  class="Paper-copy-list__Item Paper-copy-list__Item--Numbered">{{ item|handle_markdown }}</li>
                             {% endfor %}
-                        </ul>
+                        </ol>
                     {% endif %}
                 {% elif block.block_type == "list" %}
                     {% if block.value %}
@@ -82,15 +82,15 @@
                         {% endif %}
                     {% elif block.block_type == "numbered_list" %}
                         {% if block.value %}
-                            <ul>
+                            <ol class="Paper-copy-list Paper-copy-listOrdered">
                                 {% for item in block.value %}
                                     <li>{{ item|handle_markdown }}</li>
                                 {% endfor %}
-                            </ul>
+                            </ol>
                         {% endif %}
                     {% elif block.block_type == "list" %}
                         {% if block.value %}
-                            <ul>
+                            <ul class="Paper-copy-list">
                                 {% for item in block.value %}
                                     <li>{{ item|handle_markdown }}</li>
                                 {% endfor %}
