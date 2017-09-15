@@ -46,6 +46,7 @@
         }
         &__imageWrap {
             width: 75%;
+            clear: both;
             #{$block}-graphic--inline {
                 padding: 0 scale(beta) scale(beta) 0;
             }
