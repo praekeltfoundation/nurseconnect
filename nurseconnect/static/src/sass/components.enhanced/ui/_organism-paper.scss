@@ -116,8 +116,10 @@
         }
         &-listOrdered {
             list-style-type: decimal;
+            clear: both;
         }
         &-list {
+            clear: both;
           &__Item {
             padding: scale(alpha) 0;
             color: $color-blue-pelorous;
