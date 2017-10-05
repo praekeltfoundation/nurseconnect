@@ -165,7 +165,11 @@ class RegistrationSecurityQuestionsView(FormView):
     template_name = "registration/register_security_questions.html"
 
     def form_valid(self, form):
-        username = self.request.session["username"]
+        if self.request.user.is_authenticated():
+            username = self.request.user.username
+        else:
+            username = self.request.session["username"]
+
         user = User.objects.filter(username__iexact=username).first()
 
         # Save security question answers
@@ -178,6 +182,8 @@ class RegistrationSecurityQuestionsView(FormView):
                 question=question,
                 answer=answer
             )
+        if self.request.user.is_authenticated():
+            return HttpResponseRedirect(reverse("home"))
         self.request.session["registration-step"] = 3
         return HttpResponseRedirect(reverse("user_register_clinic_code"))
 
@@ -194,6 +200,15 @@ class RegistrationSecurityQuestionsView(FormView):
             request, self.questions, self.request.LANGUAGE_CODE)
         kwargs["questions"] = translated_questions
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            RegistrationSecurityQuestionsView, self
+        ).get_context_data()
+        if self.request.user.is_authenticated():
+            context["is_edit"] = True
+
+        return context
 
 
 class RegistrationClinicCodeView(FormView):
