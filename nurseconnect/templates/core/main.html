@@ -4,7 +4,13 @@
   {% bannerpages %}
   {% if user.is_authenticated %}
       {% if no_security_answers %}
-          <h1 class="ContentList-categoryLabel">{% trans "Please add security answers." %}</h1>
+          <section class="ContentList">
+            <div class="ContentList-body">
+                <header class="ContentList-header">
+                    <h1 class="ContentList-categoryLabel">{% trans "Please add security answers " %}<a href="{% url "view_my_profile" %}">{% trans "here" %}</a></h1>
+                </header>
+            </div>
+          </section>
       {% endif %}
     {% block search %}
       {% include "core/search-form.html" with id="search" %}

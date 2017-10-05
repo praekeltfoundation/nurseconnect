@@ -86,10 +86,11 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data()
         user = self.request.user
-        exists = user.profile.securityanswer_set.filter(
-            user=user.profile).exists()
-        if not exists:
-            context["no_security_answers"] = True
+        if user.is_authenticated():
+            exists = user.profile.securityanswer_set.filter(
+                user=user.profile).exists()
+            if not exists:
+                context["no_security_answers"] = True
         return context
 
 
