@@ -95,17 +95,14 @@ gulp.task('watch', function() {
 gulp.task('clean-generated-icons', function() {
     return del(srcPath + '/images/generated-icons');
 });
-
 gulp.task('clean-icons', function() {
     return del(distPath + '/icons');
 });
-
 gulp.task('crush-svgs', ['clean-generated-icons'], function () {
     return gulp.src(srcPath + '/images/svgs/*.svg')
         .pipe(svgmin())
         .pipe(gulp.dest(srcPath + '/images/generated-icons'));
 });
-
 gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
     var icons = glob.sync(srcPath + '/images/generated-icons/*.*');
     var options = {
@@ -118,9 +115,7 @@ gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
             black: '#000000'
         }
     };
-
     var iconsTask = new grunticon(icons, distPath + '/icons', options);
-
     iconsTask.process(done);
 });
 /* =================================== */
