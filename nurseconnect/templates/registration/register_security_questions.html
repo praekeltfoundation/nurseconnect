@@ -5,7 +5,7 @@
 {% block content %}
     <section action="" class="Splash">
         <div class="Splash-body">
-            {% if is_edit %}
+            {% if toggle_security_edit %}
                 <h1 class="Splash-headline">{% trans "Add some security." %}</h1>
             {% else %}
                 <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
