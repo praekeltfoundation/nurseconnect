@@ -5,7 +5,11 @@
 {% block content %}
     <section action="" class="Splash">
         <div class="Splash-body">
-            <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
+            {% if toggle_security_edit %}
+                <h1 class="Splash-headline">{% trans "Add some security." %}</h1>
+            {% else %}
+                <h1 class="Splash-headline">{% trans "Welcome." %}<br> {% trans "Let's get you signed up." %}</h1>
+            {% endif %}
         </div>
         <div class="Splash-body">
             <form method="POST" action="{% url "user_register_security_questions" %}" class="Form" novalidate>
@@ -33,18 +37,24 @@
                 </fieldset>
                 <div class="Splash-actions">
                     <ul class="ButtonGroup">
-                        <li class="ButtonGroup-item">
-                            <input class="Button" type="submit" value="{% trans "Next" %}"/>
-                        </li>
-                        <input type="hidden" name="next" value="{% url "user_register_clinic_code" %}"/>
-                        <li class="ButtonGroup-item">
-                            <div class="Message Message--subtle Message--centered">
-                                <p class="Message-caption">
-                                    {% trans "Already have an account? Log in" %} <a
-                                        href="{% url "auth_login" %}">{% trans "here" %}</a>
-                                </p>
-                            </div>
-                        </li>
+                        {% if toggle_security_edit %}
+                            <li class="ButtonGroup-item">
+                                <input class="Button" type="submit" value="{% trans "Done" %}"/>
+                            </li>
+                        {% else %}
+                            <li class="ButtonGroup-item">
+                                <input class="Button" type="submit" value="{% trans "Next" %}"/>
+                            </li>
+                            <input type="hidden" name="next" value="{% url "user_register_clinic_code" %}"/>
+                            <li class="ButtonGroup-item">
+                                <div class="Message Message--subtle Message--centered">
+                                    <p class="Message-caption">
+                                        {% trans "Already have an account? Log in" %} <a
+                                            href="{% url "auth_login" %}">{% trans "here" %}</a>
+                                    </p>
+                                </div>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </form>

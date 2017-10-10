@@ -3,6 +3,15 @@
 {% block content %}
   {% bannerpages %}
   {% if user.is_authenticated %}
+      {% if no_security_answers %}
+          <section class="ContentList">
+            <div class="ContentList-body">
+                <header class="ContentList-header">
+                    <h1 class="ContentList-categoryLabel">{% trans "Please add security answers " %}<a href="{% url "user_register_security_questions" %}">{% trans "here" %}</a></h1>
+                </header>
+            </div>
+          </section>
+      {% endif %}
     {% block search %}
       {% include "core/search-form.html" with id="search" %}
     {% endblock %}
