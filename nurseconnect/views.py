@@ -206,7 +206,7 @@ class RegistrationSecurityQuestionsView(FormView):
             RegistrationSecurityQuestionsView, self
         ).get_context_data()
         if self.request.user.is_authenticated():
-            context["is_edit"] = True
+            context["toggle_security_edit"] = True
 
         return context
 
