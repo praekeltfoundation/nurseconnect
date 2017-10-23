@@ -13,11 +13,18 @@
         background-color: $color-blue-tranquil;
     }
     &-header {
-        margin: scale(beta) scale(gamma);
+        margin: scale(beta) 0;
+        padding: 0 scale(gamma);
         background-color: inherit;
+        border-top: 2px solid $color-blue-regal;
+        border-top: 2px solid rgba($color-blue-regal, .1);
+        &:first-child {
+            border-top: none;
+        }
     }
     //Where is this being used?
     &--LearnCategory {
+        background: $color-white;
       .ContentList-header {
         .ContentList-categoryLabel {
           color: $color-blue-pelorous;
