@@ -11,5 +11,10 @@
     }
     &-actions {
         margin-top: scale(beta);
+        &--LearnCategory {
+            #{$block}-headline {
+                display: none;
+            }
+        }
     }
 }

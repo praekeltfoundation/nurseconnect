@@ -1,38 +1,42 @@
 {% extends "base.html" %}
+{% include "tags/breadcrumbs.html" %}
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load comments mptt_tags molo_commenting_tags i18n %}
 {% load nurseconnect_tags %}
 
 {% block content %}
-  {% load_child_sections_for_section self as sections %}
-  {% block breadcrumbs %}
-  <div class="HeroTout {% if self.get_parent_section.extra_style_hints == "LearnModule" %}HeroTout--subBanner{% endif %}">
-    {% if self.extra_style_hints == "LearnModule" %}
-      <h1 class="HeroTout-headline">
-          {% trans "Learning Library Select a category from the list below" %}
-      </h1>
-    {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <h1 class="HeroTout-headline">
-        {% block hero_tout_banner %}
-          {{ self.title }} {% trans "Library" %}
-        {% endblock %}
-      </h1>
-      <div class="HeroTout-headline--subMessage">
-        <p class="HeroTout-headline--subtitle">
-          {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
-        </p>
-      </div>
-    {% elif self.extra_style_hints == "ArticlesModule" %}
-      <h1 class="HeroTout-headline">
-          {% trans "Select a category from the list to view" %}
-      </h1>
-    {% else %}
-      {% breadcrumbs %}
-    {% endif %}
-  </div>
-  {% endblock %}
-    <section class="ContentList ContentList--bgTertiary{% if self.extra_style_hints == "LearnModule" %} ContentList--LearnCategory{% endif %}">
+    {% load_child_sections_for_section self as sections %}
+    {% block breadcrumbs %}
+    <div class="HeroTout{% if self.get_parent_section.extra_style_hints == "LearnModule" %} HeroTout--subBanner{% endif %}">
+        {% if self.extra_style_hints == "LearnModule" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Learning Library Select a category from the list below" %}
+        </h1>
+        {% elif self.extra_style_hints == "ArticlesModule" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Select a category from the list to view" %}
+        </h1>
+        {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
+            <h1 class="HeroTout-headline">
+                {% block hero_tout_banner %}
+                    {{ self.title }} {% trans "Library" %}
+                {% endblock %}
+            </h1>
+            <div class="HeroTout-actions--LearnCategory">
+                {% breadcrumbs %}
+            </div>
+            <div class="HeroTout-headline--subMessage">
+                <p class="HeroTout-headline--subtitle">
+                {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+                </p>
+            </div>
+        {% else %}
+            {% breadcrumbs %}
+        {% endif %}
+    </div>
+    {% endblock %}
+    <section class="ContentList ContentList--bgTertiary{% if self.extra_style_hints == "LearnModule" or self.get_parent_section.extra_style_hints == "LearnModule"%} ContentList--LearnCategory{% endif %}">
         {% for section in sections %}
         <header class="ContentList-header">
         {% load_descendant_articles_for_section section as section_articles %}
@@ -81,12 +85,12 @@
           {% endif %}
         {% endif %}
     {% endfor %}
-    </section>
+
 
     <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
     {% if self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <header class="ContentList-header {% if self.get_parent_section.extra_style_hints %}SectionLearn{% endif %}">
+      <header class="ContentList-header{% if self.get_parent_section.extra_style_hints %} SectionLearn{% endif %}">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
             <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--SubLink">
@@ -120,6 +124,7 @@
       </div>
     {% endif %}
 
+
     <!-- PAGINATION -->
     {% if articles %}
     <aside class="ContentBody-secondaryNav">
@@ -144,5 +149,6 @@
       </nav>
     </aside>
     {% endif %}
+    </section>
 
 {% endblock %}

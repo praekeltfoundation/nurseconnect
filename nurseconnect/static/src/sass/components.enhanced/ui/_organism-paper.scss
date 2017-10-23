@@ -93,11 +93,11 @@
         h3 {font-size: scale(gamma);}
         h4 {font-size: scale(beta);}
         h5 {font-size: scale(alpha);}
-        ul,
-        ol {
+        ul {
             margin: scale(beta) 0;
             padding: 0 0 0 1em;
         }
+
         figure {
             width: 100%;
             margin: scale(beta) auto;
@@ -114,10 +114,6 @@
             font-weight: 600;
             text-align: center;
         }
-        &-listOrdered {
-            list-style-type: decimal;
-            clear: both;
-        }
         &-list {
             clear: both;
           &__Item {
@@ -133,26 +129,30 @@
               background-repeat: no-repeat;
               background-size: auto;
               background-position: 0 0;
-              width: 20px;
-              height: 20px;
+              width: rem(25);
+              height: rem(25);
               position: absolute;
               right: 0;
               bottom: 0;
-              top: 15px;
+              top: 15px rem(15);
             }
             &--Numbered {
               list-style: decimal;
+              display: list-item;
             }
             a {
               display: block;
               padding: 0 scale(delta) 0 0;
               color: $color-blue-pelorous;
+              text-decoration: none;
               &:hover,
               &focus {
                 color: $color-orange-bittersweet;
+                text-decoration: underline;
               }
               &:visited {
                 outline: 1px $color-orange-bittersweet dotted;
+                text-decoration: underline;
               }
             }
           }
@@ -191,7 +191,7 @@
       padding: scale(gamma);
       #{$block}-copy-list {
         margin: 0;
-        padding: 0;
+        padding: 0 0 0 1em;
       }
     }
     .ArticleFeature__page {
