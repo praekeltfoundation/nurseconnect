@@ -67,6 +67,7 @@
         a {
             color: $color-orange-bittersweet;
             font-weight: 600;
+            outline: none;
         }
         blockquote {
             max-width: 90%;
@@ -134,7 +135,7 @@
               position: absolute;
               right: 0;
               bottom: 0;
-              top: 15px rem(15);
+              top: rem(15);
             }
             &--Numbered {
               list-style: decimal;
