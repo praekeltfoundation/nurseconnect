@@ -1,92 +1,96 @@
 {% extends "base.html" %}
+{% include "tags/breadcrumbs.html" %}
 {% load static core_tags %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load comments mptt_tags molo_commenting_tags i18n %}
 {% load nurseconnect_tags %}
 
 {% block content %}
-  {% load_child_sections_for_section self as sections %}
-  {% block breadcrumbs %}
-  <div class="HeroTout {% if self.get_parent_section.extra_style_hints == "LearnModule" %}HeroTout--subBanner{% endif %}">
-    {% if self.extra_style_hints == "LearnModule" %}
-      <h1 class="HeroTout-headline">
-          {% trans "Learning Library Select a category from the list below" %}
-      </h1>
-    {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <h1 class="HeroTout-headline">
-        {% block hero_tout_banner %}
-          {{ self.title }} {% trans "Library" %}
-        {% endblock %}
-      </h1>
-      <div class="HeroTout-headline--subMessage">
-        <p class="HeroTout-headline--subtitle">
-          {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
-        </p>
-      </div>
-    {% elif self.extra_style_hints == "ArticlesModule" %}
-      <h1 class="HeroTout-headline">
-          {% trans "Select a category from the list to view" %}
-      </h1>
-    {% else %}
-      {% breadcrumbs %}
-    {% endif %}
-  </div>
-  {% endblock %}
-    {% for section in sections %}
-        <section class="ContentList ContentList--bgTertiary {% if section.extra_style_hints %}ContentList--LearnCategory{% endif %}">
-            <header class="ContentList-header">
-              {% load_descendant_articles_for_section section as section_articles %}
-              <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
+    {% load_child_sections_for_section self as sections %}
+    {% block breadcrumbs %}
+    <div class="HeroTout{% if self.get_parent_section.extra_style_hints == "LearnModule" %} HeroTout--subBanner{% endif %}">
+        {% if self.extra_style_hints == "LearnModule" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Learning Library Select a category from the list below" %}
+        </h1>
+        {% elif self.extra_style_hints == "ArticlesModule" %}
+        <h1 class="HeroTout-headline">
+            {% trans "Select a category from the list to view" %}
+        </h1>
+        {% elif self.get_parent_section.extra_style_hints == "LearnModule" %}
+            <h1 class="HeroTout-headline">
+                {% block hero_tout_banner %}
+                    {{ self.title }} {% trans "Library" %}
+                {% endblock %}
+            </h1>
+            <div class="HeroTout-actions--LearnCategory">
+                {% breadcrumbs %}
+            </div>
+            <div class="HeroTout-headline--subMessage">
+                <p class="HeroTout-headline--subtitle">
+                {% trans "Selecting a learning module will redirect you to the content provider's mobilesite" %}
+                </p>
+            </div>
+        {% else %}
+            {% breadcrumbs %}
+        {% endif %}
+    </div>
+    {% endblock %}
+    <section class="ContentList ContentList--bgTertiary{% if self.extra_style_hints == "LearnModule" or self.get_parent_section.extra_style_hints == "LearnModule"%} ContentList--LearnCategory{% endif %}">
+        {% for section in sections %}
+        <header class="ContentList-header">
+        {% load_descendant_articles_for_section section as section_articles %}
+            <h1 class="ContentList-categoryLabel {% if section.extra_style_hints %}ContentList-categoryLabel--{{section.extra_style_hints}}{% endif%}">
                 <a href="{% pageurl section %}" class="ContentList-categoryLabel--link {% if section.extra_style_hints %}ContentList-categoryLabel--SectionMenu-link{% endif%} {% if self.extra_style_hints == "LearnModule" %}ContentList-categoryLabel--SubLink{% endif %}">
                 {% if self.extra_style_hints == "LearnModule" %}
-                  {{section.title}} -
-                  <span class="ContentList-categoryLabel--ResourcesCount">
-                    {{section_articles|length}} {% trans "resources" %}
-                  </span>
+                {{section.title}} -
+                    <span class="ContentList-categoryLabel--ResourcesCount">
+                        {{section_articles|length}} {% trans "resources" %}
+                    </span>
                 {% else %}
-                {% if section.image %}
-                  {% image section.image width-40 as imagePath %}
-                  <img alt="{{section.title}}" src="{{imagePath.url}}" class="Menu-navIcon">
+                    {% if section.image %}
+                    {% image section.image width-40 as imagePath %}
+                        <img alt="{{section.title}}" src="{{imagePath.url}}" class="Menu-navIcon">
+                    {% endif %}
+                {{section.title}}
                 {% endif %}
-                  {{section.title}}
-                {% endif %}
-              </a>
+                </a>
             </h1>
-            </header>
+        </header>
 
-            <!--TODO Add if not section[child or Learn section] -->
-            {% if not self.extra_style_hints == "LearnModule" %}
-              {% load_child_articles_for_section section as articles %}
-              {% if articles %}
-              <div class="ContentList-body">
-                  {% for article in articles %}
-                      <a href="{% pageurl article %}" class="Article-hitBox">
-                          <article class="Article">
-                              {% if article.image %}
-                              <div class="Article-imageWrap">
-                                {% image article.image width-85 height-100 class="Article-image Article-image--aside" %}
-                              </div>
-                              {% endif %}
-                              <h2 class="Article-headline">
-                                {{ article.title }}</h2>
-                              <p class="Article-strapline">{{ article.subtitle }}</p>
-                          </article>
-                      </a>
-                  {% endfor %}
-              </div>
-              <footer class="ContentList-actions">
-                  <a href="{% pageurl section %}"
-                     class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
-              </footer>
-              {% endif %}
-            {% endif %}
-        </section>
+        <!--TODO Add if not section[child or Learn section] -->
+        {% if not self.extra_style_hints == "LearnModule" %}
+          {% load_child_articles_for_section section as articles %}
+          {% if articles %}
+          <div class="ContentList-body">
+            {% for article in articles %}
+            <a href="{% pageurl article %}" class="Article-hitBox">
+                <article class="Article">
+                {% if article.image %}
+                    <div class="Article-imageWrap">
+                    {% image article.image width-85 height-100 class="Article-image Article-image--aside" %}
+                    </div>
+                {% endif %}
+                <h2 class="Article-headline">
+                {{ article.title }}</h2>
+                <p class="Article-strapline">{{ article.subtitle }}</p>
+                </article>
+            </a>
+            {% endfor %}
+          </div>
+          <footer class="ContentList-actions">
+              <a href="{% pageurl section %}"
+                 class="Button Button--blue">{% trans "View more articles about" %} {{ section.title }}</a>
+          </footer>
+          {% endif %}
+        {% endif %}
     {% endfor %}
+
 
     <!-- SUB SUB CATEGORY ARTICLE LISTING -->
     {% load_child_articles_for_section self as articles %}
     {% if self.get_parent_section.extra_style_hints == "LearnModule" %}
-      <header class="ContentList-header {% if self.get_parent_section.extra_style_hints %}SectionLearn{% endif %}">
+      <header class="ContentList-header{% if self.get_parent_section.extra_style_hints %} SectionLearn{% endif %}">
           {% for article in articles %}
           <h1 class="ContentList-categoryLabel">
             <a href="{% pageurl article %}" class="ContentList-categoryLabel--link ContentList-categoryLabel--SubLink">
@@ -120,6 +124,7 @@
       </div>
     {% endif %}
 
+
     <!-- PAGINATION -->
     {% if articles %}
     <aside class="ContentBody-secondaryNav">
@@ -144,5 +149,6 @@
       </nav>
     </aside>
     {% endif %}
+    </section>
 
 {% endblock %}
