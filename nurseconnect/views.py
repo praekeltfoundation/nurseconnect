@@ -147,6 +147,7 @@ class RegistrationMSISDNView(FormView):
             username=username,
             password=password
         )
+        user.profile.site = self.request.site
         user.save()
         user.profile.save()
 
@@ -177,11 +178,12 @@ class RegistrationSecurityQuestionsView(FormView):
             self.questions
         ):
             answer = form.cleaned_data["question_%s" % index]
-            models.SecurityAnswer.objects.create(
-                user=user.profile,
-                question=question,
-                answer=answer
-            )
+            if answer:
+                models.SecurityAnswer.objects.create(
+                    user=user.profile,
+                    question=question,
+                    answer=answer
+                )
         if self.request.user.is_authenticated():
             return HttpResponseRedirect(reverse("home"))
         self.request.session["registration-step"] = 3
