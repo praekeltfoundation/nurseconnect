@@ -392,22 +392,25 @@ ES_HOST = environ.get('ES_HOST')
 ES_INDEX = environ.get('ES_INDEX')
 ES_VERSION = int(environ.get('ES_VERSION', 2))
 
-ES_BACKEND_V1 = 'molo.core.wagtailsearch.backends.elasticsearch'
-ES_BACKEND_V2 = 'molo.core.wagtailsearch.backends.elasticsearch2'
+ES_BACKEND_V1 = 'wagtail.wagtailsearch.backends.elasticsearch'
+ES_BACKEND_V2 = 'wagtail.wagtailsearch.backends.elasticsearch2'
+ES_BACKEND_V5 = 'wagtail.wagtailsearch.backends.elasticsearch5'
 
-if ES_VERSION == 2:
+if ES_VERSION == 5:
+    SELECTED_ES_BACKEND = ES_BACKEND_V5
+elif ES_VERSION == 2:
     SELECTED_ES_BACKEND = ES_BACKEND_V2
 else:
     SELECTED_ES_BACKEND = ES_BACKEND_V1
 
-if ES_HOST:
+ES_SELECTED_INDEX = ES_INDEX or environ.get('MARATHON_APP_ID', '')
+
+if ES_HOST and ES_SELECTED_INDEX:
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': SELECTED_ES_BACKEND,
             'URLS': [ES_HOST],
-            'INDEX':
-                ES_INDEX or
-                environ.get('MARATHON_APP_ID', 'nurse-mobi').replace('/', '')
+            'INDEX': ES_SELECTED_INDEX.replace('/', '')
         },
     }
 
