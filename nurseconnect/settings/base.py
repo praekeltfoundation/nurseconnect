@@ -392,13 +392,10 @@ ES_HOST = environ.get('ES_HOST')
 ES_INDEX = environ.get('ES_INDEX')
 ES_VERSION = int(environ.get('ES_VERSION', 2))
 
-ES_BACKEND_V1 = 'wagtail.wagtailsearch.backends.elasticsearch'
-ES_BACKEND_V2 = 'wagtail.wagtailsearch.backends.elasticsearch2'
-ES_BACKEND_V5 = 'wagtail.wagtailsearch.backends.elasticsearch5'
+ES_BACKEND_V1 = 'nurseconnect.wagtailsearch.backends.elasticsearch'
+ES_BACKEND_V2 = 'nurseconnect.wagtailsearch.backends.elasticsearch2'
 
-if ES_VERSION == 5:
-    SELECTED_ES_BACKEND = ES_BACKEND_V5
-elif ES_VERSION == 2:
+if ES_VERSION == 2:
     SELECTED_ES_BACKEND = ES_BACKEND_V2
 else:
     SELECTED_ES_BACKEND = ES_BACKEND_V1
