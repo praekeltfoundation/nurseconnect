@@ -101,12 +101,3 @@ def nurses_registered_per_clinic():
 )
 def send_data():
     nurses_registered_per_clinic()
-
-
-@celeryd_init.connect
-def ensure_search_index_updated(sender, instance, **kwargs):
-    '''
-    Run update_index when celery starts
-    '''
-    if not isinstance(get_search_backend(), DatabaseSearchBackend):
-        call_command('refresh_index')
