@@ -32,13 +32,12 @@ class NurseConnectProfileUserAdmin(ProfileUserAdmin):
 
 
 def download_as_csv(NurseConnectEndUsersModelAdmin, request, queryset):
-    response = HttpResponse(content_type="text/csv")
+    response = HttpResponse(content_type="text/csv", charset='utf-8')
     response["Content-Disposition"] = "attachment;filename=export.csv"
-    writer = csv.writer(response)
+    writer = csv.writer(response, encoding='utf-8')
     field_names = NurseConnectEndUsersModelAdmin.list_display
     writer.writerow(field_names)
     for obj in queryset:
-        obj.username = obj.username.encode("utf-8")
         obj.date_joined = obj.date_joined.strftime("%Y-%m-%d %H:%M")
         writer.writerow(
             [getattr(obj, field) for field in field_names]
