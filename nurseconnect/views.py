@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.forms import ValidationError
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -219,7 +220,11 @@ class RegistrationClinicCodeView(FormView):
 
     def form_valid(self, form):
         clinic_code = form.cleaned_data["clinic_code"]
-        clinic = get_clinic_code(clinic_code)
+
+        if settings.FAKE_CLINIC_CODE_VALIDATION and settings.DEBUG:
+            clinic = [0, 1, "fake_clinic_name"]
+        else:
+            clinic = get_clinic_code(clinic_code)
 
         if not clinic:
             form.add_error(

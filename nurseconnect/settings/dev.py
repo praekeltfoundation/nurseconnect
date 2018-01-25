@@ -16,6 +16,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+FAKE_CLINIC_CODE_VALIDATION = True
 
 # JEMBI configuration
 JEMBI_URL = environ.get("JEMBI_URL")

@@ -342,6 +342,7 @@ LOGIN_URL = "auth_login"
 
 # For QA and production
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
+FAKE_CLINIC_CODE_VALIDATION = False
 
 LOGIN_REDIRECT_URL = "/"
 
