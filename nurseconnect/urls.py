@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
@@ -16,19 +16,17 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from nurseconnect import forms, views
 from nurseconnect.forms import NurseconnectAuthenticationForm
 
+urlpatterns = []
+
 # implement CAS URLs in a production setting
 if settings.ENABLE_SSO:  # pragma: no cover
-    urlpatterns = patterns(
-        "",
+    urlpatterns += [
         url(r"^admin/login/", "django_cas_ng.views.login"),
         url(r"^admin/logout/", "django_cas_ng.views.logout"),
         url(r"^admin/callback/", "django_cas_ng.views.callback"),
-    )
-else:
-    urlpatterns = patterns("", )
+    ]
 
-urlpatterns += patterns(
-    "",
+urlpatterns += [
     url(r"^django-admin/", include(admin.site.urls)),
     url(r"^admin/", include(wagtailadmin_urls)),
     url(r"^documents/", include(wagtaildocs_urls)),
@@ -146,7 +144,7 @@ urlpatterns += patterns(
     url(r'', include('django_comments.urls')),
     url(r"", include("molo.core.urls")),
     url(r"", include(wagtail_urls)),
-)
+]
 
 if settings.DEBUG:  # pragma: no cover
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns

@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from os.path import abspath, dirname, join
 from os import environ
 import sys
-from django.conf import global_settings, locale
+import django.conf.locale
+from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url  # noqa
 import djcelery
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     "molo.yourwords",
     "django_comments",
     "molo.commenting",
+    "wagtail_personalisation",
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -277,7 +279,7 @@ EXTRA_LANG_INFO = {
     }
 }
 
-locale.LANG_INFO = dict(locale.LANG_INFO.items() + EXTRA_LANG_INFO.items())
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
 LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),
