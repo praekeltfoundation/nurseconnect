@@ -53,8 +53,8 @@ def nurses_registered():
         "dataValues": [
             {
                 "dataElement": settings.JEMBI["num_nurses"]["dataElement"],
-                "period":
-                    str(datetime.now().year) + "%02d" % datetime.now().month,
+                "period": "{}{:02d}".format(str(datetime.now().year),
+                                            datetime.now().month),
                 "value": str(num_nurses)
             },
         ]
@@ -84,8 +84,8 @@ def nurses_registered_per_clinic():
                         "dataElement": settings.JEMBI["nurses_per_facility"][
                             "dataElement"],
                         "period":
-                            str(datetime.now().year) +
-                            "%02d" % datetime.now().month,
+                            "{}{:02d}".format(str(datetime.now().year),
+                                              datetime.now().month),
                         "orgUnit": clinic[1],
                         "value": str(v)
                     },

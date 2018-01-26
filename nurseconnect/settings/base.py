@@ -170,7 +170,7 @@ WSGI_APPLICATION = "nurseconnect.wsgi.application"
 
 # SQLite (simplest install)
 DATABASES = {"default": dj_database_url.config(
-    default="sqlite:///%s" % (join(PROJECT_ROOT, "db.sqlite3"),))}
+    default="sqlite:///{}".format(join(PROJECT_ROOT, "db.sqlite3"),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
@@ -418,8 +418,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME', '')
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY', '')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
-    MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    MEDIA_URL = "https://{}/".format(AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

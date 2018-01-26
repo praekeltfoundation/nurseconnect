@@ -39,7 +39,8 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
                       body="<Response [200]>", status=200,)
 
         tasks.nurses_registered()
-        date = str(datetime.now().year) + "%02d" % datetime.now().month
+        date = "{}{:02d}".format(str(datetime.now().year),
+                                 datetime.now().month)
 
         self.assertEqual(
             responses.calls[-1].request.body,

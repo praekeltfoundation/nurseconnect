@@ -178,7 +178,7 @@ class RegistrationSecurityQuestionsView(FormView):
         for index, question in enumerate(
             self.questions
         ):
-            answer = form.cleaned_data["question_%s" % index]
+            answer = form.cleaned_data["question_{}".format(index)]
             if answer:
                 models.SecurityAnswer.objects.create(
                     user=user.profile,
