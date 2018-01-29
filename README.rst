@@ -16,7 +16,7 @@ The NurseConnect Mobisite is built using Molo_.
 Getting started
 ---------------
 
-To get started::
+**To get started**::
 
     $ virtualenv ve
     $ source ve/bin/activate
@@ -31,11 +31,18 @@ To download languages, sections, articles and images, navigate to ``/admin/impor
 and input the URL of the site that you want to import data from. Do this before any further
 setup.
 
-Additional setup:
+**Additional setup for nurse sign-up process:**
 
-In order to properly set up the sign up form, create a terms and conditions footer page
-and then navigate to ``/admin/settings/profiles/userprofilessettings/`` and under
+Create a footer page containing the terms and conditions, navigate to
+``/admin/settings/profiles/userprofilessettings/`` and under
 "Terms and Conditions on Registration", select the page you just created.
+
+Create at least one security question, navigate to
+``localhost:8000/admin/settings/profiles/userprofilessettings/`` and under
+"Security Question Settings" set the following to true:
+
+- ``Add security question fields to registration``
+- ``Security questions required``
 
 Tests
 -----
@@ -46,7 +53,7 @@ To run tests::
 
 License
 -------
-See _License for more detail.
+See License_ for more detail.
 
 Note
 -----
