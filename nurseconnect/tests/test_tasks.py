@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import json
 import responses
 
 from django.conf import settings
@@ -42,10 +43,17 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
         date = "{}{:02d}".format(str(datetime.now().year),
                                  datetime.now().month)
 
+        expected_response_body = {
+            "dataValues": [{
+                "dataElement": "uaQ8nZ2z8sl",
+                "period": date,
+                "value": "2"
+            }]
+        }
+
         self.assertEqual(
-            responses.calls[-1].request.body,
-            '{"dataValues": [{"dataElement": '
-            '"uaQ8nZ2z8sl", "period": "' + date + '", "value": "2"}]}'
+            json.loads(responses.calls[-1].request.body),
+            expected_response_body
         )
         self.assertEqual(responses.calls[-1].response.status_code, 200)
 
