@@ -7,6 +7,9 @@ logger = logging.getLogger("nurseconnect.services")
 
 
 def get_clinic_code(clinic_code):
+    if settings.FAKE_CLINIC_CODE_VALIDATION and settings.DEBUG:
+        return [0, 1, "fake_clinic_name"]
+
     url = settings.CLINIC_CODE_API
     try:
         response = requests.get(url)
