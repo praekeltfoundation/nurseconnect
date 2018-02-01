@@ -10,9 +10,10 @@ def get_clinic_code(clinic_code):
     if settings.FAKE_CLINIC_CODE_VALIDATION and settings.DEBUG:
         return [0, 1, "fake_clinic_name"]
 
-    url = settings.CLINIC_CODE_API
     try:
-        response = requests.get(url)
+        response = requests.get(
+            settings.CLINIC_CODE_API,
+            params={"criteria": "value:{}".format(clinic_code)})
     except requests.RequestException as e:
         logger.error("Error: {}".format(e))
         return None
@@ -26,9 +27,15 @@ def get_clinic_code(clinic_code):
             return None
 
         if data and ("rows" in data):
-            for clinic in data["rows"]:
-                if clinic_code == clinic[0]:
-                    return clinic
+            if len(data["rows"]) >= 1:
+                return data["rows"][0]
+            else:
+                return None
+        else:
+            logger.error(
+                "Returned data in unexpected format: {}".format(
+                    data if data is not None else "None"))
+            return None
     else:
         logger.error("Error: Status code {}".format(response.status_code))
     return None
