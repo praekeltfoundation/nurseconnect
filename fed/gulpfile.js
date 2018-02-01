@@ -8,7 +8,6 @@ var del             = require('del');
 var glob            = require('glob');
 var gulpif          = require('gulp-if');
 var svgmin          = require('gulp-svgmin');
-var grunticon       = require('grunticon-lib');
 var pixrem          = require('gulp-pixrem');
 var plumber         = require('gulp-plumber');
 var runSequence     = require('run-sequence');
@@ -117,10 +116,6 @@ gulp.task('icons', ['clean-icons', 'crush-svgs'], function (done) {
             white: '#ffffff'
         }
     };
-
-    var iconsTask = new grunticon(icons, distPath + '/icons', options);
-
-    iconsTask.process(done);
 });
 /* =================================== */
 /* *** sync browser *** */
