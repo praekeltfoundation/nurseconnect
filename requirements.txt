@@ -12,3 +12,4 @@ Unidecode==0.04.16
 django-storages
 boto
 elasticsearch>=2.0.0,<3.0.0
+freezegun

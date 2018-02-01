@@ -9,6 +9,8 @@ from django.test import Client, TestCase
 
 from molo.core.tests.base import MoloTestCaseMixin
 from .constants import FACILITIES
+
+from nurseconnect.utils import get_period_date_format
 from nurseconnect import tasks
 
 
@@ -40,8 +42,7 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
                       body="<Response [200]>", status=200,)
 
         tasks.nurses_registered()
-        date = "{}{:02d}".format(str(datetime.now().year),
-                                 datetime.now().month)
+        date = get_period_date_format()
 
         expected_response_body = {
             "dataValues": [{

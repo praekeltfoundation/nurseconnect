@@ -13,6 +13,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
 
+from nurseconnect.utils import get_period_date_format
 from nurseconnect.services import get_clinic_code
 
 from wagtail.wagtailsearch.backends.db import DatabaseSearchBackend
@@ -53,8 +54,7 @@ def nurses_registered():
         "dataValues": [
             {
                 "dataElement": settings.JEMBI["num_nurses"]["dataElement"],
-                "period": "{}{:02d}".format(str(datetime.now().year),
-                                            datetime.now().month),
+                "period": get_period_date_format(),
                 "value": str(num_nurses)
             },
         ]
@@ -83,9 +83,7 @@ def nurses_registered_per_clinic():
                     {
                         "dataElement": settings.JEMBI["nurses_per_facility"][
                             "dataElement"],
-                        "period":
-                            "{}{:02d}".format(str(datetime.now().year),
-                                              datetime.now().month),
+                        "period": get_period_date_format(),
                         "orgUnit": clinic[1],
                         "value": str(v)
                     },
