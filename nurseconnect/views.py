@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.forms import ValidationError
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -178,7 +178,7 @@ class RegistrationSecurityQuestionsView(FormView):
         for index, question in enumerate(
             self.questions
         ):
-            answer = form.cleaned_data["question_%s" % index]
+            answer = form.cleaned_data["question_{}".format(index)]
             if answer:
                 models.SecurityAnswer.objects.create(
                     user=user.profile,
@@ -377,6 +377,7 @@ class MyProfileView(View):
                             "new_password"
                         ]
                     )
+                    update_session_auth_hash(self.request, self.request.user)
                     messages.success(
                         request,
                         "Password successfully changed!"

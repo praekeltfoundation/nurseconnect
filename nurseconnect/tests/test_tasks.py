@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import json
 import responses
 
 from django.conf import settings
@@ -8,6 +9,8 @@ from django.test import Client, TestCase
 
 from molo.core.tests.base import MoloTestCaseMixin
 from .constants import FACILITIES
+
+from nurseconnect.utils import get_period_date_format
 from nurseconnect import tasks
 
 
@@ -39,12 +42,19 @@ class MetricsTaskTestCase(MoloTestCaseMixin, TestCase):
                       body="<Response [200]>", status=200,)
 
         tasks.nurses_registered()
-        date = str(datetime.now().year) + "%02d" % datetime.now().month
+        date = get_period_date_format()
+
+        expected_response_body = {
+            "dataValues": [{
+                "dataElement": "uaQ8nZ2z8sl",
+                "period": date,
+                "value": "2"
+            }]
+        }
 
         self.assertEqual(
-            responses.calls[-1].request.body,
-            '{"dataValues": [{"dataElement": '
-            '"uaQ8nZ2z8sl", "period": "' + date + '", "value": "2"}]}'
+            json.loads(responses.calls[-1].request.body),
+            expected_response_body
         )
         self.assertEqual(responses.calls[-1].response.status_code, 200)
 

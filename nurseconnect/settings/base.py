@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 from os.path import abspath, dirname, join
 from os import environ
 import sys
-from django.conf import global_settings, locale
+import django.conf.locale
+from django.conf import global_settings
 from django.utils.translation import ugettext_lazy as _
 import dj_database_url  # noqa
 import djcelery
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     "molo.yourwords",
     "django_comments",
     "molo.commenting",
+    "wagtail_personalisation",
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -168,7 +170,7 @@ WSGI_APPLICATION = "nurseconnect.wsgi.application"
 
 # SQLite (simplest install)
 DATABASES = {"default": dj_database_url.config(
-    default="sqlite:///%s" % (join(PROJECT_ROOT, "db.sqlite3"),))}
+    default="sqlite:///{}".format(join(PROJECT_ROOT, "db.sqlite3"),))}
 
 # PostgreSQL (Recommended, but requires the psycopg2 library and Postgresql
 #             development headers)
@@ -277,7 +279,7 @@ EXTRA_LANG_INFO = {
     }
 }
 
-locale.LANG_INFO = dict(locale.LANG_INFO.items() + EXTRA_LANG_INFO.items())
+django.conf.locale.LANG_INFO.update(EXTRA_LANG_INFO)
 
 LOCALE_PATHS = [
     join(PROJECT_ROOT, "locale"),
@@ -416,8 +418,8 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME', '')
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY', '')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
-    MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+    MEDIA_URL = "https://{}/".format(AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

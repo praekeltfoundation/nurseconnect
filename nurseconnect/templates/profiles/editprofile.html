@@ -12,7 +12,7 @@
             {% csrf_token %}
             {% if settings_form.errors %}
                 <p class="error errorlist">
-                    {% for key, errors in settings_form.non_field_errors.iteritems %}
+                    {% for key, errors in settings_form.non_field_errors.items %}
                         {% for error in errors %}
                             {% trans error %}<br/>
                         {% endfor %}

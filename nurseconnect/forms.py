@@ -119,18 +119,19 @@ class RegistrationSecurityQuestionsForm(forms.Form):
         # Security questions fields are created dynamically.
         # This allows any number of security questions to be specified
         for index, question in enumerate(questions):
-            self.fields["question_%s" % index] = forms.CharField(
+            self.fields["question_{}".format(index)] = forms.CharField(
                 label=_(str(question)),
                 widget=forms.TextInput(
                     attrs={
                         "max_length": 150,
                         "class": "Form-input",
-                        "placeholder": "Enter " + str(question).lower(),
-                        "for": "sq" + str(index)
+                        "placeholder": "Enter {}".format(
+                            str(question).lower()),
+                        "for": "sq{}".format(str(index))
                     }
                 )
             )
-            self.fields["question_%s" % index].required = (
+            self.fields["question_{}".format(index)].required = (
                 profile_settings.show_security_question_fields and
                 profile_settings.security_questions_required
             )
@@ -361,14 +362,15 @@ class ForgotPasswordForm(forms.Form):
         super(ForgotPasswordForm, self).__init__(*args, **kwargs)
 
         for index, question in enumerate(questions):
-            self.fields["question_%s" % index] = forms.CharField(
+            self.fields["question_{}".format(index)] = forms.CharField(
                 label=_(str(question)),
                 widget=forms.TextInput(
                     attrs={
                         "max_length": 150,
                         "class": "Form-input",
-                        "placeholder": "Enter " + str(question).lower(),
-                        "for": "sq" + str(index)
+                        "placeholder": "Enter {}".format(
+                            str(question).lower()),
+                        "for": "sq{}".format(str(index))
                     }
                 )
             )

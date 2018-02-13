@@ -25,6 +25,8 @@ pip-log.txt
 .coverage
 .tox
 nosetests.xml
+nurseconnect_test.db
+.pytest_cache/
 
 # Translations
 *.mo

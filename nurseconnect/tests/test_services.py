@@ -1,3 +1,4 @@
+import logging
 import responses
 
 from django.test import TestCase, override_settings
@@ -54,42 +55,49 @@ FAKE_ENDPOINT_INVALID_PARAM_RESPONSE = {
 @override_settings(CLINIC_CODE_API=FAKE_URL)
 class ServicesTestCase(TestCase):
 
+    def setUp(self):
+        logging.disable(logging.CRITICAL)
+        self.clinic_code = 123456
+        self.complete_url = "{}?criteria=value:{}".format(FAKE_URL,
+                                                          self.clinic_code)
+
+    def tearDown(self):
+        logging.disable(logging.NOTSET)
+
     @override_settings(FAKE_CLINIC_CODE_VALIDATION=True, DEBUG=True)
     def test_get_clinic_code_returns_fake_data(self):
-        clinic_code = 123456
-
         self.assertEqual(
-            get_clinic_code(clinic_code),
+            get_clinic_code(self.clinic_code),
             [0, 1, "fake_clinic_name"]
         )
 
     @responses.activate
-    def test_get_clinic_code_returns_none(self):
-        clinic_code = 123456
-        complete_url = "{}?criteria=value:{}".format(FAKE_URL, clinic_code)
+    def test_get_clinic_code_returns_none_from_400(self):
+        responses.add(responses.GET, self.complete_url, status=400)
+        self.assertEqual(get_clinic_code(self.clinic_code), None)
 
-        responses.add(responses.GET, FAKE_URL, status=400)
-        self.assertEqual(get_clinic_code(clinic_code), None)
+    @responses.activate
+    def test_get_clinic_code_returns_none_no_json(self):
+        responses.add(responses.GET, self.complete_url, status=200)
+        self.assertEqual(get_clinic_code(self.clinic_code), None)
 
-        responses.add(responses.GET, FAKE_URL, status=200)
-        self.assertEqual(get_clinic_code(clinic_code), None)
-
-        responses.add(responses.GET, complete_url,
+    @responses.activate
+    def test_get_clinic_code_returns_none_not_found(self):
+        responses.add(responses.GET, self.complete_url,
                       json={'error': 'not found'}, status=200)
-        self.assertEqual(get_clinic_code(clinic_code), None)
+        self.assertEqual(get_clinic_code(self.clinic_code), None)
 
-        responses.add(responses.GET, complete_url,
+    @responses.activate
+    def test_get_clinic_code_returns_none_invalid_response(self):
+        responses.add(responses.GET, self.complete_url,
                       json=FAKE_ENDPOINT_INVALID_PARAM_RESPONSE,
                       status=200)
-        self.assertEqual(get_clinic_code(clinic_code), None)
+        self.assertEqual(get_clinic_code(self.clinic_code), None)
 
     @responses.activate
     def test_get_clinic_code_returns_values(self):
-        clinic_code = 123456
-        complete_url = "{}?criteria=value:{}".format(FAKE_URL, clinic_code)
-
-        responses.add(responses.GET, complete_url,
+        responses.add(responses.GET, self.complete_url,
                       json=FAKE_ENDPOINT_RESPONSE, status=200)
         self.assertEqual(
-            get_clinic_code(clinic_code),
+            get_clinic_code(self.clinic_code),
             FAKE_ENDPOINT_RESPONSE["rows"][0])

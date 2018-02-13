@@ -176,7 +176,7 @@ class BaseSearchResults(object):
         data = list(self[:21])
         if len(data) > 20:
             data[-1] = "...(remaining elements truncated)..."
-        return '<SearchResults %r>' % data
+        return '<SearchResults {}>'.format(repr(data))
 
 
 class BaseSearchBackend(object):

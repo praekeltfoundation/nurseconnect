@@ -286,6 +286,7 @@ class EditPasswordTestCase(MoloTestCaseMixin, TestCase):
             },
             follow=True
         )
+        self.assertEqual(response.request["PATH_INFO"], "/view/myprofile/")
         self.assertContains(response, "Password successfully changed!")
 
     def test_unmatching_passwords_raises_error(self):

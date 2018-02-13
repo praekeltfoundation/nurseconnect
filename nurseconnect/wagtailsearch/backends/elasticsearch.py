@@ -171,7 +171,7 @@ class ElasticsearchMapping(object):
         return doc
 
     def __repr__(self):
-        return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
+        return '<ElasticsearchMapping: {}>'.format(self.model.__name__)
 
 
 class ElasticsearchSearchQuery(BaseSearchQuery):

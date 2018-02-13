@@ -5,4 +5,5 @@ source =
 omit =
     */migrations/*
     */settings/*
+    */wagtailsearch/*
     nurseconnect/wsgi.py
