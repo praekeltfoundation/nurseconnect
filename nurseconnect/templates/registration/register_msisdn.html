@@ -23,7 +23,7 @@
                         <label for="id_{{ form.password.name }}" class="Form-fieldLabel">{{ form.password.label }}</label>
                         {{ form.password }}
                         <div class="Form-message">
-                            {% trans "Tip: A good password has 4 characters and a mix of capitals and numbers." %}
+                            {% trans "Tip: A good password has 4 characters and a mix of capitals and numbers. Please don't use special characters like '!', '@' or '*'" %}
                         </div>
                         {% if form.password.errors %}
                             <label for="id_{{ form.password.name }}" class="Form-message Form-message--error">{{ form.password.errors }}</label>
