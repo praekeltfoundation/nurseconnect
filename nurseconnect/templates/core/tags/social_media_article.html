@@ -1,0 +1,23 @@
+{% load wagtailimages_tags wagtailsettings_tags nurseconnect_tags %}
+{% get_settings %}
+{% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
+<section class="ContentList">
+  <div class="ContentList-body">
+    <header class="ContentList-header">
+        <h1 class="ContentList-categoryLabel">share</h1>
+    </header>
+    <div class="SocialShare">
+      {% if settings.core.SiteSettings.facebook_sharing %}
+          <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="SocialShare-icon SocialShare-facebook">
+              {% image facebook width-30 class="call-to-action__item-share-img" %}
+          </a>
+      {% endif %}
+      {% if settings.core.SiteSettings.twitter_sharing %}
+          <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="SocialShare-icon SocialShare-twitter">
+              {% image twitter width-30 class="call-to-action__item-share-img" %}
+          </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
