@@ -1,0 +1,11 @@
+.SocialShare {
+    padding: 0 scale(alpha) scale(gamma);
+    &-icon {
+        display: inline-block;
+        padding-right: scale(alpha);
+        color: $color-blue-pelorous;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+}
