@@ -12,8 +12,9 @@
         background-color: $color-blue-tranquil;
     }
     &-header {
-        padding: scale(alpha);
+        padding: 0 scale(alpha);
         background-color: inherit;
+        display: inline-block;
     }
     &-categoryLabel {
         margin: 1em 0;

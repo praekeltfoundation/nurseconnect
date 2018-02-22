@@ -114,25 +114,7 @@
             </div>
         </article>
 
-        {% if settings.core.SiteSettings.facebook_sharing or settings.core.SiteSettings.twitter_sharing %}
-            <ul class="social-media-list">
-                <li class="social-media-list__item"><label class="social-media__label">{% trans "Share" %}</label></li>
-                <li class="social-media-list__item">
-                {% if settings.core.SiteSettings.facebook_sharing %}
-                    <a href="http://www.facebook.com/sharer.php?u=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="">
-                        <span class="">{% trans "Share on Facebook" %}</span>
-                    </a>
-                {% endif %}
-                </li>
-                <li class="social-media-list__item">
-                {% if settings.core.SiteSettings.twitter_sharing %}
-                    <a href="https://twitter.com/share?url=http{% if request.is_secure %}s{%endif %}://{{ request.get_host }}{{ request.path }}" target="_blank" class="">
-                        <span class="">{% trans "Share on Twitter" %}</span>
-                    </a>
-                {% endif %}
-                </li>
-            </ul>
-        {% endif %}
+        {% social_media_article %}
 
         {% if self.allow_commenting %}
             <section class="Comments">
