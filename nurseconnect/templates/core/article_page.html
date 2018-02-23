@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load static core_tags i18n %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags molo_survey_tags %}
 {% load comments mptt_tags molo_commenting_tags %}
 {% load nurseconnect_tags %}
 
@@ -122,6 +122,13 @@
                 {% include "comments/comment_block.html" %}
             </section>
         {% endif %}
+    {% endif %}
+
+    <!--
+        For RoadToHealth Section
+    -->
+    {% if self.get_parent_section.extra_style_hints == "RoadToHealth" %}
+        {% surveys_list_for_pages page=self %}
     {% endif %}
   </section>
 {% endblock %}
