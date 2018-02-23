@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load static core_tags i18n %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags molo_survey_tags %}
 {% load comments mptt_tags molo_commenting_tags %}
 {% load nurseconnect_tags %}
 
@@ -113,15 +113,23 @@
                 {% endfor %}
             </div>
         </article>
-
         {% social_media_article %}
-
         {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
                 {% include "comments/comment_block.html" %}
             </section>
         {% endif %}
+    {% endif %}
+
+    <!-- Surveys as Polls
+        get_parent_section.extra_style_hints Does not check as per what the surveys_list_for_pages does but only the section parent
+    -->
+    {% if self.get_parent_section.extra_style_hints == "RoadToHealth" %}
+        <!--Show surveys_list_for_pages page=self with nly_direct_surveys=True param
+        only_direct_surveys=True
+        -->
+        {% surveys_list_for_pages page=self %}
     {% endif %}
   </section>
 {% endblock %}
