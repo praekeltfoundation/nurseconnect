@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% include "tags/breadcrumbs.html" %}
 {% load static core_tags %}
-{% load wagtailcore_tags wagtailimages_tags molo_survey_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% load comments mptt_tags molo_commenting_tags i18n %}
 {% load nurseconnect_tags %}
 
@@ -150,6 +150,5 @@
     </aside>
     {% endif %}
 
-    {% surveys_list_for_pages page=self %}
     </section>
 {% endblock %}
