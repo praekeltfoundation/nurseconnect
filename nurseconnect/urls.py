@@ -114,6 +114,11 @@ urlpatterns += [
         name="reset_password_success"
     ),
     url(
+        r"^surveys/(?P<slug>[\w-]+)/success/$",
+        views.NCSurveySuccess.as_view(),
+        name="success"
+    ),
+    url(
         r"^menu/$",
         login_required(views.MenuView.as_view()),
         name="menu"
