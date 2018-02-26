@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<h1>{% trans "Your results" %}</h1>
+<ul>
+    {% for answer in answers %}
+        <li>
+            <p>{% trans "the question: " %}{{answer.question}}</p>
+            <p>{% trans "You said: " %}{{answer.user_answer}}
+            {% if answer.user_answer == answer.correct_answer %}
+                {% trans "which is correct!" %}
+            {% else %}
+                {% trans "which is incorrect, the answer is " %}{{answer.correct_answer}}
+            {% endif %}
+            </p>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if not next_article_link %}
+    <h3>{% trans "Congrats on completing this series" %}</h3>
+{% else %}
+    <a href="{{next_article_link}}">
+        <h3>{% trans "Check the next article in this series" %}</h3>
+    </a>
+{% endif %}
+

@@ -43,3 +43,35 @@ def convert_month(value):
         return calendar.month_name[value]
     else:
         return ""
+
+
+@register.inclusion_tag(
+    "surveys/embedded_survey.html",
+    takes_context=True
+)
+def embedded_survey_tag(context, page):
+    # get the user
+    user = context['request'].user
+    survey = page.get_children().first().specific
+
+    # get the submission
+    submission = (survey.get_submission_class()
+                        .objects.filter(page=survey, user=user))
+
+    if submission:
+        return {
+            "survey_answered": True,
+            "answers": [
+                # their answer, if_correct
+                {"question": "the sky is green",
+                 "user_answer": True,  "correct_answer": False},
+                {"question": "the sky is blue",
+                 "user_answer": True, "correct_answer": True},
+            ],
+            "next_article_link": "/",
+        }
+    else:
+        return {
+            "survey_answered": False,
+            "survey": survey
+        }

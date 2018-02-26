@@ -116,6 +116,10 @@
 
         {% social_media_article %}
 
+        {% if self.get_children.first %}
+            {% embedded_survey_tag self %}
+        {% endif %}
+
         {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
