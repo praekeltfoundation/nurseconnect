@@ -1,0 +1,52 @@
+.Surveys-booklet {
+    padding: scale(beta) scale(gamma) scale(gamma);
+    &__label {
+        color: $color-blue-pelorous;
+        line-height: 1;
+        margin: scale(alpha) 0 scale(gamma);
+        font-size: 1.46em;
+        font-weight: 400;
+        letter-spacing: kerning(-75);
+    }
+    &__results {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        &--item {
+            .Surveys-booklet__label {
+                margin: scale(gamma) 0 scale(alpha);
+                font-size: 1.20em;
+            }
+        }
+    }
+    &__userAnswer {
+        display: block;
+    }
+    &__answer {
+        font-weight: bold;
+        color: $color-blue-regal;
+        text-transform: uppercase;
+    }
+    &__correctAnswer {
+        font-size: 15px;
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    &__userScore {
+        display: block;
+        color: $color-orange-bittersweet;
+        font-weight: bold;
+    }
+    &__Form {
+        ul {
+            margin: scale(alpha) 0 scale(alpha);
+            padding: 0;
+            list-style: none;
+            li {
+                padding: 5px 0;
+            }
+        }
+    }
+
+}
