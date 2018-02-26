@@ -20,23 +20,30 @@
         }
     }
     &__userAnswer {
+        font-size: 15px;
         display: block;
+        margin: 3px 0;
     }
     &__answer {
+        font-size: 15px;
         font-weight: bold;
         color: $color-blue-regal;
         text-transform: uppercase;
+        margin: 3px 0;
     }
     &__correctAnswer {
         font-size: 15px;
         display: block;
         font-weight: bold;
         text-transform: uppercase;
+        margin: 3px 0;
     }
     &__userScore {
+        font-size: 15px;
         display: block;
         color: $color-orange-bittersweet;
         font-weight: bold;
+        margin: 3px 0;
     }
     &__Form {
         ul {
