@@ -1,14 +1,24 @@
-{% load wagtailcore_tags i18n %}
+{% load wagtailcore_tags i18n nurseconnect_tags %}
 
-<h1 class="ContentList-categoryLabel">{% trans "Road to Health booklet Survey" %}</h1>
-{{ survey.form }}
+<h1 class="ContentList-categoryLabel">{{survey.title}}</h1>
 
 <form class="Surveys-booklet__Form" action="{% pageurl survey %}" method="post" novalidate>
-    {% csrf_token %}
+{% csrf_token %}
     {% for field in survey.get_form %}
+        {% if field|fieldtype == 'RadioSelect' %}
         <h3 class="Surveys-booklet__label">{{ field.label }}</h3>
         <span class="Message-caption">{{ field.help_text }}</span>
-        {{ field }}
+            {{ field }}
+        {% endif %}
+
+        <!--Error validation Work on Molo Survey Page not on Form template -->
+        {% if field.errors %}
+        <ul class="error-list errorlist">
+            {% for error in field.errors %}
+              <li class="error-list__item">{{ error }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
     {% endfor %}
     {% trans "Submit Survey" as text %}
     <input type="submit" value="{{ self.submit_text|default:text }}" />

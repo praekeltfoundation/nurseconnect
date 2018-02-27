@@ -7,6 +7,9 @@ from molo.profiles.models import UserProfilesSettings
 
 register = Library()
 
+@register.filter('fieldtype')
+def fieldtype(field):
+    return field.field.widget.__class__.__name__
 
 @register.inclusion_tag("core/tags/footerlink.html", takes_context=True)
 def footer_link(context, id):
@@ -63,9 +66,9 @@ def embedded_survey_tag(context, page):
             "survey_answered": True,
             "answers": [
                 # their answer, if_correct
-                {"question": "the sky is green",
-                 "user_answer": True,  "correct_answer": False},
-                {"question": "the sky is blue",
+                {"question": "As nurses, we want children to not only survive, but thrive",
+                 "user_answer": False,  "correct_answer": True},
+                {"question": "As nurses, we want children to not only survive, but thrive",
                  "user_answer": True, "correct_answer": True},
             ],
             "next_article_link": "/",

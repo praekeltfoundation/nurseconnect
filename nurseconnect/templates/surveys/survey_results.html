@@ -1,27 +1,55 @@
 {% load i18n %}
 <h1 class="ContentList-categoryLabel">{% trans "Road to Health booklet - Surveys results" %}</h1>
 <ul class="Surveys-booklet__results">
-    {% for answer in answers %}
-        <li class="Surveys-booklet__results--item">
-            <h3 class="Surveys-booklet__label">{% trans "The question: " %}{{answer.question}}</h3>
-            <p class="Surveys-booklet__userAnswer">
-                {% trans "You answered: " %} <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
-            </p>
-            {% if answer.user_answer == answer.correct_answer %}
-                <p class="Surveys-booklet__correctAnswer">{% trans "Which is correct!" %}</p>
-            {% else %}
-                <p class="Surveys-booklet__userScore">
-                    {% trans "Which is incorrect, the answer is " %} {{answer.correct_answer}}
-                </p>
-            {% endif %}
-        </li>
-    {% endfor %}
+    {% if answers %}
+        {% for answer in answers %}
+            <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
+                <li class="Surveys-booklet__results--item">
+                    {% if answer.question == answer.correct_answer %}
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctUserAnswer">
+                            {% trans "You answered: " %}
+                            <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
+                            {% trans "Which is correct!" %}
+                        </p>
+                    -->
+                    {% else %}
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
+                            {% trans "You answered: " %}
+                            <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
+                        </p>
+                        <p class="Surveys-booklet__results--feedback">{% trans "The answer is incorrect" %}</p>
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctAnswer">
+                            {% trans "The correct answer is " %}
+                            <span class="Surveys-booklet__answer">{{answer.correct_answer}}</span>
+                        </p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+    {% endif %}
 </ul>
 
-{% if not next_article_link %}
-    <h3>{% trans "Congrats on completing this series" %}</h3>
-{% else %}
-    <a href="{{next_article_link}}">
-        <h3>{% trans "Check the next article in this series" %}</h3>
-    </a>
-{% endif %}
+<div class="Surveys-booklet__nextArticle">
+    {% if not next_article_link %}
+        <h3>{% trans "Congrats on completing this series" %}</h3>
+    {% else %}
+        <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">
+            <a href="{{next_article_link}}" class="ContentList-categoryLabel--link">
+                Next article in this series
+            </a>
+        </h1>
+    {% endif %}
+    <!--Can we get Next article properties e.. Title, Image,  -->
+    <div class="ContentList-body">
+        <a href="{{next_article_link}}" class="Article-hitBox">
+            <article class="Article">
+                <div class="Article-imageWrap">
+                    <img alt="test" class="Article-image Article-image--aside" src="/media/images/test_sRvVmd5.width-85.height-100.png" width="85" height="85">
+                </div>
+                <h2 class="Article-headline">
+                    SmartSista: Will I lose him 4
+                </h2>
+                <p class="Article-strapline">Now I've told him?</p>
+            </article>
+        </a>
+    </div>
+</div>

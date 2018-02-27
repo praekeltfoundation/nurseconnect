@@ -1,5 +1,5 @@
 .Surveys-booklet {
-    padding: scale(beta) scale(gamma) scale(gamma);
+    padding: scale(beta) scale(gamma) scale(alpha);
     &__label {
         color: $color-blue-pelorous;
         line-height: 1;
@@ -10,7 +10,7 @@
     }
     &__results {
         margin: 0;
-        padding: 0;
+        padding: 0 0 scale(alpha);
         list-style: none;
         &--item {
             .Surveys-booklet__label {
@@ -18,32 +18,30 @@
                 font-size: 1.20em;
             }
         }
+        &--feedback {
+            font-size: 1.0em;
+            display: block;
+            margin: 3px 0;
+        }
     }
+
     &__userAnswer {
-        font-size: 15px;
         display: block;
-        margin: 3px 0;
     }
     &__answer {
-        font-size: 15px;
         font-weight: bold;
         color: $color-blue-regal;
         text-transform: uppercase;
-        margin: 3px 0;
     }
-    &__correctAnswer {
-        font-size: 15px;
-        display: block;
+
+    &__correctUserAnswer {
         font-weight: bold;
         text-transform: uppercase;
-        margin: 3px 0;
     }
-    &__userScore {
-        font-size: 15px;
-        display: block;
-        color: $color-orange-bittersweet;
+    &__correctAnswer {
+        color: $color-blue-regal;
         font-weight: bold;
-        margin: 3px 0;
+        padding: scale(alpha) 0;
     }
     &__Form {
         ul {
@@ -55,5 +53,19 @@
             }
         }
     }
+    &__ContentList-categoryLabel {
+        text-decoration: underline;
+    }
+    &__nextArticle {
+        border-top: 1px solid $color-blue-pelorous;
+        .Article {
+            margin: scale(gamma) 0;
+        }
+    }
+}
 
+.error-list, .errorlist {
+    &__item {
+        color: #ff0000;
+    }
 }
