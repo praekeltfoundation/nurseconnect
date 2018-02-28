@@ -10,7 +10,33 @@
             {% for field in form %}
                 {% if field|fieldtype == 'RadioSelect' %}
                     <h3 class="Surveys-booklet__label">{{ field.label }}</h3>
-                    <span class="Message-caption">{{ field.help_text }}</span>
+                    {% if field.help_text %}
+                        <span class="Message-caption">{{ field.help_text }}</span>
+                    {% else %}
+                        {% if survey.content %}
+                            {% for block in survey.content %}
+                                    {% if block.block_type == 'heading' %}
+                                        <h5 class="Message-caption--title">{{ block.value }}</h5>
+                                    {% elif block.block_type == 'paragraph' %}
+                                        <span class="Message-caption">
+                                            {{ block.value }}
+                                        </span>
+                                    {% elif block.block_type == 'numbered_list' %}
+                                        <ol class="Message-caption-orderedList">
+                                          {% for item in block.value %}
+                                            <li class="Message-caption-orderedList__item">{{item}}</li>
+                                          {% endfor %}
+                                        </ol>
+                                    {% elif block.block_type == 'list' %}
+                                        <ul class="Message-caption-unorderedList">
+                                          {% for item in block.value %}
+                                            <li class="Message-caption-unorderedList__item">{{item}}</li>
+                                          {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
                     {{ field }}
                 {% endif %}
 
