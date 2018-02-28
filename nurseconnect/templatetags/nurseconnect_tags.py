@@ -5,11 +5,15 @@ from django.template import Library
 from molo.core.templatetags.core_tags import load_sections
 from molo.profiles.models import UserProfilesSettings
 
+from nurseconnect.utils import get_survey_results_for_user
+
 register = Library()
+
 
 @register.filter('fieldtype')
 def fieldtype(field):
     return field.field.widget.__class__.__name__
+
 
 @register.inclusion_tag("core/tags/footerlink.html", takes_context=True)
 def footer_link(context, id):
@@ -48,30 +52,35 @@ def convert_month(value):
         return ""
 
 
-@register.inclusion_tag(
-    "surveys/embedded_survey.html",
-    takes_context=True
-)
+@register.inclusion_tag("surveys/embedded_survey.html",
+                        takes_context=True)
 def embedded_survey_tag(context, page):
-    # get the user
+    '''
+    Display the child survey of a page
+
+    If a user has not submitted they will see the survey form
+    If a user has already submitted an answer they see their results
+
+    NOTE: This currently only works for Radio Buttons with True/False
+    and uses a hack where data stored in the survey thank you text will
+    store true, false string values seperated by commas. I apologise
+    if you are responsible for maintaining this in the future.
+    '''
     user = context['request'].user
     survey = page.get_children().first().specific
 
-    # get the submission
-    submission = (survey.get_submission_class()
-                        .objects.filter(page=survey, user=user))
+    survey_results = get_survey_results_for_user(survey, user)
 
-    if submission:
+    if survey_results:
+        if page.get_next_sibling():
+            next_article = page.get_next_sibling().specific
+        else:
+            next_article = None
+
         return {
             "survey_answered": True,
-            "answers": [
-                # their answer, if_correct
-                {"question": "As nurses, we want children to not only survive, but thrive",
-                 "user_answer": False,  "correct_answer": True},
-                {"question": "As nurses, we want children to not only survive, but thrive",
-                 "user_answer": True, "correct_answer": True},
-            ],
-            "next_article_link": "/",
+            "answers": survey_results,
+            "next_article": next_article,
         }
     else:
         return {
