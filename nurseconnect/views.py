@@ -438,6 +438,7 @@ class NCSurveySuccess(View):
         survey = get_object_or_404(MoloSurveyPage, slug=kwargs['slug'])
         if isinstance(survey.get_parent().specific, ArticlePage):
             article = survey.get_parent().specific
-            return HttpResponseRedirect("{}#roadToHealthSurvey".format(article.get_url()))
+            return HttpResponseRedirect(
+                "{}#roadToHealthSurvey".format(article.get_url()))
         else:
             return render(request, "surveys/molo_survey_page_success.html")
