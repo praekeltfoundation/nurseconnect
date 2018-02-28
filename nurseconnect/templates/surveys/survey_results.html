@@ -1,17 +1,16 @@
-{% load i18n %}
+{% load i18n wagtailcore_tags wagtailimages_tags%}
 <h1 class="ContentList-categoryLabel">{% trans "Road to Health booklet - Surveys results" %}</h1>
 <ul class="Surveys-booklet__results">
     {% if answers %}
         {% for answer in answers %}
             <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
                 <li class="Surveys-booklet__results--item">
-                    {% if answer.question == answer.correct_answer %}
+                    {% if answer.user_answer == answer.correct_answer %}
                         <p class="Surveys-booklet__results--feedback Surveys-booklet__correctUserAnswer">
                             {% trans "You answered: " %}
                             <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
                             {% trans "Which is correct!" %}
                         </p>
-                    -->
                     {% else %}
                         <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
                             {% trans "You answered: " %}
@@ -29,26 +28,28 @@
 </ul>
 
 <div class="Surveys-booklet__nextArticle">
-    {% if not next_article_link %}
+    {% if not next_article %}
         <h3>{% trans "Congrats on completing this series" %}</h3>
     {% else %}
         <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">
-            <a href="{{next_article_link}}" class="ContentList-categoryLabel--link">
+            <a href="{% pageurl next_article %}" class="ContentList-categoryLabel--link">
                 Next article in this series
             </a>
         </h1>
     {% endif %}
     <!--Can we get Next article properties e.. Title, Image,  -->
     <div class="ContentList-body">
-        <a href="{{next_article_link}}" class="Article-hitBox">
+        <a href="{% pageurl next_article %}" class="Article-hitBox">
             <article class="Article">
-                <div class="Article-imageWrap">
-                    <img alt="test" class="Article-image Article-image--aside" src="/media/images/test_sRvVmd5.width-85.height-100.png" width="85" height="85">
-                </div>
+                {% if next_article.image %}
+                    <div class="Article-imageWrap">
+                        {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
+                    </div>
+                {% endif %}
                 <h2 class="Article-headline">
-                    SmartSista: Will I lose him 4
+                    {{ next_article.title }}
                 </h2>
-                <p class="Article-strapline">Now I've told him?</p>
+                <p class="Article-strapline">{{ next_article.subtitle }}</p>
             </article>
         </a>
     </div>
