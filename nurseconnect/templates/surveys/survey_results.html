@@ -31,26 +31,21 @@
     {% if not next_article %}
         <h3>{% trans "Congrats on completing this series" %}</h3>
     {% else %}
-        <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">
-            <a href="{% pageurl next_article %}" class="ContentList-categoryLabel--link">
-                Next article in this series
+        <div class="ContentList-body">
+            <a href="{% pageurl next_article %}" class="Article-hitBox">
+              <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">Next article in this series</h1>
+                <article class="Article">
+                    {% if next_article.image %}
+                        <div class="Article-imageWrap">
+                            {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
+                        </div>
+                    {% endif %}
+                    <h2 class="Article-headline">
+                        {{ next_article.title }}
+                    </h2>
+                    <p class="Article-strapline">{{ next_article.subtitle }}</p>
+                </article>
             </a>
-        </h1>
+        </div>
     {% endif %}
-    <!--Can we get Next article properties e.. Title, Image,  -->
-    <div class="ContentList-body">
-        <a href="{% pageurl next_article %}" class="Article-hitBox">
-            <article class="Article">
-                {% if next_article.image %}
-                    <div class="Article-imageWrap">
-                        {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
-                    </div>
-                {% endif %}
-                <h2 class="Article-headline">
-                    {{ next_article.title }}
-                </h2>
-                <p class="Article-strapline">{{ next_article.subtitle }}</p>
-            </article>
-        </a>
-    </div>
 </div>
