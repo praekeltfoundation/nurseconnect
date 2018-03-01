@@ -3,23 +3,26 @@
 <ul class="Surveys-booklet__results">
     {% if answers %}
         {% for answer in answers %}
-            <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
                 <li class="Surveys-booklet__results--item">
+                    <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
                     {% if answer.user_answer == answer.correct_answer %}
-                        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctUserAnswer">
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
                             {% trans "You answered: " %}
-                            <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
-                            {% trans "Which is correct!" %}
+                            <span class="Surveys-booklet__answer">{{answer.user_answer}}</span>
+                            {% trans "which is correct!" %}
                         </p>
                     {% else %}
                         <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
                             {% trans "You answered: " %}
-                            <span class="Surveys-booklet__answer">{{answer.user_answer}}<span>
+                            <span class="Surveys-booklet__answer">
+                                {{answer.user_answer}},
+                            </span> {% trans "which is the incorrect answer." %}
                         </p>
-                        <p class="Surveys-booklet__results--feedback">{% trans "The answer is incorrect" %}</p>
                         <p class="Surveys-booklet__results--feedback Surveys-booklet__correctAnswer">
                             {% trans "The correct answer is " %}
-                            <span class="Surveys-booklet__answer">{{answer.correct_answer}}</span>
+                            <span class="Surveys-booklet__answer">
+                                {{answer.correct_answer}}
+                            </span>
                         </p>
                     {% endif %}
                 </li>
@@ -29,7 +32,7 @@
 
 <div class="Surveys-booklet__nextArticle">
     {% if not next_article %}
-        <h3>{% trans "Congrats on completing this series" %}</h3>
+        <h3>{% trans "Congrats on completing this series!" %}</h3>
     {% else %}
         <div class="ContentList-body">
             <a href="{% pageurl next_article %}" class="Article-hitBox">

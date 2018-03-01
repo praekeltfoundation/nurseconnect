@@ -2,11 +2,9 @@
     padding: scale(beta) scale(gamma) scale(alpha);
     &__label {
         color: $color-blue-pelorous;
-        line-height: 1;
-        margin: scale(alpha) 0 scale(gamma);
-        font-size: 1.46em;
-        font-weight: 400;
-        letter-spacing: kerning(-75);
+        line-height: 1.4;
+        margin: scale(alpha) 0 0;
+        font-size: 1.20em;
     }
     &__results {
         margin: 0;
@@ -14,7 +12,7 @@
         list-style: none;
         &--item {
             .Surveys-booklet__label {
-                margin: scale(gamma) 0 scale(alpha);
+                margin: scale(gamma) 0 scale(beta);
                 font-size: 1.20em;
             }
         }
@@ -33,15 +31,9 @@
         color: $color-blue-regal;
         text-transform: uppercase;
     }
-
-    &__correctUserAnswer {
-        font-weight: bold;
-        text-transform: uppercase;
-    }
     &__correctAnswer {
         color: $color-blue-regal;
         font-weight: bold;
-        padding: scale(alpha) 0;
     }
     &__Form {
         ul {
@@ -50,6 +42,15 @@
             list-style: none;
             li {
                 padding: 5px 0;
+            }
+        }
+        .Message-caption {
+            display: block;
+            padding: scale(alpha) 0 0;
+            &-unorderedList__item {
+                margin: 0 scale(beta);
+                list-style: disc;
+                list-style-position: inside;
             }
         }
     }
