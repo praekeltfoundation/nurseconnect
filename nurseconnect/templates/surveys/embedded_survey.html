@@ -1,0 +1,8 @@
+{% load i18n %}
+<div class="Surveys-booklet" id="roadToHealthSurvey">
+    {% if survey_answered %}
+        {% include "surveys/survey_results.html" %}
+    {% else %}
+        {% include "surveys/survey_form.html" %}
+    {% endif %}
+</div>

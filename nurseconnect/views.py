@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
@@ -18,6 +18,7 @@ from molo.core.models import ArticlePage
 from molo.core.templatetags.core_tags import get_pages
 from molo.core.utils import get_locale_code
 from molo.profiles import models
+from molo.surveys.models import MoloSurveyPage
 
 from wagtail.wagtailsearch.models import Query
 
@@ -430,3 +431,14 @@ class MenuView(TemplateView):
         context = super(MenuView, self).get_context_data(**kwargs)
         context["active"] = "menu"
         return context
+
+
+class NCSurveySuccess(View):
+    def get(self, request, *args, **kwargs):
+        survey = get_object_or_404(MoloSurveyPage, slug=kwargs['slug'])
+        if isinstance(survey.get_parent().specific, ArticlePage):
+            article = survey.get_parent().specific
+            return HttpResponseRedirect(
+                "{}".format(article.get_url()))
+        else:
+            return render(request, "surveys/molo_survey_page_success.html")

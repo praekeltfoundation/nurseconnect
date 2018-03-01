@@ -1,0 +1,72 @@
+.Surveys-booklet {
+    padding: scale(beta) scale(gamma) scale(alpha);
+    &__label {
+        color: $color-blue-pelorous;
+        line-height: 1.4;
+        margin: scale(alpha) 0 0;
+        font-size: 1.20em;
+    }
+    &__results {
+        margin: 0;
+        padding: 0 0 scale(alpha);
+        list-style: none;
+        &--item {
+            .Surveys-booklet__label {
+                margin: scale(gamma) 0 scale(beta);
+                font-size: 1.20em;
+            }
+        }
+        &--feedback {
+            font-size: 1.0em;
+            display: block;
+            margin: 3px 0;
+        }
+    }
+
+    &__userAnswer {
+        display: block;
+    }
+    &__answer {
+        font-weight: bold;
+        color: $color-blue-regal;
+        text-transform: uppercase;
+    }
+    &__correctAnswer {
+        color: $color-blue-regal;
+        font-weight: bold;
+    }
+    &__Form {
+        ul {
+            margin: scale(gamma) 0 scale(alpha);
+            padding: 0;
+            list-style: none;
+            li {
+                padding: 5px 0;
+            }
+        }
+        .Message-caption {
+            display: block;
+            padding: scale(alpha) 0 0;
+            &-unorderedList__item {
+                margin: 0 scale(beta);
+                list-style: disc;
+                list-style-position: inside;
+            }
+        }
+    }
+    &__ContentList-categoryLabel {
+        text-decoration: underline;
+    }
+    &__nextArticle {
+        border-top: 1px solid $color-blue-pelorous;
+        .Article {
+            margin: scale(gamma) 0;
+        }
+    }
+}
+
+.error-list, .errorlist {
+    &__item {
+        color: #ff0000;
+    }
+}

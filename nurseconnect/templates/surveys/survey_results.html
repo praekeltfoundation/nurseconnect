@@ -1,0 +1,54 @@
+{% load i18n wagtailcore_tags wagtailimages_tags%}
+<h1 class="ContentList-categoryLabel">{% trans "Road to Health booklet - Surveys results" %}</h1>
+<ul class="Surveys-booklet__results">
+    {% if answers %}
+        {% for answer in answers %}
+                <li class="Surveys-booklet__results--item">
+                    <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
+                    {% if answer.user_answer == answer.correct_answer %}
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
+                            {% trans "You answered: " %}
+                            <span class="Surveys-booklet__answer">{{answer.user_answer}}</span>
+                            {% trans "which is correct!" %}
+                        </p>
+                    {% else %}
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
+                            {% trans "You answered: " %}
+                            <span class="Surveys-booklet__answer">
+                                {{answer.user_answer}},
+                            </span> {% trans "which is the incorrect answer." %}
+                        </p>
+                        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctAnswer">
+                            {% trans "The correct answer is " %}
+                            <span class="Surveys-booklet__answer">
+                                {{answer.correct_answer}}
+                            </span>
+                        </p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+    {% endif %}
+</ul>
+
+<div class="Surveys-booklet__nextArticle">
+    {% if not next_article %}
+        <h3>{% trans "Congrats on completing this series!" %}</h3>
+    {% else %}
+        <div class="ContentList-body">
+            <a href="{% pageurl next_article %}" class="Article-hitBox">
+              <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">Next article in this series</h1>
+                <article class="Article">
+                    {% if next_article.image %}
+                        <div class="Article-imageWrap">
+                            {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
+                        </div>
+                    {% endif %}
+                    <h2 class="Article-headline">
+                        {{ next_article.title }}
+                    </h2>
+                    <p class="Article-strapline">{{ next_article.subtitle }}</p>
+                </article>
+            </a>
+        </div>
+    {% endif %}
+</div>
