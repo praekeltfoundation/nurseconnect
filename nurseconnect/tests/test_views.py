@@ -7,6 +7,9 @@ from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import (
     SecurityQuestion, UserProfilesSettings, SecurityQuestionIndexPage)
 
+from molo.surveys.models import SurveysIndexPage, MoloSurveyPage
+from molo.surveys.tests.test_models import create_molo_survey_page
+
 from nurseconnect import forms
 
 
@@ -129,3 +132,31 @@ class ForgotPasswordViewTestCase(MoloTestCaseMixin, TestCase):
             reverse("forgot_password")
         )
         self.assertContains(response, "Password Reset")
+
+
+class TestSurveyAdminView(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.mk_main()
+
+        self.super_user = User.objects.create_superuser(
+            username='testuser', password='password', email='test@email.com')
+
+        self.section = self.mk_section(self.section_index)
+        self.article = self.mk_article(self.section)
+
+        self.survey_index = (SurveysIndexPage.objects.child_of(self.main)
+                                                     .first())
+
+        self.child_of_index_page = create_molo_survey_page(self.survey_index)
+        self.child_of_index_page.title = "Child of SurveysIndexPage Survey"
+        self.child_of_index_page.save()
+
+        self.child_of_article_page = create_molo_survey_page(self.article)
+        self.child_of_article_page.title = "Child of Article Survey"
+        self.child_of_article_page.save()
+
+    def test_survey_article_child_displays(self):
+        self.client.force_login(self.super_user)
+        response = self.client.get('/admin/surveys/')
+        self.assertContains(response, self.child_of_index_page.title)
+        self.assertContains(response, self.child_of_article_page.title)
