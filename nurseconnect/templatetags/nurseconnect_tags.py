@@ -1,13 +1,9 @@
 import calendar
 
-from copy import copy
-
 from django.template import Library
 
 from molo.core.templatetags.core_tags import load_sections
 from molo.profiles.models import UserProfilesSettings
-
-from molo.surveys.models import MoloSurveyPage
 
 from nurseconnect.utils import get_survey_results_for_user
 
@@ -91,10 +87,3 @@ def embedded_survey_tag(context, page):
             "survey_answered": False,
             "survey": survey
         }
-
-
-@register.simple_tag(takes_context=True)
-def get_surveys_for_site(context):
-    context = copy(context)
-    main = context['request'].site.root_page
-    return MoloSurveyPage.objects.descendant_of(main).specific()
