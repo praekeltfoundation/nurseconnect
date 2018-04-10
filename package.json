@@ -40,5 +40,10 @@
     "run-sequence": "^2.2.1",
     "sanitize.css": "^5.0.0",
     "yargs": "^8.0.2"
+  },
+  "dependencies": {
+    "npm": "^5.8.0",
+    "to": "^0.2.9",
+    "update": "^0.7.4"
   }
 }
