@@ -100,20 +100,19 @@
         }
 
         figure {
+            margin: scale(beta) 0;
             width: 100%;
-            margin: scale(beta) auto;
-            padding: 0 scale(gamma);
             img {
                 width: 100%;
                 height: auto;
             }
         }
         figcaption {
-            padding: 0 scale(gamma);
+            padding: scale(alpha) scale(gamma) 0 0;
             font-family: serif;
             font-size: scale(beta);
             font-weight: 600;
-            text-align: center;
+            text-align: left;
         }
         &-list {
             clear: both;

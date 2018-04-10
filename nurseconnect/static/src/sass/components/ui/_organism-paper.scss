@@ -89,17 +89,16 @@
             padding: 0 0 0 1em;
         }
         figure {
+            margin: scale(alpha) 0;
             width: 100%;
-            margin: scale(alpha) auto;
-            padding: 0 scale(alpha);
             img {
-                max-width: 100%;
                 height: auto;
+                max-width: 100%;
                 margin: 0 auto;
             }
         }
         figcaption {
-            padding: 0 scale(alpha);
+            padding: scale(alpha) scale(alpha) 0 0;
             font-family: serif;
             font-weight: 600;
             text-align: center;

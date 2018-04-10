@@ -78,10 +78,10 @@
                         <h2>{{ block.value }}</h2>
                     {% elif block.block_type == "image" %}
                         {% if block.value %}
-                            <figure>
-                                {% image block.value width-320 %}
-                                <figcaption>{{ block.value.title }}</figcaption>
-                            </figure>
+                        <figure>
+                            {% image block.value width-320 %}
+                            <figcaption>{{ block.value.title }}</figcaption>
+                        </figure>
                         {% endif %}
                     {% elif block.block_type == "numbered_list" %}
                         {% if block.value %}
