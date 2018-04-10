@@ -103,8 +103,9 @@
             margin: scale(beta) 0;
             width: 100%;
             img {
-                width: 100%;
                 height: auto;
+                max-width: 100%;
+                width: auto;
             }
         }
         figcaption {
