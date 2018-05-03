@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 
+from wagtail.wagtailcore.models import PageViewRestriction
+
 from molo.core.models import SiteLanguageRelation, Main, Languages
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import (
@@ -129,3 +131,29 @@ class ForgotPasswordViewTestCase(MoloTestCaseMixin, TestCase):
             reverse("forgot_password")
         )
         self.assertContains(response, "Password Reset")
+
+
+class TestLoginRedirect(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.mk_main()
+        self.client = Client()
+
+        self.main = Main.objects.all().first()
+        self.language_setting = Languages.objects.create(
+            site_id=self.main.get_site().pk)
+        self.english = SiteLanguageRelation.objects.create(
+            language_setting=self.language_setting,
+            locale='en',
+            is_active=True)
+        self.section = self.mk_section(parent=self.section_index)
+        self.article = self.mk_article(parent=self.section)
+
+    def test_logged_out_redirect(self):
+        PageViewRestriction.objects.create(
+            page=self.main, restriction_type='login'
+        )
+        response = self.client.get(self.article.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.get('location'),
+            '/login/?next={}'.format(self.article.url))
