@@ -341,6 +341,7 @@ EMAIL_HOST_PASSWORD = environ.get("EMAIL_HOST_PASSWORD", "")
 
 # LOGIN URL used for restrcited views
 LOGIN_URL = "auth_login"
+WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL
 
 # For QA and production
 CLINIC_CODE_API = environ.get("CLINIC_CODE_API")
