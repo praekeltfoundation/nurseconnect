@@ -32,7 +32,7 @@ SECRET_KEY = "^ftq6@u6!86we(2_o#r)p)&)w!1*%!@spmpen**8$s!2sn1fop"
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '').split(",")
 
 # Base URL to use when referring to full URLs within the Wagtail admin
 # backend - e.g. in notification emails. Don"t include "/admin" or
