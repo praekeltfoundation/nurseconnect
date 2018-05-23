@@ -23,6 +23,13 @@ JEMBI_URL = environ.get("JEMBI_URL")
 JEMBI_USERNAME = environ.get("JEMBI_USERNAME")
 JEMBI_PASSWORD = environ.get("JEMBI_PASSWORD")
 
+ALLOWED_HOSTS = [
+    'localhost',
+    '.localhost',
+    'site2',
+    '127.0.0.1'
+]
+
 try:
     from .local import *  # noqa
 except ImportError:
