@@ -41,14 +41,16 @@
                 <div class="Splash-actions">
                     <ul class="ButtonGroup">
                         <li class="ButtonGroup-item">
-                            <input type="submit" class="Button" value="{% trans 'Sign in' %}">
+                            <input type="submit" class="Button" value="{% trans 'Log In' %}">
                             <input type="hidden" name="next" value="{% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.site.root_page.url }}{% endif %}"/>
                         </li>
                         <li class="ButtonGroup-item">
                             <div class="Message Message--subtle Message--centered">
                                 <p class="Message-caption">
-                                    {% trans "Don't have an account? Sign up" %} <a
-                                        href="{% url "user_register_msisdn" %}">{% trans "here" %}</a>
+                                    {% trans "Don't have an account?" %}
+                                    <li class="ButtonGroup-item">
+                                        <a href="{% url "user_register" %}" class="Button Button--inverted">{% trans "Sign Up" %}</a>
+                                    </li>
                                 </p>
                                 <a href="{% url "forgot_password" %}" class="Link">{% trans "Forgot password? Click here." %}</a>
                             </div>
