@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
 
-from analytics.tasks import record_behaviour
+from analytics.models import AnalyticsRecord
 from analytics.utils import (
     should_ignore,
     status_code_invalid,
@@ -24,6 +24,6 @@ class AnalyticsMiddleware(MiddlewareMixin):
             response.set_cookie('visitor_id', str(uuid.uuid4()))
 
         params = get_tracking_params(request, response, timestamp, visitor_id)
-        record_behaviour(params)
+        AnalyticsRecord.objects.create(**params)
 
         return response
