@@ -34,7 +34,7 @@ def get_user_uuid(request):
     return None
 
 
-def get_tracking_params(request, response, timestamp=None, visitor_id=None):
+def get_tracking_params(request, response, timestamp=None, visitor_uuid=None):
     '''
     Takes response and request objects
     Returns data necessary for tracking user journey
@@ -49,5 +49,5 @@ def get_tracking_params(request, response, timestamp=None, visitor_id=None):
         "title": get_response_title(response),
         "user_profile_uuid": get_user_uuid(request),
         "method": request.method,
-        "visitor_id": visitor_id
+        "visitor_uuid": visitor_uuid
     })

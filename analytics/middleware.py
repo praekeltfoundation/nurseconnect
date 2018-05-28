@@ -19,11 +19,12 @@ class AnalyticsMiddleware(MiddlewareMixin):
 
         timestamp = timezone.now()
 
-        visitor_id = request.COOKIES.get('visitor_id', False)
-        if not visitor_id:
-            response.set_cookie('visitor_id', str(uuid.uuid4()))
+        visitor_uuid = request.COOKIES.get('visitor_uuid', False)
+        if not visitor_uuid:
+            response.set_cookie('visitor_uuid', str(uuid.uuid4()))
 
-        params = get_tracking_params(request, response, timestamp, visitor_id)
+        params = get_tracking_params(
+            request, response, timestamp, visitor_uuid)
         AnalyticsRecord.objects.create(**params)
 
         return response
