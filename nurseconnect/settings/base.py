@@ -137,7 +137,11 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     # metrics URL used by promethius monitoring system
     '/metrics',
 ]
-ANALYTICS_IGNORE_PATH = copy(GOOGLE_ANALYTICS_IGNORE_PATH)
+ANALYTICS_IGNORE_PATH = copy(GOOGLE_ANALYTICS_IGNORE_PATH) + [
+    # nurseconnect makes AJAX calls to menu on every page load
+    # for some reason request.is_ajax fails to pick this up
+    '/menu/',
+]
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
