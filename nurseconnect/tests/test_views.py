@@ -157,3 +157,43 @@ class TestLoginRedirect(MoloTestCaseMixin, TestCase):
         self.assertEqual(
             response.get('location'),
             '/login/?next={}'.format(self.article.url))
+
+
+class TestAnalyticsRedirectView(TestCase, MoloTestCaseMixin):
+    def setUp(self):
+        self.mk_main()
+        self.client = Client()
+
+    def test_it_sets_cookie_for_analytics(self):
+        response = self.client.get('/analytics/1234/')
+        self.assertEqual(response.cookies['investigation_uuid'].value, '1234')
+
+    def test_it_sets_cookie_for_analytics_1(self):
+        UUID = '68fd1165-50b9-4188-b87b-695a0a6bd3a8'
+        response = self.client.get('/analytics/{}/'.format(UUID))
+        self.assertEqual(response.cookies['investigation_uuid'].value, UUID)
+
+    def test_it_redirects_to_homepage(self):
+        response = self.client.get('/analytics/1234/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], 'http://testserver/')
+
+    def test_it_redirects_to_specified_location(self):
+        response = self.client.get('/analytics/1234/section/one/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response['Location'],
+            'http://testserver/section/one/',
+        )
+
+    def test_it_returns_bad_request_if_url_unsafe_1(self):
+        response = self.client.get('/analytics/http://evil.com/')
+        self.assertEqual(response.status_code, 400)
+
+    def test_it_returns_bad_request_if_url_unsafe_2(self):
+        response = self.client.get('/analytics/1234//http://evil.com/')
+        self.assertEqual(response.status_code, 400)
+
+    def test_it_returns_bad_request_if_url_unsafe_3(self):
+        response = self.client.get('/analytics/0//http://evil.com/')
+        self.assertEqual(response.status_code, 400)

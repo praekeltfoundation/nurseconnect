@@ -16,6 +16,8 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from nurseconnect import forms, views
 from nurseconnect.forms import NurseconnectAuthenticationForm
 
+from analytics.views import AnalyticsRedirectView
+
 urlpatterns = []
 
 # implement CAS URLs in a production setting
@@ -27,6 +29,9 @@ if settings.ENABLE_SSO:  # pragma: no cover
     ]
 
 urlpatterns += [
+    url(r'^analytics/(?P<investigation_uuid>[^/]+)/(?P<redirect_path>.*)$',
+        AnalyticsRedirectView.as_view(),
+        name='analytics_redirect'),
     url(r"^django-admin/", include(admin.site.urls)),
     url(r"^admin/", include(wagtailadmin_urls)),
     url(r"^documents/", include(wagtaildocs_urls)),
