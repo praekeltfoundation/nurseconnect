@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+from copy import copy
 from os.path import abspath, dirname, join
 from os import environ
 import sys
@@ -87,11 +88,12 @@ INSTALLED_APPS = [
     'django_cas_ng',
     'compressor',
     'el_pagination',
+    'analytics',
 
     # styleguide
     "styleguide",
 
-    'storages'
+    'storages',
 ]
 
 COMMENTS_APP = "molo.commenting"
@@ -110,10 +112,10 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
-
     'molo.core.middleware.AdminLocaleMiddleware',
     'molo.core.middleware.NoScriptGASessionMiddleware',
     'molo.core.middleware.MoloGoogleAnalyticsMiddleware',
+    'analytics.middleware.AnalyticsMiddleware',
     "wagtail.wagtailcore.middleware.SiteMiddleware",
     "wagtail.wagtailredirects.middleware.RedirectMiddleware",
     'molo.core.middleware.MultiSiteRedirectToHomepage',
@@ -135,6 +137,7 @@ GOOGLE_ANALYTICS_IGNORE_PATH = [
     # metrics URL used by promethius monitoring system
     '/metrics',
 ]
+ANALYTICS_IGNORE_PATH = copy(GOOGLE_ANALYTICS_IGNORE_PATH)
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
