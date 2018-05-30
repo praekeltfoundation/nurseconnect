@@ -74,7 +74,7 @@
             margin: scale(beta) (-(scale(gamma))) scale(beta) auto;
             padding: scale(gamma);
             color: $color-grey-nero;
-            font-family: serif;
+            font-family: $font-sans-serif;
             font-size: scale(gamma);
             font-style: italic;
         }
@@ -109,8 +109,8 @@
             }
         }
         figcaption {
-            padding: scale(alpha) scale(gamma) 0 0;
-            font-family: serif;
+            padding: 0 scale(gamma) 0 0;
+            font-family: $font-sans-serif;
             font-size: scale(beta);
             font-weight: 600;
             text-align: left;
