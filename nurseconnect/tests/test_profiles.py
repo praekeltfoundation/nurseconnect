@@ -64,44 +64,42 @@ class PerfectRegistrationTestCase(TestCase, MoloTestCaseMixin):
     @mock.patch("nurseconnect.views.get_clinic_code")
     def test_it(self, clinic_code_mock):
         clinic_code_mock.return_value = "388624", "Test", "gp Test"
-        # post msisdn step
-        response = self.client.post(
-            reverse("user_register_msisdn"),
-            {
-                "username": "0820000000",
-                "password": "1234",
-                "confirm_password": "1234",
-                "terms_and_conditions": True,
-            },
-            follow=True
-        )
+        data = {
+            "username": "0820000000",
+            "password": "1234",
+            "confirm_password": "1234",
+            "terms_and_conditions": True,
+        }
+        url = reverse("user_register_msisdn")
 
-        self.assertRedirects(
-            response, reverse("user_register_security_questions")
-        )
+        # post msisdn step
+        response = self.client.post(url, data, follow=True)
+
+        # user object not created right away, confirm that is the case
+        count = User.objects.filter().count()
+        self.assertEqual(count, 0)
+
+        url = reverse("user_register_security_questions")
+        self.assertRedirects(response, url)
 
         # post security question step
+        url = reverse("user_register_security_questions")
         self.client.get(reverse("user_register_security_questions"))
-        response = self.client.post(
-            reverse("user_register_security_questions"),
-            {
-                "question_0": "answer",
-            },
-            follow=True
-        )
-        self.assertRedirects(
-            response, reverse("user_register_clinic_code")
-        )
+
+        question_data = {"question_0": "answer"}
+        response = self.client.post(url, question_data, follow=True)
+
+        url = reverse("user_register_clinic_code")
+        self.assertRedirects(response, url)
 
         # post clinic code step
-        response = self.client.post(
-            reverse("user_register_clinic_code"),
-            {
-                "clinic_code": "000000",
-            },
-            follow=True
-        )
+        clinic_data = {"clinic_code": "000000"}
+        url = reverse("user_register_clinic_code")
+        response = self.client.post(url, clinic_data, follow=True)
         self.assertContains(response, "Your clinic code is valid")
+
+        count = User.objects.all().count()
+        self.assertEqual(count, 1)
 
 
 class MSISDNTestCase(MoloTestCaseMixin, TestCase):

@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.forms import ValidationError
 from django.contrib import messages
@@ -135,32 +136,19 @@ class RegistrationMSISDNView(FormView):
     template_name = "registration/register_msisdn.html"
 
     def form_valid(self, form):
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password"]
-        if User.objects.filter(
-            username__iexact=username
-        ).exists():
-            form.add_error(
-                "username",
-                ValidationError(_("Username already exists."))
-            )
-            return self.render_to_response({'form': form})
-        user = User.objects.create_user(
-            username=username,
-            password=password
-        )
-        user.profile.site = self.request.site
-        user.save()
-        user.profile.save()
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        if not User.objects.filter(username__iexact=username).exists():
+            self.request.session["registered"] = False
+            self.request.session["username"] = username
+            self.request.session["password"] = password
+            self.request.session["registration-step"] = 2
+            url = reverse("user_register_security_questions")
+            return HttpResponseRedirect(url)
 
-        self.request.session["registration-step"] = 2
-        self.request.session["username"] = username
-        self.request.session["password"] = password
-        self.request.session["registered"] = False
-
-        return HttpResponseRedirect(
-            reverse("user_register_security_questions")
-        )
+        error = _("Username already exists.")
+        form.add_error("username", ValidationError(error))
+        return self.render_to_response({'form': form})
 
 
 class RegistrationSecurityQuestionsView(FormView):
@@ -168,27 +156,23 @@ class RegistrationSecurityQuestionsView(FormView):
     template_name = "registration/register_security_questions.html"
 
     def form_valid(self, form):
+        answers = []
+
+        for index, question in enumerate(self.questions):
+            answer = form.cleaned_data.get("question_{}".format(index))
+            if answer:
+                answers.append({'question': question.pk, 'answer': answer})
+
         if self.request.user.is_authenticated():
             username = self.request.user.username
-        else:
-            username = self.request.session["username"]
-
-        user = User.objects.filter(username__iexact=username).first()
-
-        # Save security question answers
-        for index, question in enumerate(
-            self.questions
-        ):
-            answer = form.cleaned_data["question_{}".format(index)]
-            if answer:
-                models.SecurityAnswer.objects.create(
-                    user=user.profile,
-                    question=question,
-                    answer=answer
-                )
-        if self.request.user.is_authenticated():
+            user = User.objects.filter(username__iexact=username).first()
+            for i in answers:
+                models.SecurityAnswer.objects.create(suser=user.profile, **i)
             return HttpResponseRedirect(reverse("home"))
+
+        answers = json.dumps({'items': answers})
         self.request.session["registration-step"] = 3
+        self.request.session["security_questions"] = answers
         return HttpResponseRedirect(reverse("user_register_clinic_code"))
 
     def get_form_kwargs(self):
@@ -220,33 +204,43 @@ class RegistrationClinicCodeView(FormView):
     template_name = "registration/register_clinic_code.html"
 
     def form_valid(self, form):
+        clinic_name = None
         clinic_code = form.cleaned_data["clinic_code"]
         clinic = get_clinic_code(clinic_code)
 
         if not clinic:
-            form.add_error(
-                "clinic_code",
-                ValidationError(_("Clinic code does not exist."))
-            )
+            error = _("Clinic code does not exist.")
+            form.add_error("clinic_code", ValidationError(error))
             return self.render_to_response({'form': form})
         else:
             if clinic[2]:
                 clinic_name = clinic[2]
 
-        username = self.request.session["username"]
-        user = User.objects.filter(username__iexact=username).first()
+        username = self.request.session.get("username")
+        password = self.request.session.get("password")
+        user = User.objects.create_user(username=username, password=password)
+        user.profile.site = self.request.site
+        user.save()
+        user.profile.save()
+
+        # Security Questions
+        answers = json.loads(self.request.session.get('security_questions'))
+        for i in answers.get('items'):
+            pk = i.get('question')
+            question = models.SecurityQuestion.objects.live().get(pk=pk)
+            i.update({'question': question})
+            models.SecurityAnswer.objects.create(user=user.profile, **i)
 
         # Save clinic code
         user.profile.for_nurseconnect.clinic_code = clinic_code
         user.profile.for_nurseconnect.save()
         self.request.session["registration-step"] = 4
         self.request.session["clinic"] = True
+        self.request.session["registered"] = True
         self.request.session["cliniccode"] = clinic_code
         self.request.session["cliniccodename"] = clinic_name
-
-        return HttpResponseRedirect(
-            reverse("user_register_clinic_code_success")
-        )
+        url = reverse("user_register_clinic_code_success")
+        return HttpResponseRedirect(url)
 
 
 class RegistrationClinicCodeSuccessView(TemplateView):
