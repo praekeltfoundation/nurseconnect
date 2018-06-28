@@ -1,18 +1,17 @@
 import json
-from django.conf import settings
+
 from django.forms import ValidationError
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import get_language_from_request
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
-
 from django.views.generic import View
 
 from molo.core.models import ArticlePage
