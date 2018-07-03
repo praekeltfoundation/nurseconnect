@@ -13,13 +13,19 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.views.generic import View
+from django.http.request import QueryDict
+from django.contrib.auth.tokens import default_token_generator
+
+from molo.profiles import forms
+from molo.profiles.models import SecurityAnswer
 
 from molo.core.models import ArticlePage
 from molo.core.templatetags.core_tags import get_pages
 from molo.core.utils import get_locale_code
 from molo.profiles import models
 from molo.surveys.models import MoloSurveyPage
-
+from molo.profiles.views import ForgotPasswordView
+from molo.profiles.models import UserProfilesSettings
 from wagtail.wagtailsearch.models import Query
 
 from nurseconnect import forms
@@ -435,3 +441,90 @@ class NCSurveySuccess(View):
                 "{}".format(article.get_url()))
         else:
             return render(request, "surveys/molo_survey_page_success.html")
+
+
+class NCForgotPasswordView(ForgotPasswordView):
+    """ Forgot Password """
+
+    def form_valid(self, form):
+        error_message = "The username and security question(s) combination " \
+                        + "do not match."
+        profile_settings = UserProfilesSettings.for_site(self.request.site)
+
+        if "forgot_password_attempts" not in self.request.session:
+            self.request.session["forgot_password_attempts"] = \
+                profile_settings.password_recovery_retries
+
+        # max retries exceeded
+        if self.request.session["forgot_password_attempts"] <= 0:
+            form.add_error(
+                None, _("Too many attempts. Please try again later.")
+            )
+            return self.render_to_response({'form': form})
+
+        username = form.cleaned_data["username"]
+        try:
+
+            user = User.objects.get(
+                profile__migrated_username=username,
+                profile__site=self.request.site)
+            username = user.username
+        except User.DoesNotExist:
+            try:
+                user = User.objects.get(
+                    username=username, profile__site=self.request.site)
+            except User.DoesNotExist:
+                self.request.session['forgot_password_attempts'] += 1
+                form.add_error('username',
+                               _('The username that you entered appears to be '
+                                 'invalid. Please try again.'))
+                return self.render_to_response({'form': form})
+
+        if not user.is_active:
+            # add non_field_error
+            form.add_error(None, _(error_message))
+            self.request.session["forgot_password_attempts"] -= 1
+            return self.render_to_response({'form': form})
+
+        # check security question answers
+        answer_checks = []
+
+        if user.profile.security_question_answers.exists():
+            for i in range(profile_settings.num_security_questions):
+                user_answer = form.cleaned_data["question_%s" % (i,)]
+                try:
+                    saved_answer = user.profile.securityanswer_set.get(
+                        user=user.profile,
+                        question=self.security_questions[i]
+                    )
+                    answer_checks.append(saved_answer.check_answer(user_answer))
+                except SecurityAnswer.DoesNotExist:
+                    form.add_error(
+                        None,
+                        _("There are no security questions "
+                          "stored against your profile."))
+                    return self.render_to_response({'form': form})
+
+            # redirect to reset password page if username and security
+            # questions were matched
+            if all(answer_checks):
+                token = default_token_generator.make_token(user)
+                q = QueryDict(mutable=True)
+                q["user"] = username
+                q["token"] = token
+                reset_password_url = "{0}?{1}".format(
+                    reverse("molo.profiles:reset_password"), q.urlencode()
+                )
+                return HttpResponseRedirect(reset_password_url)
+            else:
+                form.add_error(None, _(error_message))
+                self.request.session["forgot_password_attempts"] -= 1
+                return self.render_to_response({'form': form})
+
+        token = default_token_generator.make_token(user)
+        q = QueryDict(mutable=True)
+        q["user"] = username
+        q["token"] = token
+        reset_password_url = "{0}?{1}".format(
+            reverse("molo.profiles:reset_password"), q.urlencode())
+        return HttpResponseRedirect(reset_password_url)

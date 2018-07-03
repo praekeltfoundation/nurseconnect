@@ -99,7 +99,7 @@ urlpatterns += [
     ),
     url(
         r"^profiles/forgot-password/$",
-        molo_profile_views.ForgotPasswordView.as_view(
+        views.NCForgotPasswordView.as_view(
             form_class=forms.ForgotPasswordForm
         ),
         name="forgot_password"

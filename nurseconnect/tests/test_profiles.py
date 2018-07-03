@@ -19,6 +19,7 @@ from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import (
     SecurityQuestion, UserProfilesSettings, SecurityQuestionIndexPage)
 
+from nurseconnect.models import UserProfile
 from nurseconnect import forms
 
 
@@ -258,6 +259,10 @@ class EditPasswordTestCase(MoloTestCaseMixin, TestCase):
         self.mk_main()
         self.user = User.objects.create_user("+27811231234", password="1234")
         self.client.login(username="+27811231234", password="1234")
+        self.profile = UserProfile.objects.filter(user=self.user).first()
+        self.profile.site = self.site
+        self.profile.migrated_username = "+27811231234"
+        self.profile.save()
 
     def test_password_fields_are_editable(self):
         response = self.client.get(
@@ -310,6 +315,15 @@ class EditPasswordTestCase(MoloTestCaseMixin, TestCase):
             follow=True
         )
         self.assertContains(response, "The old password is incorrect")
+
+    def test_forgot_password_without_security_questions(self):
+        self.client.logout()
+        data = {'username': self.user.username}
+        response = self.client.post(reverse('forgot_password'), data=data)
+        self.assertFalse(self.user.profile.security_question_answers.exists())
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(reverse("molo.profiles:reset_password") in response.url)
 
 
 class ViewProfileTestCase(MoloTestCaseMixin, TestCase):
