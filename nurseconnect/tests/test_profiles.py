@@ -323,7 +323,8 @@ class EditPasswordTestCase(MoloTestCaseMixin, TestCase):
         self.assertFalse(self.user.profile.security_question_answers.exists())
 
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(reverse("molo.profiles:reset_password") in response.url)
+        self.assertTrue(
+            reverse("molo.profiles:reset_password") in response.url)
 
 
 class ViewProfileTestCase(MoloTestCaseMixin, TestCase):

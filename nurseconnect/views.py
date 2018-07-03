@@ -16,7 +16,6 @@ from django.views.generic import View
 from django.http.request import QueryDict
 from django.contrib.auth.tokens import default_token_generator
 
-from molo.profiles import forms
 from molo.profiles.models import SecurityAnswer
 
 from molo.core.models import ArticlePage
@@ -497,7 +496,8 @@ class NCForgotPasswordView(ForgotPasswordView):
                         user=user.profile,
                         question=self.security_questions[i]
                     )
-                    answer_checks.append(saved_answer.check_answer(user_answer))
+                    answer_checks.append(
+                        saved_answer.check_answer(user_answer))
                 except SecurityAnswer.DoesNotExist:
                     form.add_error(
                         None,
