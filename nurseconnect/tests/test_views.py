@@ -1,3 +1,5 @@
+from http.cookies import SimpleCookie
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
@@ -7,7 +9,9 @@ from wagtail.wagtailcore.models import PageViewRestriction
 from molo.core.models import SiteLanguageRelation, Main, Languages
 from molo.core.tests.base import MoloTestCaseMixin
 from molo.profiles.models import (
-    SecurityQuestion, UserProfilesSettings, SecurityQuestionIndexPage)
+    SecurityQuestion, SecurityAnswer,
+    UserProfilesSettings, SecurityQuestionIndexPage
+)
 
 from nurseconnect import forms
 
@@ -95,6 +99,10 @@ class RegistrationViewTestCase(MoloTestCaseMixin, TestCase):
 class ForgotPasswordViewTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()
+        self.user = User.objects.create_user(
+            username="+27791234567",
+            password="1234"
+        )
         self.client = Client()
 
         self.main = Main.objects.all().first()
@@ -125,12 +133,88 @@ class ForgotPasswordViewTestCase(MoloTestCaseMixin, TestCase):
         )
         self.security_index.add_child(instance=self.q1)
         self.q1.save()
+        self.q1_answer = SecurityAnswer.objects.create(
+            user=self.user.profile, question=self.q1)
+        self.user.profile.site = self.main.get_site()
+        self.user.profile.save()
 
     def test_view_renders(self):
-        response = self.client.get(
-            reverse("forgot_password")
-        )
+        response = self.client.get(reverse("forgot_password"))
         self.assertContains(response, "Password Reset")
+
+    def test_forgot_password_with_security_questions(self):
+        answer = '20'
+        self.q1_answer.set_answer(answer)
+        self.q1_answer.save()
+        data = {
+            'username': self.user.username,
+            'question_0': answer
+        }
+        forgot_password = reverse("forgot_password")
+        response = self.client.post(forgot_password, data=data)
+
+        self.assertTrue(
+            self.user.profile.security_question_answers.exists())
+        reset_password = reverse("molo.profiles:reset_password")
+        self.assertTrue(reset_password in response.url)
+
+    def test_forgot_password_with_security_questions_fail(self):
+        data = {
+            'username': self.user.username,
+            'question_0': 'randomanswer'
+        }
+        forgot_password = reverse("forgot_password")
+        response = self.client.post(forgot_password, data=data)
+
+        self.assertTrue(
+            self.user.profile.security_question_answers.exists())
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context_data.keys())
+        self.assertEqual(
+            response.context_data['form'].errors['__all__'][0],
+            'The username and security question(s) combination do not match.'
+        )
+
+    def test_invalid_username_forgot_password(self):
+        data = {'username': 'iamnotfromhere'}
+        forgot_password = reverse("forgot_password")
+        response = self.client.post(forgot_password, data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context_data.keys())
+
+    def test_too_many_attempts_forgot_password(self):
+        answer = '20'
+        forgot_password = reverse("forgot_password")
+        self.q1_answer.set_answer(answer)
+        self.q1_answer.save()
+
+        session = self.client.session
+        session['forgot_password_attempts'] = -10
+        session.save()
+
+        data = {
+            'username': self.user.username,
+            'question_0': answer
+        }
+
+        response = self.client.post(forgot_password, data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context_data['form'].errors['__all__'][0],
+            'Too many attempts. Please try again later.'
+        )
+
+    def test_inactive_user_forgot_password(self):
+        forgot_password = reverse("forgot_password")
+        data = {'username': self.user.username}
+        self.user.is_active = False
+        self.user.save()
+
+        response = self.client.post(forgot_password, data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context_data.keys())
 
 
 class TestLoginRedirect(MoloTestCaseMixin, TestCase):
