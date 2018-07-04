@@ -165,13 +165,13 @@ class RegistrationSecurityQuestionsView(FormView):
         for index, question in enumerate(self.questions):
             answer = form.cleaned_data.get("question_{}".format(index))
             if answer:
-                answers.append({'question': question.pk, 'answer': answer})
+                answers.append({'question_id': question.pk, 'answer': answer})
 
         if self.request.user.is_authenticated():
             username = self.request.user.username
             user = User.objects.filter(username__iexact=username).first()
             for i in answers:
-                models.SecurityAnswer.objects.create(suser=user.profile, **i)
+                models.SecurityAnswer.objects.create(user=user.profile, **i)
             return HttpResponseRedirect(reverse("home"))
 
         answers = json.dumps({'items': answers})
@@ -230,9 +230,6 @@ class RegistrationClinicCodeView(FormView):
         # Security Questions
         answers = json.loads(self.request.session.get('security_questions'))
         for i in answers.get('items'):
-            pk = i.get('question')
-            question = models.SecurityQuestion.objects.live().get(pk=pk)
-            i.update({'question': question})
             models.SecurityAnswer.objects.create(user=user.profile, **i)
 
         # Save clinic code
@@ -445,51 +442,15 @@ class NCSurveySuccess(View):
 class NCForgotPasswordView(ForgotPasswordView):
     """ Forgot Password """
 
-    def form_valid(self, form):
-        error_message = "The username and security question(s) combination " \
-                        + "do not match."
-        profile_settings = UserProfilesSettings.for_site(self.request.site)
-
-        if "forgot_password_attempts" not in self.request.session:
-            self.request.session["forgot_password_attempts"] = \
-                profile_settings.password_recovery_retries
-
-        # max retries exceeded
-        if self.request.session["forgot_password_attempts"] <= 0:
-            form.add_error(
-                None, _("Too many attempts. Please try again later.")
-            )
-            return self.render_to_response({'form': form})
-
-        username = form.cleaned_data["username"]
-        try:
-
-            user = User.objects.get(
-                profile__migrated_username=username,
-                profile__site=self.request.site)
-            username = user.username
-        except User.DoesNotExist:
-            try:
-                user = User.objects.get(
-                    username=username, profile__site=self.request.site)
-            except User.DoesNotExist:
-                self.request.session['forgot_password_attempts'] += 1
-                form.add_error('username',
-                               _('The username that you entered appears to be '
-                                 'invalid. Please try again.'))
-                return self.render_to_response({'form': form})
-
-        if not user.is_active:
-            # add non_field_error
-            form.add_error(None, _(error_message))
-            self.request.session["forgot_password_attempts"] -= 1
-            return self.render_to_response({'form': form})
-
-        # check security question answers
+    def security_question_checks(self, user, form, error_message):
+        """
+        just breaking up the logic in form valid
+        to manageable chunks
+        """
         answer_checks = []
 
         if user.profile.security_question_answers.exists():
-            for i in range(profile_settings.num_security_questions):
+            for i in range(self.profile_settings.num_security_questions):
                 user_answer = form.cleaned_data["question_%s" % (i,)]
                 try:
                     saved_answer = user.profile.securityanswer_set.get(
@@ -507,24 +468,76 @@ class NCForgotPasswordView(ForgotPasswordView):
 
             # redirect to reset password page if username and security
             # questions were matched
-            if all(answer_checks):
-                token = default_token_generator.make_token(user)
-                q = QueryDict(mutable=True)
-                q["user"] = username
-                q["token"] = token
-                reset_password_url = "{0}?{1}".format(
-                    reverse("molo.profiles:reset_password"), q.urlencode()
-                )
-                return HttpResponseRedirect(reset_password_url)
-            else:
+            if not all(answer_checks):
                 form.add_error(None, _(error_message))
                 self.request.session["forgot_password_attempts"] -= 1
                 return self.render_to_response({'form': form})
+        return None
 
+    def get_user(self, username, form, error_message):
+        user = None
+        try:
+            user = User.objects.get(
+                profile__migrated_username=username,
+                profile__site=self.request.site)
+
+        except User.DoesNotExist:
+            try:
+                user = User.objects.get(
+                    username=username, profile__site=self.request.site)
+
+            except User.DoesNotExist:
+                self.request.session['forgot_password_attempts'] += 1
+
+        if not user:
+            no_user = 'The username that you entered appears to be invalid.' \
+                      ' Please try again.'
+            form.add_error('username', _(no_user))
+
+        if user and not user.is_active:
+            # add non_field_error
+            user = None
+            form.add_error(None, _(error_message))
+            self.request.session["forgot_password_attempts"] -= 1
+
+        return user
+
+    def token_response(self, user, form):
         token = default_token_generator.make_token(user)
         q = QueryDict(mutable=True)
-        q["user"] = username
+        q["user"] = form.cleaned_data["username"]
         q["token"] = token
         reset_password_url = "{0}?{1}".format(
             reverse("molo.profiles:reset_password"), q.urlencode())
         return HttpResponseRedirect(reset_password_url)
+
+    def form_valid(self, form):
+        error_message = "The username and security question(s) combination " \
+                        + "do not match."
+
+        self.profile_settings = \
+            UserProfilesSettings.for_site(self.request.site)
+
+        if "forgot_password_attempts" not in self.request.session:
+            self.request.session["forgot_password_attempts"] = \
+                self.profile_settings.password_recovery_retries
+
+        # max retries exceeded
+        if self.request.session["forgot_password_attempts"] <= 0:
+            form.add_error(
+                None, _("Too many attempts. Please try again later.")
+            )
+            return self.render_to_response({'form': form})
+
+        username = form.cleaned_data["username"]
+        user = self.get_user(username, form, error_message)
+
+        if not user:
+            return self.render_to_response({'form': form})
+
+        # check security question answers
+        error = self.security_question_checks(user, form, error_message)
+        if error:
+            return error
+
+        return self.token_response(user, form)
