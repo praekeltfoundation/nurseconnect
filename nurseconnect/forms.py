@@ -363,6 +363,7 @@ class ForgotPasswordForm(forms.Form):
 
         for index, question in enumerate(questions):
             self.fields["question_{}".format(index)] = forms.CharField(
+                required=False,
                 label=_(str(question)),
                 widget=forms.TextInput(
                     attrs={
