@@ -2,7 +2,6 @@
 {% load wagtailcore_tags static core_tags i18n competition_tag molo_survey_tags %}
 {% block content %}
   {% bannerpages %}
-  {% if user.is_authenticated %}
       {% if no_security_answers %}
           <section class="ContentList">
             <div class="ContentList-body">
@@ -21,7 +20,4 @@
     {% section_listing_homepage %}
     {% your_words_competition %}
     {% surveys_list %}
-  {% else %}
-    {% include "core/home_page_before_login.html" %}
-  {% endif %}
 {% endblock %}
