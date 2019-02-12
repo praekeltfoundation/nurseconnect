@@ -19,10 +19,6 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         self.mk_main()
         self.client = Client()
 
-        # This  URL is decorated with @login_required
-        self.user = User.objects.create_user("+27811231234", password="1234")
-        self.client.login(username="+27811231234", password="1234")
-
     def test_menu_renders_correctly(self):
         # Content in this view is dependent on there being sections.
         # So we'll test that the view returns successfully and leave
