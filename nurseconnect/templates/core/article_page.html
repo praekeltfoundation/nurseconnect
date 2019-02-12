@@ -115,8 +115,10 @@
         </article>
 
         {% social_media_article %}
-        {% if self.get_children.first %}
+        {% if self.get_children.first and request.user.is_authenticated%}
             {% embedded_survey_tag self %}
+        {% else %}
+        <a href="{% url "auth_login" %}?next={{request.path}}" class="Button">{% trans "Log In to take quiz" %}</a>
         {% endif %}
 
         {% if self.allow_commenting %}
