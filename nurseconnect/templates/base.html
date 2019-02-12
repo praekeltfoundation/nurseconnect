@@ -99,9 +99,7 @@
         {% wagtailuserbar %}
         <main class="ContentBody" role="main">
             {% include "core/header.html" %}
-            {% if user.is_authenticated %}
               {% block hero %}{% endblock %}
-            {% endif %}
             {% block content %}{% endblock %}
             {% block extra_js %}{% endblock %}
 
@@ -110,7 +108,6 @@
             </div>
             {% block footer %}
             <footer id="menu" class="Footer" role="contentinfo">
-            {% if user.is_authenticated %}
                 {% block menu_static %}
                   <div class="static-menu">
                     <ul class="static-menu-list">
@@ -131,6 +128,7 @@
                              {% trans "Search" %}
                            </a>
                        </li>
+                       {% if user.is_authenticated %}
                         <li class="static-menu-list__item">
                           <a href="{% url "view_my_profile" %}" class="static-menu-list__anchor">
                               {% trans "Your Profile" %}
@@ -141,10 +139,11 @@
                             {% trans "Log out" %}
                           </a>
                         </li>
+                        {% endif %}
                     </ul>
                   </div>
                 {% endblock %}
-              {% endif %}
+
                 {% footer_page %}
             </footer>
             {% endblock %}

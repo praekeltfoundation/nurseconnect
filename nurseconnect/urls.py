@@ -37,14 +37,14 @@ urlpatterns += [
     url(r"^documents/", include(wagtaildocs_urls)),
     url(
         r"^search/$",
-        login_required(views.SearchView.as_view(
+        views.SearchView.as_view(
             template_name="search/search.html"
-        )),
+        ),
         name="search"
     ),
     url(
         r"^search/results/$",
-        login_required(views.search),
+        views.search,
         name="search_query"
     ),
     url(
