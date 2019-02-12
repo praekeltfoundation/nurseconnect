@@ -120,7 +120,28 @@
         {% else %}
         <a href="{% url "auth_login" %}?next={{request.path}}" class="Button">{% trans "Log In to take quiz" %}</a>
         {% endif %}
+        <div class="Surveys-booklet__nextArticle">
+    {%get_next_article self as next_article%}
+    {% if next_article %}
+        <div class="ContentList-body">
+            <a href="{% pageurl next_article %}" class="Article-hitBox">
+              <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">Next article in this series</h1>
+                <article class="Article">
+                    {% if next_article.image %}
+                        <div class="Article-imageWrap">
+                            {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
+                        </div>
+                    {% endif %}
+                    <h2 class="Article-headline">
+                        {{ next_article.title }}
+                    </h2>
+                    <p class="Article-strapline">{{ next_article.subtitle }}</p>
+                </article>
+            </a>
+        </div>
+    {% endif %}
 
+</div>
         {% if self.allow_commenting %}
             <section class="Comments">
                 <h1 class="Comments-label">{% trans "Comments" %}</h1>
