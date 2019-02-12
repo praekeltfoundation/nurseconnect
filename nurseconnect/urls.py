@@ -125,7 +125,7 @@ urlpatterns += [
     ),
     url(
         r"^menu/$",
-        login_required(views.MenuView.as_view()),
+        views.MenuView.as_view(),
         name="menu"
     ),
     url(
