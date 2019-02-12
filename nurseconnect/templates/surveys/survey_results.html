@@ -30,25 +30,3 @@
     {% endif %}
 </ul>
 
-<div class="Surveys-booklet__nextArticle">
-    {% if not next_article %}
-        <h3>{% trans "Congrats on completing this series!" %}</h3>
-    {% else %}
-        <div class="ContentList-body">
-            <a href="{% pageurl next_article %}" class="Article-hitBox">
-              <h1 class="Surveys-booklet__ContentList-categoryLabel ContentList-categoryLabel">Next article in this series</h1>
-                <article class="Article">
-                    {% if next_article.image %}
-                        <div class="Article-imageWrap">
-                            {% image next_article.image width-85 height-100 class="Article-image Article-image--aside" %}
-                        </div>
-                    {% endif %}
-                    <h2 class="Article-headline">
-                        {{ next_article.title }}
-                    </h2>
-                    <p class="Article-strapline">{{ next_article.subtitle }}</p>
-                </article>
-            </a>
-        </div>
-    {% endif %}
-</div>

@@ -52,6 +52,14 @@ def convert_month(value):
         return ""
 
 
+@register.assignment_tag()
+def get_next_article(page):
+    if page.get_next_sibling():
+        return page.get_next_sibling().specific
+
+    return None
+
+
 @register.inclusion_tag("surveys/embedded_survey.html",
                         takes_context=True)
 def embedded_survey_tag(context, page):
