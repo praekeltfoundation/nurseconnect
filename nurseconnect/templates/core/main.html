@@ -11,9 +11,11 @@
             </div>
           </section>
       {% endif %}
+    {% if request.path == 'search' %}
     {% block search %}
       {% include "core/search-form.html" with id="search" %}
     {% endblock %}
+    {% endif %}
     {% topic_of_the_day %}
     {% latest_listing_homepage num_count=6 %}
     {% include "core/learn-banner.html" %}

@@ -27,6 +27,25 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class SearchTestCase(MoloTestCaseMixin, TestCase):
+    def setUp(self):
+        self.mk_main()
+        self.client = Client()
+
+    def test_search_on_homepage(self):
+        # Test that the search only occurs when the user clicks on t
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'What are you looking for?')
+        self.assertContains(response, 'Search')
+
+    def test_search_view(self):
+        # Test that the search only occurs when the user clicks on t
+        response = self.client.get(reverse("search"))
+        self.assertContains(response, 'What are you looking for?')
+        self.assertContains(response, 'Search')
+
+
 class RegistrationViewTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()

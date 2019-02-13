@@ -124,8 +124,8 @@
                             </li>
                         {% endfor %}
                         <li class="static-menu-list__item">
-                           <a href="{% if request.path == "/" %}#search{% else %}{% url "search" %}{% endif %}" id="NavBar__search" class="static-menu-list__anchor">
-                             {% trans "Search" %}
+                           <a href="{% url "search" %}" id="NavBar__search" class="static-menu-list__anchor">
+                             {% trans "Searchs" %}
                            </a>
                        </li>
                        {% if user.is_authenticated %}
