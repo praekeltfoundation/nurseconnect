@@ -42,7 +42,7 @@ class SearchTestCase(MoloTestCaseMixin, TestCase):
     def test_search_view(self):
         # Test that the search only occurs when the user clicks on t
         response = self.client.get(reverse("search"))
-        self.assertNotContains(response, 'What are you looking for?')
+        self.assertContains(response, 'What are you looking for?')
         self.assertContains(response, 'Search')
 
 
