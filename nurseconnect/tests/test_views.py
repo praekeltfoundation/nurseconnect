@@ -27,7 +27,7 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class MenuSearchCase(MoloTestCaseMixin, TestCase):
+class SearchTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()
         self.client = Client()
