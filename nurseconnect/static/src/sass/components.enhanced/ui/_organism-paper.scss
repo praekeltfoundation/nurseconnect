@@ -7,13 +7,13 @@
     }
     &-graphic {
         display: block;
-        max-width: 100%;
+        max-width: 30%;
         height: auto;
         margin-right: auto;
         margin-left: auto;
         &--inline {
             float: left;
-            width: 50%;
+            width: 30%;
             margin: 0 scale(beta) scale(beta) 0;
         }
     }
@@ -174,10 +174,10 @@
       padding: scale(gamma) scale(gamma);
       #{$block}-headline--landing {
         position: absolute;
-        top: 20%;
+        top: 10%;
         width: 50%;
         padding: 0 scale(alpha) 0 0;
-        font-size: 1.88em;
+        font-size: 1.35em;
         word-break: break-word;
       }
       #{$block}-graphic--landing {
