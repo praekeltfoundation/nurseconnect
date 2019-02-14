@@ -1,9 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
-{% if request.user.is_authenticated %}
 <section class="Paper">
   <article class="Paper-body">
   {% for bannerpage in bannerpages %}
-    {% if not 'week' and 'day' or 'hour' in request.user.date_joined|timesince %}
+    {% if not 'week' and 'day' or 'hour' in request.user.date_joined|timesince or not request.user.is_authenticated %}
       {% block hero %}
       <div class="HeroTout">
         <h1 class="HeroTout-headline">
@@ -46,4 +45,3 @@
   {% endfor %}
   </article>
 </section>
-{% endif %}
