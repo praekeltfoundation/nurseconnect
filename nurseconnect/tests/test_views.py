@@ -28,7 +28,7 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         self.assertTemplateUsed(response,
                                 "core/tags/section_listing_menu.html")
         self.assertNotContains(response, "Profile")
-        self.assertContains(response, "Login")
+        self.assertContains(response, "Log In")
 
     def test_menu__user_authenticated(self):
         self.superuser = User.objects.create_superuser(
