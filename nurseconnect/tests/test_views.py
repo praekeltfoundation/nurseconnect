@@ -18,8 +18,6 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()
         self.client = Client()
-        self.section = self.mk_section(self.section_index,
-                                       title="Section")
 
     def test_menu_renders_correctly(self):
         # Content in this view is dependent on there being sections.
