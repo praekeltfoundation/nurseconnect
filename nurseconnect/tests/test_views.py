@@ -29,6 +29,18 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response,
                                 "core/tags/section_listing_menu.html")
+        self.assertNotContains(response, "Profile")
+        self.assertContains(response, "Login")
+
+    def test_menu__user_authenticated(self):
+        self.superuser = User.objects.create_superuser(
+            username='testuser', password='password', email='test@email.com')
+        self.client.login(username='testuser', password='password')
+
+        response = self.client.get(reverse("menu"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Profile")
+        self.assertContains(response, "Log out")
 
 
 class SearchTestCase(MoloTestCaseMixin, TestCase):
