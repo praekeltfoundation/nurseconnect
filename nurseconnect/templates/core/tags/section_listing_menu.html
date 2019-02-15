@@ -25,6 +25,8 @@
             {% trans "Search" %}
         </a>
       </li>
+      {% endif %}
+      {% if request.user.is_authenticated %}
       <li class="Menu-navItem" role="presentation">
         <a href="{% url 'molo.profiles:view_my_profile' %}" class="Menu-navLink" role="menuitem">
           {% trans "Your Profile" %}
@@ -35,6 +37,10 @@
           {% trans "Log out" %}
         </a>
       </li>
+      {% else %}
+      <li class="Menu-navItem" role="presentation">
+        <a href="{% url "auth_login" %}?next={{request.path}}" class="Menu-navLink" role="menuitem">{% trans "Login" %}</a>
+      </li>
+      {% endif %}
     </ul>
   </nav>
-{% endif %}
