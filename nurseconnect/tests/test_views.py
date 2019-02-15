@@ -18,13 +18,18 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
     def setUp(self):
         self.mk_main()
         self.client = Client()
+        self.section = self.mk_section(self.section_index,
+                                       title="Section")
 
     def test_menu_renders_correctly(self):
         # Content in this view is dependent on there being sections.
         # So we'll test that the view returns successfully and leave
         # it at that
         response = self.client.get(reverse("menu"))
+
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,
+                                "core/tags/section_listing_menu.html")
 
 
 class SearchTestCase(MoloTestCaseMixin, TestCase):
