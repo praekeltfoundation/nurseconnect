@@ -25,6 +25,7 @@
             {% trans "Search" %}
         </a>
       </li>
+      {% endif %}
       {% if request.user.is_authenticated %}
       <li class="Menu-navItem" role="presentation">
         <a href="{% url 'molo.profiles:view_my_profile' %}" class="Menu-navLink" role="menuitem">
@@ -43,4 +44,3 @@
       {% endif %}
     </ul>
   </nav>
-{% endif %}
