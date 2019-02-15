@@ -26,7 +26,6 @@ class MenuTestCase(MoloTestCaseMixin, TestCase):
         # So we'll test that the view returns successfully and leave
         # it at that
         response = self.client.get(reverse("menu"))
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response,
                                 "core/tags/section_listing_menu.html")
