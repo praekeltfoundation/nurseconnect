@@ -1,4 +1,4 @@
-from nurseconnect.settings import *  # noqa
+yfrom nurseconnect.settings import *  # noqa
 
 DATABASES = {
     'default': {

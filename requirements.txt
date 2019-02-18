@@ -1,5 +1,6 @@
 molo.core==6.8.3
 celery<4.0
+regex==2019.02.07
 molo.surveys==6.7.6
 molo.yourwords==6.3.0
 molo.commenting==6.2.9
