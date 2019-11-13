@@ -27,17 +27,17 @@ var production = argv.production >= 1;
 /* ================JS=================== */
 
 gulp.task('scripts', function() {
-  return gulp.src(srcPath + '/js/**/*.js')
+  return gulp.src('nurseconnect/static/src/js/**/*.js')
     .pipe(concat('index.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(distPath + '/js'));
+    .pipe(gulp.dest('nurseconnect/static/js'));
 });
 
 
 /* ==============SASS===================== */
 
 gulp.task('clean-css', function() {
-  return del(distPath + '/css');
+  return del('nurseconnect/static/css');
 });
 
 gulp.task('lint-sass', function() {
@@ -54,16 +54,16 @@ gulp.task('styles', gulp.series('clean-css', function () {
   .pipe(bless())
   .pipe(gulpif(production, autoprefixer({
     browsers: [
-        'ie >= 8',
-        'android >= 2.3',
-        'iOS >= 6',
-        '> 0%'
+      'ie >= 8',
+      'android >= 2.3',
+      'iOS >= 6',
+      '> 0%'
     ]
   })))
   .pipe(pixrem())
   .pipe(cssNano())
   .pipe(plumber.stop())
-  .pipe(gulp.dest(distPath + '/css'))
+  .pipe(gulp.dest('nurseconnect/static/css'))
   .pipe(browserSync.stream());
 }));
 
@@ -72,21 +72,21 @@ gulp.task('styles', gulp.series('clean-css', function () {
 /* ================Generate Iconset=================== */
 
 gulp.task('clean-generated-icons', function() {
-  return del(srcPath + '/images/generated-icons');
+  return del('nurseconnect/static/images/generated-icons');
 });
 
 gulp.task('crush-svgs', gulp.series('clean-generated-icons', function () {
-  return gulp.src(srcPath + '/images/svgs/*.svg')
+  return gulp.src('nurseconnect/static/images/svgs/*.svg')
     .pipe(svgmin())
-    .pipe(gulp.dest(srcPath + '/images/generated-icons'));
+    .pipe(gulp.dest('nurseconnect/static/images/generated-icons'));
 }));
 
 gulp.task('clean-icons', function() {
-  return del(distPath + '/icons');
+  return del('nurseconnect/static/images/icons');
 });
 
 gulp.task('icons', gulp.series('clean-icons', 'crush-svgs', function (done) {
-  var icons = glob.sync(srcPath + '/images/generated-icons/*.*');
+  var icons = glob.sync('nurseconnect/static/images/generated-icons/*.*');
   var options = {
     dynamicColorOnly: true,
     colors: {
