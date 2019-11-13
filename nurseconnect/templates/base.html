@@ -25,9 +25,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <noscript>
             {% compress css %}
-              <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
+              <link rel="stylesheet" href="{% static '/css/styles.css' %}">
             {% endcompress %}
-            <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
+            <link href="{% static '/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
         {% block extra_css %}
         {% endblock %}
@@ -36,10 +36,10 @@
             var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
             if (!CutsTheMustard || !ScreenLargeEnough) {
                 // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static '/css/styles.css' %}">');
             } else {
                 // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static '/css/styles.enhanced.css' %}">');
 
                 // Replace no-js class with js class
                 var RootElem = document.getElementsByTagName('html')[0];
@@ -59,7 +59,7 @@
                   return script;
                 }
                 // Load JS as Enhancement
-                loadJS( "{% static 'dist/js/index.js' %}" );
+                loadJS( "{% static '/js/index.js' %}" );
                 // Load Custom Fonts Async
                 WebFontConfig = {
                     google: { families: [ 'Open Sans:300,400,600' ] }

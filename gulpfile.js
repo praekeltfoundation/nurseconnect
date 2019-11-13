@@ -2,7 +2,6 @@ let gulp            = require('gulp'),
  argv            = require('yargs').argv,
  autoprefixer    = require('gulp-autoprefixer'),
  bless           = require('gulp-bless'),
- browserSync     = require('browser-sync').create(),
  cssNano         = require('gulp-cssnano'),
  del             = require('del'),
  glob            = require('glob'),
@@ -13,7 +12,6 @@ let gulp            = require('gulp'),
  sass            = require('gulp-sass'),
  sassLint        = require('gulp-sass-lint'),
  sassGlob        = require('gulp-sass-glob'),
- watch           = require('gulp-watch'),
  bourbon         = require('bourbon').includePaths,
  uglify          = require('gulp-uglify'),
  concat          = require('gulp-concat');
@@ -63,8 +61,7 @@ gulp.task('styles', gulp.series('clean-css', function () {
   .pipe(pixrem())
   .pipe(cssNano())
   .pipe(plumber.stop())
-  .pipe(gulp.dest('nurseconnect/static/css'))
-  .pipe(browserSync.stream());
+  .pipe(gulp.dest('nurseconnect/static/css'));
 }));
 
 
@@ -98,24 +95,7 @@ gulp.task('icons', gulp.series('clean-icons', 'crush-svgs', function (done) {
     }
   };
 }));
-/* ==============Static server===================== */
-
-gulp.task('browser-sync', function() {
-  browserSync.init({
-      'proxy': 'localhost:8000/'
-  });
-  gulp.watch(srcPath + '/**/*.s+(a|c)ss', ['styles']);
-  gulp.watch(templatesPath + '/**/*.html').on('change', browserSync.reload);
-});
-
-
-/* ================Watch=================== */
-
-gulp.task('watch', function() {
-    gulp.watch(srcPath + '/js/**/*.js', ['scripts']);
-    gulp.watch(srcPath + '/sass/**/*.s+(a|c)ss', ['styles']);
-});
 
 /* ================Default=================== */
 
-gulp.task('default', gulp.series('styles','scripts','icons'));
+gulp.task('default', gulp.series('scripts','styles'));

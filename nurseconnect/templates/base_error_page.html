@@ -27,8 +27,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <noscript>
-            <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
-            <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
+            <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+            <link href="{% static '/icons/icons.fallback.css' %}" rel="stylesheet">
         </noscript>
 
         {% block extra_css %}
@@ -40,10 +40,10 @@
 
             if (!CutsTheMustard || !ScreenLargeEnough) {
                 // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static '/css/styles.css' %}">');
             } else {
                 // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
+                document.write('<link rel="stylesheet" href="{% static '/css/styles.enhanced.css' %}">');
 
                 // Replace no-js class with js class
                 var RootElem = document.getElementsByTagName('html')[0];
@@ -64,7 +64,7 @@
                 }
 
                 // Load JS as Enhancement
-                loadJS( "{% static 'dist/js/index.js' %}" );
+                loadJS( "{% static '/js/index.js' %}" );
 
                 // Load Custom Fonts Async
                 WebFontConfig = {

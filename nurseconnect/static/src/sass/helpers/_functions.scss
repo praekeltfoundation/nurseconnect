@@ -5,45 +5,41 @@
 /// @param {Arglist} $keys - Key chain
 /// @return {*} - Desired value
 @function map-deep-get($map, $keys...) {
-    @each $key in $keys {
-        $map: map-get($map, $key);
-    }
-    @return $map;
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
 }
 
 @function color($group, $color) {
-    $clr: map-deep-get($colors, $group, $color);
-    @return $clr;
+  $clr: map-deep-get($colors, $group, $color);
+  @return $clr;
 }
 
 @function font($key) {
-    $key-nth: null;
-
-    @if $enhanced == false {
-        $key-nth: 1;
-    } @else {
-        $key-nth: 2;
-    }
-
-    $result: nth(map-get($fonts, $key), $key-nth);
-
-    @return $result;
+  $key-nth: null;
+  @if $enhanced == false {
+    $key-nth: 1;
+  } @else {
+    $key-nth: 2;
+  }
+  $result: nth(map-get($fonts, $key), $key-nth);
+  @return $result;
 }
 
 @function scale($key, $unit: "rem") {
-    $scale: map-get($scale, $key);
-
-    @if $enhanced == true {
-        @if $unit == "rem" {
-            @return rem($scale);
-        } @elseif $unit == "em" {
-            @return em($scale);
-        }
-    } @else {
-        @return unquote("#{$scale}px");
+  $scale: map-get($scale, $key);
+  @if $enhanced == true {
+    @if $unit == "rem" {
+      @return unquote("#{$scale}px"); //@return em($scale);
+    } @elseif $unit == "em" {
+      @return unquote("#{$scale}px");
     }
+  } @else {
+    @return unquote("#{$scale}px");
+  }
 }
 
 @function kerning($value) {
-    @return em($value / 1000);
+  @return ($value / 1000); //@return em($value / 1000);
 }

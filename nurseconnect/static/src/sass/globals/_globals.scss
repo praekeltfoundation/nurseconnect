@@ -32,7 +32,7 @@ body {
   color: $color-blue-regal;
   @media screen and (min-width: 800px) {
     @if $enhanced == true {
-      max-width: em(630);
+      max-width: 630px;
       margin: 0 auto;
     }
   }

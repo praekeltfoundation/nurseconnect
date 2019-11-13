@@ -20,16 +20,12 @@ html {
 }
 body {
   background-color: $color-blue-tranquil;
-  //background-color: $color-blue-spindle;
   color: $color-blue-regal;
 }
-
 img {
-   display: block;
-   max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
-.clear {clear: both;}
-
 button,a,input {
   text-decoration: none;
   cursor: pointer;
@@ -43,4 +39,8 @@ button,a,input {
     background-color: $color-blue-tranquil;
     margin: auto;
   }
+}
+
+.clear {
+  clear: both;
 }
