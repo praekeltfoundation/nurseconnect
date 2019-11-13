@@ -56,4 +56,16 @@ $bp-xxlarge                   :        160em; // 2580px
 $bp-fourk                     :        210em; // 3360k
 $bp-site-static               :        90.0625em;
 
-@import "modules/all";
+
+
+.Auth {
+  padding-top: $global-padding * 2;
+  padding-bottom: $global-padding * 2;
+  text-align: center;
+}
+
+.u-screenReaderText {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}

@@ -90,9 +90,6 @@ INSTALLED_APPS = [
     'el_pagination',
     'analytics',
 
-    # styleguide
-    "styleguide",
-
     'storages',
 ]
 

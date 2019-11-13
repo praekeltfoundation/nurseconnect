@@ -132,13 +132,6 @@ Gulp
     - image block
     - text block
 
-
-STYLEGUIDE
-nurseconnect/styleguide
-
-RUNNING Styleguides
-
-
 TO DO
 
 - Footer Back to Top button

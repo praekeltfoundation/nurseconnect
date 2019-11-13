@@ -164,8 +164,3 @@ if settings.DEBUG:  # pragma: no cover
         settings.MEDIA_URL + "images/",
         document_root=os.path.join(settings.MEDIA_ROOT, "images")
     )
-    urlpatterns += \
-        url(
-            r"^styleguide/",
-            include("styleguide.urls", namespace="styleguide")
-        ),

@@ -1,36 +1,28 @@
-var gulp            = require('gulp');
-var argv            = require('yargs').argv;
-var autoprefixer    = require('gulp-autoprefixer');
-var bless           = require('gulp-bless');
-var browserSync     = require('browser-sync').create();
-var cssNano         = require('gulp-cssnano');
-var del             = require('del');
-var glob            = require('glob');
-var gulpif          = require('gulp-if');
-var svgmin          = require('gulp-svgmin');
-var pixrem          = require('gulp-pixrem');
-var plumber         = require('gulp-plumber');
-var runSequence     = require('run-sequence');
-var sass            = require('gulp-sass');
-var sassLint        = require('gulp-sass-lint');
-var sassGlob        = require('gulp-sass-glob');
-var watch           = require('gulp-watch');
-var bourbon         = require('bourbon').includePaths;
-var uglify          = require('gulp-uglify');
-var concat          = require('gulp-concat');
+let gulp            = require('gulp'),
+ argv            = require('yargs').argv,
+ autoprefixer    = require('gulp-autoprefixer'),
+ bless           = require('gulp-bless'),
+ browserSync     = require('browser-sync').create(),
+ cssNano         = require('gulp-cssnano'),
+ del             = require('del'),
+ glob            = require('glob'),
+ gulpif          = require('gulp-if'),
+ svgmin          = require('gulp-svgmin'),
+ pixrem          = require('gulp-pixrem'),
+ plumber         = require('gulp-plumber'),
+ sass            = require('gulp-sass'),
+ sassLint        = require('gulp-sass-lint'),
+ sassGlob        = require('gulp-sass-glob'),
+ watch           = require('gulp-watch'),
+ bourbon         = require('bourbon').includePaths,
+ uglify          = require('gulp-uglify'),
+ concat          = require('gulp-concat');
 
-var srcPath = 'nurseconnect/static/src';
-var distPath = 'nurseconnect/static/dist';
-var templatesPath = 'nurseconnect/templates';
+let srcPath = 'nurseconnect/static/src',
+  distPath = 'nurseconnect/static/dist',
+ templatesPath = 'nurseconnect/templates';
 
 var production = argv.production >= 1;
-
-var sassConfig = {
-  includePaths: [
-    'node_modules/breakpoint-sass/stylesheets/'
-  ].concat(bourbon),
-  outputStyle: 'compressed'
-};
 
 /* ================JS=================== */
 
@@ -58,7 +50,7 @@ gulp.task('styles', gulp.series('clean-css', function () {
   return gulp.src(srcPath + '/sass/**/*.s+(a|c)ss')
   .pipe(plumber())
   .pipe(sassGlob())
-  .pipe(sass(sassConfig).on('error', sass.logError))
+  .pipe(sass().on('error', sass.logError))
   .pipe(bless())
   .pipe(gulpif(production, autoprefixer({
     browsers: [

@@ -37,7 +37,7 @@
     }
     &--siteHead {
       margin: 15px 0 0;
-        @include breakpoint($bp-smart) {
+      @media (min-width: $bp-smart) {
             position: relative;
             #{$block}-navItem {
                 &--active {
