@@ -7,19 +7,23 @@
       list-style-type: none;
       display: block;
       padding: inherit;
-      padding: 0 scale(alpha) 5px;
+      padding: 5px scale(alpha);
+      margin: -10px 0;
     }
     &__anchor {
       background-color: $color-blue-spindle;
-      border-radius: scale(alpha);
+      border-radius: 2px;
+      -webkit-box-shadow: 1px -3px 5px -3px rgba(0,0,0,0.75);
+      -moz-box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
+      box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
       color: $color-blue-regal;
       display: block;
       font-size: 1.1rem;
       font-weight: 700;
       text-align: left;
       text-decoration: none;
-      text-transform: capitalize;
-      padding: 6px scale(beta);
+      text-transform: uppercase;
+      padding: 15px scale(beta);
       width: 100%;
       &:hover,
       &:active,
