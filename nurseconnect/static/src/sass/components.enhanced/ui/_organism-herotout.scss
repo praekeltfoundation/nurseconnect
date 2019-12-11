@@ -1,25 +1,25 @@
 .HeroTout {
-    $block: unquote("#{&}");
-    padding: scale(gamma);
-    background-color: $color-blue-pelorous;
-    color: $color-white;
-    &-headline {
-        margin: 0;
-        font-size: scale(delta);
-        font-weight: 400;
-        letter-spacing: kerning(-75);
-        line-height: 1;
-        &--subMessage {
-          background-color: $color-white;
-          border-bottom: 1px solid $color-grey;
-        }
-        &--subtitle {
-          padding: scale(gamma);
-          font-style: italic;
-          font-weight: bold;
-          margin: 0;
-        }
+  $block: unquote("#{&}");
+  padding: 15px 15%;
+  background-color: $color-blue-pelorous;
+  color: $color-white;
+  &-headline {
+    margin: 0;
+    font-size: scale(gamma);
+    font-weight: 400;
+    letter-spacing: kerning(-75);
+    line-height: 1;
+    &--subMessage {
+      background-color: $color-white;
+      border-bottom: 1px solid $color-grey;
     }
+    &--subtitle {
+      padding: scale(gamma);
+      font-style: italic;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
     &-actions {
         margin-top: scale(gamma);
         &--LearnCategory {

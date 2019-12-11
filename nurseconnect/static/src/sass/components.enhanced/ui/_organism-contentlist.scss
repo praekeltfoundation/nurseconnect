@@ -1,6 +1,7 @@
 .ContentList {
   $block: unquote("#{&}");
   @include clearfix;
+  padding: 0 15%;
   //background-color: $color-white;
   // & + & {
   //   border-top: 2px solid $color-blue-regal;
@@ -8,9 +9,11 @@
   // }
   &--bgSecondary {
     background-color: $color-blue-spindle;
+    padding: 0;
   }
   &--bgTertiary {
     background-color: $color-blue-tranquil;
+    padding: 0;
   }
   &-header {
     margin: scale(beta) 0;
@@ -25,6 +28,7 @@
   //Where is this being used?
   &--LearnCategory {
     background: $color-white;
+    padding: 0;
     #{$block}-categoryLabel {
       color: $color-blue-pelorous;
       font-size: 18px;

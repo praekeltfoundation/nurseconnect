@@ -16,10 +16,9 @@
 html {
   background-color: $color-blue-regal;
   font-family: sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   line-height: $base-line-height;
-
   @if $enhanced == true {
     &.wf-active {
       font-family: $font-sans-serif;
@@ -28,14 +27,12 @@ html {
 }
 
 body {
-  //background-color: $color-blue-tranquil;
   background-color: $color-blue-regal;
   color: #fff;
   @media screen and (min-width: 800px) {
     @if $enhanced == true {
-      //max-width: 630px;
       margin: 0 auto;
-      padding: 0 15%;
+      //padding: 0 15%;
     }
   }
 }
@@ -45,12 +42,12 @@ body {
   *,
   :after,
   :before {
-      box-sizing: border-box;
+    box-sizing: border-box;
   }
 } @else {
   *,
   :after,
   :before {
-      box-sizing: content-box;
+    box-sizing: content-box;
   }
 }

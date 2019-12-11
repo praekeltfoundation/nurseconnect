@@ -7,18 +7,14 @@
   align-content: stretch;
   justify-content: space-between;
   overflow: hidden;
+  padding: 0 15%;
   &-actions,
   &-brand {
-    margin: scale(gamma);
+    margin: scale(gamma) 0;
   }
-
   &-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  &-brand {
-    margin-right: 0;
   }
 }

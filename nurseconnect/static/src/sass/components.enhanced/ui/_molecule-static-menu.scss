@@ -1,5 +1,4 @@
 .static-menu {
-  width: 50%;
   &-list {
     margin: 0;
     padding: scale(alpha) scale(beta);
@@ -16,7 +15,7 @@
       //-webkit-box-shadow: 1px -3px 5px -3px rgba(0,0,0,0.75);
       //-moz-box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
       //box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
-      color: $color-blue-tranquil;
+      color: $color-blue-pelorous;
       display: block;
       font-size: 1.1rem;
       font-weight: 400;
