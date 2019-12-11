@@ -1,9 +1,25 @@
+.CommunityFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  .ContentList--bgSecondary {
+    border-radius: 5px;
+    margin: 10px scale(alpha);
+    width: 45%;
+  }
+}
+
 .surveys {
   $block: unquote("#{&}");
-  & + & {
-      border-top: 1px solid $color-blue-regal;
-      border-top: 1px solid rgba($color-blue-regal, .1);
-  }
+  background-color: $color-blue-spindle;
+  border-radius: 5px;
+  width: 45%;
+  margin: 10px scale(alpha);
+  // & + & {
+  //   border-top: 1px solid $color-blue-regal;
+  //   border-top: 1px solid rgba($color-blue-regal, .1);
+  // }
 }
 
 input[type="submit"],
@@ -14,11 +30,11 @@ input[type="submit"],
   border-radius: 2rem;
   background-color: $color-orange-bittersweet;
   color: $color-white;
-  font-size: .75rem;
+  font-size: 1em;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  text-transform: capitalize;
+  text-transform: uppercase;
   &:hover,
   &:active,
   &:focus {

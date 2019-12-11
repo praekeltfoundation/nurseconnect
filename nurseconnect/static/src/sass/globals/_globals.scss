@@ -28,12 +28,14 @@ html {
 }
 
 body {
-  background-color: $color-blue-tranquil;
-  color: $color-blue-regal;
+  //background-color: $color-blue-tranquil;
+  background-color: $color-blue-regal;
+  color: #fff;
   @media screen and (min-width: 800px) {
     @if $enhanced == true {
-      max-width: 630px;
+      //max-width: 630px;
       margin: 0 auto;
+      padding: 0 15%;
     }
   }
 }

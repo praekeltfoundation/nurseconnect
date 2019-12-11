@@ -1,17 +1,17 @@
 .NavBar {
-    $block: unquote("#{&}");
-    &-navGroup {
-        @include no-list;
-    }
-    &-navItem {
-        display: inline-block;
-        padding: 0 scale(alpha);
-        zoom: 1;
-    }
-    &-navLink {
-        color: $color-blue-pelorous;
-        font-size: 18px;
-        font-weight: 600;
-        text-decoration: none;
-    }
+  $block: unquote("#{&}");
+  &-navGroup {
+    @include no-list;
+  }
+  &-navItem {
+    display: inline-block;
+    padding: 0 scale(alpha);
+    zoom: 1;
+  }
+  &-navLink {
+    color: $color-blue-pelorous;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+  }
 }

@@ -1,26 +1,24 @@
 .SiteHead {
-    $block: unquote("#{&}");
+  $block: unquote("#{&}");
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: space-between;
+  overflow: hidden;
+  &-actions,
+  &-brand {
+    margin: scale(gamma);
+  }
 
+  &-actions {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: stretch;
-    justify-content: space-between;
-    background-color: $color-white;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+  }
 
-    &-actions,
-    &-brand {
-        margin: scale(gamma);
-    }
-
-    &-actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &-brand {
-        margin-right: 0;
-    }
+  &-brand {
+    margin-right: 0;
+  }
 }
