@@ -1,11 +1,10 @@
 .Article {
     $block: unquote("#{&}");
     @include clearfix;
-    margin: scale(gamma);
+    margin: 1em 25px 25px;
     background-color: inherit;
     &:first-child {
-        // Removes padding between article and orange category label.
-        padding-top: 0;
+      padding-top: 0;
     }
     & + & {
         padding-top: scale(gamma);

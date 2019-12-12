@@ -1,24 +1,24 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 
 {% block content %}
-    {% if competitions %}
-        <section class="ContentList ContentList--bgSecondary">
-            <header class="ContentList-header">
-                <h1 class="ContentList-categoryLabel">{% trans "Your words" %}</h1>
-            </header>
-            {% for competition in competitions %}
-                <div class="ContentList-body">
-                    <article class="Article">
-                        <a href="{% url "molo.yourwords:competition_entry" competition.slug %}" class="Article-hitBox">
-                            <h2 class="Article-headline">{{ competition.title }}</h2>
-                            <p class="Article-strapline">{{ competition.description }}</p>
-                            <div class="Article-actions">
-                                <span class="Button">{% trans "Tell Us Your Story" %}</span>
-                            </div>
-                        </a>
-                    </article>
-                </div>
-            {% endfor %}
-        </section>
-    {% endif %}
+  {% if competitions %}
+    <section class="ContentList ContentList--yourwordsComp">
+      <header class="ContentList-header">
+        <h1 class="ContentList-categoryLabel">{% trans "Your words" %}</h1>
+      </header>
+      {% for competition in competitions %}
+        <div class="ContentList-body">
+          <article class="Article">
+            <a href="{% url "molo.yourwords:competition_entry" competition.slug %}" class="Article-hitBox">
+              <h2 class="Article-headline">{{ competition.title }}</h2>
+              <p class="Article-strapline">{{ competition.description }}</p>
+              <div class="Article-actions">
+                <span class="Button">{% trans "Tell Us Your Story" %}</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      {% endfor %}
+    </section>
+  {% endif %}
 {% endblock %}

@@ -1,8 +1,9 @@
 .HeroTout {
   $block: unquote("#{&}");
-  padding: 15px 15%;
+  padding: 15px 3em;
   background-color: $color-blue-pelorous;
   color: $color-white;
+  margin: 0 0 1em;
   &-headline {
     margin: 0;
     font-size: scale(gamma);

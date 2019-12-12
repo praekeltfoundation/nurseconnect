@@ -2,49 +2,48 @@
   $block: unquote("#{&}");
   @include clearfix;
   padding: 0 15%;
-  //background-color: $color-white;
-  // & + & {
-  //   border-top: 2px solid $color-blue-regal;
-  //   border-top: 2px solid rgba($color-blue-regal, .1);
-  // }
+
+  //SECTION ENHANCEMENT STYLE
   &--bgSecondary {
-    background-color: $color-blue-spindle;
-    padding: 0;
+    background-color: #fff;
+    padding: 3em 15%;
+    #{$block}-categoryLabel {
+      color: $color-blue-pelorous;
+    }
+  }
+  &--yourwordsComp {
+    background-color: lightseagreen;
+    padding: 3em 15%;
+    #{$block}-categoryLabel {
+      color: $color-blue-regal;
+    }
+    .Article-headline {
+      color: $color-blue-regal;
+    }
   }
   &--bgTertiary {
     background-color: $color-blue-tranquil;
     padding: 0;
   }
-  &-header {
-    margin: scale(beta) 0;
-    padding: 0 scale(gamma);
-    background-color: inherit;
-    // border-top: 2px solid $color-blue-regal;
-    // border-top: 2px solid rgba($color-blue-regal, .1);
-    &:first-child {
-      border-top: none;
-    }
-  }
-  //Where is this being used?
   &--LearnCategory {
     background: $color-white;
     padding: 0;
     #{$block}-categoryLabel {
       color: $color-blue-pelorous;
-      font-size: 18px;
     }
+  }
+  &-header {
+    padding: 0 25px;
+    background-color: inherit;
   }
   &-categoryLabel {
     margin-bottom: 0;
     color: #fff;
-    font-size: scale(beta);
-    font-weight: 600;
-    //text-align: center;
+    font-size: 18px;
     text-transform: uppercase;
     a {
       color: $color-blue-pelorous;
     }
-
     &--Mainsections {
       font-size: scale(gamma);
     }
@@ -98,7 +97,6 @@
       border-radius: 50%;
     }
   }
-
   &-actions {
       margin: scale(gamma);
   }

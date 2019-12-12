@@ -2,21 +2,20 @@
 {% load wagtailcore_tags wagtailimages_tags static core_tags i18n %}
 
 {% block content %}
-    <div class="HeroTout">
-        <h1 class="HeroTout-headline">
-            Share your story
-        </h1>
-    </div>
-    <section class="Paper">
-        <article class="Paper-body">
-            <header class="Paper-header">
-                <h1 class="Paper-headline">{% trans 'Thank you!' %}</h1>
-                <p class="Paper-lead">{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
-            </header>
-        </article>
-    </section>
-    <div>
-        <a href="{{ request.site.root_page.url }}" class="Button">{% trans "HOME" %}</a>
-    </div>
-    </br>
+  <div class="HeroTout">
+    <h1 class="HeroTout-headline">
+      {% trans '  Share your story' %}
+    </h1>
+  </div>
+  <section class="Paper">
+    <article class="Paper-body">
+      <header class="Paper-header">
+        <h1 class="Paper-headline">{% trans 'Thank you!' %}</h1>
+        <p class="Paper-lead">{% trans 'Thanks for submitting your story! You’ll find out soon if you’re a winner!' %}</p>
+      </header>
+    </article>
+  </section>
+  <div>
+    <a href="{{ request.site.root_page.url }}" class="Button">{% trans "Home" %}</a>
+  </div>
 {% endblock %}
