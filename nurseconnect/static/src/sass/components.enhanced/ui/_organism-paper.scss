@@ -1,7 +1,9 @@
 .Paper {
   $block: unquote("#{&}");
   position: relative;
-  padding: 0 15%;
+  @media screen and (min-width: 800px) {
+    padding: 0 15%;
+  }
   &-header {
     background-color: $color-blue-spindle;
     border-bottom: $color-blue-tranquil;
@@ -23,7 +25,6 @@
   &-headline {
     color: $color-orange-bittersweet;
     font-size: 42px;
-
     position: absolute;
     left: 1em;
     top: 3em;

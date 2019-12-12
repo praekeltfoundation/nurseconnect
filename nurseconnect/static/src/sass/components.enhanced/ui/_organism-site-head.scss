@@ -7,10 +7,18 @@
   align-content: stretch;
   justify-content: space-between;
   overflow: hidden;
-  padding: 0 15%;
+  padding: 0 5%;
+  @media screen and (min-width: 800px) {
+    @if $enhanced == true {
+      padding: 0 15%;
+    }
+  }
   &-actions,
   &-brand {
-    margin: scale(gamma) 0;
+    margin: 15px 0;
+    @media screen and (min-width: 800px) {
+      margin: scale(gamma) 0;
+    }
   }
   &-actions {
     display: flex;

@@ -3,46 +3,33 @@
     margin: 0;
     padding: scale(alpha) scale(beta);
     &__item {
-      list-style-type: none;
-      display: inline-block;
-      padding: inherit;
       margin: 0;
-      padding: 0 scale(alpha);
+      display: block;
+      padding: 5px scale(alpha);
+      @media screen and (min-width: 800px) {
+        list-style-type: none;
+        display: inline-block;
+        padding: 0 scale(alpha);
+      }
     }
     &__anchor {
-      //background-color: $color-blue-spindle;
-      //border-radius: 2px;
-      //-webkit-box-shadow: 1px -3px 5px -3px rgba(0,0,0,0.75);
-      //-moz-box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
-      //box-shadow: 1px -3px 3px -3px rgba(0,0,0,0.75);
       color: $color-blue-pelorous;
       display: block;
-      font-size: 1.1rem;
-      font-weight: 400;
+      font-size: 1em;
       text-align: left;
-      text-decoration: none;
       text-transform: uppercase;
-      //padding: 15px scale(beta);
-      //width: 100%;
+      @media screen and (min-width: 800px) {
+        font-size: 1.1rem;
+        font-weight: 400;
+        text-decoration: none;
+      }
+
       &:hover,
       &:active,
       &:focus {
         display: none; //TO NOTE
         background-color: darken($color-blue-spindle, 10%);
       }
-      // &:after {
-      //   content: " ";
-      //   background:url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M95.2%205.9C87.4-2%2074.5-2%2066.6%205.9s-7.9%2020.8%200%2028.6L182.1%20150%2066.6%20265.5c-7.9%207.9-7.9%2020.8%200%2028.6%203.8%203.8%208.9%205.9%2014.3%205.9s10.5-2.1%2014.3-5.9L239.3%20150%2095.2%205.9z%22%20fill%3D%22%23213d55%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
-      //   background-repeat: no-repeat;
-      //   background-position: 0 0;
-      //   background-size: 100%;
-      //   display: inline-block;
-      //   float: right;
-      //   margin: 5px 0 0;
-      //   vertical-align: middle;
-      //   width: 20px;
-      //   height: 20px;
-      // }
 
       &--backToTop {
         &:after {

@@ -1,9 +1,12 @@
 .HeroTout {
   $block: unquote("#{&}");
-  padding: 15px 3em;
+  padding: 15px 2em;
   background-color: $color-blue-pelorous;
   color: $color-white;
-  margin: 0 0 1em;
+  @media screen and (min-width: 800px) {
+    margin: 0 0 0.5em;
+    padding: 15px 3em;
+  }
   &-headline {
     margin: 0;
     font-size: scale(gamma);
