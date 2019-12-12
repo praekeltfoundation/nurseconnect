@@ -7,6 +7,7 @@
   &-item {
     display: inline-block;
     vertical-align: middle;
+    margin: 0 5px;
   }
   &-link {
     color: inherit;
@@ -25,7 +26,7 @@
 
   &-chevron {
     display: inline-block;
-    margin: -4px;
+    margin: 0 0 0 10px;
     vertical-align: middle;
     height: 15px;
     width: 15px;
