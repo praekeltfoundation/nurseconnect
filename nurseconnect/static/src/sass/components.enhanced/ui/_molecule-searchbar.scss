@@ -1,56 +1,56 @@
 .SearchBar {
-    $block: unquote("#{&}");
-    @include clearfix;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: stretch;
-    justify-content: center;
-    &--form {
-      background-color: $color-blue-spindle;
-      padding: scale(alpha) 0 0;
-    }
-    &__title {
-        margin: 0;
-        padding: 0 scale(gamma);
-        font-size: scale(gamma);
-        font-weight: normal;
-    }
-    &__subtitle {
-        color: $color-blue-pelorous;
-        margin: 0;
-        padding: 0 scale(gamma);
-    }
-    &--isolated {
-        padding: scale(gamma);
-        background-color: $color-blue-spindle;
-    }
-    &-input,
-    &-submit {
-        display: block;
-        padding: scale(beta);
-        float: left;
-        outline: none;
-    }
-    &-input {
-        flex-grow: 1;
-        width: 100%;
-        width: calc(100% - 4rem);
-        border-top-left-radius: scale(alpha);
-        border-bottom-left-radius: scale(alpha);
-        background-color: $color-white;
-    }
-    &-submit {
-        background-color: $color-white;
-      background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M300%20286.3c0-3.8-1.4-7-4.1-9.7L232%20212.7c19.4-23.3%2029-50.7%2029-82.2%200-36.1-12.8-66.9-38.4-92.5-25.3-25.3-56-38-92.1-38C94.4%200%2063.6%2012.6%2038%2037.9%2012.7%2063.5%200%2094.4%200%20130.5s12.7%2066.8%2038%2092.1c25.6%2025.6%2056.4%2038.4%2092.5%2038.4%2031.5%200%2058.9-9.7%2082.2-29l63.9%2063.9c2.7%202.7%206%204.1%209.7%204.1%203.8%200%206.9-1.4%209.5-4.1%202.8-2.7%204.2-5.8%204.2-9.6M203.4%2057.2c20.3%2020.3%2030.4%2044.7%2030.4%2073.2%200%2028.4-10%2052.7-30%2072.7l-.6.6c-20%2020-44.2%2030-72.7%2030-28.6%200-53-10.1-73.2-30.4-20-20-30-44.3-30-72.9s10-53%2030-73.2c20.3-20%2044.7-30%2073.2-30%2028.6%200%2052.9%2010%2072.9%2030%22%20fill%3D%22%23213d55%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
-        background-position: 45% 50%;
-        background-size: 1.85rem;
-        border-top-right-radius: scale(alpha);
-        border-bottom-right-radius: scale(alpha);
-        color: $color-blue-pelorous;
-        cursor: pointer;
-        text-indent: -999em;
-        overflow: hidden;
-        width: 4rem;
-    }
+  $block: unquote("#{&}");
+  @include clearfix;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: stretch;
+  justify-content: center;
+  &--form {
+    background-color: $color-blue-spindle;
+    padding: 25px 15% 0;
+  }
+  &__title {
+      margin: 0;
+      padding: 0 scale(gamma);
+      font-size: scale(gamma);
+      font-weight: normal;
+  }
+  &__subtitle {
+      color: $color-blue-pelorous;
+      margin: 0;
+      padding: 0 scale(gamma);
+  }
+  &--isolated {
+    padding: scale(gamma);
+  }
+  &-input,
+  &-submit {
+      display: block;
+      padding: scale(beta);
+      float: left;
+      outline: none;
+  }
+  &-input {
+      flex-grow: 1;
+      width: 100%;
+      width: calc(100% - 4rem);
+      border-top-left-radius: scale(alpha);
+      border-bottom-left-radius: scale(alpha);
+      background-color: $color-white;
+  }
+  &-submit {
+      background-color: $color-white;
+    background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M300%20286.3c0-3.8-1.4-7-4.1-9.7L232%20212.7c19.4-23.3%2029-50.7%2029-82.2%200-36.1-12.8-66.9-38.4-92.5-25.3-25.3-56-38-92.1-38C94.4%200%2063.6%2012.6%2038%2037.9%2012.7%2063.5%200%2094.4%200%20130.5s12.7%2066.8%2038%2092.1c25.6%2025.6%2056.4%2038.4%2092.5%2038.4%2031.5%200%2058.9-9.7%2082.2-29l63.9%2063.9c2.7%202.7%206%204.1%209.7%204.1%203.8%200%206.9-1.4%209.5-4.1%202.8-2.7%204.2-5.8%204.2-9.6M203.4%2057.2c20.3%2020.3%2030.4%2044.7%2030.4%2073.2%200%2028.4-10%2052.7-30%2072.7l-.6.6c-20%2020-44.2%2030-72.7%2030-28.6%200-53-10.1-73.2-30.4-20-20-30-44.3-30-72.9s10-53%2030-73.2c20.3-20%2044.7-30%2073.2-30%2028.6%200%2052.9%2010%2072.9%2030%22%20fill%3D%22%23213d55%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+      background-position: 45% 50%;
+      background-size: 1.85rem;
+      border-top-right-radius: scale(alpha);
+      border-bottom-right-radius: scale(alpha);
+      color: $color-blue-pelorous;
+      cursor: pointer;
+      text-indent: -999em;
+      overflow: hidden;
+      width: 4rem;
+  }
 }

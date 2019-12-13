@@ -1,22 +1,10 @@
 $enhanced: true;
 
-@import "versions";
-
-// SCSS Helpers and Utilities
-@import "helpers/vendor";
 @import "helpers/functions";
 @import "helpers/variables";
 @import "helpers/mixins";
 
-// Globals
 @import "globals/resets";
 @import "globals/globals";
 
-// Components
 @import "components.enhanced/ui/*";
-
-// Pages
-@import "pages/auth";
-
-// Utility Classes
-@import "helpers/utils";

@@ -6,151 +6,210 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8" />
-        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta name="twitter:card" content="summary"/>
-        <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
-        <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-        {% image self.social_media_image width-300 as tmp_photo %}
-        <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-        <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-        <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
-        {% image self.social_media_image width-300 as tmp_photo %}
-        <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-        <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <noscript>
-            {% compress css %}
-              <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
-            {% endcompress %}
-            <link href="{% static 'dist/icons/icons.fallback.css' %}" rel="stylesheet">
-        </noscript>
-        {% block extra_css %}
-        {% endblock %}
-        <script type="text/javascript">
-            var CutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
-            var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
-            if (!CutsTheMustard || !ScreenLargeEnough) {
-                // Load Basic Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">');
-            } else {
-                // Load Enhanced Styles. This blocks page loading to prevent FOUC.
-                document.write('<link rel="stylesheet" href="{% static 'dist/css/styles.enhanced.css' %}">');
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}"/>
+  <meta name="twitter:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+  {% image self.social_media_image width-300 as tmp_photo %}
+  <meta name="twitter:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+  <meta property="og:title" content= "{% if self.social_media_title %}{{ self.social_media_title }}{% elif self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
+  <meta property="og:description" content="{% if self.social_media_description %}{{ self.social_media_description }}{% else %}{{ self.subtitle }}{% endif %}"/>
+  {% image self.social_media_image width-300 as tmp_photo %}
+  <meta property="og:image" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+  <meta property="og:image:url" content="{% if self.social_media_image %}{{request.site.root_url}}{{ tmp_photo.url }}{% endif %}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/appicons/apple-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/appicons/apple-icon-120x120.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/appicons/apple-icon-144x144.png' %}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/appicons/apple-icon-152x152.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/appicons/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'images/appicons/android-icon-192x192.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/appicons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/appicons/favicon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/appicons/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'js/manifest.json' %}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="{% static 'images/appicons/ms-icon-144x144.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <noscript>
+  {% compress css %}
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+  {% endcompress %}
+  <link href="{% static '/icons/icons.fallback.css' %}" rel="stylesheet">
+  </noscript>
+  <script type="text/javascript">
+    var CutsTheMustard = 'querySelector' in document && 'localStorage' in window && 'addEventListener' in window;
+    var ScreenLargeEnough = ((window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) >= 320);
+    if (!CutsTheMustard || !ScreenLargeEnough) {
+      // Load Basic Styles. This blocks page loading to prevent FOUC.
+      document.write('<link rel="stylesheet" href="{% static '/css/styles.css' %}">');
+    } else {
+      // Load Enhanced Styles. This blocks page loading to prevent FOUC.
+      document.write('<link rel="stylesheet" href="{% static '/css/styles.enhanced.css' %}">');
 
-                // Replace no-js class with js class
-                var RootElem = document.getElementsByTagName('html')[0];
-                RootElem.className = RootElem.className.replace('no-js','js');
+      // Replace no-js class with js class
+      var RootElem = document.getElementsByTagName('html')[0];
+      RootElem.className = RootElem.className.replace('no-js','js');
 
-                /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */
-                function loadJS( src, cb ){
-                    "use strict";
-                    var ref = window.document.getElementsByTagName( "script" )[ 0 ];
-                    var script = window.document.createElement( "script" );
-                    script.src = src;
-                    script.async = true;
-                    ref.parentNode.insertBefore( script, ref );
-                    if (cb && typeof(cb) === "function") {
-                        script.onload = cb;
-                    }
-                  return script;
-                }
-                // Load JS as Enhancement
-                loadJS( "{% static 'dist/js/index.js' %}" );
-                // Load Custom Fonts Async
-                WebFontConfig = {
-                    google: { families: [ 'Open Sans:300,400,600' ] }
-                };
-                (function() {
-                    var wf = document.createElement('script');
-                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-                    wf.type = 'text/javascript';
-                    wf.async = 'true';
-                    var s = document.getElementsByTagName('script')[0];
-                    s.parentNode.insertBefore(wf, s);
-                })();
-            }
-        </script>
-        <!--[if lt IE 9]>
-            <script>
-                /**
-                * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
-                */
-                !function(a,b){function c(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function d(){var a=t.elements;return"string"==typeof a?a.split(" "):a}function e(a,b){var c=t.elements;"string"!=typeof c&&(c=c.join(" ")),"string"!=typeof a&&(a=a.join(" ")),t.elements=c+" "+a,j(b)}function f(a){var b=s[a[q]];return b||(b={},r++,a[q]=r,s[r]=b),b}function g(a,c,d){if(c||(c=b),l)return c.createElement(a);d||(d=f(c));var e;return e=d.cache[a]?d.cache[a].cloneNode():p.test(a)?(d.cache[a]=d.createElem(a)).cloneNode():d.createElem(a),!e.canHaveChildren||o.test(a)||e.tagUrn?e:d.frag.appendChild(e)}function h(a,c){if(a||(a=b),l)return a.createDocumentFragment();c=c||f(a);for(var e=c.frag.cloneNode(),g=0,h=d(),i=h.length;i>g;g++)e.createElement(h[g]);return e}function i(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return t.shivMethods?g(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+d().join().replace(/[\w\-:]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(t,b.frag)}function j(a){a||(a=b);var d=f(a);return!t.shivCSS||k||d.hasCSS||(d.hasCSS=!!c(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),l||i(a,d),a}var k,l,m="3.7.3",n=a.html5||{},o=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,p=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,q="_html5shiv",r=0,s={};!function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",k="hidden"in a,l=1==a.childNodes.length||function(){b.createElement("a");var a=b.createDocumentFragment();return"undefined"==typeof a.cloneNode||"undefined"==typeof a.createDocumentFragment||"undefined"==typeof a.createElement}()}catch(c){k=!0,l=!0}}();var t={elements:n.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:m,shivCSS:n.shivCSS!==!1,supportsUnknownElements:l,shivMethods:n.shivMethods!==!1,type:"default",shivDocument:j,createElement:g,createDocumentFragment:h,addElements:e};a.html5=t,j(b),"object"==typeof module&&module.exports&&(module.exports=t)}("undefined"!=typeof window?window:this,document);
-            </script>
-        <![endif]-->
-    </head>
-    <body class="{% block body_class %}{% endblock %}">
-        {% if settings.core.SiteSettings.ga_tag_manager %}
-        <!-- Google Tag Manager -->
-        <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
-        <!-- End Google Tag Manager -->
-        {% endif %}
-        {% wagtailuserbar %}
-        <main class="ContentBody" role="main">
-            {% include "core/header.html" %}
-              {% block hero %}{% endblock %}
-            {% block content %}{% endblock %}
-            {% block extra_js %}{% endblock %}
+      /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */
+      function loadJS( src, cb ){
+        "use strict";
+        var ref = window.document.getElementsByTagName( "script" )[ 0 ];
+        var script = window.document.createElement( "script" );
+        script.src = src;
+        script.async = true;
+        ref.parentNode.insertBefore( script, ref );
+        if (cb && typeof(cb) === "function") {
+            script.onload = cb;
+        }
+        return script;
+      }
+      // Load JS as Enhancement
+      loadJS( "{% static '/js/index.js' %}" );
+      // Load Custom Fonts Async
+      WebFontConfig = {
+          google: { families: [ 'Open Sans:300,400,600' ] }
+      };
+      (function() {
+          var wf = document.createElement('script');
+          wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+          wf.type = 'text/javascript';
+          wf.async = 'true';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(wf, s);
+      })();
+    }
 
-            <div id="nav-enhanced" class="FancyNav">
-              <button class="FancyNav-toggle">X</button>
-            </div>
-            {% block footer %}
-            <footer id="menu" class="Footer" role="contentinfo">
-                {% block menu_static %}
-                  <div class="static-menu">
-                    <ul class="static-menu-list">
-                      <li class="static-menu-list__item">
-                        <a href="#" class="static-menu-list__anchor static-menu-list__anchor--backToTop">{% trans "Back to top" %}</a>
-                      </li>
-                      <li class="static-menu-list__item">
-                        <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
-                      </li>
-                      {% load_sections as sections %}
-                        {% for section in sections %}
-                            <li class="static-menu-list__item">
-                              <a href="{% pageurl section %}" class="static-menu-list__anchor">{{section.title}}</a>
-                            </li>
-                        {% endfor %}
-                        <li class="static-menu-list__item">
-                           <a href="{% url "search" %}" id="NavBar__search" class="static-menu-list__anchor">
-                             {% trans "Search" %}
-                           </a>
-                       </li>
-                       {% if user.is_authenticated %}
-                        <li class="static-menu-list__item">
-                          <a href="{% url "view_my_profile" %}" class="static-menu-list__anchor">
-                              {% trans "Your Profile" %}
-                          </a>
-                        </li>
-                        <li class="static-menu-list__item">
-                          <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
-                            {% trans "Log out" %}
-                          </a>
-                        </li>
-                {% else %}
-                        <li class="static-menu-list__item">
-                    <a href="{% url "auth_login" %}?next={{request.path}}" class="static-menu-list__anchor">{% trans "Log In" %}</a>
-                         </li>
-                        {% endif %}
-                    </ul>
-                  </div>
-                {% endblock %}
+    // var deferredPrompt = null;
+    // window.addEventListener('beforeinstallprompt', (e) => {
+    //   // Prevent Chrome 67 and earlier from automatically showing the prompt
+    //   e.preventDefault();
+    //   // Stash the event so it can be triggered later.
+    //   deferredPrompt = e;
+    // });
+    // async function install() {
+    //   if (deferredPrompt) {
+    //     deferredPrompt.prompt();
+    //     console.log(deferredPrompt)
+    //     deferredPrompt.userChoice.then(function(choiceResult){
+    //
+    //     if (choiceResult.outcome === 'accepted') {
+    //       console.log('Your PWA has been installed');
+    //     } else {
+    //       console.log('User chose to not install your PWA');
+    //     }
+    //     deferredPrompt = null;
+    //     });
+    //   }
+    // }
 
-                {% footer_page %}
-            </footer>
-            {% endblock %}
-        </main>
-    </body>
+
+  </script>
+  <!--[if lt IE 9]>
+  <script>
+      /**
+      * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+      */
+      !function(a,b){function c(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function d(){var a=t.elements;return"string"==typeof a?a.split(" "):a}function e(a,b){var c=t.elements;"string"!=typeof c&&(c=c.join(" ")),"string"!=typeof a&&(a=a.join(" ")),t.elements=c+" "+a,j(b)}function f(a){var b=s[a[q]];return b||(b={},r++,a[q]=r,s[r]=b),b}function g(a,c,d){if(c||(c=b),l)return c.createElement(a);d||(d=f(c));var e;return e=d.cache[a]?d.cache[a].cloneNode():p.test(a)?(d.cache[a]=d.createElem(a)).cloneNode():d.createElem(a),!e.canHaveChildren||o.test(a)||e.tagUrn?e:d.frag.appendChild(e)}function h(a,c){if(a||(a=b),l)return a.createDocumentFragment();c=c||f(a);for(var e=c.frag.cloneNode(),g=0,h=d(),i=h.length;i>g;g++)e.createElement(h[g]);return e}function i(a,b){b.cache||(b.cache={},b.createElem=a.createElement,b.createFrag=a.createDocumentFragment,b.frag=b.createFrag()),a.createElement=function(c){return t.shivMethods?g(c,a,b):b.createElem(c)},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+d().join().replace(/[\w\-:]+/g,function(a){return b.createElem(a),b.frag.createElement(a),'c("'+a+'")'})+");return n}")(t,b.frag)}function j(a){a||(a=b);var d=f(a);return!t.shivCSS||k||d.hasCSS||(d.hasCSS=!!c(a,"article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}mark{background:#FF0;color:#000}template{display:none}")),l||i(a,d),a}var k,l,m="3.7.3",n=a.html5||{},o=/^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i,p=/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i,q="_html5shiv",r=0,s={};!function(){try{var a=b.createElement("a");a.innerHTML="<xyz></xyz>",k="hidden"in a,l=1==a.childNodes.length||function(){b.createElement("a");var a=b.createDocumentFragment();return"undefined"==typeof a.cloneNode||"undefined"==typeof a.createDocumentFragment||"undefined"==typeof a.createElement}()}catch(c){k=!0,l=!0}}();var t={elements:n.elements||"abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",version:m,shivCSS:n.shivCSS!==!1,supportsUnknownElements:l,shivMethods:n.shivMethods!==!1,type:"default",shivDocument:j,createElement:g,createDocumentFragment:h,addElements:e};a.html5=t,j(b),"object"==typeof module&&module.exports&&(module.exports=t)}("undefined"!=typeof window?window:this,document);
+  </script>
+  <![endif]-->
+</head>
+  <body class="{% block body_class %}{% endblock %}">
+  {% if settings.core.SiteSettings.ga_tag_manager %}
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id={{settings.core.SiteSettings.ga_tag_manager}}&client_session_id={{request.session.MOLO_GA_SESSION_FOR_NOSCRIPT}}"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','{{settings.core.SiteSettings.ga_tag_manager}}');</script>
+  <!-- End Google Tag Manager -->
+  {% endif %}
+  {% wagtailuserbar %}
+  <main class="ContentBody" role="main">
+    {% include "core/header.html" %}
+    {% block hero %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+
+    <div id="nav-enhanced" class="FancyNav">
+      <button class="FancyNav-toggle">X</button>
+    </div>
+    <button onclick="install()">
+      {% trans "Install" %}
+    </button>
+    {% block footer %}
+    <footer id="menu" class="Footer" role="contentinfo">
+      {% block menu_static %}
+        <div class="static-menu">
+          <ul class="static-menu-list">
+            <li class="static-menu-list__item">
+              <a href="#" class="static-menu-list__anchor static-menu-list__anchor--backToTop">{% trans "Back to top" %}</a>
+            </li>
+            <li class="static-menu-list__item">
+              <a href="/" class="static-menu-list__anchor">{% trans "Home" %}</a>
+            </li>
+            {% load_sections as sections %}
+              {% for section in sections %}
+                <li class="static-menu-list__item">
+                  <a href="{% pageurl section %}" class="static-menu-list__anchor">{{section.title}}</a>
+                </li>
+              {% endfor %}
+              <li class="static-menu-list__item">
+                <a href="{% url "search" %}" id="NavBar__search" class="static-menu-list__anchor">
+                 {% trans "Search" %}
+                </a>
+             </li>
+             {% if user.is_authenticated %}
+                <li class="static-menu-list__item">
+                  <a href="{% url "view_my_profile" %}" class="static-menu-list__anchor">
+                    {% trans "Your Profile" %}
+                  </a>
+                </li>
+                <li class="static-menu-list__item">
+                  <a href="{% url "molo.profiles:auth_logout" %}" class="static-menu-list__anchor">
+                    {% trans "Log out" %}
+                  </a>
+                </li>
+              {% else %}
+                <li class="static-menu-list__item">
+                  <a href="{% url "auth_login" %}?next={{request.path}}" class="static-menu-list__anchor">{% trans "Log In" %}</a>
+                </li>
+              {% endif %}
+          </ul>
+        </div>
+      {% endblock %}
+      {% footer_page %}
+    </footer>
+    {% endblock %}
+  </main>
+  <script type="text/ecmascript">
+    // This is the "Offline page" service worker
+
+    // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+
+    // Check compatibility for the browser we're running this in
+    if ("serviceWorker" in navigator) {
+      if (navigator.serviceWorker.controller) {
+        console.log("[PWA Builder] active service worker found, no need to register");
+      } else {
+      // Register the service worker
+      navigator.serviceWorker
+          .register("pwabuilder-sw.js", {
+          scope: "./"
+        })
+        .then(function (reg) {
+          console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+        });
+      }
+    }
+  </script>
+  </body>
 </html>

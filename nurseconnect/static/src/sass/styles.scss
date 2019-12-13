@@ -1,45 +1,12 @@
 $enhanced: false;
 
-@import "versions";
-
-// SCSS Helpers and Utilities
-@import "helpers/vendor";
 @import "helpers/functions";
 @import "helpers/variables";
 @import "helpers/mixins";
 
-// Globals
 @import "globals/resets";
 @import "globals/globals";
 
-// Components
-@import "components/ui/*";
-
-// Utility Classes
-@import "helpers/utils";
-
-
-//WHICH SCENARIOS ARE THESE USED ON
-
-// Partials In Cascading order - Modules and Variables
 @import "partials/base";
 
-// New Component Partials:
-/*@import "partials/logo";
-@import "partials/breadcrumb";
-@import "partials/buttons";
-@import "partials/form-group";
-@import "partials/form-fields";
-@import "partials/icons";
-@import "partials/navbar";
-@import "partials/radio";
-@import "partials/profile";
-@import "partials/select-box";
-@import "partials/list-view";
-@import "partials/article";
-@import "partials/article-actions";
-@import "partials/article-search";
-@import "partials/quote";
-@import "partials/footer";
-@import "partials/onoffswitch";
-@import "partials/auth";*/
+@import "components/ui/*";

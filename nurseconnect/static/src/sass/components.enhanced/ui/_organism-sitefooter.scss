@@ -1,21 +1,29 @@
 .SiteFooter {
-    $block: unquote("#{&}");
+  border-radius: 5px;
+  $block: unquote("#{&}");
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: $color-white;
+  padding: scale(alpha) 0 0;
+  &-actions,
+  &-brand {
+    margin: scale(beta) scale(gamma);
+  }
+  &-actions {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: $color-white;
-    padding: scale(gamma) 0 0;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+  }
+}
 
-    &-actions,
-    &-brand {
-        margin: scale(beta) scale(gamma);
-    }
-
-    &-actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0;
-    }
+.Footer {
+  border-top: 1px solid rgba($color-blue-regal, .1);
+  background: #fff;
+  @media screen and (min-width: 800px) {
+    padding: 4em 15%;
+    margin: 3em 0 0;
+  }
 }

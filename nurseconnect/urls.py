@@ -144,13 +144,17 @@ urlpatterns += [
         login, {"authentication_form": NurseconnectAuthenticationForm},
         name="auth_login"
     ),
-
     url(r"^comments/", include("molo.commenting.urls")),
     url(r'^surveys/',
         include('molo.surveys.urls',
                 namespace='molo.surveys',
                 app_name='molo.surveys')),
-
+    url(r'^pwabuilder-sw.js',
+        TemplateView.as_view(
+            template_name="pwabuilder-sw.js",
+            content_type='application/javascript'
+        ),
+        name='pwabuilder-sw.js'),
     url(r'', include('django_comments.urls')),
     url(r"", include("molo.core.urls")),
     url(r"", include(wagtail_urls)),
@@ -164,8 +168,3 @@ if settings.DEBUG:  # pragma: no cover
         settings.MEDIA_URL + "images/",
         document_root=os.path.join(settings.MEDIA_ROOT, "images")
     )
-    urlpatterns += \
-        url(
-            r"^styleguide/",
-            include("styleguide.urls", namespace="styleguide")
-        ),

@@ -1,32 +1,31 @@
 {% load i18n wagtailcore_tags wagtailimages_tags%}
 <h1 class="ContentList-categoryLabel">{% trans "Road to Health booklet - Surveys results" %}</h1>
 <ul class="Surveys-booklet__results">
-    {% if answers %}
-        {% for answer in answers %}
-                <li class="Surveys-booklet__results--item">
-                    <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
-                    {% if answer.user_answer == answer.correct_answer %}
-                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
-                            {% trans "You answered: " %}
-                            <span class="Surveys-booklet__answer">{{answer.user_answer}}</span>
-                            {% trans "which is correct!" %}
-                        </p>
-                    {% else %}
-                        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
-                            {% trans "You answered: " %}
-                            <span class="Surveys-booklet__answer">
-                                {{answer.user_answer}},
-                            </span> {% trans "which is the incorrect answer." %}
-                        </p>
-                        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctAnswer">
-                            {% trans "The correct answer is " %}
-                            <span class="Surveys-booklet__answer">
-                                {{answer.correct_answer}}
-                            </span>
-                        </p>
-                    {% endif %}
-                </li>
-            {% endfor %}
-    {% endif %}
+  {% if answers %}
+    {% for answer in answers %}
+    <li class="Surveys-booklet__results--item">
+      <h3 class="Surveys-booklet__label">{{answer.question|capfirst }}</h3>
+      {% if answer.user_answer == answer.correct_answer %}
+        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
+          {% trans "You answered: " %}
+          <span class="Surveys-booklet__answer">{{answer.user_answer}}</span>
+          {% trans "which is correct!" %}
+        </p>
+      {% else %}
+        <p class="Surveys-booklet__results--feedback Surveys-booklet__userAnswer">
+          {% trans "You answered: " %}
+          <span class="Surveys-booklet__answer">
+              {{answer.user_answer}},
+          </span> {% trans "which is the incorrect answer." %}
+        </p>
+        <p class="Surveys-booklet__results--feedback Surveys-booklet__correctAnswer">
+          {% trans "The correct answer is " %}
+          <span class="Surveys-booklet__answer">
+              {{answer.correct_answer}}
+          </span>
+        </p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  {% endif %}
 </ul>
-

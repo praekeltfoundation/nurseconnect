@@ -1,26 +1,28 @@
 .SiteHead {
-    $block: unquote("#{&}");
-
+  $block: unquote("#{&}");
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0 5%;
+  @media screen and (min-width: 800px) {
+    @if $enhanced == true {
+      padding: 0 15%;
+    }
+  }
+  &-actions,
+  &-brand {
+    margin: 15px 0;
+    @media screen and (min-width: 800px) {
+      margin: scale(gamma) 0;
+    }
+  }
+  &-actions {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: stretch;
-    justify-content: space-between;
-    background-color: $color-white;
-    overflow: hidden;
-
-    &-actions,
-    &-brand {
-        margin: scale(gamma);
-    }
-
-    &-actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &-brand {
-        margin-right: 0;
-    }
+    align-items: center;
+    justify-content: center;
+  }
 }

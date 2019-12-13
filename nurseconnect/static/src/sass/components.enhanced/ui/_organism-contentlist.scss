@@ -1,115 +1,130 @@
 .ContentList {
-    $block: unquote("#{&}");
-    @include clearfix;
-    background-color: $color-white;
-    & + & {
-        border-top: 2px solid $color-blue-regal;
-        border-top: 2px solid rgba($color-blue-regal, .1);
+  $block: unquote("#{&}");
+  @include clearfix;
+  padding: 0 5%;
+  @media screen and (min-width: 800px) {
+    padding: 0 15%;
+  }
+  //SECTION ENHANCEMENT STYLE
+  &--bgSecondary {
+    background-color: #fff;
+    padding: 1em 5%;
+    @media screen and (min-width: 800px) {
+      padding: 3em 15%;
     }
-    &--bgSecondary {
-        background-color: $color-blue-spindle;
-    }
-    &--bgTertiary {
-        background-color: $color-blue-tranquil;
-    }
-    &-header {
-        margin: scale(beta) 0;
-        padding: 0 scale(gamma);
-        background-color: inherit;
-        border-top: 2px solid $color-blue-regal;
-        border-top: 2px solid rgba($color-blue-regal, .1);
-        &:first-child {
-            border-top: none;
-        }
-    }
-    //Where is this being used?
-    &--LearnCategory {
-        background: $color-white;
-        #{$block}-categoryLabel {
-            color: $color-blue-pelorous;
-            font-size: 18px;
-        }
-    }
-    &-categoryLabel {
-        margin-bottom: 0;
-        color: $color-orange-bittersweet;
-        font-size: scale(beta);
-        font-weight: 600;
-        text-transform: uppercase;
-        &--Mainsections {
-          font-size: scale(gamma);
-        }
-        &--Subsections {
-          color: $color-blue-pelorous;
-          margin: scale(alpha) scale(gamma);
-        }
-        &--Secondary {
-          text-transform: capitalize;
-          color: $color-blue-pelorous;
-          padding: scale(beta) 0 scale(alpha);
-          border-bottom: 1px solid $color-blue-spindle;
-        }
-        &--link {
-          color: $color-orange-bittersweet;
-          cursor: pointer;
-          display: block;
-          text-decoration: none;
-        }
-        &--SubLink {
-          position: relative;
-          color: $color-blue-pelorous;
-        }
-        &--ResourcesCount,
-        &--subtitle {
-          color: $color-black;
-          font-size: rem(12);
-          font-style: italic;
-          display: inline-block;
-          text-transform: lowercase;
-        }
-
-        &--subtitle {
-          display: block;
-          text-transform: capitalize;
-          font-weight: normal;
-        }
-    }
-    &-categoryLabel--SectionMenu {
+    #{$block}-categoryLabel {
       color: $color-blue-pelorous;
+    }
+  }
+  &--yourwordsComp {
+    background-color: lightseagreen;
+    padding: 1em 5%;
+    @media screen and (min-width: 800px) {
+      padding: 3em 15%;
+    }
+    #{$block}-categoryLabel {
+      color: $color-blue-regal;
+    }
+    .Article-headline {
+      color: $color-blue-regal;
+    }
+  }
+  &--bgTertiary {}
+  &--LearnCategory {
+    background: $color-white;
+    padding: 0;
+    #{$block}-categoryLabel {
+      color: $color-blue-pelorous;
+    }
+  }
+  &-header {
+    background-color: inherit;
+    padding: 0 15px;
+    @media screen and (min-width: 800px) {
+      padding: 0 25px;
+    }
+  }
+  &-categoryLabel {
+    margin-bottom: 0;
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+    a {
+      color: $color-blue-pelorous;
+    }
+    &--Mainsections {
+      font-size: scale(gamma);
+    }
+    &--Subsections {
+      color: $color-blue-pelorous;
+      margin: scale(alpha) scale(gamma);
+    }
+    &--Secondary {
+      text-transform: capitalize;
+      color: $color-blue-pelorous;
+      padding: scale(beta) 0 scale(alpha);
+      border-bottom: 1px solid $color-blue-spindle;
+    }
+    &--link {
+      color: $color-orange-bittersweet;
       cursor: pointer;
-      vertical-align: middle;
-      &-link {
-        color: $color-blue-pelorous;
+      display: block;
+      text-decoration: none;
+    }
+    &--SubLink {
+      position: relative;
+      color: $color-blue-pelorous;
+    }
+    &--ResourcesCount,
+    &--subtitle {
+      color: $color-black;
+      font-size: 14px;
+      font-style: italic;
+      display: inline-block;
+      text-transform: lowercase;
+    }
+
+    &--subtitle {
+      display: block;
+      text-transform: capitalize;
+      font-weight: normal;
+    }
+  }
+  &-categoryLabel--SectionMenu {
+    color: $color-blue-pelorous;
+    cursor: pointer;
+    vertical-align: middle;
+    &-link {
+      color: $color-blue-pelorous;
+      display: inline-block;
+    }
+
+    &:hover:before,
+    &:focus:before {
+      background-color: $color-white;
+      border-radius: 50%;
+    }
+  }
+  &-actions {
+    margin: scale(gamma);
+  }
+  .SectionLearn {
+    #{$block}-categoryLabel {
+      margin: 1.5em 0;
+    }
+    #{$block}-categoryLabel--SubLink {
+      &:after {
+        content: " ";
+        background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M95.2%205.9C87.4-2%2074.5-2%2066.6%205.9s-7.9%2020.8%200%2028.6L182.1%20150%2066.6%20265.5c-7.9%207.9-7.9%2020.8%200%2028.6%203.8%203.8%208.9%205.9%2014.3%205.9s10.5-2.1%2014.3-5.9L239.3%20150%2095.2%205.9z%22%20fill%3D%22%232d9ec5%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+        background-repeat: no-repeat;
         display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+        top: 6px;
+        bottom: 0;
       }
-
-      &:hover:before,
-      &:focus:before {
-        background-color: $color-white;
-        border-radius: 50%;
-      }
     }
-
-    &-actions {
-        margin: scale(gamma);
-    }
-    .SectionLearn {
-        #{$block}-categoryLabel {
-            margin: 1.5em 0;
-        }
-        #{$block}-categoryLabel--SubLink {
-            &:after {
-                content: " ";
-                background-image: url('data:image/svg+xml;charset%3DUS-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%3E%3Cpath%20d%3D%22M95.2%205.9C87.4-2%2074.5-2%2066.6%205.9s-7.9%2020.8%200%2028.6L182.1%20150%2066.6%20265.5c-7.9%207.9-7.9%2020.8%200%2028.6%203.8%203.8%208.9%205.9%2014.3%205.9s10.5-2.1%2014.3-5.9L239.3%20150%2095.2%205.9z%22%20fill%3D%22%232d9ec5%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
-                background-repeat: no-repeat;
-                display: inline-block;
-                width: rem(30);
-                height: rem(30);
-                position: absolute;
-                right: 0;
-                top: rem(6);
-                bottom: 0;
-            }
-        }
-    }
+  }
 }

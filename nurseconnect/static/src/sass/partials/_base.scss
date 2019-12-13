@@ -29,12 +29,10 @@ $color-grey-light-slate       :         #7e93a0;        // 3rd lvl: == 50% opaci
 
 // BASE FONT
 // HEADINGS
-//$header-font-weight         :         $bold;
-//$base-font-weight           :         $regular;
+
 $base-font-size               :         16px;
 $base-line-height             :         1.2em;
 
-//TODO: refactor after adding proper fonts;
 $sans-serif                   :         Helvetica, Arial, sans-serif;
 $font-light                   :         ("light",   unquote("#{$sans-serif}"));
 $font-regular                 :         ("regular", unquote("#{$sans-serif}"));
@@ -56,4 +54,16 @@ $bp-xxlarge                   :        160em; // 2580px
 $bp-fourk                     :        210em; // 3360k
 $bp-site-static               :        90.0625em;
 
-@import "modules/all";
+
+
+.Auth {
+  padding-top: $global-padding * 2;
+  padding-bottom: $global-padding * 2;
+  text-align: center;
+}
+
+.u-screenReaderText {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}

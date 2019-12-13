@@ -3,104 +3,97 @@
 {% load nurseconnect_tags %}
 
 {% block content %}
-    <div class="HeroTout">
-        <h1 class="HeroTout-headline">
-            {% trans "Share your " %} </br> {% trans "story" %}
-        </h1>
-    </div>
-    <section class="Paper">
-        <article class="Paper-body">
-            <header class="Paper-header">
-                <h1 class="Paper-headline">{{ competition.title }}</h1>
-                <p class="Paper-lead">{{ competition.description }}</p>
-                {% if competition.image %}
-                    {% image competition.image max-500x150 class="Paper-graphic" %}
-                {% endif %}
-            </header>
-            <div class="Paper-copy">
-                {% for block in competition.content %}
-                    {% if block.block_type == "heading" %}
-                        <h2>{{ block.value }}</h2>
-                    {% elif block.block_type == "image" %}
-                        <figure>
-                            {% image block.value width-240 %}
-                        </figure>
-                    {% elif block.block_type == "numbered_list" %}
-                        <ul>
-                            {% for item in block.value %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% elif block.block_type == "list" %}
-                        <ul>
-                            {% for item in block.value %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ block }}
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </article>
-    </section>
-    <div class="Splash-body">
-        <form method="POST" class="Form Form--padded" novalidate>
-            {% csrf_token %}
-            <fieldset class="Form-fieldGroup">
-                <div class="Form-field Form-field--required {% if form.story_name.errors %} Form-field--error {% endif %}">
-                    <label for="id_{{ form.story_name.name }}"
-                           class="Form-fieldLabel">{% trans "Title of your story" %}</label>
-                    <input name="story_name" id="story_name" class="Form-input" placeholder="Title" value="{{ form.story_name.value }}">
-                    {% if form.story_name.errors %}
-                        <label for="id_{{ form.story_name.name }}"
-                               class="Form-message Form-message--error">{{ form.story_name.errors }}</label>
-                    {% endif %}
-                </div>
-                <div class="Form-field Form-field--required {% if form.story_text.errors %} Form-field--error {% endif %}">
-                    <label class="Form-fieldLabel">{% trans "Tell us your story here" %}</label>
-                    <textarea for="id_{{ form.story_text.name }}" name="story_text" id="story_text" placeholder="Your story here..."
-                              class="Form-input">{{ form.story_text.value }}</textarea>
-                    {% if form.story_text.errors %}
-                        <label for="id_{{ form.story_text.name }}"
-                               class="Form-message Form-message--error">{{ form.story_text.errors }}</label>
-                    {% endif %}
-                </div>
-                <div class="Form-field Form-field--required {% if form.terms_or_conditions_approved.errors %} Form-field--error {% endif %}">
-                    <ul class="Form-choiceGroup">
-                        <li class="Form-choiceGroupItem">
-                            <input type="checkbox" name="terms_or_conditions_approved" id="id_{{ form.terms_or_conditions_approved.name }}" class="Form-choiceInput">
-                            {% footer_link "id_terms_or_conditions_approved" %}
-                            {% if form.terms_or_conditions_approved.errors %}
-                                <label for="id_{{ form.terms_or_conditions_approved.name }}"
-                                       class="Form-message Form-message--error">{{ form.terms_or_conditions_approved.errors }}</label>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-                <div class="Form-field Form-field--required {% if form.hide_real_name.errors %} Form-field--error {% endif %}">
-                    <ul class="Form-choiceGroup">
-                        <li class="Form-choiceGroupItem">
-                            <input type="checkbox" name="hide_real_name" id="id_{{ form.hide_real_name.name }}" class="Form-choiceInput">
-                            <label for="id_{{ form.hide_real_name.name }}" class="Form-choiceLabel Form-choiceLabel--checkbox">
-                                {% trans "Share my story anonymously" %}
-                            </label>
-                            {% if form.hide_real_name.errors %}
-                                <label for="id_{{ form.hide_real_name.name }}"
-                                       class="Form-message Form-message--error">{{ form.hide_real_name.errors }}</label>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-            </fieldset>
-
-            <div class="Splash-actions">
-                <ul class="ButtonGroup">
-                    <li class="ButtonGroup-item">
-                        <input type="submit" class="Button" value="{% trans "Submit Your Story" %}"/>
-                    </li>
-                </ul>
-            </div>
-        </form>
-    </div>
+  <div class="HeroTout">
+    <h1 class="HeroTout-headline">
+      {% trans "Share your story" %}
+    </h1>
+  </div>
+  <section class="Paper">
+    <article class="Paper-body">
+      <header class="Paper-header">
+        <h1 class="Paper-headline">{{ competition.title }}</h1>
+        <p class="Paper-lead">{{ competition.description }}</p>
+        {% if competition.image %}
+          {% image competition.image max-500x150 class="Paper-graphic" %}
+        {% endif %}
+      </header>
+      <div class="Paper-copy">
+        {% for block in competition.content %}
+          {% if block.block_type == "heading" %}
+            <h2>{{ block.value }}</h2>
+          {% elif block.block_type == "image" %}
+            <figure>
+              {% image block.value width-240 %}
+            </figure>
+          {% elif block.block_type == "numbered_list" %}
+            <ul>
+              {% for item in block.value %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% elif block.block_type == "list" %}
+            <ul>
+              {% for item in block.value %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ block }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+  <div class="Splash-body">
+    <form method="POST" class="Form Form--padded" novalidate>
+    {% csrf_token %}
+      <fieldset class="Form-fieldGroup">
+        <div class="Form-field Form-field--required {% if form.story_name.errors %} Form-field--error {% endif %}">
+          <label for="id_{{ form.story_name.name }}" class="Form-fieldLabel">{% trans "Title of your story" %}</label>
+          <input name="story_name" id="story_name" class="Form-input" placeholder="Title" value="{{ form.story_name.value }}">
+          {% if form.story_name.errors %}
+            <label for="id_{{ form.story_name.name }}" class="Form-message Form-message--error">{{ form.story_name.errors }}</label>
+          {% endif %}
+        </div>
+        <div class="Form-field Form-field--required {% if form.story_text.errors %} Form-field--error {% endif %}">
+          <label class="Form-fieldLabel">{% trans "Tell us your story here" %}</label>
+          <textarea for="id_{{ form.story_text.name }}" name="story_text" id="story_text" placeholder="Your story here..." class="Form-input">{{ form.story_text.value }}</textarea>
+          {% if form.story_text.errors %}
+            <label for="id_{{ form.story_text.name }}" class="Form-message Form-message--error">{{ form.story_text.errors }}</label>
+          {% endif %}
+        </div>
+        <div class="Form-field Form-field--required {% if form.terms_or_conditions_approved.errors %} Form-field--error {% endif %}">
+          <ul class="Form-choiceGroup">
+            <li class="Form-choiceGroupItem">
+              <input type="checkbox" name="terms_or_conditions_approved" id="id_{{ form.terms_or_conditions_approved.name }}" class="Form-choiceInput">
+              {% footer_link "id_terms_or_conditions_approved" %}
+              {% if form.terms_or_conditions_approved.errors %}
+                <label for="id_{{ form.terms_or_conditions_approved.name }}" class="Form-message Form-message--error">{{ form.terms_or_conditions_approved.errors }}</label>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+        <div class="Form-field Form-field--required {% if form.hide_real_name.errors %} Form-field--error {% endif %}">
+          <ul class="Form-choiceGroup">
+            <li class="Form-choiceGroupItem">
+              <input type="checkbox" name="hide_real_name" id="id_{{ form.hide_real_name.name }}" class="Form-choiceInput">
+              <label for="id_{{ form.hide_real_name.name }}" class="Form-choiceLabel Form-choiceLabel--checkbox">
+                {% trans "Share my story anonymously" %}
+              </label>
+              {% if form.hide_real_name.errors %}
+                <label for="id_{{ form.hide_real_name.name }}" class="Form-message Form-message--error">{{ form.hide_real_name.errors }}</label>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </fieldset>
+      <div class="Splash-actions">
+        <ul class="ButtonGroup">
+          <li class="ButtonGroup-item">
+            <input type="submit" class="Button" value="{% trans "Submit Your Story" %}"/>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
 {% endblock %}

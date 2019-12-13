@@ -1,13 +1,10 @@
 .ButtonGroup {
-    $block: unquote("#{&}");
-
-    @include no-list;
-
-    &-item {
-        display: block;
-
-        & + & {
-            margin-top: scale(beta);
-        }
+  $block: unquote("#{&}");
+  @include no-list;
+  &-item {
+    display: block;
+    & + & {
+      margin-top: scale(beta);
     }
+  }
 }

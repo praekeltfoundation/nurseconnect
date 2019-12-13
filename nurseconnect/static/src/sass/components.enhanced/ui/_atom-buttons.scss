@@ -1,38 +1,38 @@
 .Button {
-    display: block;
-    width: 100%;
-    padding: .75rem 2rem;
-    border-radius: 2rem;
-    background-color: $color-orange-bittersweet;
-    color: $color-white;
-    font-size: .75rem;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    text-transform: capitalize;
+  //display: block;
+  //width: 100%;
+  padding: .75rem 2rem;
+  border-radius: 2rem;
+  background-color: $color-orange-bittersweet;
+  color: $color-white;
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: darken($color-orange-bittersweet, 10%);
+  }
+  &--blue {
+    background-color: $color-blue-pelorous;
+
     &:hover,
     &:active,
     &:focus {
-        background-color: darken($color-orange-bittersweet, 10%);
+      background-color: darken($color-blue-pelorous, 10%);
     }
-    &--blue {
-        background-color: $color-blue-pelorous;
-
-        &:hover,
-        &:active,
-        &:focus {
-            background-color: darken($color-blue-pelorous, 10%);
-        }
+  }
+  &--inverted {
+    border: 1px solid $color-orange-bittersweet;
+    background-color: $color-white;
+    background-color: transparent;
+    color: $color-orange-bittersweet;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: tint($color-orange-bittersweet, 80%);
     }
-    &--inverted {
-        border: 1px solid $color-orange-bittersweet;
-        background-color: $color-white;
-        background-color: transparent;
-        color: $color-orange-bittersweet;
-        &:hover,
-        &:active,
-        &:focus {
-            background-color: tint($color-orange-bittersweet, 80%);
-        }
-    }
+  }
 }

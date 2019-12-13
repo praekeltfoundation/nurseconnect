@@ -36,7 +36,7 @@
     }
 
     &-msg {
-        @include breakpoint($bp-smart) {
+        @media (min-width: $bp-smart) {
             padding-right: 1rem;
         }
 

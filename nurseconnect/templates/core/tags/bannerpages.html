@@ -6,38 +6,38 @@
       {% block hero %}
       <div class="HeroTout">
         <h1 class="HeroTout-headline">
-          {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
+          {% trans "Workplace support" %} {% trans "in the palm of your hands." %}
         </h1>
       </div>
       {% endblock %}
       <header class="Paper-header Paper-header--banner  Paper-header--landing">
         <h1 class="Paper-headline Paper-headline--landing">
-          {% trans "Welcome" %}<br/>{% trans "to our" %}<br/>{% trans "community!" %}
+          {% trans "Welcome" %} {% trans "to our" %} {% trans "community!" %}
         </h1>
         {% if bannerpage.banner_link_page %}
-            <a href="{% pageurl bannerpage.banner_link_page %}">
-                {% image bannerpage.banner width-160 as imagePath %}
-                <img src="{{imagePath.url}}" class="Paper-graphic Paper-graphic--landing">
-            </a>
+          <a href="{% pageurl bannerpage.banner_link_page %}">
+            {% image bannerpage.banner width-1080 as imagePath %}
+            <img src="{{imagePath.url}}" class="Paper-graphic Paper-graphic--landing">
+          </a>
         {% else %}
-          {% image bannerpage.banner width-160 as imagePath %}
+          {% image bannerpage.banner width-1080 as imagePath %}
           <img src="{{imagePath.url}}" class="Paper-graphic  Paper-graphic--landing">
         {% endif %}
       </header>
     {% else %}
       <div class="HeroTout">
         <h1 class="HeroTout-headline">
-          {% trans "Workplace support" %} </br> {% trans "in the palm of your hands." %}
+          {% trans "Workplace support" %} {% trans "in the palm of your hands." %}
         </h1>
       </div>
       <header class="Paper-header Paper-header--banner">
         {% if bannerpage.banner_link_page %}
-            <a href="{% pageurl bannerpage.banner_link_page %}">
-                {% image bannerpage.banner width-200 as imagePath %}
-                <img src="{{imagePath.url}}" class="Paper-graphic">
-            </a>
+          <a href="{% pageurl bannerpage.banner_link_page %}">
+            {% image bannerpage.banner width-1080 as imagePath %}
+            <img src="{{imagePath.url}}" class="Paper-graphic">
+          </a>
         {% else %}
-          {% image bannerpage.banner width-200 as imagePath %}
+          {% image bannerpage.banner width-1080 as imagePath %}
           <img src="{{imagePath.url}}" class="Paper-graphic">
         {% endif %}
       </header>
