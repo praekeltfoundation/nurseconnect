@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '.ngrok.io',
 ]
 
+
 try:
     from .local import *  # noqa
 except ImportError:
